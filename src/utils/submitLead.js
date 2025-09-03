@@ -1,19 +1,21 @@
-export async function submitLead(data) {
+export async function submitLead(payload) {
   try {
-    const response = await fetch(
+    const res = await fetch(
       "https://script.google.com/macros/s/AKfycbwaqJVZtKdSKVeM2fl3pz2qQsett3T-LDYqwBB_yyoOA1eMcsAbZ5vbTIBJxCY-Y2LugQ/exec",
       {
         method: "POST",
-        body: JSON.stringify(data),
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json",  // ✅ required
         },
+        body: JSON.stringify(payload),
       }
     );
 
-    return await response.json();
+    if (!res.ok) throw new Error("Network response was not ok");
+
+    return await res.json();
   } catch (error) {
-    console.error("Lead submission failed:", error);
+    console.error("Submit Lead Error:", error);
     return { result: "error", details: error.message };
   }
 }

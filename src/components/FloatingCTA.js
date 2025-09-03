@@ -1,31 +1,48 @@
 "use client";
 
 import { useState } from "react";
-import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 import ProjectEnquiryModal from "./ProjectEnquiryModal";
+import { FaPhone, FaWhatsapp, FaCalendarAlt } from "react-icons/fa";
 
 export default function FloatingCTA() {
-  const [open, setOpen] = useState(false);
+  const [modalType, setModalType] = useState(null);
+
+  const openModal = (type) => setModalType(type);
+  const closeModal = () => setModalType(null);
 
   return (
-    <div>
-      <div className="fixed right-4 top-1/3 flex flex-col gap-4 z-50">
+    <>
+      <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3">
+        {/* Request Callback */}
         <button
-          onClick={() => setOpen(true)}
-          className="bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700"
+          onClick={() => openModal("Request Callback")}
+          className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700"
         >
-          <FaPhoneAlt size={20} />
+          <FaPhone /> Call Us
         </button>
+
+        {/* WhatsApp */}
         <a
-          href="https://wa.me/919891234195"
+          href="https://wa.me/919891234195" // 🔹 replace with your number
           target="_blank"
-          rel="noreferrer"
-          className="bg-green-600 text-white p-3 rounded-full shadow-lg hover:bg-green-700"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg shadow hover:bg-green-700"
         >
-          <FaWhatsapp size={20} />
+          <FaWhatsapp /> WhatsApp
         </a>
+
+        {/* Organize Site Visit */}
+        <button
+          onClick={() => openModal("Site Visit")}
+          className="flex items-center gap-2 bg-gray-700 text-white px-4 py-2 rounded-lg shadow hover:bg-gray-800"
+        >
+          <FaCalendarAlt /> Site Visit
+        </button>
       </div>
-      {open && <ProjectEnquiryModal onClose={() => setOpen(false)} source="Floating CTA" />}
-    </div>
+
+      {modalType && (
+        <ProjectEnquiryModal source={modalType} onClose={closeModal} />
+      )}
+    </>
   );
 }
