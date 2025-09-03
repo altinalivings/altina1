@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { submitLead } from "../lib/submitLead";
+import { submitLead } from "../utils/submitLead";
 import { useRouter } from "next/navigation";
 
 export default function ContactForm() {
