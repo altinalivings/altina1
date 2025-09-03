@@ -1,3 +1,5 @@
+// src/utils/submitLead.js
+
 export async function submitLead(payload) {
   try {
     const res = await fetch(
@@ -5,7 +7,7 @@ export async function submitLead(payload) {
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",  // ✅ required
+          "Content-Type": "application/json", // ✅ required for Apps Script
         },
         body: JSON.stringify(payload),
       }

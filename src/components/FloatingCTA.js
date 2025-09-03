@@ -1,3 +1,4 @@
+// src/components/FloatingCTA.js
 "use client";
 
 import { useState } from "react";
@@ -23,7 +24,7 @@ export default function FloatingCTA() {
 
         {/* WhatsApp */}
         <a
-          href="https://wa.me/919891234195" // 🔹 replace with your number
+          href="https://wa.me/919891234195" // 🔹 replace with your WhatsApp number
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg shadow hover:bg-green-700"
