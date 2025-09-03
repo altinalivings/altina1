@@ -1,249 +1,30 @@
 "use client";
+
 import { useState } from "react";
-import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import SiteVisitPopup from "@/components/SiteVisitPopup";
+import ProjectEnquiryModal from "@/components/ProjectEnquiryModal";
 
 export default function ProjectDetailClient({ project }) {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
-
-  const [unlocked, setUnlocked] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      await fetch(
-        "https://script.google.com/macros/s/AKfycbwaqJVZtKdSKVeM2fl3pz2qQsett3T-LDYqwBB_yyoOA1eMcsAbZ5vbTIBJxCY-Y2LugQ/exec",
-        {
-          method: "POST",
-          mode: "no-cors",
-          body: JSON.stringify(formData),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-		if (!response.ok) {
-      console.warn("Response not OK, but lead likely saved in Sheet.");
-    }
-      // 🔹 Lead tracking
-      if (typeof window !== "undefined") {
-        if (window.gtag) {
-          window.gtag("event", "generate_lead", {
-            event_category: "Leads",
-            event_label: formData.project || "Website Lead",
-          });
-        }
-        if (window.fbq) {
-			window.fbq("track", "Lead", { content_name: formData.project || "Website Lead" });
-      }
-         if (window.lintrk) {
-        window.lintrk("track", { conversion_id: 515682278 });
-      }
-        if (window.gtag) {
-          window.gtag("event", "conversion", {
-            send_to: "AW-17510039084/L-MdCP63l44bEKz8t51B",
-          });
-        }
-      }
-
-      router.push("/thank-you");
-    } catch (err) {
-      console.error("Contact form error:", err);
-      alert("Error submitting form.");
-    }
-  };
-
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <div>
-      {/* Hero */}
-      <section className="relative h-[400px] md:h-[500px]">
-        <Image
-          src={project.image}
-          alt={project.title}
-          fill
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-          <h1 className="text-4xl md:text-5xl text-white font-bold">
-            {project.title}
-          </h1>
-        </div>
-      </section>
+      <h1 className="text-3xl font-bold mb-6">{project.title}</h1>
+      <img src={project.image} alt={project.title} className="w-full mb-6 rounded" />
+      <p className="mb-6">{project.description}</p>
 
-      {/* Project Info */}
-      <div className="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-12">
-        {/* Left: Overview */}
-        <div className="md:col-span-2">
-          <h2 className="text-2xl font-bold mb-4">Overview</h2>
-          <p className="text-gray-700 mb-6">{project.description}</p>
-          <p className="text-lg font-semibold text-gold-600">
-            {project.price}
-          </p>
-          <p className="text-gray-500">{project.location}</p>
-
-          {/* Amenities */}
-          {project.amenities && (
-            <div className="mt-10">
-              <h2 className="text-2xl font-bold mb-4">Amenities</h2>
-              <ul className="grid grid-cols-2 md:grid-cols-3 gap-4 text-gray-700">
-                {project.amenities.map((a, i) => (
-                  <li key={i} className="flex items-center gap-2">
-                    ✅ {a}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {/* Gallery */}
-          {project.gallery && project.gallery.length > 0 && (
-            <div className="mt-10">
-              <h2 className="text-2xl font-bold mb-4">Gallery</h2>
-              <Swiper
-                modules={[Navigation, Pagination]}
-                spaceBetween={20}
-                slidesPerView={1}
-                navigation
-                pagination={{ clickable: true }}
-              >
-                {project.gallery.map((img, i) => (
-                  <SwiperSlide key={i}>
-                    <Image
-                      src={img}
-                      alt={`Gallery ${i}`}
-                      width={1000}
-                      height={600}
-                      className="rounded-lg object-cover"
-                    />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
-          )}
-
-          {/* Floor Plan & Brochure */}
-          <div className="mt-10 grid md:grid-cols-2 gap-8">
-            <div className="relative">
-              <h2 className="text-xl font-bold mb-2">Floor Plan</h2>
-              {!unlocked ? (
-                <div className="relative">
-                  <Image
-                    src={project.floorPlan}
-                    alt="Floor Plan"
-                    width={600}
-                    height={400}
-                    className="rounded-lg opacity-30"
-                  />
-                  <button
-                    onClick={() => alert("Please fill the form to unlock")}
-                    className="absolute inset-0 flex items-center justify-center bg-black/50 text-white font-semibold"
-                  >
-                    Unlock Floor Plan
-                  </button>
-                </div>
-              ) : (
-                <Image
-                  src={project.floorPlan}
-                  alt="Floor Plan"
-                  width={600}
-                  height={400}
-                  className="rounded-lg"
-                />
-              )}
-            </div>
-
-            <div className="relative">
-              <h2 className="text-xl font-bold mb-2">Brochure</h2>
-              {!unlocked ? (
-                <div className="p-6 border rounded-lg text-center bg-gray-50">
-                  <p className="text-gray-600 mb-4">
-                    Please fill the form to download the brochure
-                  </p>
-                  <button
-                    onClick={() => alert("Please fill the form to unlock")}
-                    className="bg-gold-600 text-white px-6 py-2 rounded-lg hover:bg-gold-700"
-                  >
-                    Unlock Brochure
-                  </button>
-                </div>
-              ) : (
-                <a
-                  href={project.brochure}
-                  target="_blank"
-                  className="bg-gold-600 text-white px-6 py-2 rounded-lg hover:bg-gold-700"
-                >
-                  Download Brochure
-                </a>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Right: Enquiry Form */}
-        <div>
-          <div className="bg-gray-50 p-6 rounded-xl shadow">
-            <h2 className="text-xl font-bold mb-4">
-              Enquire about {project.title}
-            </h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <input
-                type="text"
-                placeholder="Full Name"
-                className="w-full p-3 border rounded"
-                required
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
-              />
-              <input
-                type="email"
-                placeholder="Email Address"
-                className="w-full p-3 border rounded"
-                required
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-              />
-              <input
-                type="tel"
-                placeholder="Phone Number"
-                className="w-full p-3 border rounded"
-                required
-                onChange={(e) =>
-                  setFormData({ ...formData, phone: e.target.value })
-                }
-              />
-              <textarea
-                placeholder="Your Message"
-                className="w-full p-3 border rounded"
-                rows="3"
-                onChange={(e) =>
-                  setFormData({ ...formData, message: e.target.value })
-                }
-              />
-              <button
-                type="submit"
-                className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700"
-              >
-                Submit Enquiry
-              </button>
-            </form>
-          </div>
-        </div>
+      <div className="flex gap-4">
+        <button onClick={() => setShowModal(true)} className="bg-blue-600 text-white px-4 py-2 rounded">
+          Enquire
+        </button>
+        <button onClick={() => setShowModal(true)} className="bg-green-600 text-white px-4 py-2 rounded">
+          Download Brochure
+        </button>
+        <button onClick={() => setShowModal(true)} className="bg-yellow-600 text-white px-4 py-2 rounded">
+          View Floorplan
+        </button>
       </div>
 
-      {/* Site Visit Popup */}
-      <SiteVisitPopup project={project} />
+      {showModal && <ProjectEnquiryModal onClose={() => setShowModal(false)} source={project.title} />}
     </div>
   );
 }
