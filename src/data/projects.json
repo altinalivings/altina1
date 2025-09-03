@@ -1,0 +1,262 @@
+[
+  {
+    "id": "m3m-line",
+    "title": "M3M The Line - Retail & Service Apartments",
+    "description": "Explore M3M The Line in Noida\u2014vertical retail and service apartment complex. Enquire now with Altina Livings.",
+    "image": "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=80",
+    "location": "Noida Sector 72",
+    "price": "\u20b958 Lakhs onwards",
+    "developer": "M3M Group",
+    "type": "Commercial",
+    "featured": true,
+    "gallery": [
+      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    "amenities": [
+      "High-Street Retail",
+      "Service Apartments",
+      "Food Court",
+      "Ample Parking",
+      "24/7 Security"
+    ],
+    "area": "1000 sq.ft onwards",
+    "type_of_property": "Commercial"
+  },
+  {
+    "id": "mahagun-laagoon",
+    "title": "Mahagun My Laagoon - 3 & 4 BHK Waterfront Residences",
+    "description": "Discover Mahagun My Laagoon in Greater Noida\u20143 & 4 BHK apartments with waterfront views. Enquire now.",
+    "image": "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1200&q=80",
+    "location": "Greater Noida",
+    "price": "\u20b980 Lakhs onwards",
+    "developer": "Mahagun",
+    "type": "Residential",
+    "featured": false,
+    "gallery": [
+      "https://images.unsplash.com/photo-1527030280862-64139fba04ca?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    "amenities": [
+      "Clubhouse",
+      "Swimming Pool",
+      "Landscaped Gardens",
+      "Children\u2019s Play Area",
+      "Power Backup"
+    ],
+    "area": "1000 sq.ft onwards",
+    "type_of_property": "Residential"
+  },
+  {
+    "id": "olympic-city-residency",
+    "title": "Olympic City Residential Wing",
+    "description": "Luxury residences in the upcoming Olympic City near Noida International Airport. Limited units available.",
+    "image": "https://images.unsplash.com/photo-1527030280862-64139fba04ca?auto=format&fit=crop&w=1200&q=80",
+    "location": "Noida Expressway",
+    "price": "\u20b975 Lakhs onwards",
+    "developer": "MegaUrban Developments",
+    "type": "Residential",
+    "featured": true,
+    "gallery": [
+      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    "amenities": [
+      "Jogging Track",
+      "Clubhouse",
+      "Swimming Pool",
+      "24/7 Security",
+      "Gym & Spa"
+    ],
+    "area": "1000 sq.ft onwards",
+    "type_of_property": "Residential"
+  },
+  {
+    "id": "american-city-commercial",
+    "title": "American City Commercial Hub",
+    "description": "Prime commercial property in the emerging American City near Jewar Airport. Contact Altina Livings for exclusive deals.",
+    "image": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
+    "location": "Jewar",
+    "price": "\u20b91.2 Cr onwards",
+    "developer": "Blue Sky Vantage",
+    "type": "Commercial",
+    "featured": false,
+    "gallery": [
+      "https://images.unsplash.com/photo-1486304873000-235643847519?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    "amenities": [
+      "Grade-A Offices",
+      "Food Court",
+      "Business Lounge",
+      "High-Speed Elevators",
+      "Power Backup"
+    ],
+    "area": "1000 sq.ft onwards",
+    "type_of_property": "Commercial"
+  },
+  {
+    "id": "premium-villas-gurgaon",
+    "title": "Luxury Villas in Sectors 82 & 83 Gurgaon",
+    "description": "Explore premium villas in Gurgaon\u2019s prime sectors\u2014spacious living with world-class amenities.",
+    "image": "https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&w=1200&q=80",
+    "location": "Gurgaon",
+    "price": "\u20b93 Cr onwards",
+    "developer": "Elite Abodes",
+    "type": "Residential",
+    "featured": true,
+    "gallery": [
+      "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    "amenities": [
+      "Private Gardens",
+      "Clubhouse",
+      "Swimming Pool",
+      "Gated Community",
+      "Luxury Interiors"
+    ],
+    "area": "1000 sq.ft onwards",
+    "type_of_property": "Residential"
+  },
+  {
+    "id": "corporate-tower-noida",
+    "title": "Corporate Office Tower in Noida",
+    "description": "Grade-A office spaces in a landmark high-rise tower on Noida Expressway. Book your corporate address today.",
+    "image": "https://images.unsplash.com/photo-1486304873000-235643847519?auto=format&fit=crop&w=1200&q=80",
+    "location": "Noida Expressway",
+    "price": "\u20b92 Cr onwards",
+    "developer": "OfficeWorks",
+    "type": "Commercial",
+    "featured": false,
+    "gallery": [
+      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    "amenities": [
+      "Office Suites",
+      "Conference Rooms",
+      "Pantry",
+      "High-Speed Internet",
+      "Power Backup"
+    ],
+    "area": "1000 sq.ft onwards",
+    "type_of_property": "Commercial"
+  },
+  {
+    "id": "greensville-apartments",
+    "title": "Greensville Apartments - Sector 79, Gurgaon",
+    "description": "Premium 2 & 3 BHK apartments with golf-view amenities. A perfect blend of comfort and luxury.",
+    "image": "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80",
+    "location": "Gurgaon",
+    "price": "\u20b91.5 Cr onwards",
+    "developer": "GreenScapes",
+    "type": "Residential",
+    "featured": false,
+    "gallery": [
+      "https://images.unsplash.com/photo-1527030280862-64139fba04ca?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    "amenities": [
+      "Golf Course View",
+      "Clubhouse",
+      "Swimming Pool",
+      "Jogging Track",
+      "Children\u2019s Play Area"
+    ],
+    "area": "1000 sq.ft onwards",
+    "type_of_property": "Residential"
+  },
+  {
+    "id": "retail-plaza-meerut",
+    "title": "Retail & Entertainment Plaza in Meerut",
+    "description": "A mixed-use retail and entertainment plaza in Meerut\u2014ideal for brands and investors.",
+    "image": "https://images.unsplash.com/photo-1500048993953-d23a436266cf?auto=format&fit=crop&w=1200&q=80",
+    "location": "Meerut",
+    "price": "\u20b990 Lakhs onwards",
+    "developer": "UrbanPlaza Developers",
+    "type": "Commercial",
+    "featured": false,
+    "gallery": [
+      "https://images.unsplash.com/photo-1486304873000-235643847519?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    "amenities": [
+      "Multiplex",
+      "Food Court",
+      "Retail Stores",
+      "Ample Parking",
+      "24/7 Security"
+    ],
+    "area": "1000 sq.ft onwards",
+    "type_of_property": "Commercial"
+  },
+  {
+    "id": "skyhigh-towers",
+    "title": "SkyHigh Towers - High-Rise Residences",
+    "description": "Ultra-luxury high-rise apartments with sky decks and panoramic views in Delhi NCR.",
+    "image": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=1200&q=80",
+    "location": "Delhi NCR",
+    "price": "\u20b94 Cr onwards",
+    "developer": "SkyHoldings",
+    "type": "Residential",
+    "featured": false,
+    "gallery": [
+      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1527030280862-64139fba04ca?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    "amenities": [
+      "Sky Deck",
+      "Infinity Pool",
+      "Gym & Spa",
+      "Concierge Service",
+      "Smart Home Features"
+    ],
+    "area": "1000 sq.ft onwards",
+    "type_of_property": "Residential"
+  },
+  {
+    "id": "business-center-ggn",
+    "title": "Business Center, Gurgaon Sector 43",
+    "description": "Modern commercial office center in the heart of Gurgaon\u2014ready-to-occupy and smart-equipped.",
+    "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
+    "location": "Gurgaon",
+    "price": "\u20b91.8 Cr onwards",
+    "developer": "BizCore Realty",
+    "type": "Commercial",
+    "featured": false,
+    "gallery": [
+      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1486304873000-235643847519?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    "amenities": [
+      "Office Suites",
+      "Conference Rooms",
+      "Business Lounge",
+      "High-Speed Internet",
+      "Power Backup"
+    ],
+    "area": "1000 sq.ft onwards",
+    "type_of_property": "Commercial"
+  }
+]
