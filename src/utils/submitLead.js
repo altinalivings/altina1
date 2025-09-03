@@ -1,5 +1,3 @@
-// src/utils/submitLead.js
-
 export async function submitLead(payload) {
   try {
     const res = await fetch(
@@ -7,17 +5,23 @@ export async function submitLead(payload) {
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json", // ✅ required for Apps Script
+          "Content-Type": "application/json", // ✅ required
         },
         body: JSON.stringify(payload),
       }
     );
 
-    if (!res.ok) throw new Error("Network response was not ok");
+    // Get raw response for debugging
+    const text = await res.text();
+    console.log("📩 Lead API Raw Response:", text);
 
-    return await res.json();
+    try {
+      return JSON.parse(text); // parse if JSON
+    } catch (e) {
+      return { result: "error", details: "Invalid JSON from server", raw: text };
+    }
   } catch (error) {
-    console.error("Submit Lead Error:", error);
+    console.error("🚨 Submit Lead Error:", error);
     return { result: "error", details: error.message };
   }
 }

@@ -1,40 +1,46 @@
-"use client";
-
 import { useState } from "react";
-import { submitLead } from "@/utils/submitLead";
-import toast from "react-hot-toast";
+import { submitLead } from "../lib/submitLead";
+import { useRouter } from "next/navigation";
 
 export default function ContactForm() {
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
-    const form = e.target;
-    const result = await submitLead({
-      name: form.name.value,
-      email: form.email.value,
-      phone: form.phone.value,
-      message: form.message.value,
-      project: "Contact Form",
-    });
+
+    const formData = {
+      name: e.target.name.value,
+      email: e.target.email.value,
+      phone: e.target.phone.value,
+      message: e.target.message.value,
+      project: e.target.project?.value || "General",
+    };
+
+    const res = await submitLead(formData);
+
     setLoading(false);
-    if (result.result === "success") {
-      toast.success("✅ Enquiry submitted! Redirecting...");
-      window.location.href = "/thank-you";
+
+    if (res.result === "success") {
+      router.push("/thank-you"); // ✅ Redirect to Thank You page
     } else {
-      toast.error("❌ Something went wrong, try again.");
+      alert("❌ Failed to submit enquiry. Please try again.\n\n" + (res.details || res.raw));
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <input type="text" name="name" placeholder="Your Name" required className="w-full px-4 py-2 border rounded" />
-      <input type="email" name="email" placeholder="Your Email" required className="w-full px-4 py-2 border rounded" />
-      <input type="tel" name="phone" placeholder="Your Phone" required className="w-full px-4 py-2 border rounded" />
-      <textarea name="message" placeholder="Message" rows="4" className="w-full px-4 py-2 border rounded"></textarea>
-      <button type="submit" disabled={loading} className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded">
-        {loading ? "Submitting..." : "Submit"}
+      <input type="text" name="name" placeholder="Your Name" required className="border p-2 w-full" />
+      <input type="email" name="email" placeholder="Your Email" required className="border p-2 w-full" />
+      <input type="tel" name="phone" placeholder="Your Phone" required className="border p-2 w-full" />
+      <textarea name="message" placeholder="Your Message" rows="4" className="border p-2 w-full" />
+      <button
+        type="submit"
+        disabled={loading}
+        className="bg-blue-600 text-white px-4 py-2 rounded"
+      >
+        {loading ? "Submitting..." : "Submit Enquiry"}
       </button>
     </form>
   );
