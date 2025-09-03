@@ -6,10 +6,17 @@ import { usePathname } from "next/navigation";
 export default function StickyCTA() {
   const [modalOpen, setModalOpen] = useState(false);
   const [mode, setMode] = useState("callback");
+  const [toast, setToast] = useState(false);
   const pathname = usePathname();
 
-  // Hide on contact page
+  // Hide CTA on contact page
   if (pathname.startsWith("/contact")) return null;
+
+  const handleSuccess = () => {
+    setModalOpen(false);
+    setToast(true);
+    setTimeout(() => setToast(false), 3000); // auto hide after 3s
+  };
 
   return (
     <>
@@ -42,7 +49,15 @@ export default function StickyCTA() {
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
         mode={mode}
+        onSuccess={handleSuccess}
       />
+
+      {/* Global Toast */}
+      {toast && (
+        <div className="fixed bottom-6 right-6 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg animate-slide-up z-[100]">
+          ✅ Thank you! We’ll get back to you shortly.
+        </div>
+      )}
     </>
   );
 }
