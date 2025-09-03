@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { submitLead } from "../lib/submitLead";
 import { useRouter } from "next/navigation";
@@ -23,9 +25,9 @@ export default function ContactForm() {
     setLoading(false);
 
     if (res.result === "success") {
-      router.push("/thank-you"); // ✅ Redirect to Thank You page
+      router.push("/thank-you");
     } else {
-      alert("❌ Failed to submit enquiry. Please try again.\n\n" + (res.details || res.raw));
+      alert("❌ Failed to submit enquiry.\n\n" + (res.details || res.raw));
     }
   }
 
