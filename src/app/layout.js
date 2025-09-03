@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageViewTracker from "@/components/PageViewTracker";
 import { Toaster } from "react-hot-toast";
+import StickyCTA from "@/components/StickyCTA";
 
 export default function RootLayout({ children }) {
   return (
@@ -53,6 +54,7 @@ export default function RootLayout({ children }) {
         <Header />
         <main>{children}</main>
         <Footer />
+		  <StickyCTA />   {/* ✅ Floating CTAs appear globally */}
         <PageViewTracker />
         <Toaster position="top-right" reverseOrder={false} /> {/* ✅ toast support */}
       </body>
