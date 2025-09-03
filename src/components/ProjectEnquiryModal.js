@@ -1,47 +1,51 @@
 "use client";
 import { useState } from "react";
-import { submitLead } from "../lib/submitLead";
+import ContactForm from "./ContactForm";
 
-export default function ProjectEnquiryModal({ purpose = "Enquiry", onClose }) {
-  const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
+export default function ProjectEnquiryModal({ isOpen, onClose, mode = "enquiry" }) {
+  const [showThankYou, setShowThankYou] = useState(false);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  if (!isOpen && !showThankYou) return null;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    const success = await submitLead({ ...formData, purpose });
-    setLoading(false);
-    if (success) {
-      alert("✅ Thanks! We will contact you shortly.");
+  const handleSuccess = () => {
+    setShowThankYou(true);
+    setTimeout(() => {
+      setShowThankYou(false);
       onClose();
-    } else {
-      alert("❌ Something went wrong, please try again.");
-    }
+    }, 3000); // hide thank you after 3s
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md relative">
-        <button
-          onClick={onClose}
-          className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
-        >
-          ✖
-        </button>
-        <h2 className="text-xl font-semibold mb-4">{purpose}</h2>
-        <form onSubmit={handleSubmit} className="space-y-3">
-          <input type="text" name="name" placeholder="Your Name" onChange={handleChange} required className="w-full border px-3 py-2 rounded" />
-          <input type="email" name="email" placeholder="Your Email" onChange={handleChange} required className="w-full border px-3 py-2 rounded" />
-          <input type="tel" name="phone" placeholder="Your Phone" onChange={handleChange} required className="w-full border px-3 py-2 rounded" />
-          <textarea name="message" placeholder="Message" onChange={handleChange} className="w-full border px-3 py-2 rounded" />
-          <button type="submit" disabled={loading} className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-            {loading ? "Submitting..." : "Submit"}
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg shadow-lg max-w-md w-full relative p-6 animate-fade-in">
+        {/* Close Button */}
+        {!showThankYou && (
+          <button
+            onClick={onClose}
+            className="absolute top-3 right-3 text-gray-600 hover:text-black text-xl"
+          >
+            ✕
           </button>
-        </form>
+        )}
+
+        {/* Thank You State */}
+        {showThankYou ? (
+          <div className="text-center py-10">
+            <h2 className="text-2xl font-semibold text-green-600 mb-4">
+              ✅ Thank You!
+            </h2>
+            <p className="text-gray-700">
+              Your enquiry has been received. We’ll get back to you shortly.
+            </p>
+          </div>
+        ) : (
+          <>
+            <h2 className="text-2xl font-semibold mb-4">
+              {mode === "sitevisit" ? "Organize Site Visit" : "Project Enquiry"}
+            </h2>
+            <ContactForm mode={mode} onSuccess={handleSuccess} />
+          </>
+        )}
       </div>
     </div>
   );
