@@ -10,7 +10,7 @@ const DEBUG = true; // Set to false in production
 // Debug logging function
 const logDebug = (message, data = null) => {
   if (DEBUG) {
-    console.log(`[GA4 Debug] ${message}`, data || '');
+    if (process.env.NODE_ENV !== "production") console.log(`[GA4 Debug] ${message}`, data || '');
   }
 };
 
