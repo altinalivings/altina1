@@ -1,87 +1,121 @@
 "use client";
+
 import { useState } from "react";
-import { submitLead } from "@/lib/submitLead";
-import Notification from "@/components/Notification";
+import { submitLead } from "../lib/submitLead";
 
-export default function ProjectEnquiryModal({ isOpen, onClose, mode }) {
+export default function ProjectEnquiryModal({ mode = "callback", onClose }) {
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
-
-  if (!isOpen) return null;
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    const formData = {
-      name: e.target.name?.value || "",
-      email: e.target.email?.value || "",
-      phone: e.target.phone?.value || "",
-      project: mode === "sitevisit" ? "Organize Site Visit" : "Project Enquiry",
+    const formData = Object.fromEntries(new FormData(e.target).entries());
+
+    const payload = {
+      ...formData,
+      mode,
+      project: formData.project || "",
+      utm_source: sessionStorage.getItem("utm_source") || "",
+      utm_medium: sessionStorage.getItem("utm_medium") || "",
+      utm_campaign: sessionStorage.getItem("utm_campaign") || "",
     };
 
-    const res = await submitLead(formData);
-
-    if (res.success) {
-	  setMessage("✅ Enquiry submitted successfully!");
-	  onClose();
-	  e.target.reset?.();
-	  if (onSuccess) onSuccess();   // 🔹 trigger success for StickyCTA
-	} else {
-	  setMessage("❌ Failed to submit enquiry!");
-	}
+    const res = await submitLead(payload);
 
     setLoading(false);
+
+    if (res.success) {
+      setSuccess(true);
+      setTimeout(() => {
+        setSuccess(false);
+        onClose();
+      }, 3000); // 3s notification
+      e.target.reset();
+    } else {
+      alert("❌ Something went wrong!");
+    }
   };
 
   return (
-    <>
-      <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-        <div className="bg-white p-6 rounded-lg w-full max-w-md relative">
-          <button
-            className="absolute top-3 right-3 text-gray-600 hover:text-gray-800"
-            onClick={onClose}
-          >
-            ✖
-          </button>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999]">
+      <div className="bg-white rounded-lg p-6 w-full max-w-md relative shadow-xl">
+        {/* Close */}
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 text-gray-600 hover:text-black text-xl"
+        >
+          ✖
+        </button>
 
-          <h2 className="text-xl font-bold mb-4">
-            {mode === "sitevisit" ? "Organize Site Visit" : "Enquiry Form"}
-          </h2>
+        <h2 className="text-xl font-semibold mb-4 text-center">
+          {mode === "callback" ? "📞 Request a Callback" : "🏠 Organize a Site Visit"}
+        </h2>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {mode !== "sitevisit" && (
-              <textarea
-                name="message"
-                placeholder="Your Message"
-                rows="3"
-                className="w-full border rounded p-2"
-              ></textarea>
-            )}
+        {/* Success Notification */}
+        {success && (
+          <div className="mb-4 text-green-600 text-center font-medium">
+            ✅ Thank you! We’ll contact you shortly.
+          </div>
+        )}
 
-            {/* Site Visit requires basic info */}
-            {mode === "sitevisit" && (
+        {/* Form */}
+        {!success && (
+          <form onSubmit={handleSubmit} className="space-y-3">
+            {mode === "callback" && (
               <>
                 <input
-                  name="name"
                   type="text"
+                  name="name"
                   placeholder="Your Name"
                   required
-                  className="w-full border rounded p-2"
+                  className="w-full px-3 py-2 border rounded-lg"
                 />
                 <input
-                  name="email"
                   type="email"
+                  name="email"
                   placeholder="Your Email"
                   required
-                  className="w-full border rounded p-2"
+                  className="w-full px-3 py-2 border rounded-lg"
                 />
                 <input
-                  name="phone"
                   type="tel"
+                  name="phone"
                   placeholder="Your Phone"
                   required
-                  className="w-full border rounded p-2"
+                  className="w-full px-3 py-2 border rounded-lg"
+                />
+                <textarea
+                  name="message"
+                  placeholder="Message (optional)"
+                  className="w-full px-3 py-2 border rounded-lg"
+                />
+              </>
+            )}
+
+            {mode === "visit" && (
+              <>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Your Name"
+                  required
+                  className="w-full px-3 py-2 border rounded-lg"
+                />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Your Email"
+                  required
+                  className="w-full px-3 py-2 border rounded-lg"
+                />
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Your Phone"
+                  required
+                  className="w-full px-3 py-2 border rounded-lg"
                 />
               </>
             )}
@@ -89,15 +123,13 @@ export default function ProjectEnquiryModal({ isOpen, onClose, mode }) {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition"
+              className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
             >
               {loading ? "Submitting..." : "Submit"}
             </button>
           </form>
-        </div>
+        )}
       </div>
-
-      <Notification message={message} onClose={() => setMessage("")} />
-    </>
+    </div>
   );
 }

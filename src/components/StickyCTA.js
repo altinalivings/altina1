@@ -1,75 +1,53 @@
 "use client";
-import { useState } from "react";
-import ProjectEnquiryModal from "@/components/ProjectEnquiryModal";
-import Notification from "@/components/Notification";
 
-export default function StickyCTA({ showSiteVisit = false }) {
-  const [callbackOpen, setCallbackOpen] = useState(false);
-  const [siteVisitOpen, setSiteVisitOpen] = useState(false);
-  const [message, setMessage] = useState("");
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import ProjectEnquiryModal from "./ProjectEnquiryModal";
+
+export default function StickyCTA() {
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const [mode, setMode] = useState("callback");
+
+  // hide on contact page
+  if (pathname.startsWith("/contact")) return null;
 
   return (
     <>
       {/* Floating Buttons */}
-      <div className="fixed right-4 top-1/2 transform -translate-y-1/2 space-y-4 z-40">
-        {/* Request Callback */}
+      <div className="fixed right-4 top-1/3 flex flex-col gap-4 z-50">
+        {/* Request a Callback */}
         <button
-          onClick={() => setCallbackOpen(true)}
-          className="flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-blue-700 transition"
+          onClick={() => {
+            setMode("callback");
+            setOpen(true);
+          }}
+          className="bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-700"
         >
           📞 Request Callback
         </button>
 
-        {/* WhatsApp */}
-        <a
-          href="https://wa.me/919891234195?text=I%20am%20interested%20in%20Altina%20Livings"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center bg-green-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-green-700 transition"
-        >
-          💬 Chat on WhatsApp
-        </a>
-
-        {/* Organize Site Visit (only on project details) */}
-        {showSiteVisit && (
+        {/* Organize Site Visit → only on project detail */}
+        {pathname.startsWith("/projects/") && (
           <button
-            onClick={() => setSiteVisitOpen(true)}
-            className="flex items-center bg-purple-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-purple-700 transition"
+            onClick={() => {
+              setMode("visit");
+              setOpen(true);
+            }}
+            className="bg-green-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-green-700"
           >
-            🏡 Organize Site Visit
+            🏠 Organize Site Visit
           </button>
         )}
       </div>
 
-      {/* Request Callback Modal */}
-      {callbackOpen && (
+      {/* Modal */}
+      {open && (
         <ProjectEnquiryModal
-          isOpen={callbackOpen}
-          onClose={() => setCallbackOpen(false)}
-          mode="callback"
-          onSuccess={() => {
-            setMessage("✅ Thank you! We will call you back soon.");
-            setCallbackOpen(false);
-          }}
+          mode={mode}
+          onClose={() => setOpen(false)}
         />
       )}
-
-      {/* Site Visit Modal */}
-      {siteVisitOpen && (
-        <ProjectEnquiryModal
-          isOpen={siteVisitOpen}
-          onClose={() => setSiteVisitOpen(false)}
-          mode="sitevisit"
-          onSuccess={() => {
-            setMessage("✅ Site visit request submitted!");
-            setSiteVisitOpen(false);
-          }}
-        />
-      )}
-
-      {/* Global Notification */}
-      <Notification message={message} onClose={() => setMessage("")} />
     </>
   );
 }
-
