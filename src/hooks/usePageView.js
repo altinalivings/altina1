@@ -18,5 +18,5 @@ export default function usePageView() {
         page_path: pathname
       })
     }
-  }, [pathname, searchParams])
+  }, [pathname, searchParams]    </Ssuspen>)
 }

@@ -20,21 +20,21 @@ export default function Analytics() {
 
   useEffect(() => {
     if (DEBUG) {
-      if (process.env.NODE_ENV !== "production") console.log('Analytics component mounted');
+      console.log('Analytics component mounted');
     }
     
     // Initialize Facebook Pixel
     if (typeof window !== 'undefined') {
       // Facebook Pixel
       window.fbq = window.fbq || function() {
-        if (DEBUG) if (process.env.NODE_ENV !== "production") console.log('FB Pixel event:', arguments);
+        if (DEBUG) console.log('FB Pixel event:', arguments);
         (window.fbq.q = window.fbq.q || []).push(arguments);
       };
       
       try {
         window.fbq('init', FB_PIXEL);
         window.fbq('track', 'PageView');
-        if (DEBUG) if (process.env.NODE_ENV !== "production") console.log('FB Pixel initialized');
+        if (DEBUG) console.log('FB Pixel initialized');
       } catch (e) {
         if (DEBUG) console.error('FB Pixel error:', e);
       }
@@ -44,7 +44,7 @@ export default function Analytics() {
         window._linkedin_partner_id = LI_PARTNER;
         window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
         window._linkedin_data_partner_ids.push(window._linkedin_partner_id);
-        if (DEBUG) if (process.env.NODE_ENV !== "production") console.log('LinkedIn Insight initialized');
+        if (DEBUG) console.log('LinkedIn Insight initialized');
       } catch (e) {
         if (DEBUG) console.error('LinkedIn Insight error:', e);
       }
@@ -61,18 +61,19 @@ export default function Analytics() {
         debug_mode: DEBUG
       });
       
-      if (DEBUG) if (process.env.NODE_ENV !== "production") console.log('GA Pageview tracked:', url);
+      if (DEBUG) console.log('GA Pageview tracked:', url);
     }
   }, [pathname, searchParams]);
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <>
       {/* Google Analytics */}
       <Script
         strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}
         onLoad={() => {
-          if (DEBUG) if (process.env.NODE_ENV !== "production") console.log('GTAG script loaded');
+          if (DEBUG) console.log('GTAG script loaded');
         }}
         onError={() => {
           if (DEBUG) console.error('GTAG script failed to load');
@@ -96,7 +97,7 @@ export default function Analytics() {
             // Configure Google Ads
             gtag('config', '${GADS_ID}');
             
-            if (process.env.NODE_ENV !== "production") console.log('Google Analytics initialized with ID: ${GA4_ID}');
+            console.log('Google Analytics initialized with ID: ${GA4_ID}');
           `,
         }}
       />
@@ -157,14 +158,14 @@ export const trackEvent = (eventName, parameters = {}) => {
   const debug = true; // Set to false in production
   
   if (debug) {
-    if (process.env.NODE_ENV !== "production") console.log('Tracking event:', eventName, parameters);
+    console.log('Tracking event:', eventName, parameters);
   }
   
   // Google Analytics
   if (window.gtag) {
     try {
       window.gtag('event', eventName, parameters);
-      if (debug) if (process.env.NODE_ENV !== "production") console.log('GA Event sent:', eventName);
+      if (debug) console.log('GA Event sent:', eventName);
     } catch (e) {
       if (debug) console.error('GA Event error:', e);
     }
@@ -185,7 +186,7 @@ export const trackEvent = (eventName, parameters = {}) => {
       
       const fbEvent = fbEventMap[eventName] || eventName;
       window.fbq('track', fbEvent, parameters);
-      if (debug) if (process.env.NODE_ENV !== "production") console.log('FB Event sent:', fbEvent);
+      if (debug) console.log('FB Event sent:', fbEvent);
     } catch (e) {
       if (debug) console.error('FB Event error:', e);
     }
@@ -198,9 +199,9 @@ export const trackEvent = (eventName, parameters = {}) => {
         'send_to': '${GADS_SENDTO}',
         ...parameters
       });
-      if (debug) if (process.env.NODE_ENV !== "production") console.log('Google Ads conversion sent');
+      if (debug) console.log('Google Ads conversion sent');
     } catch (e) {
-      if (debug) console.error('Google Ads conversion error:', e);
+      if (debug) console.error('Google Ads conversion error:', e    </Ssuspen>);
     }
   }
 };

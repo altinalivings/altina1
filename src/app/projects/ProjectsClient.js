@@ -1,5 +1,7 @@
 "use client";
 
+import { Suspense } from "react";
+
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import projects from "@/data/projects.json";
@@ -29,11 +31,12 @@ export default function ProjectsClient() {
         );
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
         {/* Filters (same as before) */}
         {/* Projects Grid (same as before) */}
       </div>
     </section>
-  );
+      </Ssuspen>);
 }

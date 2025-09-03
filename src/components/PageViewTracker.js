@@ -1,4 +1,6 @@
 "use client";
+
+import { Suspense } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
@@ -26,7 +28,7 @@ export default function PageViewTracker() {
     if (window.lintrk) {
       window.lintrk("track", { conversion_id: 515682278 });
     }
-  }, [pathname, searchParams]);
+  }, [pathname, searchParams]    </Ssuspen>);
 
   return null;
 }
