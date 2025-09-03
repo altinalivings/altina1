@@ -1,55 +1,85 @@
-'use client';
+"use client";
+
 import { useState } from "react";
-import { MdCall } from "react-icons/md";
+import { usePathname } from "next/navigation";
 import ContactForm from "./ContactForm";
+import ProjectEnquiryModal from "./ProjectEnquiryModal";
+import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
+import { MdEventAvailable } from "react-icons/md";
 
-export default function StickyCTA({ showSiteVisit = false, projectName }) {
-  const [open, setOpen] = useState(false);
-  const [formType, setFormType] = useState("callback");
+export default function StickyCTA() {
+  const pathname = usePathname();
+  const [modalType, setModalType] = useState(null);
 
-  const openModal = (type) => {
-    setFormType(type);
-    setOpen(true);
-  };
+  // Hide CTAs on Contact page
+  if (pathname === "/contact") return null;
+
+  // Check if we are on a project detail page (/projects/[id])
+  const isProjectDetail = pathname.startsWith("/projects/");
 
   return (
     <>
-      {/* Floating CTA */}
-      <div className="fixed right-4 top-1/2 z-50 flex flex-col gap-3 -translate-y-1/2">
+      {/* Floating Buttons */}
+      <div className="fixed right-4 top-1/3 flex flex-col gap-3 z-50">
         {/* Request Callback */}
         <button
-          onClick={() => openModal("callback")}
-          className="flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-400 p-4 shadow-lg text-white hover:scale-105 hover:shadow-2xl transition-all"
+          onClick={() => setModalType("callback")}
+          className="bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4 shadow-lg flex items-center justify-center transition-all duration-300"
+          title="Request a Callback"
         >
-          <MdCall size={22} />
-          <span className="hidden md:inline">Request Callback</span>
+          <FaPhoneAlt size={22} />
         </button>
+
+        {/* WhatsApp */}
+        <a
+          href="https://wa.me/919999999999?text=Hi%20Altina%20Livings%2C%20I%20am%20interested%20in%20your%20projects"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg flex items-center justify-center transition-all duration-300"
+          title="Chat on WhatsApp"
+        >
+          <FaWhatsapp size={24} />
+        </a>
+
+        {/* Organize Site Visit (only project detail pages) */}
+        {isProjectDetail && (
+          <button
+            onClick={() => setModalType("sitevisit")}
+            className="bg-purple-600 hover:bg-purple-700 text-white rounded-full p-4 shadow-lg flex items-center justify-center transition-all duration-300"
+            title="Organize Site Visit"
+          >
+            <MdEventAvailable size={24} />
+          </button>
+        )}
       </div>
 
-      {/* Modal */}
-      {open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="bg-white rounded-xl shadow-xl max-w-lg w-full p-6 relative">
+      {/* Modal Logic */}
+      {modalType === "callback" && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-xl p-6 w-[95%] max-w-md relative">
             <button
-              className="absolute top-3 right-3 text-gray-500 hover:text-black"
-              onClick={() => setOpen(false)}
+              onClick={() => setModalType(null)}
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
             >
-              ✕
+              ✖
             </button>
+            <h2 className="text-xl font-semibold mb-4">Request a Callback</h2>
+            <ContactForm />
+          </div>
+        </div>
+      )}
 
-            {formType === "callback" && (
-              <>
-                <h2 className="text-xl font-bold mb-4">Request a Callback</h2>
-                <ContactForm hiddenFields={{ formType: "callback", project: projectName }} />
-              </>
-            )}
-
-            {formType === "siteVisit" && showSiteVisit && (
-              <>
-                <h2 className="text-xl font-bold mb-4">Organize a Site Visit</h2>
-                <ContactForm fields={["name", "email", "phone"]} hiddenFields={{ formType: "siteVisit", project: projectName }} />
-              </>
-            )}
+      {modalType === "sitevisit" && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-xl p-6 w-[95%] max-w-md relative">
+            <button
+              onClick={() => setModalType(null)}
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+            >
+              ✖
+            </button>
+            <h2 className="text-xl font-semibold mb-4">Organize a Site Visit</h2>
+            <ProjectEnquiryModal mode="sitevisit" />
           </div>
         </div>
       )}
