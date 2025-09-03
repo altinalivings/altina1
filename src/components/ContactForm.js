@@ -1,58 +1,96 @@
 "use client";
-
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { submitLead } from "@/lib/submitLead";
+import { submitLead } from "../lib/submitLead";
 
-export default function ContactForm({ project }) {
+export default function ContactForm({ mode = "callback", fields, onSuccess }) {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const router = useRouter();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+    project: "",
+  });
+
+  const handleChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError("");
 
-    const formData = {
-      name: e.target.name.value,
-      email: e.target.email.value,
-      phone: e.target.phone.value,
-      message: e.target.message.value,
-      project: project || "General Enquiry",
-      utm_source: sessionStorage.getItem("utm_source") || "",
-      utm_campaign: sessionStorage.getItem("utm_campaign") || "",
-      utm_medium: sessionStorage.getItem("utm_medium") || "",
-      utm_term: sessionStorage.getItem("utm_term") || "",
-      utm_content: sessionStorage.getItem("utm_content") || "",
-    };
-
-    const result = await submitLead(formData);
-
-    if (result.result === "success") {
-      router.push("/thank-you"); // ✅ redirect after success
-    } else {
-      setError("❌ Something went wrong. Please try again.");
+    try {
+      await submitLead({
+        ...formData,
+        source: mode,
+      });
+      if (onSuccess) onSuccess();
+    } catch (err) {
+      alert("❌ Something went wrong, try again.");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
+
+  // Decide which fields to show
+  const visibleFields =
+    mode === "sitevisit" && fields ? fields : ["name", "email", "phone", "message"];
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      {error && <p className="text-red-600">{error}</p>}
+      {visibleFields.includes("name") && (
+        <input
+          type="text"
+          name="name"
+          placeholder="Your Name"
+          required
+          value={formData.name}
+          onChange={handleChange}
+          className="w-full border p-3 rounded-lg"
+        />
+      )}
 
-      <input type="text" name="name" placeholder="Your Name" required className="w-full p-3 border rounded" />
-      <input type="email" name="email" placeholder="Your Email" required className="w-full p-3 border rounded" />
-      <input type="tel" name="phone" placeholder="Your Phone" required className="w-full p-3 border rounded" />
-      <textarea name="message" placeholder="Message" rows="4" className="w-full p-3 border rounded"></textarea>
+      {visibleFields.includes("email") && (
+        <input
+          type="email"
+          name="email"
+          placeholder="Your Email"
+          required
+          value={formData.email}
+          onChange={handleChange}
+          className="w-full border p-3 rounded-lg"
+        />
+      )}
+
+      {visibleFields.includes("phone") && (
+        <input
+          type="tel"
+          name="phone"
+          placeholder="Phone Number"
+          required
+          value={formData.phone}
+          onChange={handleChange}
+          className="w-full border p-3 rounded-lg"
+        />
+      )}
+
+      {visibleFields.includes("message") && (
+        <textarea
+          name="message"
+          placeholder="Message"
+          rows={3}
+          value={formData.message}
+          onChange={handleChange}
+          className="w-full border p-3 rounded-lg"
+        />
+      )}
 
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700"
+        className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
       >
-        {loading ? "Submitting..." : "Submit Enquiry"}
+        {loading ? "Submitting..." : "Submit"}
       </button>
     </form>
   );
