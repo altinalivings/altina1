@@ -1,37 +1,40 @@
-'use client';
+"use client";
+
 import { useState } from "react";
 import { submitLead } from "../lib/submitLead";
-import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Toast from "./Toast";
 
-export default function ContactForm({ project, isProjectDetail = false }) {
+export default function ContactForm() {
   const [loading, setLoading] = useState(false);
-  const [toast, setToast] = useState(null);
-
-  const pathname = usePathname();
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState("success");
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
     const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
+    const lead = Object.fromEntries(formData.entries());
 
     try {
-      let type = "enquiry";
-      if (isProjectDetail) {
-        type = "interested";
-      }
+      await submitLead({ ...lead, type: "enquiry" });
 
-      await submitLead({
-        ...data,
-        type,
-        project: isProjectDetail ? project : "",
-      });
+      setToastMessage("✅ Thank you! We’ll contact you soon.");
+      setToastType("success");
+      setShowToast(true);
 
-      setToast({ type: "success", message: "✅ Thank you! We’ll contact you soon." });
       e.target.reset();
-    } catch (err) {
-      setToast({ type: "error", message: "❌ Failed to submit enquiry." });
+
+      // Redirect only for contact page
+      router.push("/thank-you");
+    } catch (error) {
+      console.error(error);
+      setToastMessage("❌ Something went wrong. Please try again.");
+      setToastType("error");
+      setShowToast(true);
     } finally {
       setLoading(false);
     }
@@ -39,7 +42,7 @@ export default function ContactForm({ project, isProjectDetail = false }) {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="contact-form">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <input type="text" name="name" placeholder="Your Name" required />
         <input type="email" name="email" placeholder="Your Email" required />
         <input type="tel" name="phone" placeholder="Your Phone" required />
@@ -48,7 +51,14 @@ export default function ContactForm({ project, isProjectDetail = false }) {
           {loading ? "Submitting..." : "Submit"}
         </button>
       </form>
-      {toast && <Toast type={toast.type} message={toast.message} onClose={() => setToast(null)} />}
+
+      <Toast
+        show={showToast}
+        message={toastMessage}
+        type={toastType}
+        onClose={() => setShowToast(false)}
+      />
     </>
   );
 }
+
