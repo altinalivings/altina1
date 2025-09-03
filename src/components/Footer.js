@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import { FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { MdPhone, MdEmail } from "react-icons/md";
-import { submitLead } from "@/utils/submitLead";
+import { submitLead } from "@/lib/submitLead";
 
 export default function Footer() {
   return (

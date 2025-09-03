@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import ContactForm from "./ContactForm"; // ✅ Correct path
-import { submitLead } from "@/utils/submitLead";
+import { submitLead } from "@/lib/submitLead";
 
 export default function StickyCTA({ projectName }) {
   const [open, setOpen] = useState(false);
