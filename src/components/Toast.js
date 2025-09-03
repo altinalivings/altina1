@@ -1,42 +1,33 @@
 "use client";
-import { createContext, useContext, useState, useCallback } from "react";
+
 import { motion, AnimatePresence } from "framer-motion";
+import { useEffect } from "react";
 
-const ToastContext = createContext(null);
-
-export function ToastProvider({ children }) {
-  const [toasts, setToasts] = useState([]);
-
-  const showToast = useCallback((message, type = "success") => {
-    const id = Date.now();
-    setToasts((prev) => [...prev, { id, message, type }]);
-    setTimeout(() => {
-      setToasts((prev) => prev.filter((t) => t.id !== id));
-    }, 3000); // auto-close after 3s
-  }, []);
+export default function Toast({ show, message, type = "success", onClose }) {
+  useEffect(() => {
+    if (show) {
+      const timer = setTimeout(() => {
+        onClose();
+      }, 3000); // auto-close after 3s
+      return () => clearTimeout(timer);
+    }
+  }, [show, onClose]);
 
   return (
-    <ToastContext.Provider value={{ showToast }}>
-      {children}
-      <div className="fixed bottom-6 right-6 space-y-3 z-[9999]">
-        <AnimatePresence>
-          {toasts.map((toast) => (
-            <motion.div
-              key={toast.id}
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 50 }}
-              className={`px-5 py-3 rounded-lg shadow-lg text-white font-medium ${
-                toast.type === "error" ? "bg-red-600" : "bg-green-600"
-              }`}
-            >
-              {toast.message}
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </div>
-    </ToastContext.Provider>
+    <AnimatePresence>
+      {show && (
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 50 }}
+          transition={{ duration: 0.3 }}
+          className={`fixed bottom-6 right-6 z-50 px-6 py-3 rounded-lg shadow-lg text-white text-sm font-medium
+            ${type === "success" ? "bg-green-600" : "bg-red-600"}
+          `}
+        >
+          {message}
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
-
-export const useToast = () => useContext(ToastContext);
