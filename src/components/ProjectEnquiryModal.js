@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { submitLead } from "@/utils/submitLead";
+import toast from "react-hot-toast";
 
 export default function ProjectEnquiryModal({ onClose, source = "Project Detail" }) {
   const [loading, setLoading] = useState(false);
@@ -19,20 +20,17 @@ export default function ProjectEnquiryModal({ onClose, source = "Project Detail"
     });
     setLoading(false);
     if (result.result === "success") {
-      alert("✅ Thank you! Our team will contact you shortly.");
+      toast.success("✅ Thank you! Unlocking content...");
       onClose();
     } else {
-      alert("❌ Something went wrong.");
+      toast.error("❌ Failed to submit enquiry.");
     }
   };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg p-6 w-full max-w-md relative">
-        <button
-          onClick={onClose}
-          className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-        >
+        <button onClick={onClose} className="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
           ✖
         </button>
         <h2 className="text-xl font-bold mb-4">Enquire Now</h2>

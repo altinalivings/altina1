@@ -1,5 +1,5 @@
 "use client";
-
+import toast from "react-hot-toast";
 import Link from "next/link";
 import { FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { MdPhone, MdEmail } from "react-icons/md";
@@ -40,26 +40,25 @@ export default function Footer() {
         <div>
           <h3 className="text-lg font-semibold mb-4">Stay Updated</h3>
           <form
-            onSubmit={async (e) => {
-              e.preventDefault();
-              const email = e.target.email.value;
-              const result = await submitLead({
-                name: "Newsletter Subscriber",
-                email,
-                phone: "",
-                message: "Subscribed to newsletter",
-                project: "Newsletter",
-              });
-              if (result.result === "success") {
-                alert("✅ Thank you for subscribing!");
-                e.target.reset();
-                window.location.href = "/thank-you";
-              } else {
-                alert("❌ Something went wrong!");
-              }
-            }}
-            className="flex flex-col gap-3"
-          >
+			  onSubmit={async (e) => {
+				e.preventDefault();
+				const email = e.target.email.value;
+				const result = await submitLead({
+				  name: "Newsletter Subscriber",
+				  email,
+				  phone: "",
+				  message: "Subscribed to newsletter",
+				  project: "Newsletter",
+				});
+				if (result.result === "success") {
+				  toast.success("✅ Thank you for subscribing!");
+				  e.target.reset();
+				  window.location.href = "/thank-you";
+				} else {
+				  toast.error("❌ Something went wrong!");
+				}
+			  }}
+			>
             <input
               type="email"
               name="email"

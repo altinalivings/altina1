@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { submitLead } from "@/utils/submitLead";
+import toast from "react-hot-toast";
 
 export default function ContactForm() {
   const [loading, setLoading] = useState(false);
@@ -19,9 +20,10 @@ export default function ContactForm() {
     });
     setLoading(false);
     if (result.result === "success") {
+      toast.success("✅ Enquiry submitted! Redirecting...");
       window.location.href = "/thank-you";
     } else {
-      alert("❌ Something went wrong, try again.");
+      toast.error("❌ Something went wrong, try again.");
     }
   };
 
