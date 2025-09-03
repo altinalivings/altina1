@@ -1,74 +1,47 @@
 "use client";
-
 import { useState } from "react";
-import { submitLead } from "@/lib/submitLead";
+import { submitLead } from "../lib/submitLead";
 
-export default function ProjectEnquiryModal({ project, onClose }) {
+export default function ProjectEnquiryModal({ purpose = "Enquiry", onClose }) {
   const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState("");
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError("");
-
-    const formData = {
-      name: e.target.name.value,
-      email: e.target.email.value,
-      phone: e.target.phone.value,
-      message: e.target.message.value,
-      project: project || "Project Enquiry",
-      utm_source: sessionStorage.getItem("utm_source") || "",
-      utm_campaign: sessionStorage.getItem("utm_campaign") || "",
-      utm_medium: sessionStorage.getItem("utm_medium") || "",
-      utm_term: sessionStorage.getItem("utm_term") || "",
-      utm_content: sessionStorage.getItem("utm_content") || "",
-    };
-
-    const result = await submitLead(formData);
-
-    if (result.result === "success") {
-      setSubmitted(true); // ✅ just show a success message inside modal
-    } else {
-      setError("❌ Failed to submit. Please try again.");
-    }
-
+    const success = await submitLead({ ...formData, purpose });
     setLoading(false);
+    if (success) {
+      alert("✅ Thanks! We will contact you shortly.");
+      onClose();
+    } else {
+      alert("❌ Something went wrong, please try again.");
+    }
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full relative">
+    <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md relative">
         <button
           onClick={onClose}
-          className="absolute top-2 right-2 text-gray-600 hover:text-black"
+          className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
         >
           ✖
         </button>
-
-        {submitted ? (
-          <p className="text-green-600 text-center font-bold">
-            ✅ Thank you! We’ll contact you soon.
-          </p>
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {error && <p className="text-red-600">{error}</p>}
-
-            <input type="text" name="name" placeholder="Your Name" required className="w-full p-3 border rounded" />
-            <input type="email" name="email" placeholder="Your Email" required className="w-full p-3 border rounded" />
-            <input type="tel" name="phone" placeholder="Your Phone" required className="w-full p-3 border rounded" />
-            <textarea name="message" placeholder="Message" rows="4" className="w-full p-3 border rounded"></textarea>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-green-600 text-white p-3 rounded hover:bg-green-700"
-            >
-              {loading ? "Submitting..." : "Submit Enquiry"}
-            </button>
-          </form>
-        )}
+        <h2 className="text-xl font-semibold mb-4">{purpose}</h2>
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <input type="text" name="name" placeholder="Your Name" onChange={handleChange} required className="w-full border px-3 py-2 rounded" />
+          <input type="email" name="email" placeholder="Your Email" onChange={handleChange} required className="w-full border px-3 py-2 rounded" />
+          <input type="tel" name="phone" placeholder="Your Phone" onChange={handleChange} required className="w-full border px-3 py-2 rounded" />
+          <textarea name="message" placeholder="Message" onChange={handleChange} className="w-full border px-3 py-2 rounded" />
+          <button type="submit" disabled={loading} className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+            {loading ? "Submitting..." : "Submit"}
+          </button>
+        </form>
       </div>
     </div>
   );
