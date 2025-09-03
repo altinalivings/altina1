@@ -1,6 +1,7 @@
-
 import "./globals.css";
 import Script from "next/script";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export const metadata = {
   title: "Altina Livings",
@@ -51,7 +52,11 @@ export default function RootLayout({ children }) {
           gtag('config', 'AW-17510039084');
         `}</Script>
       </head>
-      <body>{children}</body>
+      <body>
+        <Header />
+        <main>{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }
