@@ -1,97 +1,82 @@
 "use client";
 import { useState } from "react";
-import { submitLead } from "../lib/submitLead";
+import { useRouter } from "next/navigation";
+import { submitLead } from "@/lib/submitLead";
+import Notification from "@/components/Notification";
 
-export default function ContactForm({ mode = "callback", fields, onSuccess }) {
+export default function ContactForm() {
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-    project: "",
-  });
-
-  const handleChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const [message, setMessage] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    try {
-      await submitLead({
-        ...formData,
-        source: mode,
-      });
-      if (onSuccess) onSuccess();
-    } catch (err) {
-      alert("❌ Something went wrong, try again.");
-    } finally {
-      setLoading(false);
+    const formData = {
+      name: e.target.name.value,
+      email: e.target.email.value,
+      phone: e.target.phone.value,
+      message: e.target.message.value,
+      project: "General Contact",
+    };
+
+    const res = await submitLead(formData);
+
+    if (res.success) {
+      setMessage("✅ Thank you! Our team will contact you soon.");
+      e.target.reset();
+      setTimeout(() => {
+        router.push("/thank-you");
+      }, 1000); // small delay so toast appears before redirect
+    } else {
+      setMessage("❌ Failed to submit enquiry. Try again!");
     }
+
+    setLoading(false);
   };
 
-  // Decide which fields to show
-  const visibleFields =
-    mode === "sitevisit" && fields ? fields : ["name", "email", "phone", "message"];
-
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      {visibleFields.includes("name") && (
+    <>
+      <form onSubmit={handleSubmit} className="space-y-4">
         <input
-          type="text"
           name="name"
+          type="text"
           placeholder="Your Name"
           required
-          value={formData.name}
-          onChange={handleChange}
-          className="w-full border p-3 rounded-lg"
+          className="w-full border rounded p-3"
         />
-      )}
-
-      {visibleFields.includes("email") && (
         <input
-          type="email"
           name="email"
+          type="email"
           placeholder="Your Email"
           required
-          value={formData.email}
-          onChange={handleChange}
-          className="w-full border p-3 rounded-lg"
+          className="w-full border rounded p-3"
         />
-      )}
-
-      {visibleFields.includes("phone") && (
         <input
-          type="tel"
           name="phone"
-          placeholder="Phone Number"
+          type="tel"
+          placeholder="Your Phone"
           required
-          value={formData.phone}
-          onChange={handleChange}
-          className="w-full border p-3 rounded-lg"
+          className="w-full border rounded p-3"
         />
-      )}
-
-      {visibleFields.includes("message") && (
         <textarea
           name="message"
-          placeholder="Message"
-          rows={3}
-          value={formData.message}
-          onChange={handleChange}
-          className="w-full border p-3 rounded-lg"
-        />
-      )}
+          placeholder="Your Message"
+          rows="4"
+          className="w-full border rounded p-3"
+        ></textarea>
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
-      >
-        {loading ? "Submitting..." : "Submit"}
-      </button>
-    </form>
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
+        >
+          {loading ? "Submitting..." : "Submit"}
+        </button>
+      </form>
+
+      <Notification message={message} onClose={() => setMessage("")} />
+    </>
   );
 }
