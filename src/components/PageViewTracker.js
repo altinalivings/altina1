@@ -1,25 +1,32 @@
-// components/PageViewTracker.js
-'use client'
-
-import { useEffect } from 'react'
-import { usePathname, useSearchParams } from 'next/navigation'
+"use client";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 export default function PageViewTracker() {
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (pathname && typeof window !== 'undefined' && window.gtag) {
-      const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '')
-      
-      window.gtag('config', 'G-3Q43P5GKHK', {
-        page_path: url,
-        debug_mode: true
-      })
-      
-      console.log('GA Pageview tracked:', url)
-    }
-  }, [pathname, searchParams])
+    const url = pathname + searchParams.toString();
 
-  return null
+    // GA4 + Ads
+    if (window.gtag) {
+      window.gtag("event", "page_view", {
+        page_path: url,
+        page_location: window.location.href,
+      });
+    }
+
+    // FB Pixel
+    if (window.fbq) {
+      window.fbq("track", "PageView");
+    }
+
+    // LinkedIn
+    if (window.lintrk) {
+      window.lintrk("track", { conversion_id: 515682278 });
+    }
+  }, [pathname, searchParams]);
+
+  return null;
 }

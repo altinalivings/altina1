@@ -39,6 +39,9 @@ export async function generateMetadata({ params }) {
   };
 }
 
+import ProjectDetailClient from "./ProjectDetailClient";
+import projects from "../../../data/projects.json";
+
 export default function ProjectPage({ params }) {
   const project = projects.find((p) => p.id === params.id);
   if (!project) return <div className="p-6">Project not found</div>;
@@ -62,13 +65,10 @@ export default function ProjectPage({ params }) {
     ]
   };
 
-  return (
-    <div>
+return (
+    <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <div className="p-6">
-        <h1 className="text-2xl font-bold">{project.title}</h1>
-        <p>{project.description}</p>
-      </div>
-    </div>
+      <ProjectDetailClient project={project} />
+    </>
   );
 }

@@ -1,124 +1,54 @@
 "use client";
 import { useState } from "react";
-
-import { submitLead } from "@/utils/leadSubmit";
+import { useRouter } from "next/navigation";
 
 export default function Footer() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState(null);
 
-  const handleNewsletter = async (e) => {
+  const handleSubscribe = async (e) => {
     e.preventDefault();
-    
-     const result = await submitLead({
-    name: "",
-    email: newsletterEmail,
-    phone: "",
-    message: "Newsletter Subscription",
-    project: "Newsletter",
-  });
 
-  if (result.success) {
-    alert("✅ Thanks for subscribing!");
-    setNewsletterEmail("");
-  } else {
-    alert("❌ Subscription failed, try again later.");
-  }
+    try {
+      await fetch(
+        "https://script.google.com/macros/s/AKfycbwaqJVZtKdSKVeM2fl3pz2qQsett3T-LDYqwBB_yyoOA1eMcsAbZ5vbTIBJxCY-Y2LugQ/exec",
+        {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: "",
+            email,
+            phone: "",
+            message: "Newsletter Subscription",
+            project: "",
+          }),
+        }
+      );
+
+      // ✅ Reset tracker so Thank You page events fire
+      sessionStorage.removeItem("leadTrkFired");
+
+      router.push("/thank-you");
+    } catch (err) {
+      console.error(err);
+      alert("❌ Something went wrong. Please try again.");
+    }
   };
 
-  const socialMedia = [
-    { name: "LinkedIn", icon: "💼", url: "https://linkedin.com/company/altinalivings" },
-    { name: "X (Twitter)", icon: "🐦", url: "https://twitter.com/altinalivings" },
-    { name: "Facebook", icon: "📘", url: "https://facebook.com/altinalivings" },
-    { name: "Instagram", icon: "📷", url: "https://instagram.com/altinalivings" },
-    { name: "YouTube", icon: "📺", url: "https://youtube.com/altinalivings" }
-  ];
-
-  const quickLinks = [
-    { name: "Home", href: "/" },
-    { name: "About Us", href: "/about" },
-    { name: "Projects", href: "/projects" },
-    { name: "Services", href: "/services" },
-    { name: "Contact", href: "/contact" },
-    { name: "Career", href: "/career" },
-    { name: "Privacy Policy", href: "/privacy" },
-    { name: "Terms & Conditions", href: "/terms" }
-  ];
-
   return (
-    <footer className="bg-gray-900 text-white py-16">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* Company Info */}
-          <div className="text-center lg:text-left">
-            <h3 className="text-2xl font-bold mb-6">Altina Livings</h3>
-            <p className="text-gray-300 mb-6">
-              Premier channel partners for India's leading real estate developers.
-              Crafting timeless spaces for modern living.
-            </p>
-            <div className="flex justify-center lg:justify-start gap-4 mb-6">
-              {socialMedia.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-gold-400 transition-colors"
-                  title={social.name}
-                >
-                  <span className="text-xl">{social.icon}</span>
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Quick Links */}
-          <div className="text-center">
-            <h4 className="text-lg font-semibold mb-6">Useful Links</h4>
-            <div className="grid grid-cols-2 gap-3">
-              {quickLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-gray-300 hover:text-gold-400 transition-colors text-sm"
-                >
-                  {link.name}
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Newsletter */}
-          <div className="text-center lg:text-left">
-            <h4 className="text-lg font-semibold mb-6">Stay Updated</h4>
-            <p className="text-gray-300 mb-4">
-              Subscribe to our newsletter for the latest project updates and market insights
-            </p>
-            <form onSubmit={handleNewsletter} className="flex flex-col gap-3">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="px-4 py-3 rounded-lg border border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gold-500"
-                required
-              />
-              <button
-                type="submit"
-                disabled={status === "loading"}
-                className="bg-gold-600 text-white py-3 px-6 rounded-lg hover:bg-gold-700 transition-colors font-semibold"
-              >
-                {status === "loading" ? "Subscribing..." : "Subscribe"}
-              </button>
-              {status === "success" && <p className="text-green-400 text-sm">✅ Thank you for subscribing!</p>}
-              {status === "error" && <p className="text-red-400 text-sm">❌ Something went wrong, try again.</p>}
-            </form>
-          </div>
-        </div>
-
-        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-          <p>&copy; 2024 Altina Livings. All rights reserved.</p>
-        </div>
+    <footer className="bg-gray-900 text-white py-10">
+      <div className="container mx-auto text-center">
+        <h2 className="text-xl font-semibold mb-4">Subscribe to Our Newsletter</h2>
+        <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row justify-center gap-3">
+          <input type="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} required className="p-2 rounded text-black w-full sm:w-64" />
+          <button type="submit" className="px-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700">
+            Subscribe
+          </button>
+        </form>
+        <p className="mt-6 text-gray-400 text-sm">
+          © {new Date().getFullYear()} Altina Livings. All rights reserved.
+        </p>
       </div>
     </footer>
   );

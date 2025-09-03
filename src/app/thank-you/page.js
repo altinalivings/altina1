@@ -5,23 +5,38 @@ import Link from "next/link";
 
 export default function ThankYouPage() {
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== "undefined" && !sessionStorage.getItem("leadTrkFired")) {
+      sessionStorage.setItem("leadTrkFired", "true");
+
+      // ✅ GA4 & Google Ads Conversion (Form Lead)
       if (window.gtag) {
+        // GA4 custom lead event
         window.gtag("event", "generate_lead", {
           event_category: "Leads",
-          event_label: "Thank You Page",
+          event_label: "Thank You Page (Form Lead)",
         });
-      }
-      if (window.fbq) {
-        window.fbq("track", "Lead", { content_name: "Thank You Page" });
-      }
-      if (window.lintrk) {
-        window.lintrk("track", { conversion_id: 515682278 });
-      }
-      if (window.gtag) {
+
+        // Optional GA4 standard event
+        window.gtag("event", "sign_up", {
+          method: "Website Form",
+        });
+
+        // Google Ads Conversion with Value
         window.gtag("event", "conversion", {
           send_to: "AW-17510039084/L-MdCP63l44bEKz8t51B",
+          value: 500.0, // ✅ form leads value
+          currency: "INR",
         });
+      }
+
+      // ✅ Facebook Pixel
+      if (window.fbq) {
+        window.fbq("track", "Lead", { content_name: "Form Lead" });
+      }
+
+      // ✅ LinkedIn Insight
+      if (window.lintrk) {
+        window.lintrk("track", { conversion_id: 515682278 });
       }
     }
   }, []);

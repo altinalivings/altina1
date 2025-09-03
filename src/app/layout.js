@@ -2,6 +2,7 @@ import "./globals.css";
 import Script from "next/script";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import PageViewTracker from "../components/PageViewTracker"; // 🔹 SPA tracking
 
 export const metadata = {
   title: "Altina Livings",
@@ -12,13 +13,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        {/* Google Analytics */}
+        {/* GA4 */}
         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-3Q43P5GKHK" />
         <Script id="ga4">{`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', 'G-3Q43P5GKHK');
+          gtag('config', 'G-3Q43P5GKHK', { send_page_view: false }); // we’ll handle manually
         `}</Script>
 
         {/* Facebook Pixel */}
@@ -35,7 +36,7 @@ export default function RootLayout({ children }) {
           fbq('track', 'PageView');
         `}</Script>
 
-        {/* LinkedIn Partner */}
+        {/* LinkedIn Insight */}
         <Script id="linkedin">{`
           _linkedin_partner_id = "515682278";
           window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
@@ -56,6 +57,7 @@ export default function RootLayout({ children }) {
         <Header />
         <main>{children}</main>
         <Footer />
+        <PageViewTracker /> {/* 🔹 listens for route changes */}
       </body>
     </html>
   );
