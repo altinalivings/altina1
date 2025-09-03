@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import ProjectEnquiryModal from "../../components/ProjectEnquiryModal";
+import ProjectEnquiryModal from "@/components/ProjectEnquiryModal";
 
 export default function ProjectDetailClient({ project }) {
   const [modalOpen, setModalOpen] = useState(false);
