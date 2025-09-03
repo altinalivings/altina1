@@ -1,18 +1,25 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ContactForm from "./ContactForm";
 
 export default function ProjectEnquiryModal({ isOpen, onClose, mode = "enquiry" }) {
   const [showThankYou, setShowThankYou] = useState(false);
+  const [fadeOut, setFadeOut] = useState(false);
 
   if (!isOpen && !showThankYou) return null;
 
   const handleSuccess = () => {
     setShowThankYou(true);
+
+    // Start fade out after 2.5s
+    setTimeout(() => setFadeOut(true), 2500);
+
+    // Fully close after 3s
     setTimeout(() => {
       setShowThankYou(false);
+      setFadeOut(false);
       onClose();
-    }, 3000); // hide thank you after 3s
+    }, 3000);
   };
 
   return (
@@ -30,7 +37,11 @@ export default function ProjectEnquiryModal({ isOpen, onClose, mode = "enquiry" 
 
         {/* Thank You State */}
         {showThankYou ? (
-          <div className="text-center py-10">
+          <div
+            className={`text-center py-10 transition-opacity duration-500 ${
+              fadeOut ? "opacity-0" : "opacity-100"
+            }`}
+          >
             <h2 className="text-2xl font-semibold text-green-600 mb-4">
               ✅ Thank You!
             </h2>
