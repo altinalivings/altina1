@@ -1,8 +1,0 @@
-:root {
-  --brand-gold: #b8860b;
-  --brand-dark: #0f172a;
-  --brand-light: #ffffff;
-}
-body { font-family: 'Inter', sans-serif; }
-.btn-gold { background: var(--brand-gold); color: #fff; }
-.btn-gold:hover { background: #9c7309; }

@@ -58,7 +58,7 @@ export default function FeaturedProjects({ showOnlyFeatured = false }) {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {(displayedProjects || []).map(project => (
+      {displayedProjects.map(project => (
         <div key={project.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
           <div className="relative h-56">
             <img
