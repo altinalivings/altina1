@@ -1,42 +1,34 @@
 "use client";
 import { useState } from "react";
-import CallRequestModal from "./CallRequestModal";
+import CallRequestModal from "@/components/CallRequestModal";
 
 export default function FloatingButtons() {
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const waNumber = "918891234195"; // change if needed
-  const waText = encodeURIComponent(
-    "Hi Altina Livings, I'm interested in your projects."
-  );
+  const [open, setOpen] = useState(false);
 
   return (
     <>
-      {/* Floating action buttons */}
-      <div className="fixed top-1/2 right-4 -translate-y-1/2 flex flex-col gap-3 z-[999]">
-        {/* Request a Call */}
+      <div className="fab-rail">
         <button
-          onClick={() => setModalOpen(true)}
-          className="w-12 h-12 rounded-full bg-gold-600 text-white flex items-center justify-center shadow-lg hover:bg-gold-700"
-          title="Request a Call Back"
+          className="fab fab-primary"
+          onClick={() => setOpen(true)}
+          aria-label="Request a Call Back"
         >
-          📞
+          Request a Call
         </button>
 
-        {/* WhatsApp */}
         <a
-          href={`https://wa.me/${waNumber}?text=${waText}`}
+          className="fab fab-whatsapp"
+          href="https://wa.me/919891234195?text=Hi%20ALTINA%20Team%2C%20I%27d%20like%20to%20know%20more."
           target="_blank"
           rel="noopener noreferrer"
-          className="w-12 h-12 rounded-full bg-green-600 text-white flex items-center justify-center shadow-lg hover:bg-green-700"
-          title="Chat on WhatsApp"
+          aria-label="Chat on WhatsApp"
         >
-          💬
+          WhatsApp
         </a>
       </div>
 
-      {/* Popup form modal */}
-      <CallRequestModal open={modalOpen} onClose={() => setModalOpen(false)} />
+      <div id="request-callback" />
+      <CallRequestModal open={open} onClose={() => setOpen(false)} />
     </>
   );
 }
