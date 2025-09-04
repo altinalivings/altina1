@@ -1,5 +1,6 @@
 // submitLead.js — hidden-form + iframe + postMessage listener + toast + robust fallback
-const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwaqJVZtKdSKVeM2fl3pz2qQsett3T-LDYqwBB_yyoOA1eMcsAbZ5vbTIBJxCY-Y2LugQ/exec";
+const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbywP1DDvjSV6sDeUgJYVIQsCzu6k7dr0T2LTdimgvSA71SbxnM4t-bCXma8XMhjqWfF/exec";
+
 
 /* -------------------- Utilities -------------------- */
 
