@@ -36,7 +36,7 @@ export default function AnalyticsDebug() {
           </div>
           
           <div className="space-y-2">
-            {testEvents.map((event, index) => (
+            {(testEvents || []).map((event, index) => (
               <button
                 key={index}
                 onClick={() => trackEvent(event.name, event.params)}
