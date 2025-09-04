@@ -1,4 +1,5 @@
-// src/components/PropertyForm.jsx
+"use client";
+// src/components/PropertyForm.js
 import React, { useState } from "react";
 
 export default function PropertyForm({ onSubmit }) {
@@ -36,7 +37,6 @@ export default function PropertyForm({ onSubmit }) {
     if (floorplan) data.append("floorplan", floorplan);
     if (brochure) data.append("brochure", brochure);
 
-    // POST to your API route
     const res = await fetch("/api/property-lead", {
       method: "POST",
       body: data,
