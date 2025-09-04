@@ -64,40 +64,39 @@ export default function CallRequestModal({ open, onClose }) {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-    setSuccess(false);
+  e.preventDefault();
+  setLoading(true);
+  setError("");
+  setSuccess(false);
 
-    try {
-      // merge visible fields + hidden analytics
-      const payload = {
-        ...form,
-        source: "Request a Call",
-        ...hiddenFields,
-      };
+  try {
+    const payload = {
+      ...form,
+      source: "Request a Call",
+      ...hiddenFields, // already in your component
+    };
 
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-        cache: "no-store",
-      });
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      cache: "no-store",
+    });
 
-      if (!res.ok) {
-        const t = await res.text().catch(() => "");
-        throw new Error(t || "Submission failed");
-      }
-
-      setSuccess(true);
-      setForm({ name: "", phone: "", email: "", message: "" });
-    } catch (err) {
-      console.error(err);
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
+    const data = await res.json().catch(async () => ({ error: await res.text() }));
+    if (!res.ok || !data?.ok) {
+      throw new Error(data?.error || "Submission failed");
     }
-  };
+
+    setSuccess(true);
+    setForm({ name: "", phone: "", email: "", message: "" });
+  } catch (err) {
+    console.error(err);
+    setError(err.message || "Something went wrong. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[1000]">
