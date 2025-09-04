@@ -1,10 +1,13 @@
 import "./globals.css";
 import Script from "next/script";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import PageViewTracker from "@/components/PageViewTracker";
-import { Toaster } from "react-hot-toast";
-import StickyCTA from "@/components/StickyCTA";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import PageViewTracker from "../components/PageViewTracker"; // 🔹 SPA tracking
+
+export const metadata = {
+  title: "Altina Livings",
+  description: "Explore premium real estate projects with Altina Livings",
+};
 
 export default function RootLayout({ children }) {
   return (
@@ -16,7 +19,7 @@ export default function RootLayout({ children }) {
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', 'G-3Q43P5GKHK', { send_page_view: false }); // manual pageviews
+          gtag('config', 'G-3Q43P5GKHK', { send_page_view: false }); // we’ll handle manually
         `}</Script>
 
         {/* Facebook Pixel */}
@@ -54,9 +57,7 @@ export default function RootLayout({ children }) {
         <Header />
         <main>{children}</main>
         <Footer />
-		  <StickyCTA />   {/* ✅ Floating CTAs appear globally */}
-        <PageViewTracker />
-        <Toaster position="top-right" reverseOrder={false} /> {/* ✅ toast support */}
+        <PageViewTracker /> {/* 🔹 listens for route changes */}
       </body>
     </html>
   );

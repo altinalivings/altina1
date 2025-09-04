@@ -1,74 +1,54 @@
 "use client";
-
 import { useState } from "react";
-import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 export default function Footer() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
 
-  const handleSubscribe = (e) => {
+  const handleSubscribe = async (e) => {
     e.preventDefault();
-    if (!email) return;
-    setSubmitted(true);
-    setEmail("");
-    setTimeout(() => setSubmitted(false), 3000);
+
+    try {
+      await fetch(
+        "https://script.google.com/macros/s/AKfycbwaqJVZtKdSKVeM2fl3pz2qQsett3T-LDYqwBB_yyoOA1eMcsAbZ5vbTIBJxCY-Y2LugQ/exec",
+        {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: "",
+            email,
+            phone: "",
+            message: "Newsletter Subscription",
+            project: "",
+          }),
+        }
+      );
+
+      // ✅ Reset tracker so Thank You page events fire
+      sessionStorage.removeItem("leadTrkFired");
+
+      router.push("/thank-you");
+    } catch (err) {
+      console.error(err);
+      alert("❌ Something went wrong. Please try again.");
+    }
   };
 
   return (
-    <footer className="bg-gray-900 text-white py-10 px-6 mt-10">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
-        {/* About */}
-        <div>
-          <h3 className="text-lg font-semibold mb-3">Altina Livings</h3>
-          <p className="text-gray-400 text-sm">
-            Explore premium real estate projects with Altina Livings.
-          </p>
-        </div>
-
-        {/* Quick Links */}
-        <div>
-          <h3 className="text-lg font-semibold mb-3">Quick Links</h3>
-          <ul className="space-y-2 text-gray-400 text-sm">
-            <li><a href="/about" className="hover:text-white">About Us</a></li>
-            <li><a href="/projects" className="hover:text-white">Projects</a></li>
-            <li><a href="/services" className="hover:text-white">Services</a></li>
-            <li><a href="/contact" className="hover:text-white">Contact</a></li>
-          </ul>
-        </div>
-
-        {/* Newsletter */}
-        <div>
-          <h3 className="text-lg font-semibold mb-3">Stay Updated</h3>
-          <form onSubmit={handleSubscribe} className="flex gap-2">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              className="w-full px-3 py-2 rounded-lg text-black"
-              required
-            />
-            <button
-              type="submit"
-              className="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700"
-            >
-              Subscribe
-            </button>
-          </form>
-          {submitted && <p className="text-green-400 mt-2 text-sm">✅ Subscribed!</p>}
-        </div>
-      </div>
-
-      {/* Bottom */}
-      <div className="mt-10 border-t border-gray-700 pt-6 flex flex-col md:flex-row items-center justify-between text-sm text-gray-500">
-        <p>© {new Date().getFullYear()} Altina Livings. All rights reserved.</p>
-        <div className="flex space-x-4 mt-4 md:mt-0">
-          <a href="#" className="hover:text-white"><FaFacebookF /></a>
-          <a href="#" className="hover:text-white"><FaTwitter /></a>
-          <a href="#" className="hover:text-white"><FaInstagram /></a>
-          <a href="#" className="hover:text-white"><FaLinkedinIn /></a>
-        </div>
+    <footer className="bg-gray-900 text-white py-10">
+      <div className="container mx-auto text-center">
+        <h2 className="text-xl font-semibold mb-4">Subscribe to Our Newsletter</h2>
+        <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row justify-center gap-3">
+          <input type="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} required className="p-2 rounded text-black w-full sm:w-64" />
+          <button type="submit" className="px-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700">
+            Subscribe
+          </button>
+        </form>
+        <p className="mt-6 text-gray-400 text-sm">
+          © {new Date().getFullYear()} Altina Livings. All rights reserved.
+        </p>
       </div>
     </footer>
   );
