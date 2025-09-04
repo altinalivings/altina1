@@ -1,16 +1,12 @@
-// submitLead.js
-// Use this implementation if you are posting directly from browser to Google Apps Script webapp.
-// It posts via a temporary form (no CORS preflight), attaches client/browser metadata and UTM params,
-// and returns a lightweight success indicator.
+// submitLead.js — hidden-form + iframe + postMessage listener + toast
+const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwaqJVZtKdSKVeM2fl3pz2qQsett3T-LDYqwBB_yyoOA1eMcsAbZ5vbTIBJxCY-Y2LugQ/exec"; // <-- REPLACE
 
-const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwaqJVZtKdSKVeM2fl3pz2qQsett3T-LDYqwBB_yyoOA1eMcsAbZ5vbTIBJxCY-Y2LugQ/exec"; // <-- REPLACE with your Apps Script web app URL
-
-function getUtmParamsFromLocation() {
+function getUtmParams() {
   try {
-    const url = new URL(window.location.href);
+    const u = new URL(window.location.href);
     const out = {};
     ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(k => {
-      if (url.searchParams.has(k)) out[k] = url.searchParams.get(k);
+      if (u.searchParams.has(k)) out[k] = u.searchParams.get(k);
     });
     return out;
   } catch (e) {
@@ -20,7 +16,7 @@ function getUtmParamsFromLocation() {
 
 function detectDeviceType() {
   const ua = navigator.userAgent || '';
-  const isMobile = /Mobi|Android|iPhone|iPod|IEMobile|Opera Mini/i.test(ua);
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod|IEMobile|Opera Mini/i.test(ua);
   if (isMobile) {
     if (/iPad|Tablet|PlayBook|Silk/i.test(ua)) return 'tablet';
     return 'mobile';
@@ -35,16 +31,13 @@ function gatherClientFields() {
     referrer: document.referrer || '',
     language: navigator.language || navigator.userLanguage || '',
     timezone: (Intl && Intl.DateTimeFormat && Intl.DateTimeFormat().resolvedOptions) ? Intl.DateTimeFormat().resolvedOptions().timeZone : '',
-    viewport,
+    viewport: viewport,
     screen: screenSize,
     device_type: detectDeviceType(),
     userAgent: navigator.userAgent || ''
   };
 }
 
-/**
- * Convert a value to a form-friendly string. Objects/arrays -> JSON string.
- */
 function toFormValue(v) {
   if (v === null || v === undefined) return '';
   if (typeof v === 'object') {
@@ -54,64 +47,156 @@ function toFormValue(v) {
 }
 
 /**
- * Post data using a temporary hidden form (avoids CORS preflight).
- * Returns a simple object indicating the DOM-level submit was performed.
+ * Show a simple toast message (bottom-right)
+ * options: { text, durationMs (default 3000), type: 'success'|'error' }
  */
-function postViaForm(url, data = {}) {
+function showToast({ text = '', durationMs = 3000, type = 'success' } = {}) {
   try {
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = url;
-    form.style.display = 'none';
+    // create container if missing
+    let container = document.getElementById('lead-toasts-container');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'lead-toasts-container';
+      container.style.position = 'fixed';
+      container.style.right = '20px';
+      container.style.bottom = '20px';
+      container.style.zIndex = '2147483647';
+      container.style.display = 'flex';
+      container.style.flexDirection = 'column';
+      container.style.gap = '8px';
+      document.body.appendChild(container);
+    }
 
-    Object.keys(data).forEach((key) => {
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = key;
-      input.value = toFormValue(data[key]);
-      form.appendChild(input);
+    const toast = document.createElement('div');
+    toast.className = 'lead-toast';
+    toast.style.minWidth = '220px';
+    toast.style.maxWidth = '380px';
+    toast.style.padding = '10px 14px';
+    toast.style.borderRadius = '8px';
+    toast.style.boxShadow = '0 6px 18px rgba(0,0,0,0.12)';
+    toast.style.fontFamily = 'Inter, Arial, sans-serif';
+    toast.style.fontSize = '13px';
+    toast.style.color = '#fff';
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateY(10px)';
+    toast.style.transition = 'opacity 220ms ease, transform 220ms ease';
+
+    if (type === 'success') {
+      toast.style.background = 'linear-gradient(90deg,#16a34a,#10b981)'; // green-ish
+    } else {
+      toast.style.background = 'linear-gradient(90deg,#ef4444,#f97316)'; // red-orange
+    }
+
+    toast.textContent = text;
+    container.appendChild(toast);
+
+    // animate in
+    requestAnimationFrame(() => {
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateY(0)';
     });
 
-    // Attach and submit
-    document.body.appendChild(form);
-
-    // Option A: Submit to the same window (will navigate away). 
-    // Option B: Submit to an invisible iframe to stay on SPA. We'll use iframe approach by default.
-    // Create a hidden iframe target, submit to it, then clean up.
-    const iframeName = 'lead_submit_iframe_' + Date.now();
-    const iframe = document.createElement('iframe');
-    iframe.name = iframeName;
-    iframe.style.display = 'none';
-    document.body.appendChild(iframe);
-
-    form.target = iframeName;
-    form.submit();
-
-    // Cleanup after short delay
+    // auto remove
     setTimeout(() => {
-      try { document.body.removeChild(form); } catch (e) {}
-      try { document.body.removeChild(iframe); } catch (e) {}
-    }, 1500);
-
-    return { result: 'submitted' };
-  } catch (err) {
-    console.error('postViaForm error:', err);
-    return { result: 'error', details: err.message || String(err) };
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateY(10px)';
+      setTimeout(() => {
+        try { container.removeChild(toast); } catch (e) {}
+      }, 250);
+    }, durationMs);
+  } catch (e) {
+    console.warn('showToast error', e);
   }
 }
 
 /**
- * submitLead: public function used by the site code.
- * formData: object that contains fields like name, phone, email, message, source, utm fields (optional)
+ * Post using a hidden form + hidden iframe. Listen for postMessage from iframe.
+ * Returns a Promise that resolves to the message payload from Apps Script (object).
  *
- * This function will merge in utm params and client info and POST to Apps Script via form.
+ * Timeout fallback in case postMessage is not received.
+ */
+function postViaFormWithMessage(url, data = {}, opts = {}) {
+  const timeoutMs = opts.timeoutMs || 8000;
+  return new Promise((resolve, reject) => {
+    try {
+      const iframeName = 'lead_submit_iframe_' + Date.now() + '_' + Math.floor(Math.random() * 10000);
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = url;
+      form.style.display = 'none';
+
+      Object.keys(data).forEach((key) => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = toFormValue(data[key]);
+        form.appendChild(input);
+      });
+
+      const iframe = document.createElement('iframe');
+      iframe.name = iframeName;
+      iframe.style.display = 'none';
+
+      // Append to DOM
+      document.body.appendChild(iframe);
+      form.target = iframeName;
+      document.body.appendChild(form);
+
+      // Message listener
+      let settled = false;
+      function onMessage(event) {
+        try {
+          const msg = event.data;
+          if (!msg || typeof msg !== 'object') return;
+          if (msg.source !== 'lead_webapp') return; // only accept messages from our webapp marker
+          // clean up
+          cleanup();
+          settled = true;
+          resolve(msg);
+        } catch (e) {
+          // ignore parse errors
+        }
+      }
+
+      function cleanup() {
+        try { window.removeEventListener('message', onMessage); } catch (e) {}
+        try { document.body.removeChild(form); } catch (e) {}
+        try { document.body.removeChild(iframe); } catch (e) {}
+        try { clearTimeout(fallbackTimer); } catch (e) {}
+      }
+
+      window.addEventListener('message', onMessage, false);
+
+      // Fallback timeout
+      const fallbackTimer = setTimeout(() => {
+        if (settled) return;
+        cleanup();
+        reject(new Error('No response from lead endpoint (timeout)'));
+      }, timeoutMs);
+
+      // Submit
+      try {
+        form.submit();
+      } catch (e) {
+        cleanup();
+        reject(e);
+      }
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
+
+/**
+ * Public function to call from your form handler:
+ * submitLead({ name, phone, email, message, source })
+ * Returns a Promise resolving to the webapp response object.
  */
 export async function submitLead(formData = {}) {
   try {
-    const utm = getUtmParamsFromLocation();
+    const utm = getUtmParams();
     const client = gatherClientFields();
 
-    // Merge: prefer explicit values in formData, fallback to UTM / client
     const payload = {
       name: formData.name || formData.fullname || '',
       phone: formData.phone || formData.mobile || '',
@@ -130,40 +215,26 @@ export async function submitLead(formData = {}) {
       screen: client.screen,
       device_type: client.device_type,
       userAgent: client.userAgent,
-      // Keep a timestamp column (your Apps Script should map 'time' or 'ts' -> time)
-      time: new Date().toISOString(),
-      // include any additional fields the caller passed
-      extra: formData.extra || ''
+      time: new Date().toISOString()
     };
 
-    // If the formData contains additional custom fields, append them (stringify objects)
+    // include any extra fields present in formData
     Object.keys(formData).forEach(k => {
       if (!payload.hasOwnProperty(k)) payload[k] = formData[k];
     });
 
-    // Submit using form POST to avoid CORS; use hidden iframe so SPA doesn't navigate away
-    const result = postViaForm(WEBHOOK_URL, payload);
+    const result = await postViaFormWithMessage(WEBHOOK_URL, payload, { timeoutMs: 9000 });
 
-    // Tracking / analytics (best effort)
-    try {
-      if (typeof window !== 'undefined' && window.gtag) {
-        window.gtag('event', 'generate_lead', { event_category: 'Leads', event_label: payload.source });
-        window.gtag('event', 'conversion', { send_to: 'AW-XXXX/XXXX' });
-      }
-      if (typeof window !== 'undefined' && window.fbq) {
-        window.fbq('track', 'Lead', { content_name: payload.source });
-      }
-      if (typeof window !== 'undefined' && window.lintrk) {
-        window.lintrk('track', { conversion_id: 515682278 });
-      }
-    } catch (e) {
-      // swallow
-      console.warn('analytics error', e);
+    // result expected: { source: 'lead_webapp', status: 'success'|'error', message: '...' }
+    if (result && result.status === 'success') {
+      showToast({ text: result.message || 'Thanks — we received your request.', type: 'success' });
+    } else {
+      showToast({ text: (result && result.message) ? result.message : 'Submission failed', type: 'error' });
     }
 
-    return { ok: true, status: result.result || 'submitted' };
+    return result;
   } catch (err) {
-    console.error('submitLead error:', err);
-    return { ok: false, error: String(err) };
+    showToast({ text: 'Submission failed — try again', type: 'error' });
+    return { source: 'lead_webapp', status: 'error', message: String(err) };
   }
 }
