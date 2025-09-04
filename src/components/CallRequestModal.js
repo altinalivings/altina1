@@ -1,78 +1,173 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { getAttribution } from "@/lib/attribution";
 
 export default function CallRequestModal({ open, onClose }) {
   const [form, setForm] = useState({ name: "", phone: "", email: "", message: "" });
-  const [submitting, setSubmitting] = useState(false);
-  const [done, setDone] = useState(false);
+  const [attrib, setAttrib] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+
+  // capture attribution once when modal opens
+  useEffect(() => {
+    if (open) setAttrib(getAttribution());
+  }, [open]);
+
+  // flatten keys you want to send/see as hidden fields (for debugging/QA)
+  const hiddenFields = useMemo(
+    () => ({
+      // last-touch
+      utm_source: attrib.utm_source || "",
+      utm_medium: attrib.utm_medium || "",
+      utm_campaign: attrib.utm_campaign || "",
+      utm_term: attrib.utm_term || "",
+      utm_content: attrib.utm_content || "",
+      gclid: attrib.gclid || "",
+      fbclid: attrib.fbclid || "",
+      msclkid: attrib.msclkid || "",
+      last_touch_ts: attrib.last_touch_ts || "",
+      last_touch_page: attrib.last_touch_page || "",
+
+      // first-touch
+      first_touch_source: attrib.first_touch_source || "",
+      first_touch_medium: attrib.first_touch_medium || "",
+      first_touch_campaign: attrib.first_touch_campaign || "",
+      first_touch_term: attrib.first_touch_term || "",
+      first_touch_content: attrib.first_touch_content || "",
+      first_touch_gclid: attrib.first_touch_gclid || "",
+      first_touch_fbclid: attrib.first_touch_fbclid || "",
+      first_touch_msclkid: attrib.first_touch_msclkid || "",
+      first_landing_page: attrib.first_landing_page || "",
+      first_landing_ts: attrib.first_landing_ts || "",
+
+      // session & client
+      session_id: attrib.session_id || "",
+      ga_cid: attrib.ga_cid || "",
+      referrer: attrib.referrer || "",
+      language: attrib.language || "",
+      timezone: attrib.timezone || "",
+      viewport: attrib.viewport || "",
+      screen: attrib.screen || "",
+      device_type: attrib.device_type || "",
+      userAgent: attrib.userAgent || "",
+      page: attrib.page || "",
+    }),
+    [attrib]
+  );
 
   if (!open) return null;
 
-  const update = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((f) => ({ ...f, [name]: value }));
+  };
 
-  const submit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitting(true);
+    setLoading(true);
     setError("");
+    setSuccess(false);
+
     try {
-      // Try to post to an API route if the project has one
+      // merge visible fields + hidden analytics
+      const payload = {
+        ...form,
+        source: "Request a Call",
+        ...hiddenFields,
+      };
+
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, source: "Request a Call" }),
+        body: JSON.stringify(payload),
+        cache: "no-store",
       });
-      if (!res.ok) throw new Error("No API route available");
-      setDone(true);
+
+      if (!res.ok) {
+        const t = await res.text().catch(() => "");
+        throw new Error(t || "Submission failed");
+      }
+
+      setSuccess(true);
+      setForm({ name: "", phone: "", email: "", message: "" });
     } catch (err) {
-      // Fallback – open mail client
-      const mailto = `mailto:info@altinalivings.com?subject=Request%20a%20Call%20from%20${encodeURIComponent(form.name)}&body=${encodeURIComponent(
-        `Name: ${form.name}\nPhone: ${form.phone}\nEmail: ${form.email}\nMessage: ${form.message}`
-      )}`;
-      window.location.href = mailto;
-      setDone(true);
+      console.error(err);
+      setError("Something went wrong. Please try again.");
     } finally {
-      setSubmitting(false);
+      setLoading(false);
     }
   };
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
-      <div className="relative w-full max-w-md rounded-2xl bg-white shadow-xl">
-        <button onClick={onClose} className="absolute right-3 top-3 text-gray-500 hover:text-gray-700" aria-label="Close">✕</button>
-        <div className="px-6 pt-6 pb-5">
-          <h3 className="text-lg font-semibold">Request a Call</h3>
-          {!done ? (
-            <form onSubmit={submit} className="mt-4 space-y-3 text-sm">
-              <div>
-                <label className="block mb-1">Name</label>
-                <input name="name" value={form.name} onChange={update} required className="w-full rounded-lg border px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400" />
-              </div>
-              <div>
-                <label className="block mb-1">Phone</label>
-                <input name="phone" value={form.phone} onChange={update} required className="w-full rounded-lg border px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400" />
-              </div>
-              <div>
-                <label className="block mb-1">Email</label>
-                <input type="email" name="email" value={form.email} onChange={update} className="w-full rounded-lg border px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400" />
-              </div>
-              <div>
-                <label className="block mb-1">Message</label>
-                <textarea name="message" rows={3} value={form.message} onChange={update} className="w-full rounded-lg border px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400" />
-              </div>
-              {error && <p className="text-red-600 text-sm">{error}</p>}
-              <button type="submit" disabled={submitting} className="w-full rounded-lg bg-amber-600 text-white py-2 hover:bg-amber-700 disabled:opacity-60">
-                {submitting ? "Sending..." : "Send Request"}
-              </button>
-              <p className="text-[11px] text-gray-500">By submitting, you agree to our terms & privacy policy.</p>
-            </form>
-          ) : (
-            <div className="mt-4 text-sm">
-              <p>Thanks! We’ve received your request. We’ll contact you shortly.</p>
-            </div>
-          )}
-        </div>
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[1000]">
+      <div className="bg-white rounded-2xl shadow-lg w-full max-w-md p-6 relative">
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 text-gray-600 hover:text-gray-900"
+          aria-label="Close"
+        >
+          ✕
+        </button>
+
+        <h2 className="text-xl font-semibold mb-4">Request a Call Back</h2>
+
+        {success ? (
+          <div className="text-green-600">✅ Thank you! We’ll reach out soon.</div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* visible fields */}
+            <input
+              type="text"
+              name="name"
+              placeholder="Your Name"
+              value={form.name}
+              onChange={handleChange}
+              required
+              className="w-full border rounded-lg px-3 py-2"
+            />
+            <input
+              type="tel"
+              name="phone"
+              placeholder="Phone Number"
+              value={form.phone}
+              onChange={handleChange}
+              required
+              className="w-full border rounded-lg px-3 py-2"
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              value={form.email}
+              onChange={handleChange}
+              className="w-full border rounded-lg px-3 py-2"
+            />
+            <textarea
+              name="message"
+              placeholder="Your Message"
+              value={form.message}
+              onChange={handleChange}
+              className="w-full border rounded-lg px-3 py-2"
+              rows={3}
+            />
+
+            {/* hidden analytics/UTM fields (handy for QA; also included in payload) */}
+            {Object.entries(hiddenFields).map(([k, v]) => (
+              <input key={k} type="hidden" name={k} value={v} readOnly />
+            ))}
+
+            {error && <div className="text-red-600 text-sm">{error}</div>}
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-gold-600 text-white py-2 rounded-lg hover:bg-gold-700 disabled:opacity-60"
+            >
+              {loading ? "Submitting..." : "Submit Request"}
+            </button>
+          </form>
+        )}
       </div>
     </div>
   );

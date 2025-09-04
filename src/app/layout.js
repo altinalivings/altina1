@@ -1,4 +1,7 @@
 // Server Component (no "use client")
+import FloatingButtons from "@/components/FloatingButtons";
+
+import "@/styles/fab.css";
 import "../styles/globals.css";
 
 import Script from "next/script";
@@ -17,8 +20,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         {/* GA4 */}
-        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-3Q43P5GKHK" />
-        <Script id="ga4">{`
+        <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-3Q43P5GKHK" />
+        <Script id="ga4" strategy="afterInteractive">{`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
@@ -26,7 +29,7 @@ export default function RootLayout({ children }) {
         `}</Script>
 
         {/* Facebook Pixel */}
-        <Script id="fb-pixel">{`
+        <Script id="fb-pixel" strategy="afterInteractive">{`
           !function(f,b,e,v,n,t,s)
           {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
           n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -40,16 +43,16 @@ export default function RootLayout({ children }) {
         `}</Script>
 
         {/* LinkedIn Insight */}
-        <Script id="linkedin">{`
+        <Script id="linkedin" strategy="afterInteractive">{`
           _linkedin_partner_id = "515682278";
           window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
           window._linkedin_data_partner_ids.push(_linkedin_partner_id);
         `}</Script>
-        <Script src="https://snap.licdn.com/li.lms-analytics/insight.min.js" async></Script>
+        <Script strategy="afterInteractive" src="https://snap.licdn.com/li.lms-analytics/insight.min.js" />
 
         {/* Google Ads */}
-        <Script async src="https://www.googletagmanager.com/gtag/js?id=AW-17510039084"></Script>
-        <Script id="google-ads">{`
+        <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=AW-17510039084"></Script>
+        <Script id="google-ads" strategy="afterInteractive">{`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
@@ -58,12 +61,12 @@ export default function RootLayout({ children }) {
       </head>
 
       <body>
-        {/* All client-only wrappers & widgets go inside ClientProviders */}
         <ClientProviders>
-          
+          {/* Ensures GA CID is captured once GA is ready */}
           <AnalyticsClient />
-<Header />
+          <Header />
           <main>{children}</main>
+          <FloatingButtons />
           <Footer />
         </ClientProviders>
       </body>
