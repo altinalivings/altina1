@@ -1,87 +1,169 @@
 // submitLead.js
-// Replace your current file with this. It posts via a temporary form to avoid CORS/no-cors issues
-// and preserves analytics calls. It returns a lightweight result object.
+// Use this implementation if you are posting directly from browser to Google Apps Script webapp.
+// It posts via a temporary form (no CORS preflight), attaches client/browser metadata and UTM params,
+// and returns a lightweight success indicator.
 
-const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwaqJVZtKdSKVeM2fl3pz2qQsett3T-LDYqwBB_yyoOA1eMcsAbZ5vbTIBxCY-Y2LugQ/exec";
+const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwaqJVZtKdSKVeM2fl3pz2qQsett3T-LDYqwBB_yyoOA1eMcsAbZ5vbTIBJxCY-Y2LugQ/exec"; // <-- REPLACE with your Apps Script web app URL
+
+function getUtmParamsFromLocation() {
+  try {
+    const url = new URL(window.location.href);
+    const out = {};
+    ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(k => {
+      if (url.searchParams.has(k)) out[k] = url.searchParams.get(k);
+    });
+    return out;
+  } catch (e) {
+    return {};
+  }
+}
+
+function detectDeviceType() {
+  const ua = navigator.userAgent || '';
+  const isMobile = /Mobi|Android|iPhone|iPod|IEMobile|Opera Mini/i.test(ua);
+  if (isMobile) {
+    if (/iPad|Tablet|PlayBook|Silk/i.test(ua)) return 'tablet';
+    return 'mobile';
+  }
+  return 'desktop';
+}
+
+function gatherClientFields() {
+  const viewport = `${window.innerWidth || 0}x${window.innerHeight || 0}`;
+  const screenSize = `${window.screen?.width || 0}x${window.screen?.height || 0}`;
+  return {
+    referrer: document.referrer || '',
+    language: navigator.language || navigator.userLanguage || '',
+    timezone: (Intl && Intl.DateTimeFormat && Intl.DateTimeFormat().resolvedOptions) ? Intl.DateTimeFormat().resolvedOptions().timeZone : '',
+    viewport,
+    screen: screenSize,
+    device_type: detectDeviceType(),
+    userAgent: navigator.userAgent || ''
+  };
+}
 
 /**
- * Post data using a temporary form element (browsers send urlencoded form POSTs, no preflight).
- * This avoids CORS trouble when posting directly to Google Apps Script webapps.
- * @param {string} url
- * @param {Object} data - key/value map. Objects/arrays are JSON-stringified.
+ * Convert a value to a form-friendly string. Objects/arrays -> JSON string.
  */
-function postViaForm(url, data) {
-  try {
-    const form = document.createElement("form");
-    form.method = "POST";
-    form.action = url;
-    form.style.display = "none";
+function toFormValue(v) {
+  if (v === null || v === undefined) return '';
+  if (typeof v === 'object') {
+    try { return JSON.stringify(v); } catch (e) { return String(v); }
+  }
+  return String(v);
+}
 
-    Object.keys(data || {}).forEach((key) => {
-      const input = document.createElement("input");
-      input.type = "hidden";
+/**
+ * Post data using a temporary hidden form (avoids CORS preflight).
+ * Returns a simple object indicating the DOM-level submit was performed.
+ */
+function postViaForm(url, data = {}) {
+  try {
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = url;
+    form.style.display = 'none';
+
+    Object.keys(data).forEach((key) => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
       input.name = key;
-      const v = data[key];
-      input.value = (v === undefined || v === null) ? "" : (typeof v === "object" ? JSON.stringify(v) : String(v));
+      input.value = toFormValue(data[key]);
       form.appendChild(input);
     });
 
-    // Append to body, submit, and remove after a short timeout
+    // Attach and submit
     document.body.appendChild(form);
 
-    // If you want the SPA to remain on same page (no navigation), you could set target to an invisible iframe:
-    // form.target = 'hidden_iframe'; // ensure you create an iframe with that name if using this approach.
+    // Option A: Submit to the same window (will navigate away). 
+    // Option B: Submit to an invisible iframe to stay on SPA. We'll use iframe approach by default.
+    // Create a hidden iframe target, submit to it, then clean up.
+    const iframeName = 'lead_submit_iframe_' + Date.now();
+    const iframe = document.createElement('iframe');
+    iframe.name = iframeName;
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+
+    form.target = iframeName;
     form.submit();
 
-    // cleanup: remove the form after submit (give the browser a moment to process)
+    // Cleanup after short delay
     setTimeout(() => {
-      try { document.body.removeChild(form); } catch (e) { /* ignore */ }
-    }, 1000);
+      try { document.body.removeChild(form); } catch (e) {}
+      try { document.body.removeChild(iframe); } catch (e) {}
+    }, 1500);
 
-    return { result: "submitted" };
+    return { result: 'submitted' };
   } catch (err) {
-    console.error("postViaForm error:", err);
-    return { result: "error", details: err.message || String(err) };
+    console.error('postViaForm error:', err);
+    return { result: 'error', details: err.message || String(err) };
   }
 }
 
 /**
- * Main export used by the site.
- * formData should be an object with keys: name, phone, email, message, source, etc.
+ * submitLead: public function used by the site code.
+ * formData: object that contains fields like name, phone, email, message, source, utm fields (optional)
+ *
+ * This function will merge in utm params and client info and POST to Apps Script via form.
  */
 export async function submitLead(formData = {}) {
   try {
-    // Ensure some minimal defaults
+    const utm = getUtmParamsFromLocation();
+    const client = gatherClientFields();
+
+    // Merge: prefer explicit values in formData, fallback to UTM / client
     const payload = {
-      ...formData,
-      ts: new Date().toISOString()
+      name: formData.name || formData.fullname || '',
+      phone: formData.phone || formData.mobile || '',
+      email: formData.email || '',
+      message: formData.message || formData.comments || '',
+      source: formData.source || 'website',
+      utm_source: formData.utm_source || utm.utm_source || '',
+      utm_medium: formData.utm_medium || utm.utm_medium || '',
+      utm_campaign: formData.utm_campaign || utm.utm_campaign || '',
+      utm_term: formData.utm_term || utm.utm_term || '',
+      utm_content: formData.utm_content || utm.utm_content || '',
+      referrer: client.referrer,
+      language: client.language,
+      timezone: client.timezone,
+      viewport: client.viewport,
+      screen: client.screen,
+      device_type: client.device_type,
+      userAgent: client.userAgent,
+      // Keep a timestamp column (your Apps Script should map 'time' or 'ts' -> time)
+      time: new Date().toISOString(),
+      // include any additional fields the caller passed
+      extra: formData.extra || ''
     };
 
-    // Submit via form (no-cors safe)
-    const res = postViaForm(WEBHOOK_URL, payload);
+    // If the formData contains additional custom fields, append them (stringify objects)
+    Object.keys(formData).forEach(k => {
+      if (!payload.hasOwnProperty(k)) payload[k] = formData[k];
+    });
 
-    // Analytics hooks (preserve existing behavior)
+    // Submit using form POST to avoid CORS; use hidden iframe so SPA doesn't navigate away
+    const result = postViaForm(WEBHOOK_URL, payload);
+
+    // Tracking / analytics (best effort)
     try {
-      if (window && window.gtag) {
-        // Example: AW conversion or GA event — customize or remove as needed
-        window.gtag("event", "conversion", { send_to: "AW-111111111/some_conversion" });
+      if (typeof window !== 'undefined' && window.gtag) {
+        window.gtag('event', 'generate_lead', { event_category: 'Leads', event_label: payload.source });
+        window.gtag('event', 'conversion', { send_to: 'AW-XXXX/XXXX' });
       }
-      if (window && window.fbq) {
-        window.fbq("track", "Lead", { content_name: "Contact Form" });
+      if (typeof window !== 'undefined' && window.fbq) {
+        window.fbq('track', 'Lead', { content_name: payload.source });
       }
-      if (window && window.lintrk) {
-        window.lintrk("track", { conversion_id: 515682278 });
+      if (typeof window !== 'undefined' && window.lintrk) {
+        window.lintrk('track', { conversion_id: 515682278 });
       }
     } catch (e) {
-      // swallow analytics errors
-      console.warn("analytics call failed", e);
+      // swallow
+      console.warn('analytics error', e);
     }
 
-    // Because we post via native form, we won't receive a JSON response in JS.
-    // So return a best-effort success indicator.
-    return { ok: true, status: res.result || "submitted" };
-  } catch (error) {
-    console.error("submitLead error:", error);
-    return { ok: false, error: String(error) };
+    return { ok: true, status: result.result || 'submitted' };
+  } catch (err) {
+    console.error('submitLead error:', err);
+    return { ok: false, error: String(err) };
   }
 }
