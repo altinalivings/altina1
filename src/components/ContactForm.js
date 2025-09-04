@@ -1,64 +1,43 @@
+// src/components/ContactForm.js
 "use client";
 
 import { useState } from "react";
-import { submitLead } from "../lib/submitLead";
-import { useRouter } from "next/navigation";
-import Toast from "./Toast";
 
-export default function ContactForm() {
-  const [loading, setLoading] = useState(false);
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
-  const [toastType, setToastType] = useState("success");
-  const router = useRouter();
+export default function ContactForm({ projectId }) {
+  const [status, setStatus] = useState("idle");
 
-  const handleSubmit = async (e) => {
+  async function onSubmit(e) {
     e.preventDefault();
-    setLoading(true);
-
-    const formData = new FormData(e.target);
-    const lead = Object.fromEntries(formData.entries());
+    const formData = new FormData(e.currentTarget);
+    const payload = Object.fromEntries(formData.entries());
+    if (projectId) payload.projectId = projectId;
 
     try {
-      await submitLead({ ...lead, type: "enquiry" });
-
-      setToastMessage("✅ Thank you! We’ll contact you soon.");
-      setToastType("success");
-      setShowToast(true);
-
-      e.target.reset();
-
-      // Redirect only for contact page
-      router.push("/thank-you");
-    } catch (error) {
-      console.error(error);
-      setToastMessage("❌ Something went wrong. Please try again.");
-      setToastType("error");
-      setShowToast(true);
-    } finally {
-      setLoading(false);
+      setStatus("loading");
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error("Request failed");
+      setStatus("success");
+      e.currentTarget.reset();
+    } catch {
+      setStatus("error");
     }
-  };
+  }
 
   return (
-    <>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input type="text" name="name" placeholder="Your Name" required />
-        <input type="email" name="email" placeholder="Your Email" required />
-        <input type="tel" name="phone" placeholder="Your Phone" required />
-        <textarea name="message" placeholder="Message (optional)" />
-        <button type="submit" disabled={loading}>
-          {loading ? "Submitting..." : "Submit"}
-        </button>
-      </form>
-
-      <Toast
-        show={showToast}
-        message={toastMessage}
-        type={toastType}
-        onClose={() => setShowToast(false)}
-      />
-    </>
+    <form onSubmit={onSubmit} className="space-y-3">
+      <input name="name" placeholder="Your name" className="border rounded w-full p-2" required />
+      <input name="phone" placeholder="Phone" className="border rounded w-full p-2" required />
+      <input name="email" type="email" placeholder="Email" className="border rounded w-full p-2" />
+      <textarea name="message" placeholder="Message" className="border rounded w-full p-2" rows={3} />
+      <button disabled={status==="loading"} className="px-4 py-2 rounded bg-black text-white">
+        {status==="loading" ? "Sending..." : "Send"}
+      </button>
+      {status==="success" && <p className="text-green-600 text-sm">Thanks! We’ll be in touch.</p>}
+      {status==="error" && <p className="text-red-600 text-sm">Something went wrong. Try again.</p>}
+    </form>
   );
 }
-
