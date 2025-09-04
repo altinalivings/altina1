@@ -1,19 +1,20 @@
 "use client";
 import Link from "next/link";
-import Hero from "./Hero";
+import Hero from "@/components/Hero";
+import WhatWeDo from "@/components/WhatWeDo";
+import WhyChoose from "@/components/WhyChoose";
+import FloatingButtons from "@/components/FloatingButtons";
 import projects from "@/data/projects.json";
+import "@/styles/fab.css";
 
 export default function HomeClient() {
   const featured = (projects || []).slice(0, 6);
-
   return (
     <div>
       <Hero />
-
       <section className="section">
         <div className="container mx-auto px-4">
           <h2 className="section-title">Featured Projects</h2>
-
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
             {featured.map((p) => (
               <Link key={p.id} href={`/projects/${p.id}`} className="card group">
@@ -29,17 +30,14 @@ export default function HomeClient() {
               </Link>
             ))}
           </div>
-
           <div className="text-center mt-8">
-            <Link href="/projects" className="inline-flex px-5 py-2 rounded-lg border">
-              View All Projects
-            </Link>
+            <Link href="/projects" className="inline-flex px-5 py-2 rounded-lg border">View All Projects</Link>
           </div>
         </div>
       </section>
-
-      {/* Floating CTA */}
-      <a href="/contact" className="fab" aria-label="callback">☏</a>
+      <WhatWeDo />
+      <WhyChoose />
+      <FloatingButtons />
     </div>
   );
 }
