@@ -1,33 +1,23 @@
-"use client";
+'use client';
+import { motion, AnimatePresence } from 'framer-motion';
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect } from "react";
-
-export default function Toast({ show, message, type = "success", onClose }) {
-  useEffect(() => {
-    if (show) {
-      const timer = setTimeout(() => {
-        onClose();
-      }, 3000); // auto-close after 3s
-      return () => clearTimeout(timer);
-    }
-  }, [show, onClose]);
-
+export default function Toast({ toasts }) {
   return (
-    <AnimatePresence>
-      {show && (
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 50 }}
-          transition={{ duration: 0.3 }}
-          className={`fixed bottom-6 right-6 z-50 px-6 py-3 rounded-lg shadow-lg text-white text-sm font-medium
-            ${type === "success" ? "bg-green-600" : "bg-red-600"}
-          `}
-        >
-          {message}
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <div className="fixed bottom-6 right-6 z-[100] space-y-2">
+      <AnimatePresence initial={false}>
+        {toasts.map((t) => (
+          <motion.div
+            key={t.id}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 16 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+            className={`px-4 py-3 rounded-xl shadow-lg text-white ${t.variant==='error'?'bg-red-600':'bg-emerald-600'}`}
+          >
+            {t.message}
+          </motion.div>
+        ))}
+      </AnimatePresence>
+    </div>
   );
 }
