@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import AnalyticsClient from "../components/AnalyticsClient"; // ✅ fixed path
+import AnalyticsClient from "@/components/AnalyticsClient"; // ✅ fixed path
 
 export default function NotFound() {
   return (

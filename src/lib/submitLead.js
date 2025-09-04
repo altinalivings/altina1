@@ -1,5 +1,5 @@
 export async function submitLead(payload) {
-  const endpoint = 'https://script.google.com/macros/s/AKfycbwaqJVZtKdSKVeM2fl3pz2qQsett3T-LDYqwBB_yyoOA1eMcsAbZ5vbTIBJxCY-Y2LugQ/exec';
+  const endpoint = '/api/leads';
 
   const res = await fetch(endpoint, {
     method: 'POST',

@@ -26,7 +26,7 @@ export default function ProjectDetailClient({ project }) {
         <div className="p-4 border rounded-lg">
           <h2 className="font-semibold mb-2">Amenities</h2>
           <ul className="list-disc list-inside">
-            {project.amenities.map((a, idx) => (
+            {(project.amenities || []).map((a, idx) => (
               <li key={idx}>{a}</li>
             ))}
           </ul>
