@@ -1,8 +1,9 @@
 // Server Component (no "use client")
 import Script from "next/script";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import ClientProviders from "@/components/ClientProviders";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import ClientProviders from "../components/ClientProviders";
+import AnalyticsClient from "../components/AnalyticsClient";
 
 export const metadata = {
   title: "ALTINA™ Livings",
@@ -57,7 +58,9 @@ export default function RootLayout({ children }) {
       <body>
         {/* All client-only wrappers & widgets go inside ClientProviders */}
         <ClientProviders>
-          <Header />
+          
+          <AnalyticsClient />
+<Header />
           <main>{children}</main>
           <Footer />
         </ClientProviders>

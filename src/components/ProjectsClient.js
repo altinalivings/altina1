@@ -15,14 +15,14 @@ export default function ProjectsClient() {
           (p) => p.type === filter || p.developer === filter
         );
 
-  const filters = ["All", "Residential", "Commercial", ...new Set(projects.map((p) => p.developer))];
+  const filters = ["All", "Residential", "Commercial", ...new Set((projects || []).map((p) => p.developer))];
 
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
         {/* Filter Buttons */}
         <div className="flex flex-wrap gap-3 justify-center mb-12">
-          {filters.map((f) => (
+          {(filters || []).map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
@@ -39,7 +39,7 @@ export default function ProjectsClient() {
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project) => (
+          {(filteredProjects || []).map((project) => (
             <div
               key={project.id}
               className="bg-gray-50 rounded-xl shadow hover:shadow-lg transition overflow-hidden"
