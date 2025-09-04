@@ -8,7 +8,13 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import SiteVisitPopup from "@/components/SiteVisitPopup";
 
+// NEW imports
+import { useRouter } from "next/navigation";
+import { submitLead } from "@/lib/submitLead"; // <- ensure submitLead.js is at src/lib/submitLead.js
+
 export default function ProjectDetailClient({ project }) {
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,51 +23,68 @@ export default function ProjectDetailClient({ project }) {
   });
 
   const [unlocked, setUnlocked] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (submitting) return;
+    setSubmitting(true);
 
     try {
-      await fetch(
-        "https://script.google.com/macros/s/AKfycbwaqJVZtKdSKVeM2fl3pz2qQsett3T-LDYqwBB_yyoOA1eMcsAbZ5vbTIBJxCY-Y2LugQ/exec",
-        {
-          method: "POST",
-          mode: "no-cors",
-          body: JSON.stringify(formData),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-		if (!response.ok) {
-      console.warn("Response not OK, but lead likely saved in Sheet.");
-    }
-      // 🔹 Lead tracking
-      if (typeof window !== "undefined") {
-        if (window.gtag) {
-          window.gtag("event", "generate_lead", {
-            event_category: "Leads",
-            event_label: formData.project || "Website Lead",
-          });
-        }
-        if (window.fbq) {
-			window.fbq("track", "Lead", { content_name: formData.project || "Website Lead" });
-      }
-         if (window.lintrk) {
-        window.lintrk("track", { conversion_id: 515682278 });
-      }
-        if (window.gtag) {
-          window.gtag("event", "conversion", {
-            send_to: "AW-17510039084/L-MdCP63l44bEKz8t51B",
-          });
-        }
-      }
+      // Append project info to formData so it's available in the sheet
+      const payload = {
+        ...formData,
+        project: project?.title || project?.id || "",
+        source: "project_page",
+      };
 
-      router.push("/thank-you");
+      // submitLead handles posting via hidden form + iframe and showing toast
+      const result = await submitLead(payload);
+
+      // If submitLead returned success, fire analytics and redirect
+      if (result && result.status === "success") {
+        // Analytics (best-effort)
+        try {
+          if (typeof window !== "undefined") {
+            if (window.gtag) {
+              window.gtag("event", "generate_lead", {
+                event_category: "Leads",
+                event_label: payload.project || "Website Lead",
+              });
+              // conversion event (optional)
+              window.gtag("event", "conversion", {
+                send_to: "AW-17510039084/L-MdCP63l44bEKz8t51B",
+              });
+            }
+            if (window.fbq) {
+              window.fbq("track", "Lead", { content_name: payload.project || "Website Lead" });
+            }
+            if (window.lintrk) {
+              window.lintrk("track", { conversion_id: 515682278 });
+            }
+          }
+        } catch (aErr) {
+          console.warn("analytics error", aErr);
+        }
+
+        // Reset form and redirect to thank-you
+        setFormData({ name: "", email: "", phone: "", message: "" });
+        // navigate to thank-you
+        router.push("/thank-you");
+      } else {
+        // submitLead already shows toast for errors; log for debugging
+        console.warn("Lead submission returned non-success:", result);
+      }
     } catch (err) {
+      // submitLead should already show a toast. Log and avoid alert.
       console.error("Contact form error:", err);
-      alert("Error submitting form.");
+      if (typeof window !== "undefined" && window.showToast) {
+        window.showToast({ text: "Submission failed — try again", type: "error" });
+      }
+    } finally {
+      setSubmitting(false);
     }
   };
-
 
   return (
     <div>
@@ -145,7 +168,13 @@ export default function ProjectDetailClient({ project }) {
                     className="rounded-lg opacity-30"
                   />
                   <button
-                    onClick={() => alert("Please fill the form to unlock")}
+                    onClick={() => {
+                      if (typeof window !== "undefined" && window.showToast) {
+                        window.showToast({ text: "Please fill the form to unlock", type: "error" });
+                        return;
+                      }
+                      alert("Please fill the form to unlock");
+                    }}
                     className="absolute inset-0 flex items-center justify-center bg-black/50 text-white font-semibold"
                   >
                     Unlock Floor Plan
@@ -170,7 +199,13 @@ export default function ProjectDetailClient({ project }) {
                     Please fill the form to download the brochure
                   </p>
                   <button
-                    onClick={() => alert("Please fill the form to unlock")}
+                    onClick={() => {
+                      if (typeof window !== "undefined" && window.showToast) {
+                        window.showToast({ text: "Please fill the form to unlock", type: "error" });
+                        return;
+                      }
+                      alert("Please fill the form to unlock");
+                    }}
                     className="bg-gold-600 text-white px-6 py-2 rounded-lg hover:bg-gold-700"
                   >
                     Unlock Brochure
@@ -195,12 +230,13 @@ export default function ProjectDetailClient({ project }) {
             <h2 className="text-xl font-bold mb-4">
               Enquire about {project.title}
             </h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4" id="leadForm">
               <input
                 type="text"
                 placeholder="Full Name"
                 className="w-full p-3 border rounded"
                 required
+                value={formData.name}
                 onChange={(e) =>
                   setFormData({ ...formData, name: e.target.value })
                 }
@@ -210,6 +246,7 @@ export default function ProjectDetailClient({ project }) {
                 placeholder="Email Address"
                 className="w-full p-3 border rounded"
                 required
+                value={formData.email}
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
@@ -219,6 +256,7 @@ export default function ProjectDetailClient({ project }) {
                 placeholder="Phone Number"
                 className="w-full p-3 border rounded"
                 required
+                value={formData.phone}
                 onChange={(e) =>
                   setFormData({ ...formData, phone: e.target.value })
                 }
@@ -227,6 +265,7 @@ export default function ProjectDetailClient({ project }) {
                 placeholder="Your Message"
                 className="w-full p-3 border rounded"
                 rows="3"
+                value={formData.message}
                 onChange={(e) =>
                   setFormData({ ...formData, message: e.target.value })
                 }
@@ -234,8 +273,9 @@ export default function ProjectDetailClient({ project }) {
               <button
                 type="submit"
                 className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700"
+                disabled={submitting}
               >
-                Submit Enquiry
+                {submitting ? "Submitting..." : "Submit Enquiry"}
               </button>
             </form>
           </div>
