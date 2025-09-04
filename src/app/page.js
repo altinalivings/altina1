@@ -1,16 +1,28 @@
 // src/app/page.js
-import PropertyForm from "../components/PropertyForm";
+import projects from "../data/projects.json";
+import PropertyCard from "../components/PropertyCard";
 
-export default function Page() {
-  return (
-    <main>
-      <section style={{ padding: 24 }}>
-        <h1 style={{ marginBottom: 12 }}>Welcome to Altina Livings</h1>
-        <p style={{ marginBottom: 18 }}>
-          Luxury living, reimagined — enquire for premium spaces and bespoke services.
-        </p>
-        <PropertyForm />
-      </section>
-    </main>
-  );
-}
+<section id="featured" style={{ marginTop: 12 }}>
+  <h2>Featured for you</h2>
+  <p style={{ color: "#9aa4b2" }}>A snapshot of selected premium properties</p>
+  <div
+    style={{
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))",
+      gap: 16,
+      marginTop: 16,
+    }}
+  >
+    {projects
+      .filter((p) => p.featured)
+      .slice(0, 3)
+      .map((p) => (
+        <PropertyCard key={p.id} property={p} />
+      ))}
+  </div>
+  <div style={{ marginTop: 16 }}>
+    <a className="cta-secondary" href="/listings">
+      See all listings
+    </a>
+  </div>
+</section>
