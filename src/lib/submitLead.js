@@ -1,18 +1,47 @@
 // submitLead.js — hidden-form + iframe + postMessage listener + toast
 const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwaqJVZtKdSKVeM2fl3pz2qQsett3T-LDYqwBB_yyoOA1eMcsAbZ5vbTIBJxCY-Y2LugQ/exec"; // <-- REPLACE
 
-function getUtmParams() {
+
+/* -------------------- Utilities -------------------- */
+
+function getParam(name) {
   try {
-    const u = new URL(window.location.href);
-    const out = {};
-    ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(k => {
-      if (u.searchParams.has(k)) out[k] = u.searchParams.get(k);
-    });
-    return out;
+    return new URLSearchParams(window.location.search).get(name) || '';
   } catch (e) {
-    return {};
+    return '';
   }
 }
+
+function getCookie(name) {
+  try {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? match[2] : '';
+  } catch (e) {
+    return '';
+  }
+}
+
+// Try to extract GA client id from _ga cookie (Universal Analytics format: GA1.2.XXXXXXXXX.YYYYYYYYY)
+function getGaCidFromCookie() {
+  try {
+    const val = getCookie('_ga') || '';
+    if (!val) return '';
+    const parts = val.split('.');
+    if (parts.length >= 4) {
+      // join last two parts
+      return parts.slice(-2).join('.');
+    }
+    return '';
+  } catch (e) {
+    return '';
+  }
+}
+
+function generateRandomId(prefix='s') {
+  return prefix + '_' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+}
+
+/* -------------------- Device & Client Fields -------------------- */
 
 function detectDeviceType() {
   const ua = navigator.userAgent || '';
@@ -46,13 +75,10 @@ function toFormValue(v) {
   return String(v);
 }
 
-/**
- * Show a simple toast message (bottom-right)
- * options: { text, durationMs (default 3000), type: 'success'|'error' }
- */
+/* -------------------- Toast -------------------- */
+
 function showToast({ text = '', durationMs = 3000, type = 'success' } = {}) {
   try {
-    // create container if missing
     let container = document.getElementById('lead-toasts-container');
     if (!container) {
       container = document.createElement('div');
@@ -70,7 +96,7 @@ function showToast({ text = '', durationMs = 3000, type = 'success' } = {}) {
     const toast = document.createElement('div');
     toast.className = 'lead-toast';
     toast.style.minWidth = '220px';
-    toast.style.maxWidth = '380px';
+    toast.style.maxWidth = '420px';
     toast.style.padding = '10px 14px';
     toast.style.borderRadius = '8px';
     toast.style.boxShadow = '0 6px 18px rgba(0,0,0,0.12)';
@@ -82,21 +108,19 @@ function showToast({ text = '', durationMs = 3000, type = 'success' } = {}) {
     toast.style.transition = 'opacity 220ms ease, transform 220ms ease';
 
     if (type === 'success') {
-      toast.style.background = 'linear-gradient(90deg,#16a34a,#10b981)'; // green-ish
+      toast.style.background = 'linear-gradient(90deg,#16a34a,#10b981)';
     } else {
-      toast.style.background = 'linear-gradient(90deg,#ef4444,#f97316)'; // red-orange
+      toast.style.background = 'linear-gradient(90deg,#ef4444,#f97316)';
     }
 
     toast.textContent = text;
     container.appendChild(toast);
 
-    // animate in
     requestAnimationFrame(() => {
       toast.style.opacity = '1';
       toast.style.transform = 'translateY(0)';
     });
 
-    // auto remove
     setTimeout(() => {
       toast.style.opacity = '0';
       toast.style.transform = 'translateY(10px)';
@@ -105,18 +129,15 @@ function showToast({ text = '', durationMs = 3000, type = 'success' } = {}) {
       }, 250);
     }, durationMs);
   } catch (e) {
+    // ignore toast errors
     console.warn('showToast error', e);
   }
 }
 
-/**
- * Post using a hidden form + hidden iframe. Listen for postMessage from iframe.
- * Returns a Promise that resolves to the message payload from Apps Script (object).
- *
- * Timeout fallback in case postMessage is not received.
- */
+/* -------------------- Form Submit + postMessage -------------------- */
+
 function postViaFormWithMessage(url, data = {}, opts = {}) {
-  const timeoutMs = opts.timeoutMs || 8000;
+  const timeoutMs = opts.timeoutMs || 9000;
   return new Promise((resolve, reject) => {
     try {
       const iframeName = 'lead_submit_iframe_' + Date.now() + '_' + Math.floor(Math.random() * 10000);
@@ -137,24 +158,22 @@ function postViaFormWithMessage(url, data = {}, opts = {}) {
       iframe.name = iframeName;
       iframe.style.display = 'none';
 
-      // Append to DOM
       document.body.appendChild(iframe);
       form.target = iframeName;
       document.body.appendChild(form);
 
-      // Message listener
       let settled = false;
+
       function onMessage(event) {
         try {
           const msg = event.data;
           if (!msg || typeof msg !== 'object') return;
-          if (msg.source !== 'lead_webapp') return; // only accept messages from our webapp marker
-          // clean up
+          if (msg.source !== 'lead_webapp') return;
           cleanup();
           settled = true;
           resolve(msg);
         } catch (e) {
-          // ignore parse errors
+          // ignore
         }
       }
 
@@ -167,14 +186,12 @@ function postViaFormWithMessage(url, data = {}, opts = {}) {
 
       window.addEventListener('message', onMessage, false);
 
-      // Fallback timeout
       const fallbackTimer = setTimeout(() => {
         if (settled) return;
         cleanup();
         reject(new Error('No response from lead endpoint (timeout)'));
       }, timeoutMs);
 
-      // Submit
       try {
         form.submit();
       } catch (e) {
@@ -187,15 +204,74 @@ function postViaFormWithMessage(url, data = {}, opts = {}) {
   });
 }
 
+/* -------------------- First-touch persistence (optional) -------------------- */
+
+function readFirstTouchFromStorage() {
+  try {
+    const raw = localStorage.getItem('lead_first_touch_v1');
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch (e) {
+    return null;
+  }
+}
+
+function saveFirstTouchToStorage(obj) {
+  try {
+    localStorage.setItem('lead_first_touch_v1', JSON.stringify(obj));
+  } catch (e) {
+    // ignore
+  }
+}
+
+/* -------------------- Public submitLead -------------------- */
+
 /**
- * Public function to call from your form handler:
- * submitLead({ name, phone, email, message, source })
- * Returns a Promise resolving to the webapp response object.
+ * submitLead(formData)
+ * formData: { name, phone, email, message, source, ... }
  */
 export async function submitLead(formData = {}) {
   try {
-    const utm = getUtmParams();
+    // UTM params and click IDs from URL
+    const utm_source = getParam('utm_source') || '';
+    const utm_medium = getParam('utm_medium') || '';
+    const utm_campaign = getParam('utm_campaign') || '';
+    const utm_term = getParam('utm_term') || '';
+    const utm_content = getParam('utm_content') || '';
+
+    const gclid = getParam('gclid') || '';
+    const fbclid = getParam('fbclid') || '';
+    const msclkid = getParam('msclkid') || '';
+
     const client = gatherClientFields();
+
+    // session id from sessionStorage or generate
+    let session_id = sessionStorage.getItem('lead_session_id');
+    if (!session_id) {
+      session_id = generateRandomId('sess');
+      try { sessionStorage.setItem('lead_session_id', session_id); } catch (e) {}
+    }
+
+    // ga cid from _ga cookie (best-effort)
+    const ga_cid = getGaCidFromCookie() || '';
+
+    // first touch: try read from localStorage, otherwise populate from current params & save
+    let firstTouch = readFirstTouchFromStorage();
+    if (!firstTouch) {
+      firstTouch = {
+        first_touch_ts: new Date().toISOString(),
+        first_touch_page: window.location.href || '',
+        first_touch_source: utm_source || (document.referrer ? new URL(document.referrer).hostname : '') || '',
+        first_touch_medium: utm_medium || '',
+        first_touch_campaign: utm_campaign || '',
+        first_touch_term: utm_term || '',
+        first_touch_content: utm_content || '',
+        first_touch_gclid: gclid || '',
+        first_touch_fbclid: fbclid || '',
+        first_touch_msclkid: msclkid || ''
+      };
+      saveFirstTouchToStorage(firstTouch);
+    }
 
     const payload = {
       name: formData.name || formData.fullname || '',
@@ -203,11 +279,36 @@ export async function submitLead(formData = {}) {
       email: formData.email || '',
       message: formData.message || formData.comments || '',
       source: formData.source || 'website',
-      utm_source: formData.utm_source || utm.utm_source || '',
-      utm_medium: formData.utm_medium || utm.utm_medium || '',
-      utm_campaign: formData.utm_campaign || utm.utm_campaign || '',
-      utm_term: formData.utm_term || utm.utm_term || '',
-      utm_content: formData.utm_content || utm.utm_content || '',
+      // page-level fields
+      page: window.location.pathname || '',
+      last_touch_ts: new Date().toISOString(),
+      last_touch_page: window.location.href || '',
+      // UTM & click ids
+      utm_source: formData.utm_source || utm_source || '',
+      utm_medium: formData.utm_medium || utm_medium || '',
+      utm_campaign: formData.utm_campaign || utm_campaign || '',
+      utm_term: formData.utm_term || utm_term || '',
+      utm_content: formData.utm_content || utm_content || '',
+      gclid,
+      fbclid,
+      msclkid,
+      // session & GA
+      session_id,
+      ga_cid,
+      // first touch bundle (if you want separate columns, they will be present)
+      first_touch_ts: firstTouch.first_touch_ts || '',
+      first_touch_page: firstTouch.first_touch_page || '',
+      first_touch_source: firstTouch.first_touch_source || '',
+      first_touch_medium: firstTouch.first_touch_medium || '',
+      first_touch_campaign: firstTouch.first_touch_campaign || '',
+      first_touch_term: firstTouch.first_touch_term || '',
+      first_touch_content: firstTouch.first_touch_content || '',
+      first_touch_gclid: firstTouch.first_touch_gclid || '',
+      first_touch_fbclid: firstTouch.first_touch_fbclid || '',
+      first_touch_msclkid: firstTouch.first_touch_msclkid || '',
+      first_landing_page: firstTouch.first_touch_page || '',
+      first_landing_ts: firstTouch.first_touch_ts || '',
+      // client fields
       referrer: client.referrer,
       language: client.language,
       timezone: client.timezone,
@@ -215,17 +316,21 @@ export async function submitLead(formData = {}) {
       screen: client.screen,
       device_type: client.device_type,
       userAgent: client.userAgent,
-      time: new Date().toISOString()
+      // other tracking fields you had
+      project: formData.project || '',
+      mode: formData.mode || '',
+      ts: new Date().toISOString()
     };
 
-    // include any extra fields present in formData
+    // include any other custom fields provided
     Object.keys(formData).forEach(k => {
       if (!payload.hasOwnProperty(k)) payload[k] = formData[k];
     });
 
+    // Submit via hidden form + iframe and wait for postMessage
     const result = await postViaFormWithMessage(WEBHOOK_URL, payload, { timeoutMs: 9000 });
 
-    // result expected: { source: 'lead_webapp', status: 'success'|'error', message: '...' }
+    // Show toast instead of alert
     if (result && result.status === 'success') {
       showToast({ text: result.message || 'Thanks — we received your request.', type: 'success' });
     } else {
