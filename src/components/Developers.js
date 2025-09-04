@@ -15,7 +15,7 @@ export default function Developers() {
           Developers We Partner With
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center">
-          {developers.map((dev) => (
+          {(developers || []).map((dev) => (
             <div key={dev.name} className="flex justify-center">
               <Image
                 src={dev.logo}

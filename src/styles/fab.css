@@ -1,0 +1,29 @@
+.fab-rail {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  gap: 10px;
+  z-index: 55;
+}
+
+.fab {
+  border-radius: 999px;
+  padding: 12px 16px;
+  font-weight: 700;
+  border: 0;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(0,0,0,.12);
+  text-decoration: none;
+  text-align: center;
+}
+
+.fab-primary { background: var(--gold); color: #fff; }
+.fab-whatsapp { background: #25D366; color: #fff; }
+
+@media (max-width: 900px) {
+  .fab-rail {
+    right: 14px;
+  }
+}

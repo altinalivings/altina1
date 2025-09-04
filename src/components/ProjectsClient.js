@@ -1,75 +1,95 @@
 "use client";
 
-import { useState } from "react";
-import projects from "@/data/projects.json";
+import { useMemo } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { useSearchParams, useRouter } from "next/navigation";
 
-export default function ProjectsClient() {
-  const [filter, setFilter] = useState("All");
+export default function ProjectsClient({ projects }) {
+  const router = useRouter();
+  const sp = useSearchParams();
 
-  const filteredProjects =
-    filter === "All"
-      ? projects
-      : projects.filter(
-          (p) => p.type === filter || p.developer === filter
-        );
+  const q = sp.get("q")?.toLowerCase() || "";
+  const loc = sp.get("loc") || "";
+  const type = sp.get("type") || "";
 
-  const filters = ["All", "Residential", "Commercial", ...new Set(projects.map((p) => p.developer))];
+  const unique = (arr) => Array.from(new Set((arr || []).filter(Boolean))).sort();
+  const locations = unique((projects || []).map(p => p.location));
+  const types = unique((projects || []).map(p => p.type));
+
+  const filtered = useMemo(() => {
+    let list = Array.isArray(projects) ? projects : [];
+    if (q) list = list.filter(p => (p.title || "").toLowerCase().includes(q) || (p.location || "").toLowerCase().includes(q));
+    if (loc) list = list.filter(p => (p.location || "") === loc);
+    if (type) list = list.filter(p => (p.type || "") === type);
+    return list;
+  }, [projects, q, loc, type]);
+
+  function onChangeParam(name, value) {
+    const params = new URLSearchParams(sp.toString());
+    if (value) params.set(name, value); else params.delete(name);
+    router.push(`/projects?${params.toString()}`);
+  }
 
   return (
-    <section className="py-16 bg-white">
-      <div className="container mx-auto px-4">
-        {/* Filter Buttons */}
-        <div className="flex flex-wrap gap-3 justify-center mb-12">
-          {filters.map((f) => (
-            <button
-              key={f}
-              onClick={() => setFilter(f)}
-              className={`px-6 py-2 rounded-lg border ${
-                filter === f
-                  ? "bg-gold-600 text-white border-gold-600"
-                  : "bg-white text-gray-700 border-gray-300 hover:bg-gold-50"
-              }`}
-            >
-              {f}
-            </button>
-          ))}
+    <div>
+      <div className="flex flex-col md:flex-row gap-3 md:items-end mb-6">
+        <div className="flex-1">
+          <label className="block text-sm mb-1">Search</label>
+          <input
+            defaultValue={q}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") onChangeParam("q", e.currentTarget.value.trim());
+            }}
+            placeholder="Search by name or location"
+            className="border rounded w-full p-2"
+          />
         </div>
-
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project) => (
-            <div
-              key={project.id}
-              className="bg-gray-50 rounded-xl shadow hover:shadow-lg transition overflow-hidden"
-            >
-              <Image
-                src={project.image}
-                alt={project.title}
-                width={600}
-                height={400}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                  {project.title}
-                </h3>
-                <p className="text-gray-600">{project.location}</p>
-                <p className="text-gold-600 font-semibold mb-4">
-                  {project.price}
-                </p>
-                <Link
-                  href={`/projects/${project.id}`}
-                  className="inline-block bg-gold-600 text-white px-5 py-2 rounded-lg hover:bg-gold-700 transition"
-                >
-                  View Details
-                </Link>
-              </div>
-            </div>
-          ))}
+        <div>
+          <label className="block text-sm mb-1">Location</label>
+          <select
+            value={loc}
+            onChange={(e) => onChangeParam("loc", e.target.value)}
+            className="border rounded p-2 min-w-[180px]"
+          >
+            <option value="">All</option>
+            {(locations || []).map((l) => (
+              <option key={l} value={l}>{l}</option>
+            ))}
+          </select>
         </div>
+        <div>
+          <label className="block text-sm mb-1">Type</label>
+          <select
+            value={type}
+            onChange={(e) => onChangeParam("type", e.target.value)}
+            className="border rounded p-2 min-w-[180px]"
+          >
+            <option value="">All</option>
+            {(types || []).map((t) => (
+              <option key={t} value={t}>{t}</option>
+            ))}
+          </select>
+        </div>
+        <button
+          onClick={() => router.push("/projects")}
+          className="px-4 py-2 rounded border"
+        >
+          Clear
+        </button>
       </div>
-    </section>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {(filtered || []).map((p) => (
+          <Link key={p.id} href={`/projects/${p.id}`} className="block border rounded-lg p-4 hover:shadow">
+            <div className="font-medium">{p.title}</div>
+            <div className="text-sm text-gray-600">{p.location}</div>
+            {p.type && <div className="mt-1 text-xs text-gray-500">{p.type}</div>}
+          </Link>
+        ))}
+        {filtered.length === 0 && (
+          <div className="col-span-full text-gray-600">No projects found. Try different filters.</div>
+        )}
+      </div>
+    </div>
   );
 }

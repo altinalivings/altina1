@@ -48,7 +48,7 @@ const GA4Debugger = () => {
   const testEvent = () => {
     trackEvent('debug_test', {
       category: 'debug',
-      label: 'Test event from debugger',
+      label: 'Test event from // debugger removed for production',
       value: 1
     })
   }
