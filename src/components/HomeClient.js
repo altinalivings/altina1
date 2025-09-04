@@ -39,7 +39,7 @@ export default function HomeClient() {
               1024: { slidesPerView: 3 },
             }}
           >
-            {projects.slice(0, 6).map((project) => (
+            {projects.slice(0, (6) || []).map((project) => (
               <SwiperSlide key={project.id}>
                 <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition">
                   <Image

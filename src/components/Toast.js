@@ -5,7 +5,7 @@ export default function Toast({ toasts }) {
   return (
     <div className="fixed bottom-6 right-6 z-[100] space-y-2">
       <AnimatePresence initial={false}>
-        {toasts.map((t) => (
+        {(toasts || []).map((t) => (
           <motion.div
             key={t.id}
             initial={{ opacity: 0, y: 16 }}

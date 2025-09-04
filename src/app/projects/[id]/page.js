@@ -1,8 +1,8 @@
 import projects from "../../../data/projects.json";   // ✅ only once
-import ProjectDetailClient from "./ProjectDetailClient";
+import ProjectDetailClient from "@/components/ProjectDetailClient";
 
 export async function generateStaticParams() {
-  return projects.map((project) => ({
+  return (projects || []).map((project) => ({
     id: project.id,
   }));
 }

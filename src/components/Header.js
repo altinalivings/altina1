@@ -54,7 +54,7 @@ export default function Header() {
       <div className="fixed top-0 w-full bg-gold-600 text-white py-2 z-50 overflow-hidden">
         <div className="flex whitespace-nowrap">
           <div className="animate-infinite-scroll flex">
-            {[...Array(4)].map((_, i) => (
+            {[...Array((4)] || []).map((_, i) => (
               <span
                 key={i}
                 className="mx-4 flex items-center text-sm md:text-base"
@@ -64,7 +64,7 @@ export default function Header() {
             ))}
           </div>
           <div className="animate-infinite-scroll flex" aria-hidden="true">
-            {[...Array(4)].map((_, i) => (
+            {[...Array((4)] || []).map((_, i) => (
               <span
                 key={i}
                 className="mx-4 flex items-center text-sm md:text-base"
@@ -117,7 +117,7 @@ export default function Header() {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-6">
-              {menuItems.map((item) => (
+              {(menuItems || []).map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
@@ -158,7 +158,7 @@ export default function Header() {
           {isMenuOpen && (
             <div className="md:hidden pb-4 bg-white border-t">
               <div className="flex flex-col space-y-2">
-                {menuItems.map((item) => (
+                {(menuItems || []).map((item) => (
                   <a
                     key={item.name}
                     href={item.href}
