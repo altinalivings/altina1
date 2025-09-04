@@ -62,7 +62,7 @@ export default function ProjectFilters({ onFilterChange }) {
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">City</label>
           <div className="flex flex-wrap gap-2">
-            {filters.city.map(city => (
+            {(filters.city || []).map(city => (
               <button
                 key={city}
                 onClick={() => handleFilterChange('city', city)}
@@ -82,7 +82,7 @@ export default function ProjectFilters({ onFilterChange }) {
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Developer</label>
           <div className="flex flex-wrap gap-2">
-            {filters.developer.map(developer => (
+            {(filters.developer || []).map(developer => (
               <button
                 key={developer}
                 onClick={() => handleFilterChange('developer', developer)}
@@ -102,7 +102,7 @@ export default function ProjectFilters({ onFilterChange }) {
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Property Type</label>
           <div className="flex flex-wrap gap-2">
-            {filters.type.map(type => (
+            {(filters.type || []).map(type => (
               <button
                 key={type}
                 onClick={() => handleFilterChange('type', type)}
@@ -123,7 +123,7 @@ export default function ProjectFilters({ onFilterChange }) {
       {activeFiltersCount > 0 && (
         <div className="mt-4 pt-4 border-t border-gray-200">
           <span className="text-sm text-gray-600">Active filters: </span>
-          {Object.entries(selectedFilters).map(([key, value]) =>
+          {Object.entries((selectedFilters) || []).map(([key, value]) =>
             value && (
               <span
                 key={key}

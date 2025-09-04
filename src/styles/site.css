@@ -1,0 +1,65 @@
+
+:root{
+  --bg:#0f1724;
+  --card:#ffffff;
+  --muted:#6b7280;
+  --accent:#e9a826;
+  --white:#081018;
+  --dark:#07101a;
+  --light:#f8fafc;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;background:#fff;color:#111;}
+a{color:var(--accent);text-decoration:none}
+.site-wrapper{max-width:1200px;margin:0 auto;padding:0 20px;}
+.header{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.nav a{margin-left:18px;font-weight:600;color:#0b1220}
+.hero-full{position:relative;width:100%;height:520px;display:flex;align-items:center;justify-content:center;background-size:cover;background-position:center;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(7,16,26,0.5), rgba(7,16,26,0.6));}
+.hero-inner{position:relative;z-index:2;color:#fff;text-align:center;max-width:900px;padding:40px}
+.hero-inner h1{font-size:42px;margin:0 0 12px;line-height:1.05}
+.hero-inner p{color:rgba(255,255,255,0.9);margin-bottom:18px}
+.hero-ctas{display:flex;gap:12px;justify-content:center}
+
+/* Featured cards */
+.featured-row{padding:48px 0;text-align:center}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;max-width:980px;margin:18px auto 0}
+.property-card{background:#fff;border-radius:8px;padding:12px;box-shadow:0 6px 20px rgba(2,6,23,0.08);text-align:left}
+.property-card img{width:100%;height:140px;object-fit:cover;border-radius:6px}
+.property-card h3{margin:10px 0 6px;font-size:16px}
+.property-meta{color:var(--muted);font-size:13px;margin-bottom:8px}
+.property-price{color:var(--accent);font-weight:800;margin-bottom:8px}
+
+/* Services */
+.services{background:#fafafa;padding:28px 0;text-align:center}
+.services .grid{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.service{background:#fff;padding:12px 16px;border-radius:8px;min-width:200px;box-shadow:0 4px 14px rgba(2,6,23,0.04);}
+
+/* Benefits strip */
+.benefits{background:#fff8e1;padding:20px 0;margin-top:18px}
+.benefits .inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-around;gap:12px;flex-wrap:wrap}
+.benefit{min-width:160px;text-align:center;color:#0b1220}
+
+/* Partners */
+.partners{padding:28px 0;text-align:center}
+.partners img{height:40px;opacity:0.9;margin:0 12px}
+
+/* Footer */
+.site-footer{background:#081018;color:#cbd5e1;padding:36px 20px;margin-top:28px}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;gap:20px;flex-wrap:wrap}
+.footer-col{flex:1;min-width:180px}
+.footer-col h4{color:#fff;margin-bottom:12px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.04);padding-top:12px;margin-top:18px;text-align:center;color:rgba(255,255,255,0.6)}
+
+/* Floating buttons */
+.fab{position:fixed;right:18px;bottom:18px;z-index:9999}
+.fab a{display:block;background:#25d366;color:#fff;padding:12px 14px;border-radius:8px;box-shadow:0 8px 30px rgba(2,6,23,0.3);font-weight:700}
+.fab .chat{background:#0b99ff;margin-bottom:8px}
+
+/* Responsive */
+@media(max-width:880px){
+  .hero-full{height:420px}
+  .hero-inner h1{font-size:28px}
+  .card-grid{grid-template-columns:repeat(1,1fr)}
+  .benefits .inner{flex-direction:column;align-items:center}
+}
