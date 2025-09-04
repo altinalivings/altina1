@@ -1,21 +1,17 @@
-import Hero from "@/components/Hero";
+import { Suspense } from "react";
 import ProjectsClient from "@/components/ProjectsClient";
+import projects from "@/data/projects.json";
 
-export const metadata = {
-  title: "Projects – Altina Livings",
-  description:
-    "Explore premium residential & commercial projects by DLF, M3M, Sobha & Godrej with Altina Livings.",
-};
+export const metadata = { title: "Projects | Altina Livings" };
 
 export default function ProjectsPage() {
+  const list = Array.isArray(projects) ? projects : [];
   return (
-    <>
-      <Hero
-        title="Our Projects"
-        subtitle="Explore premium residential and commercial projects with Altina Livings"
-        image="https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=1600&h=600"
-      />
-      <ProjectsClient />
-    </>
+    <div className="container mx-auto px-4 py-10">
+      <h1 className="text-2xl font-semibold mb-6">All Projects</h1>
+      <Suspense>
+        <ProjectsClient projects={list} />
+      </Suspense>
+    </div>
   );
 }

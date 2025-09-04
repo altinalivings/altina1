@@ -1,107 +1,60 @@
 "use client";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { collectAttribution } from "@/lib/attribution";
 
-export default function ContactForm({ projectName }) {
-  const router = useRouter();
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-    project: "",
-  });
+const SHEETS_URL = process.env.NEXT_PUBLIC_SHEETS_WEBHOOK_URL;
+
+export default function ContactForm({ defaultSource = "contact-form" }) {
+  const [form, setForm] = useState({ name: "", phone: "", email: "", message: "" });
   const [status, setStatus] = useState("");
 
-  // If `projectName` prop is passed (from ProjectDetailClient), set it
-  useEffect(() => {
-    if (projectName) {
-      setForm((prev) => ({ ...prev, project: projectName }));
-    }
-  }, [projectName]);
-
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus("Submitting...");
+    setStatus("");
+
+    if (!SHEETS_URL) {
+      setStatus("SHEETS webhook URL not configured.");
+      return;
+    }
 
     try {
-      await fetch(
-        "https://script.google.com/macros/s/AKfycbwaqJVZtKdSKVeM2fl3pz2qQsett3T-LDYqwBB_yyoOA1eMcsAbZ5vbTIBJxCY-Y2LugQ/exec",
-        {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ...form,
-            utm_source: new URLSearchParams(window.location.search).get("utm_source"),
-            utm_campaign: new URLSearchParams(window.location.search).get("utm_campaign"),
-            utm_medium: new URLSearchParams(window.location.search).get("utm_medium"),
-            utm_term: new URLSearchParams(window.location.search).get("utm_term"),
-            utm_content: new URLSearchParams(window.location.search).get("utm_content"),
-          }),
-        }
-      );
+      const attr = collectAttribution();
+      const payload = {
+        ...form,
+        source: defaultSource,
+        page: typeof window !== "undefined" ? window.location.pathname : "",
+        ...attr,
+        ts: new Date().toISOString(),
+      };
 
-      // ✅ Reset tracker so Thank You page events fire again
-      sessionStorage.removeItem("leadTrkFired");
+      const res = await fetch(SHEETS_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-      router.push("/thank-you");
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok || json.ok === false) {
+        throw new Error(json.error || `HTTP ${res.status}`);
+      }
+
+      setForm({ name: "", phone: "", email: "", message: "" });
+      setStatus("Thanks! We’ll get back to you shortly.");
     } catch (err) {
-      console.error(err);
-      setStatus("❌ Something went wrong. Please try again.");
+      setStatus(err.message || "Something went wrong. Try again.");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      {/* hidden project name field */}
-      {form.project && (
-        <input type="hidden" name="project" value={form.project} readOnly />
-      )}
-
-      <input
-        type="text"
-        name="name"
-        placeholder="Your Name"
-        value={form.name}
-        onChange={handleChange}
-        required
-        className="w-full border p-2 rounded"
-      />
-      <input
-        type="email"
-        name="email"
-        placeholder="Your Email"
-        value={form.email}
-        onChange={handleChange}
-        required
-        className="w-full border p-2 rounded"
-      />
-      <input
-        type="tel"
-        name="phone"
-        placeholder="Your Phone"
-        value={form.phone}
-        onChange={handleChange}
-        required
-        className="w-full border p-2 rounded"
-      />
-      <textarea
-        name="message"
-        placeholder="Your Message"
-        value={form.message}
-        onChange={handleChange}
-        className="w-full border p-2 rounded"
-      />
-      <button
-        type="submit"
-        className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
-      >
-        Submit
-      </button>
-      {status && <p className="text-sm mt-2">{status}</p>}
+    <form onSubmit={handleSubmit}>
+      <input name="name" value={form.name} onChange={handleChange} placeholder="Your Name" required />
+      <input name="phone" value={form.phone} onChange={handleChange} placeholder="Phone" required />
+      <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="Email" />
+      <textarea name="message" value={form.message} onChange={handleChange} placeholder="Message" rows={4} />
+      {status && <div className="form-status">{status}</div>}
+      <button type="submit" disabled={!SHEETS_URL}>Send</button>
     </form>
   );
 }
