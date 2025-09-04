@@ -1,6 +1,5 @@
-// submitLead.js — hidden-form + iframe + postMessage listener + toast
-const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwaqJVZtKdSKVeM2fl3pz2qQsett3T-LDYqwBB_yyoOA1eMcsAbZ5vbTIBJxCY-Y2LugQ/exec"; // <-- REPLACE
-
+// submitLead.js — hidden-form + iframe + postMessage listener + toast + robust fallback
+const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwaqJVZtKdSKVeM2fl3pz2qQsett3T-LDYqwBB_yyoOA1eMcsAbZ5vbTIBJxCY-Y2LugQ/exec";
 
 /* -------------------- Utilities -------------------- */
 
@@ -134,10 +133,43 @@ function showToast({ text = '', durationMs = 3000, type = 'success' } = {}) {
   }
 }
 
-/* -------------------- Form Submit + postMessage -------------------- */
+/* -------------------- Form Submit + robust postMessage/fallback -------------------- */
 
+/**
+ * postViaFormWithMessage(url, data, opts)
+ * - Tries hidden form -> iframe + postMessage first (no CORS)
+ * - If no response within timeout, falls back to fetch form-encoded POST
+ * - Returns a normalized object:
+ *    { via: 'iframe', ok: boolean, body: <message-object-from-iframe> }
+ *    or
+ *    { via: 'fetch', ok: boolean, status: <http-status>, body: <parsed-json-or-text> }
+ */
 function postViaFormWithMessage(url, data = {}, opts = {}) {
-  const timeoutMs = opts.timeoutMs || 9000;
+  const timeoutMs = (opts && opts.timeoutMs) || 9000;
+
+  // fallback helper: fetch with form-encoded body
+  async function fetchFallback() {
+    try {
+      console.info('[lead] fetch fallback to', url);
+      const resp = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(data).toString(),
+      });
+      const text = await resp.text();
+      console.info('[lead] fetch fallback response:', resp.status, text);
+      try {
+        const json = JSON.parse(text);
+        return { via: 'fetch', ok: resp.ok, status: resp.status, body: json };
+      } catch (e) {
+        return { via: 'fetch', ok: resp.ok, status: resp.status, body: text };
+      }
+    } catch (err) {
+      console.error('[lead] fetch fallback error', err);
+      return { via: 'fetch', ok: false, error: String(err) };
+    }
+  }
+
   return new Promise((resolve, reject) => {
     try {
       const iframeName = 'lead_submit_iframe_' + Date.now() + '_' + Math.floor(Math.random() * 10000);
@@ -150,7 +182,7 @@ function postViaFormWithMessage(url, data = {}, opts = {}) {
         const input = document.createElement('input');
         input.type = 'hidden';
         input.name = key;
-        input.value = toFormValue(data[key]);
+        input.value = (data[key] === null || data[key] === undefined) ? '' : String(data[key]);
         form.appendChild(input);
       });
 
@@ -164,39 +196,53 @@ function postViaFormWithMessage(url, data = {}, opts = {}) {
 
       let settled = false;
 
+      function cleanup() {
+        try { window.removeEventListener('message', onMessage); } catch (e) {}
+        try { if (form.parentNode) form.parentNode.removeChild(form); } catch (e) {}
+        try { if (iframe.parentNode) iframe.parentNode.removeChild(iframe); } catch (e) {}
+        try { clearTimeout(fallbackTimer); } catch (e) {}
+      }
+
       function onMessage(event) {
         try {
           const msg = event.data;
+          // Accept either our marker or any object with 'status' or 'ok'
           if (!msg || typeof msg !== 'object') return;
-          if (msg.source !== 'lead_webapp') return;
+          if (!(msg.source === 'lead_webapp' || msg.status || msg.ok)) return;
           cleanup();
           settled = true;
-          resolve(msg);
+          console.info('[lead] Received postMessage:', msg);
+          resolve({ via: 'iframe', ok: (msg.status === 'success' || msg.ok === true), body: msg });
         } catch (e) {
           // ignore
         }
       }
 
-      function cleanup() {
-        try { window.removeEventListener('message', onMessage); } catch (e) {}
-        try { document.body.removeChild(form); } catch (e) {}
-        try { document.body.removeChild(iframe); } catch (e) {}
-        try { clearTimeout(fallbackTimer); } catch (e) {}
-      }
-
       window.addEventListener('message', onMessage, false);
 
-      const fallbackTimer = setTimeout(() => {
+      const fallbackTimer = setTimeout(async () => {
         if (settled) return;
-        cleanup();
-        reject(new Error('No response from lead endpoint (timeout)'));
+        console.warn('[lead] No postMessage from iframe within timeout. Trying fetch fallback.');
+        try {
+          const fetchRes = await fetchFallback();
+          cleanup();
+          settled = true;
+          resolve(fetchRes);
+        } catch (err) {
+          cleanup();
+          settled = true;
+          reject(err);
+        }
       }, timeoutMs);
 
       try {
         form.submit();
       } catch (e) {
+        console.error('[lead] form.submit error', e);
+        clearTimeout(fallbackTimer);
         cleanup();
-        reject(e);
+        // immediate fetch fallback
+        fetchFallback().then(res => resolve(res)).catch(err => reject(err));
       }
     } catch (err) {
       reject(err);
@@ -330,15 +376,43 @@ export async function submitLead(formData = {}) {
     // Submit via hidden form + iframe and wait for postMessage
     const result = await postViaFormWithMessage(WEBHOOK_URL, payload, { timeoutMs: 9000 });
 
-    // Show toast instead of alert
-    if (result && result.status === 'success') {
-      showToast({ text: result.message || 'Thanks — we received your request.', type: 'success' });
+    // Normalize result checking and show toast
+    let ok = false;
+    let message = 'Submission failed';
+
+    if (!result) {
+      ok = false;
+      message = 'No response';
+    } else if (result.via === 'iframe') {
+      ok = !!result.ok;
+      message = (result.body && (result.body.message || result.body.msg)) || (ok ? 'Thanks — we received your request.' : 'Submission failed');
+      console.info('[lead] result via iframe:', result);
+    } else if (result.via === 'fetch') {
+      // fetch result: check ok or JSON body.status
+      ok = !!result.ok || (result.body && (result.body.status === 'success' || result.body.ok === true));
+      message = (result.body && (result.body.message || result.body.msg)) || (ok ? 'Thanks — we received your request.' : 'Submission failed');
+      console.info('[lead] result via fetch:', result);
     } else {
-      showToast({ text: (result && result.message) ? result.message : 'Submission failed', type: 'error' });
+      // older style where postViaFormWithMessage returned the raw message
+      if (result && typeof result === 'object' && (result.status || result.ok !== undefined)) {
+        ok = (result.status === 'success') || (result.ok === true);
+        message = result.message || (ok ? 'Thanks — we received your request.' : 'Submission failed');
+      } else {
+        // fallback
+        ok = false;
+        message = 'Submission failed';
+      }
+    }
+
+    if (ok) {
+      showToast({ text: message, type: 'success' });
+    } else {
+      showToast({ text: message, type: 'error' });
     }
 
     return result;
   } catch (err) {
+    console.error('[lead] submitLead error', err);
     showToast({ text: 'Submission failed — try again', type: 'error' });
     return { source: 'lead_webapp', status: 'error', message: String(err) };
   }
