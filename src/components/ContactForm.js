@@ -1,107 +1,54 @@
 "use client";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { submitLead, showToast } from "@/lib/submitLead";
 
-export default function ContactForm({ projectName }) {
-  const router = useRouter();
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-    project: "",
-  });
-  const [status, setStatus] = useState("");
+export default function ContactForm() {
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [loading, setLoading] = useState(false);
+  function onChange(e){ setForm({ ...form, [e.target.name]: e.target.value }); }
 
-  // If `projectName` prop is passed (from ProjectDetailClient), set it
-  useEffect(() => {
-    if (projectName) {
-      setForm((prev) => ({ ...prev, project: projectName }));
-    }
-  }, [projectName]);
-
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e){
     e.preventDefault();
-    setStatus("Submitting...");
-
+    if (loading) return;
+    setLoading(true);
     try {
-      await fetch(
-        "https://script.google.com/macros/s/AKfycbwaqJVZtKdSKVeM2fl3pz2qQsett3T-LDYqwBB_yyoOA1eMcsAbZ5vbTIBJxCY-Y2LugQ/exec",
-        {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ...form,
-            utm_source: new URLSearchParams(window.location.search).get("utm_source"),
-            utm_campaign: new URLSearchParams(window.location.search).get("utm_campaign"),
-            utm_medium: new URLSearchParams(window.location.search).get("utm_medium"),
-            utm_term: new URLSearchParams(window.location.search).get("utm_term"),
-            utm_content: new URLSearchParams(window.location.search).get("utm_content"),
-          }),
-        }
-      );
-
-      // ✅ Reset tracker so Thank You page events fire again
-      sessionStorage.removeItem("leadTrkFired");
-
-      router.push("/thank-you");
-    } catch (err) {
-      console.error(err);
-      setStatus("❌ Something went wrong. Please try again.");
+      const payload = {
+        name: (form.name || "").trim(),
+        email: (form.email || "").trim().toLowerCase(),
+        phone: (form.phone || "").trim(),
+        message: (form.message || "").trim(),
+        source: "contact_page",
+        page: typeof window !== "undefined" ? window.location.pathname : "",
+      };
+      const result = await submitLead(payload);
+      const ok =
+        (result && result.status === "success") ||
+        (result && result.ok === true) ||
+        (result && result.via === "fetch" && result.ok) ||
+        (result && result.body && (result.body.status === "success" || result.body.ok === true));
+      if (ok) {
+        showToast({ text: "Thank you! Someone from the team will get back to you at the earliest.", type: "success" });
+        setForm({ name: "", email: "", phone: "", message: "" });
+      } else {
+        const msg = (result && (result.message || (result.body && (result.body.message || result.body.msg)))) || "Submission failed";
+        showToast({ text: `Failed: ${msg}`, type: "error" });
+      }
+    } catch {
+      showToast({ text: "Submission failed — please try again later.", type: "error" });
+    } finally {
+      setLoading(false);
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      {/* hidden project name field */}
-      {form.project && (
-        <input type="hidden" name="project" value={form.project} readOnly />
-      )}
-
-      <input
-        type="text"
-        name="name"
-        placeholder="Your Name"
-        value={form.name}
-        onChange={handleChange}
-        required
-        className="w-full border p-2 rounded"
-      />
-      <input
-        type="email"
-        name="email"
-        placeholder="Your Email"
-        value={form.email}
-        onChange={handleChange}
-        required
-        className="w-full border p-2 rounded"
-      />
-      <input
-        type="tel"
-        name="phone"
-        placeholder="Your Phone"
-        value={form.phone}
-        onChange={handleChange}
-        required
-        className="w-full border p-2 rounded"
-      />
-      <textarea
-        name="message"
-        placeholder="Your Message"
-        value={form.message}
-        onChange={handleChange}
-        className="w-full border p-2 rounded"
-      />
-      <button
-        type="submit"
-        className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
-      >
-        Submit
+      <input name="name" value={form.name} onChange={onChange} placeholder="Full name" required className="w-full p-2 border rounded" />
+      <input name="email" type="email" value={form.email} onChange={onChange} placeholder="Email" required className="w-full p-2 border rounded" />
+      <input name="phone" value={form.phone} onChange={onChange} placeholder="Phone" required className="w-full p-2 border rounded" />
+      <textarea name="message" value={form.message} onChange={onChange} placeholder="Message (optional)" rows={4} className="w-full p-2 border rounded" />
+      <button type="submit" disabled={loading} className="bg-blue-600 text-white px-4 py-2 rounded">
+        {loading ? "Submitting..." : "Send Message"}
       </button>
-      {status && <p className="text-sm mt-2">{status}</p>}
     </form>
   );
 }
