@@ -2,7 +2,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { submitLead, showToast } from "@/lib/submitLead";
+import { submitLead, showToast } from "@/lib/submitLead"; // adjust import path if different
 
 export default function RequestCall({ buttonText = "Request a Call" }) {
   const [open, setOpen] = useState(false);
@@ -10,26 +10,20 @@ export default function RequestCall({ buttonText = "Request a Call" }) {
   const [form, setForm] = useState({ name: "", phone: "", email: "", message: "" });
   const [portalNode, setPortalNode] = useState(null);
 
-  // Create a dedicated container div and attach it to document.body
+  // create portal container once on mount
   useEffect(() => {
     if (typeof document === "undefined") return;
     const node = document.createElement("div");
-    node.setAttribute("id", "requestcall-portal");
-    // hide by default until used
-    node.style.position = "static";
+    node.id = "requestcall-portal";
     document.body.appendChild(node);
     setPortalNode(node);
-    // Debug log so you can confirm in Elements panel
-    // (remove later if you want)
-    // eslint-disable-next-line no-console
-    console.log("[RequestCall] portal node appended to document.body:", node);
     return () => {
       try { document.body.removeChild(node); } catch (e) {}
     };
   }, []);
 
   function onChange(e) {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
   async function handleSubmit(e) {
@@ -43,15 +37,13 @@ export default function RequestCall({ buttonText = "Request a Call" }) {
       email: (form.email || "").trim().toLowerCase(),
       message: (form.message || "").trim(),
       source: "request_call",
-      page: typeof window !== "undefined" ? window.location.pathname : "",
+      page: typeof window !== "undefined" ? window.location.pathname : ""
     };
 
     try {
       const result = await submitLead(payload);
-      const ok =
-        (result && result.status === "success") ||
-        (result && result.ok === true) ||
-        (result && result.body && (result.body.status === "success" || result.body.ok === true));
+      const ok = (result && result.status === "success") || (result && result.ok === true) ||
+                 (result && result.body && (result.body.status === "success" || result.body.ok === true));
 
       if (ok) {
         showToast({ text: "Thanks! Someone from our team will call you shortly.", type: "success" });
@@ -62,14 +54,13 @@ export default function RequestCall({ buttonText = "Request a Call" }) {
         showToast({ text: `Failed: ${msg}`, type: "error" });
       }
     } catch (err) {
-      console.error("RequestCall error", err);
-      showToast({ text: "Failed to submit — please try again.", type: "error" });
+      console.error("RequestCall submit error", err);
+      showToast({ text: "Submission failed — please try again.", type: "error" });
     } finally {
       setSending(false);
     }
   }
 
-  // modal markup — centered via left/top + translate to avoid transform-inheritance problems
   const modal = (
     <div
       role="dialog"
@@ -79,8 +70,7 @@ export default function RequestCall({ buttonText = "Request a Call" }) {
         left: "50%",
         top: "50%",
         transform: "translate(-50%, -50%)",
-        maxWidth: "min(92vw, 640px)",
-        width: "100%",
+        width: "min(92vw, 640px)",
         zIndex: 2147483648,
         padding: 20,
       }}
@@ -116,12 +106,13 @@ export default function RequestCall({ buttonText = "Request a Call" }) {
 
   return (
     <>
-      {/* trigger button (renders in float container) */}
-      <button onClick={() => setOpen(true)} aria-label="Request a Call" className="inline-flex items-center gap-2 px-3 py-2 rounded shadow" style={{ background: "linear-gradient(90deg,#06b6d4,#0ea5a4)", color: "#fff", fontWeight: 600 }}>
+      {/* trigger button - this renders inside whatever container you place <RequestCall/> */}
+      <button onClick={() => setOpen(true)} aria-label="Request a Call" style={{
+        display: "inline-flex", alignItems: "center", gap: 8, padding: "10px 12px", background: "linear-gradient(90deg,#06b6d4,#0ea5a4)", color: "#fff", border: "none", borderRadius: 10, boxShadow: "0 6px 18px rgba(0,0,0,0.12)", fontWeight: 600, cursor: "pointer"
+      }}>
         📞 {buttonText}
       </button>
 
-      {/* render portal only after portalNode is created */}
       {portalNode && open && createPortal(modal, portalNode)}
     </>
   );

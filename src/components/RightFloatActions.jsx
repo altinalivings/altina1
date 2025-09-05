@@ -11,8 +11,7 @@ export default function RightFloatActions() {
       style={{
         position: "fixed",
         right: 18,
-        top: "50%",
-        transform: "translateY(-50%)",
+        top: "50vh", // avoid transform to keep fixed children truly fixed to viewport
         display: "flex",
         flexDirection: "column",
         gap: "12px",
@@ -21,11 +20,10 @@ export default function RightFloatActions() {
       }}
     >
       <div style={{ pointerEvents: "auto" }}>
-        {/* RequestCall renders its own trigger button; same modal used site-wide */}
-        <RequestCall buttonText="Request a Call" />
+        <RequestCall />
       </div>
       <div style={{ pointerEvents: "auto" }}>
-        <ChatWithUs phone="91XXXXXXXXXX" prefill="Hi — I want to know about your projects." />
+        <ChatWithUs phone="919891234195" prefill="Hello, I would like to know more about your projects." />
       </div>
     </div>
   );
