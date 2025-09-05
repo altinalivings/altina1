@@ -90,7 +90,7 @@ export default function RequestCall({ buttonText = "Request a Call", compact = f
             <button
               onClick={() => setOpen(false)}
               aria-label="Close"
-              style={{ position: "absolute", right: 12, top: 12, border: "none", background: "transparent", cursor: "pointer", fontSize: 18 }}
+              style={{ position: "absolute", center: 12, top: 12, border: "none", background: "transparent", cursor: "pointer", fontSize: 18 }}
             >
               ✖
             </button>
