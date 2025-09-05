@@ -1,9 +1,8 @@
 // components/RightFloatActions.jsx
 "use client";
 import React from "react";
-//import RequestCall from "./RequestCall"; // path to component below
-import ChatWithUs from "./ChatWithUs";   // path to component below
-import RequestCall from "@/components/RequestCall";
+import RequestCall from "./RequestCall";
+import ChatWithUs from "./ChatWithUs";
 
 export default function RightFloatActions() {
   return (
@@ -17,16 +16,16 @@ export default function RightFloatActions() {
         display: "flex",
         flexDirection: "column",
         gap: "12px",
-        zIndex: 2147483647, // highest safe z-index
-        pointerEvents: "none" // allow children to selectively receive pointer
+        zIndex: 2147483647,
+        pointerEvents: "none"
       }}
     >
-      {/* Buttons should accept pointer events */}
       <div style={{ pointerEvents: "auto" }}>
-        <RequestCall />
+        {/* RequestCall renders its own trigger button; same modal used site-wide */}
+        <RequestCall buttonText="Request a Call" />
       </div>
       <div style={{ pointerEvents: "auto" }}>
-        <ChatWithUs />
+        <ChatWithUs phone="91XXXXXXXXXX" prefill="Hi — I want to know about your projects." />
       </div>
     </div>
   );

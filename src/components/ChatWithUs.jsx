@@ -3,7 +3,7 @@
 import React from "react";
 
 export default function ChatWithUs({ phone = "919891234195", prefill = "Hello, I would like to chat about your project." }) {
-  const url = `https://wa.me/${phone.replace(/\D/g, "")}?text=${encodeURIComponent(prefill)}`;
+  const url = `https://wa.me/${String(phone).replace(/\D/g, "")}?text=${encodeURIComponent(prefill)}`;
   return (
     <a
       href={url}
