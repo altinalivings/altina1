@@ -107,12 +107,27 @@ export default function RequestCall({ buttonText = "Request a Call" }) {
   return (
     <>
       {/* trigger button - this renders inside whatever container you place <RequestCall/> */}
-      <button onClick={() => setOpen(true)} aria-label="Request a Call" style={{
-        display: "inline-flex", alignItems: "center", gap: 8, padding: "10px 12px", background: "linear-gradient(90deg,#06b6d4,#0ea5a4)", color: "#fff", border: "none", borderRadius: 10, boxShadow: "0 6px 18px rgba(0,0,0,0.12)", fontWeight: 600, cursor: "pointer"
-      }}>
-        📞 {buttonText}
-      </button>
-
+<button
+  onClick={() => setOpen(true)}
+  aria-label="Request a Call"
+  style={{
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "12px 20px",
+    background: "#2563eb", // <-- Blue background
+    color: "#fff",
+    border: "none",
+    borderRadius: "9999px", // pill shape like screenshot
+    boxShadow: "0 6px 18px rgba(0,0,0,0.12)",
+    fontWeight: 600,
+    cursor: "pointer",
+    fontSize: "14px",
+    whiteSpace: "nowrap"
+  }}
+>
+  Request a Callback
+</button>
       {portalNode && open && createPortal(modal, portalNode)}
     </>
   );
