@@ -1,10 +1,9 @@
 // components/RequestCall.jsx
 "use client";
 import { useState } from "react";
-import { submitLead, showToast } from "@/lib/submitLead"; // adjust path if needed
+import { submitLead, showToast } from "@/lib/submitLead";
 
-export default function RequestCall({ buttonText = "Request a Call", compact = false }) {
-  // compact prop is unused here but kept for compatibility if you had code expecting it
+export default function RequestCall({ buttonText = "Request a Call" }) {
   const [open, setOpen] = useState(false);
   const [sending, setSending] = useState(false);
   const [form, setForm] = useState({ name: "", phone: "", email: "", message: "" });
@@ -37,7 +36,7 @@ export default function RequestCall({ buttonText = "Request a Call", compact = f
       if (ok) {
         showToast({ text: "Thanks! Someone from our team will call you shortly.", type: "success" });
         setForm({ name: "", phone: "", email: "", message: "" });
-        setOpen(false); // close modal on success
+        setOpen(false); // ✅ close modal after success
       } else {
         const msg =
           (result && (result.message || (result.body && (result.body.message || result.body.msg)))) ||
@@ -54,7 +53,7 @@ export default function RequestCall({ buttonText = "Request a Call", compact = f
 
   return (
     <>
-      {/* Trigger button — rendered wherever you place <RequestCall /> */}
+      {/* ✅ Only a button in floating area */}
       <button
         onClick={() => setOpen(true)}
         aria-label="Request a Call"
@@ -62,48 +61,31 @@ export default function RequestCall({ buttonText = "Request a Call", compact = f
         style={{
           background: "linear-gradient(90deg,#06b6d4,#0ea5a4)",
           color: "#fff",
-          border: "none",
-          cursor: "pointer",
           fontWeight: 600,
         }}
       >
         📞 {buttonText}
       </button>
 
-      {/* Centered modal */}
+      {/* ✅ Full form in centered modal */}
       {open && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          style={{
-            position: "fixed",
-            inset: 0,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "rgba(0,0,0,0.45)",
-            zIndex: 2147483648,
-            padding: 20,
-          }}
-        >
-          <div style={{ background: "#fff", borderRadius: 12, boxShadow: "0 20px 50px rgba(0,0,0,0.25)", width: "100%", maxWidth: 520, padding: 20, position: "relative" }}>
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-[2147483647] p-4">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
             <button
               onClick={() => setOpen(false)}
-              aria-label="Close"
-              style={{ position: "absolute", center: 12, top: 12, border: "none", background: "transparent", cursor: "pointer", fontSize: 18 }}
+              className="absolute top-3 right-3 text-gray-500 hover:text-gray-800"
             >
               ✖
             </button>
-
-            <h3 style={{ margin: "0 0 12px 0" }}>Request a Call</h3>
-            <form onSubmit={handleSubmit} style={{ display: "grid", gap: 10 }}>
+            <h3 className="text-lg font-semibold mb-4">Request a Call</h3>
+            <form onSubmit={handleSubmit} className="space-y-3">
               <input
                 name="name"
                 value={form.name}
                 onChange={onChange}
                 placeholder="Full name"
                 required
-                style={{ padding: 10, borderRadius: 8, border: "1px solid #e5e7eb" }}
+                className="w-full p-2 border rounded"
               />
               <input
                 name="phone"
@@ -111,7 +93,7 @@ export default function RequestCall({ buttonText = "Request a Call", compact = f
                 onChange={onChange}
                 placeholder="Phone"
                 required
-                style={{ padding: 10, borderRadius: 8, border: "1px solid #e5e7eb" }}
+                className="w-full p-2 border rounded"
               />
               <input
                 type="email"
@@ -120,7 +102,7 @@ export default function RequestCall({ buttonText = "Request a Call", compact = f
                 onChange={onChange}
                 placeholder="Email"
                 required
-                style={{ padding: 10, borderRadius: 8, border: "1px solid #e5e7eb" }}
+                className="w-full p-2 border rounded"
               />
               <textarea
                 name="message"
@@ -128,24 +110,15 @@ export default function RequestCall({ buttonText = "Request a Call", compact = f
                 onChange={onChange}
                 placeholder="Message (optional)"
                 rows={4}
-                style={{ padding: 10, borderRadius: 8, border: "1px solid #e5e7eb" }}
+                className="w-full p-2 border rounded"
               />
-              <div style={{ display: "flex", gap: 8 }}>
-                <button
-                  type="submit"
-                  disabled={sending}
-                  style={{ flex: 1, padding: 12, borderRadius: 8, border: "none", background: "#10b981", color: "#fff", cursor: "pointer" }}
-                >
-                  {sending ? "Submitting..." : "Confirm Request"}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setOpen(false)}
-                  style={{ padding: 12, borderRadius: 8, border: "1px solid #e5e7eb", background: "#fff", cursor: "pointer" }}
-                >
-                  Cancel
-                </button>
-              </div>
+              <button
+                type="submit"
+                disabled={sending}
+                className="w-full bg-blue-600 text-white py-2 rounded"
+              >
+                {sending ? "Submitting..." : "Confirm Request"}
+              </button>
             </form>
           </div>
         </div>
