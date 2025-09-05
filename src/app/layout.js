@@ -3,6 +3,7 @@ import Script from "next/script";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import PageViewTracker from "../components/PageViewTracker"; // 🔹 SPA tracking
+import RightFloatActions from "@/components/RightFloatActions";
 
 export const metadata = {
   title: "Altina Livings",
@@ -56,6 +57,7 @@ export default function RootLayout({ children }) {
       <body>
         <Header />
         <main>{children}</main>
+		<RightFloatActions />
         <Footer />
         <PageViewTracker /> {/* 🔹 listens for route changes */}
       </body>
