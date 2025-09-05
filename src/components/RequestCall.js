@@ -1,25 +1,26 @@
-// components/RequestCall.jsx
 "use client";
 import { useState } from "react";
-import { submitLead, showToast } from "@/lib/submitLead"; // adjust import path
+import { submitLead, showToast } from "@/lib/submitLead";
 
-export default function RequestCall({ initialPhone = "" }) {
+export default function RequestCall() {
   const [open, setOpen] = useState(false);
   const [sending, setSending] = useState(false);
-  const [form, setForm] = useState({ name: "", phone: initialPhone });
+  const [form, setForm] = useState({ name: "", phone: "", email: "", message: "" });
 
   function onChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
-  async function handleRequestCall(e) {
-    e?.preventDefault?.();
+  async function handleSubmit(e) {
+    e.preventDefault();
     if (sending) return;
     setSending(true);
 
     const payload = {
       name: (form.name || "").trim(),
       phone: (form.phone || "").trim(),
+      email: (form.email || "").trim().toLowerCase(),
+      message: (form.message || "").trim(),
       source: "request_call",
       page: typeof window !== "undefined" ? window.location.pathname : "",
     };
@@ -33,15 +34,16 @@ export default function RequestCall({ initialPhone = "" }) {
 
       if (ok) {
         showToast({ text: "Thanks! Someone from our team will call you shortly.", type: "success" });
-        setForm({ name: "", phone: "" });
-        // Close modal immediately on success
-        setOpen(false);
+        setForm({ name: "", phone: "", email: "", message: "" });
+        setOpen(false); // ✅ close modal immediately on success
       } else {
-        const msg = (result && (result.message || (result.body && (result.body.message || result.body.msg)))) || "Submission failed";
+        const msg =
+          (result && (result.message || (result.body && (result.body.message || result.body.msg)))) ||
+          "Submission failed";
         showToast({ text: `Failed: ${msg}`, type: "error" });
       }
     } catch (err) {
-      console.error("request-call error", err);
+      console.error("RequestCall error", err);
       showToast({ text: "Failed to submit — please try again.", type: "error" });
     } finally {
       setSending(false);
@@ -50,62 +52,33 @@ export default function RequestCall({ initialPhone = "" }) {
 
   return (
     <>
-      {/* Compact button — container controls fixed positioning */}
+      {/* Trigger button (use anywhere, or in floating actions) */}
       <button
         onClick={() => setOpen(true)}
-        aria-label="Request a Call"
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: 8,
-          padding: "10px 12px",
-          background: "linear-gradient(90deg,#06b6d4,#0ea5a4)",
-          color: "#fff",
-          border: "none",
-          borderRadius: 10,
-          boxShadow: "0 6px 18px rgba(0,0,0,0.12)",
-          cursor: "pointer",
-          fontWeight: 600,
-          minWidth: 44,
-        }}
+        className="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700"
       >
-        📞 Request Call
+        Request a Call
       </button>
 
-      {/* Modal */}
+      {/* Centered modal */}
       {open && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          style={{
-            position: "fixed",
-            inset: 0,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "rgba(0,0,0,0.45)",
-            zIndex: 2147483648,
-            padding: 20,
-          }}
-        >
-          <div style={{ background: "#fff", borderRadius: 12, boxShadow: "0 20px 50px rgba(0,0,0,0.25)", width: "100%", maxWidth: 420, padding: 20, position: "relative" }}>
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-[2147483647] p-4">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
             <button
               onClick={() => setOpen(false)}
-              aria-label="Close"
-              style={{ position: "absolute", right: 12, top: 12, border: "none", background: "transparent", cursor: "pointer", fontSize: 18 }}
+              className="absolute top-3 right-3 text-gray-500 hover:text-gray-800"
             >
               ✖
             </button>
-
-            <h3 style={{ margin: "0 0 12px 0" }}>Request a Call</h3>
-            <form onSubmit={handleRequestCall} style={{ display: "grid", gap: 10 }}>
+            <h3 className="text-lg font-semibold mb-4">Request a Call</h3>
+            <form onSubmit={handleSubmit} className="space-y-3">
               <input
                 name="name"
                 value={form.name}
                 onChange={onChange}
                 placeholder="Full name"
                 required
-                style={{ padding: 10, borderRadius: 8, border: "1px solid #e5e7eb" }}
+                className="w-full p-2 border rounded"
               />
               <input
                 name="phone"
@@ -113,24 +86,32 @@ export default function RequestCall({ initialPhone = "" }) {
                 onChange={onChange}
                 placeholder="Phone"
                 required
-                style={{ padding: 10, borderRadius: 8, border: "1px solid #e5e7eb" }}
+                className="w-full p-2 border rounded"
               />
-              <div style={{ display: "flex", gap: 8 }}>
-                <button
-                  type="submit"
-                  disabled={sending}
-                  style={{ flex: 1, padding: 10, borderRadius: 8, border: "none", background: "#10b981", color: "#fff", cursor: "pointer" }}
-                >
-                  {sending ? "Sending..." : "Request Call"}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setOpen(false)}
-                  style={{ padding: 10, borderRadius: 8, border: "1px solid #e5e7eb", background: "#fff", cursor: "pointer" }}
-                >
-                  Cancel
-                </button>
-              </div>
+              <input
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={onChange}
+                placeholder="Email"
+                required
+                className="w-full p-2 border rounded"
+              />
+              <textarea
+                name="message"
+                value={form.message}
+                onChange={onChange}
+                placeholder="Message (optional)"
+                rows={3}
+                className="w-full p-2 border rounded"
+              />
+              <button
+                type="submit"
+                disabled={sending}
+                className="w-full bg-blue-600 text-white py-2 rounded"
+              >
+                {sending ? "Submitting..." : "Confirm Request"}
+              </button>
             </form>
           </div>
         </div>

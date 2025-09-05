@@ -1,8 +1,9 @@
 // components/RightFloatActions.jsx
 "use client";
 import React from "react";
-import RequestCall from "./RequestCall"; // path to component below
+//import RequestCall from "./RequestCall"; // path to component below
 import ChatWithUs from "./ChatWithUs";   // path to component below
+import RequestCall from "@/components/RequestCall";
 
 export default function RightFloatActions() {
   return (
