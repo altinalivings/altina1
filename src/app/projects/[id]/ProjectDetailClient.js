@@ -25,66 +25,43 @@ export default function ProjectDetailClient({ project }) {
   const [unlocked, setUnlocked] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (submitting) return;
-    setSubmitting(true);
+	// inside ProjectDetailClient.js (ensure submitLead is imported)
+	const handleSubmit = async (e) => {
+	  e.preventDefault();
+	  if (submitting) return;
+	  setSubmitting(true);
+	  try {
+		const payload = {
+		  name: formData.name || '',
+		  phone: formData.phone || '',
+		  email: (formData.email || '').trim().toLowerCase(),
+		  message: formData.message || '',
+		  source: 'project_page',
+		  project: project?.title || project?.id || '',
+		  mode: formData.mode || ''
+		};
 
-    try {
-      // Append project info to formData so it's available in the sheet
-      const payload = {
-        ...formData,
-        project: project?.title || project?.id || "",
-        source: "project_page",
-      };
+		// call submitLead (it handles toasts)
+		const result = await submitLead(payload);
+		console.info('Lead submit result:', result);
 
-      // submitLead handles posting via hidden form + iframe and showing toast
-      const result = await submitLead(payload);
+		if (result && (result.status === 'success' || result.ok === true || (result.body && (result.body.status === 'success' || result.body.ok)))) {
+		  setFormData({ name: '', email: '', phone: '', message: '' });
+		  // navigate to thank-you if you still want that:
+		  // router.push('/thank-you');
+		} else {
+		  // showToast already called inside submitLead; extra logging is fine
+		  console.warn('Lead submit not successful:', result);
+		}
+	  } catch (err) {
+		console.error('submit handler error', err);
+		if (window && window.showToast) window.showToast({ text: 'Submission failed — try again', type: 'error' });
+	  } finally {
+		// small delay to avoid immediate re-submits
+		setTimeout(() => setSubmitting(false), 400);
+	  }
+	};
 
-      // If submitLead returned success, fire analytics and redirect
-      if (result && result.status === "success") {
-        // Analytics (best-effort)
-        try {
-          if (typeof window !== "undefined") {
-            if (window.gtag) {
-              window.gtag("event", "generate_lead", {
-                event_category: "Leads",
-                event_label: payload.project || "Website Lead",
-              });
-              // conversion event (optional)
-              window.gtag("event", "conversion", {
-                send_to: "AW-17510039084/L-MdCP63l44bEKz8t51B",
-              });
-            }
-            if (window.fbq) {
-              window.fbq("track", "Lead", { content_name: payload.project || "Website Lead" });
-            }
-            if (window.lintrk) {
-              window.lintrk("track", { conversion_id: 515682278 });
-            }
-          }
-        } catch (aErr) {
-          console.warn("analytics error", aErr);
-        }
-
-        // Reset form and redirect to thank-you
-        setFormData({ name: "", email: "", phone: "", message: "" });
-        // navigate to thank-you
-        router.push("/thank-you");
-      } else {
-        // submitLead already shows toast for errors; log for debugging
-        console.warn("Lead submission returned non-success:", result);
-      }
-    } catch (err) {
-      // submitLead should already show a toast. Log and avoid alert.
-      console.error("Contact form error:", err);
-      if (typeof window !== "undefined" && window.showToast) {
-        window.showToast({ text: "Submission failed — try again", type: "error" });
-      }
-    } finally {
-      setSubmitting(false);
-    }
-  };
 
   return (
     <div>
