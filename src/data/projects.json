@@ -1,262 +1,1016 @@
 [
   {
-    "id": "m3m-line",
-    "title": "M3M The Line - Retail & Service Apartments",
-    "description": "Explore M3M The Line in Noida\u2014vertical retail and service apartment complex. Enquire now with Altina Livings.",
-    "image": "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=80",
-    "location": "Noida Sector 72",
-    "price": "\u20b958 Lakhs onwards",
-    "developer": "M3M Group",
-    "type": "Commercial",
+    "id": "dlf-privana",
+    "projectId": "DLF-PRI-101",
+    "name": "DLF Privana",
+    "developer": "DLF",
+    "location": "Sector 67, Gurugram",
+    "priceNumeric": 240,
+    "typology": "3 & 4 BHK",
+    "units": 560,
+    "status": "Under Construction",
+    "possession": "Q3 2027",
+    "reraId": "HRERA-GGM-1001-2024",
+    "banner": "EXCLUSIVE LAUNCH · LIMITED INVENTORY",
     "featured": true,
-    "gallery": [
-      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&fit=crop&w=1200&q=80"
+    "usp": [
+      "Bang on SPR Road",
+      "International Concierge Services",
+      "Only 2 Apartments Per Floor"
     ],
-    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
     "amenities": [
-      "High-Street Retail",
-      "Service Apartments",
-      "Food Court",
-      "Ample Parking",
-      "24/7 Security"
+      "Nature Trail",
+      "Banquet Hall",
+      "CCTV",
+      "Café",
+      "24x7 Security",
+      "Commercial Spaces",
+      "Garden",
+	  "Daycare",
+	  "Community Hall"
     ],
-    "area": "1000 sq.ft onwards",
-    "type_of_property": "Commercial"
+    "image": "https://images.unsplash.com/photo-1505692794403-34c6b7a7c810?q=80&w=2400&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1499914485622-a88fac536970?q=80&w=2400&auto=format&fit=crop"
+    ],
+    "floorplans": [
+      {
+        "name": "3 BHK",
+        "area": "2,450 sq.ft.",
+        "image": "https://images.unsplash.com/photo-1582582621958-9134a96d1c1d?q=80&w=2400&auto=format&fit=crop"
+      }
+    ],
+    "brochure": "/brochures/dlf-privana.pdf",
+    "phone": "+919540700009",
+    "whatsapp": "919540700009",
+    "description": "DLF Privana offers premium residences with resort-style amenities in Sector 67, Gurugram."
   },
   {
-    "id": "mahagun-laagoon",
-    "title": "Mahagun My Laagoon - 3 & 4 BHK Waterfront Residences",
-    "description": "Discover Mahagun My Laagoon in Greater Noida\u20143 & 4 BHK apartments with waterfront views. Enquire now.",
-    "image": "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1200&q=80",
-    "location": "Greater Noida",
-    "price": "\u20b980 Lakhs onwards",
-    "developer": "Mahagun",
-    "type": "Residential",
+    "id": "dlf-sky-residences",
+    "projectId": "DLF-SKY-102",
+    "name": "DLF Sky Residences",
+    "developer": "DLF",
+    "location": "Sector 109, Gurugram",
+    "priceNumeric": 320,
+    "typology": "Villas",
+    "units": 1120,
+    "status": "Under Construction",
+    "possession": "Q1 2027",
+    "reraId": "HRERA-GGM-1002-2024",
+    "banner": "EXCLUSIVE LAUNCH · LIMITED INVENTORY",
     "featured": false,
-    "gallery": [
-      "https://images.unsplash.com/photo-1527030280862-64139fba04ca?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=1200&q=80"
+    "usp": [
+      "Retail Plaza within Campus",
+      "Double-Height Lobbies",
+      "NCR's Lowest Density Project"
     ],
-    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    "amenities": [
+      "EV Charging",
+      "Garden",
+      "Indoor Games",
+      "Banquet Hall",
+      "Health Club",
+      "Nature Trail",
+      "Open Spaces"
+    ],
+    "image": "https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=2400&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1499914485622-a88fac536970?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1523875194681-bedd468c58bf?q=80&w=2400&auto=format&fit=crop"
+    ],
+    "floorplans": [
+      {
+        "name": "2 BHK",
+        "area": "3,600 sq.ft.",
+        "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2400&auto=format&fit=crop"
+      }
+    ],
+    "brochure": "/brochures/dlf-sky-residences.pdf",
+    "phone": "+919540700009",
+    "whatsapp": "919540700009",
+    "description": "DLF Sky Residences offers premium residences with resort-style amenities in Sector 109, Gurugram."
+  },
+  {
+    "id": "dlf-arbour",
+    "projectId": "DLF-ARB-103",
+    "name": "DLF Arbour",
+    "developer": "DLF",
+    "location": "Sector 65, Gurugram",
+    "priceNumeric": 150,
+    "typology": "Retail & Office",
+    "units": null,
+    "status": "Ready to Move",
+    "possession": null,
+    "reraId": "HRERA-GGM-1003-2024",
+    "banner": "READY-TO-MOVE INVENTORY",
+    "featured": false,
+    "usp": [
+      "Grand Clubhouse & Spa",
+      "International Concierge Services",
+      "Only 2 Apartments Per Floor"
+    ],
+    "amenities": [
+      "Gated Access",
+      "Co-working Lounge",
+      "Health Club",
+      "Swimming Pool",
+      "Water Features",
+      "Power Backup",
+      "Spa"
+    ],
+    "image": "https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=2400&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1499914485622-a88fac536970?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1523875194681-bedd468c58bf?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1582582621958-9134a96d1c1d?q=80&w=2400&auto=format&fit=crop"
+    ],
+    "floorplans": [
+      {
+        "name": "4 BHK",
+        "area": "1,850 sq.ft.",
+        "image": "https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=2400&auto=format&fit=crop"
+      }
+    ],
+    "brochure": "/brochures/dlf-arbour.pdf",
+    "phone": "+919540700009",
+    "whatsapp": "919540700009",
+    "description": "DLF Arbour offers premium residences with resort-style amenities in Sector 65, Gurugram."
+  },
+  {
+    "id": "dlf-crestline",
+    "projectId": "DLF-CRE-104",
+    "name": "DLF Crestline",
+    "developer": "DLF",
+    "location": "Sector 66, Gurugram",
+    "priceNumeric": 920,
+    "typology": "Grade-A Office",
+    "units": null,
+    "status": "Ready to Move",
+    "possession": null,
+    "reraId": "HRERA-GGM-1004-2024",
+    "banner": "READY-TO-MOVE INVENTORY",
+    "featured": false,
+    "usp": [
+      "Bang on SPR Road",
+      "Smart Access & Security",
+      "International Concierge Services"
+    ],
+    "amenities": [
+      "24x7 Security",
+      "Power Backup",
+      "Daycare",
+      "Landscaped Greens",
+      "Co-working Lounge",
+      "Commercial Spaces",
+      "Climate Control"
+    ],
+    "image": "https://images.unsplash.com/photo-1499914485622-a88fac536970?q=80&w=2400&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1523875194681-bedd468c58bf?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1582582621958-9134a96d1c1d?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2400&auto=format&fit=crop"
+    ],
+    "floorplans": [
+      {
+        "name": "4 BHK",
+        "area": "2,450 sq.ft.",
+        "image": "https://images.unsplash.com/photo-1495435229349-e86db7bfa013?q=80&w=2400&auto=format&fit=crop"
+      }
+    ],
+    "brochure": "/brochures/dlf-crestline.pdf",
+    "phone": "+919540700009",
+    "whatsapp": "919540700009",
+    "description": "DLF Crestline offers premium residences with panoramic views in Sector 66, Gurugram."
+  },
+  {
+    "id": "dlf-park-towers",
+    "projectId": "DLF-PAR-105",
+    "name": "DLF Park Towers",
+    "developer": "DLF",
+    "location": "Sector 108, Gurugram",
+    "priceNumeric": 165,
+    "typology": "4 BHK",
+    "units": 220,
+    "status": "Ready to Move",
+    "possession": null,
+    "reraId": "HRERA-GGM-1005-2024",
+    "banner": "READY-TO-MOVE INVENTORY",
+    "featured": false,
+    "usp": [
+      "Bang on SPR Road",
+      "Retail Plaza within Campus",
+      "IGBC Green-Rated Community"
+    ],
+    "amenities": [
+      "Roof Garden",
+      "Daycare",
+      "Parking",
+      "Library",
+      "Commercial Spaces",
+      "EV Charging",
+      "Nature Trail"
+    ],
+    "image": "https://images.unsplash.com/photo-1523875194681-bedd468c58bf?q=80&w=2400&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1582582621958-9134a96d1c1d?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=2400&auto=format&fit=crop"
+    ],
+    "floorplans": [
+      {
+        "name": "2 BHK",
+        "area": "3,600 sq.ft.",
+        "image": "https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=2400&auto=format&fit=crop"
+      }
+    ],
+    "brochure": "/brochures/dlf-park-towers.pdf",
+    "phone": "+919540700009",
+    "whatsapp": "919540700009",
+    "description": "DLF Park Towers offers premium residences with expansive greens in Sector 108, Gurugram."
+  },
+  {
+    "id": "dlf-garden-city",
+    "projectId": "DLF-GAR-106",
+    "name": "DLF Garden City",
+    "developer": "DLF",
+    "location": "Dwarka Expressway, Gurugram",
+    "priceNumeric": 240,
+    "typology": "3 BHK",
+    "units": 795,
+    "status": "Under Construction",
+    "possession": "Q1 2028",
+    "reraId": "HRERA-GGM-1006-2024",
+    "banner": "READY-TO-MOVE INVENTORY",
+    "featured": true,
+    "usp": [
+      "Double-Height Lobbies",
+      "Retail Plaza within Campus",
+      "85% Green & Open Areas"
+    ],
     "amenities": [
       "Clubhouse",
-      "Swimming Pool",
-      "Landscaped Gardens",
-      "Children\u2019s Play Area",
-      "Power Backup"
-    ],
-    "area": "1000 sq.ft onwards",
-    "type_of_property": "Residential"
-  },
-  {
-    "id": "olympic-city-residency",
-    "title": "Olympic City Residential Wing",
-    "description": "Luxury residences in the upcoming Olympic City near Noida International Airport. Limited units available.",
-    "image": "https://images.unsplash.com/photo-1527030280862-64139fba04ca?auto=format&fit=crop&w=1200&q=80",
-    "location": "Noida Expressway",
-    "price": "\u20b975 Lakhs onwards",
-    "developer": "MegaUrban Developments",
-    "type": "Residential",
-    "featured": true,
-    "gallery": [
-      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80"
-    ],
-    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-    "amenities": [
+      "Nature Trail",
+      "Landscaped Greens",
+      "EV Charging",
+      "Roof Garden",
       "Jogging Track",
-      "Clubhouse",
-      "Swimming Pool",
-      "24/7 Security",
-      "Gym & Spa"
+      "Cycling Track"
     ],
-    "area": "1000 sq.ft onwards",
-    "type_of_property": "Residential"
-  },
-  {
-    "id": "american-city-commercial",
-    "title": "American City Commercial Hub",
-    "description": "Prime commercial property in the emerging American City near Jewar Airport. Contact Altina Livings for exclusive deals.",
-    "image": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
-    "location": "Jewar",
-    "price": "\u20b91.2 Cr onwards",
-    "developer": "Blue Sky Vantage",
-    "type": "Commercial",
-    "featured": false,
+    "image": "https://images.unsplash.com/photo-1582582621958-9134a96d1c1d?q=80&w=2400&auto=format&fit=crop",
     "gallery": [
-      "https://images.unsplash.com/photo-1486304873000-235643847519?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&fit=crop&w=1200&q=80"
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1495435229349-e86db7bfa013?q=80&w=2400&auto=format&fit=crop"
     ],
-    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-    "amenities": [
-      "Grade-A Offices",
-      "Food Court",
-      "Business Lounge",
-      "High-Speed Elevators",
-      "Power Backup"
+    "floorplans": [
+      {
+        "name": "4 BHK",
+        "area": "3,000 sq.ft.",
+        "image": "https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=2400&auto=format&fit=crop"
+      }
     ],
-    "area": "1000 sq.ft onwards",
-    "type_of_property": "Commercial"
+    "brochure": "/brochures/dlf-garden-city.pdf",
+    "phone": "+919540700009",
+    "whatsapp": "919540700009",
+    "description": "DLF Garden City offers premium residences with resort-style amenities in Dwarka Expressway, Gurugram."
   },
   {
-    "id": "premium-villas-gurgaon",
-    "title": "Luxury Villas in Sectors 82 & 83 Gurgaon",
-    "description": "Explore premium villas in Gurgaon\u2019s prime sectors\u2014spacious living with world-class amenities.",
-    "image": "https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&w=1200&q=80",
-    "location": "Gurgaon",
-    "price": "\u20b93 Cr onwards",
-    "developer": "Elite Abodes",
-    "type": "Residential",
+    "id": "godrej-meridien",
+    "projectId": "GODREJ-MER-107",
+    "name": "Godrej Meridien",
+    "developer": "Godrej",
+    "location": "Sector 77, Gurugram",
+    "priceNumeric": 320,
+    "typology": "Retail & Office",
+    "units": null,
+    "status": "Under Construction",
+    "possession": "Q1 2027",
+    "reraId": "HRERA-GGM-1007-2024",
+    "banner": "BOOKING OPEN · LIMITED TIME ONLY",
     "featured": true,
-    "gallery": [
-      "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1200&q=80"
+    "usp": [
+      "IGBC Green-Rated Community",
+      "Grand Clubhouse & Spa",
+      "85% Green & Open Areas"
     ],
-    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
     "amenities": [
-      "Private Gardens",
-      "Clubhouse",
-      "Swimming Pool",
-      "Gated Community",
-      "Luxury Interiors"
+      "Kids Play Area",
+      "Gated Access",
+      "EV Charging",
+      "Scenic Views",
+      "Café",
+      "Retail Plaza",
+      "Roof Garden"
     ],
-    "area": "1000 sq.ft onwards",
-    "type_of_property": "Residential"
+    "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2400&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1495435229349-e86db7bfa013?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=2400&auto=format&fit=crop"
+    ],
+    "floorplans": [
+      {
+        "name": "3 BHK",
+        "area": "1,850 sq.ft.",
+        "image": "https://images.unsplash.com/photo-1460317442991-0ec209397118?q=80&w=2400&auto=format&fit=crop"
+      }
+    ],
+    "brochure": "/brochures/godrej-meridien.pdf",
+    "phone": "+919540700009",
+    "whatsapp": "919540700009",
+    "description": "Godrej Meridien offers premium residences with panoramic views in Sector 77, Gurugram."
   },
   {
-    "id": "corporate-tower-noida",
-    "title": "Corporate Office Tower in Noida",
-    "description": "Grade-A office spaces in a landmark high-rise tower on Noida Expressway. Book your corporate address today.",
-    "image": "https://images.unsplash.com/photo-1486304873000-235643847519?auto=format&fit=crop&w=1200&q=80",
-    "location": "Noida Expressway",
-    "price": "\u20b92 Cr onwards",
-    "developer": "OfficeWorks",
-    "type": "Commercial",
-    "featured": false,
-    "gallery": [
-      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80"
+    "id": "godrej-nature-plus",
+    "projectId": "GODREJ-NAT-108",
+    "name": "Godrej Nature Plus",
+    "developer": "Godrej",
+    "location": "Golf Course Road, Gurugram",
+    "priceNumeric": 650,
+    "typology": "Villas",
+    "units": 420,
+    "status": "Ready to Move",
+    "possession": null,
+    "reraId": "HRERA-GGM-1008-2024",
+    "banner": "EXCLUSIVE LAUNCH · LIMITED INVENTORY",
+    "featured": true,
+    "usp": [
+      "Smart Access & Security",
+      "International Concierge Services",
+      "Only 2 Apartments Per Floor"
     ],
-    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
     "amenities": [
-      "Office Suites",
-      "Conference Rooms",
-      "Pantry",
-      "High-Speed Internet",
-      "Power Backup"
+      "Sports",
+      "Amphitheatre",
+      "Swimming Pool",
+      "Retail Plaza",
+      "Commercial Spaces",
+      "Gated Access",
+      "Parking"
     ],
-    "area": "1000 sq.ft onwards",
-    "type_of_property": "Commercial"
+    "image": "https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=2400&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1495435229349-e86db7bfa013?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=2400&auto=format&fit=crop"
+    ],
+    "floorplans": [
+      {
+        "name": "2 BHK",
+        "area": "3,000 sq.ft.",
+        "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=2400&auto=format&fit=crop"
+      }
+    ],
+    "brochure": "/brochures/godrej-nature-plus.pdf",
+    "phone": "+919540700009",
+    "whatsapp": "919540700009",
+    "description": "Godrej Nature Plus offers premium residences with expansive greens in Golf Course Road, Gurugram."
   },
   {
-    "id": "greensville-apartments",
-    "title": "Greensville Apartments - Sector 79, Gurgaon",
-    "description": "Premium 2 & 3 BHK apartments with golf-view amenities. A perfect blend of comfort and luxury.",
-    "image": "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80",
-    "location": "Gurgaon",
-    "price": "\u20b91.5 Cr onwards",
-    "developer": "GreenScapes",
-    "type": "Residential",
-    "featured": false,
-    "gallery": [
-      "https://images.unsplash.com/photo-1527030280862-64139fba04ca?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=1200&q=80"
+    "id": "godrej-summit",
+    "projectId": "GODREJ-SUM-109",
+    "name": "Godrej Summit",
+    "developer": "Godrej",
+    "location": "Sohna Road, Gurugram",
+    "priceNumeric": 150,
+    "typology": "Villas",
+    "units": 1120,
+    "status": "Ready to Move",
+    "possession": null,
+    "reraId": "HRERA-GGM-1009-2024",
+    "banner": "EXCLUSIVE LAUNCH · LIMITED INVENTORY",
+    "featured": true,
+    "usp": [
+      "Only 2 Apartments Per Floor",
+      "Retail Plaza within Campus",
+      "Smart Access & Security"
     ],
-    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
     "amenities": [
-      "Golf Course View",
-      "Clubhouse",
+      "Mini Theatre",
+      "Retail Plaza",
+      "24x7 Security",
+      "Commercial Spaces",
+      "Convenience Store",
+      "Nature Trail",
+      "EV Charging"
+    ],
+    "image": "https://images.unsplash.com/photo-1495435229349-e86db7bfa013?q=80&w=2400&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1460317442991-0ec209397118?q=80&w=2400&auto=format&fit=crop"
+    ],
+    "floorplans": [
+      {
+        "name": "3 BHK",
+        "area": "1,850 sq.ft.",
+        "image": "https://images.unsplash.com/photo-1560448075-bb4caa6c8cfc?q=80&w=2400&auto=format&fit=crop"
+      }
+    ],
+    "brochure": "/brochures/godrej-summit.pdf",
+    "phone": "+919540700009",
+    "whatsapp": "919540700009",
+    "description": "Godrej Summit offers premium residences with expansive greens in Sohna Road, Gurugram."
+  },
+  {
+    "id": "godrej-golf-links",
+    "projectId": "GODREJ-GOL-110",
+    "name": "Godrej Golf Links",
+    "developer": "Godrej",
+    "location": "Sector 76, Gurugram",
+    "priceNumeric": 650,
+    "typology": "3 BHK",
+    "units": 795,
+    "status": "Ready to Move",
+    "possession": null,
+    "reraId": "HRERA-GGM-1010-2024",
+    "banner": "EXCLUSIVE LAUNCH · LIMITED INVENTORY",
+    "featured": false,
+    "usp": [
+      "Double-Height Lobbies",
+      "Grand Clubhouse & Spa",
+      "Smart Access & Security"
+    ],
+    "amenities": [
+      "Garden",
+      "Commercial Spaces",
+      "Lounge",
+      "Daycare",
+      "EV Charging",
+      "Yoga Deck",
+      "Banquet Hall"
+    ],
+    "image": "https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=2400&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1460317442991-0ec209397118?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=2400&auto=format&fit=crop"
+    ],
+    "floorplans": [
+      {
+        "name": "2 BHK",
+        "area": "1,850 sq.ft.",
+        "image": "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=2400&auto=format&fit=crop"
+      }
+    ],
+    "brochure": "/brochures/godrej-golf-links.pdf",
+    "phone": "+919540700009",
+    "whatsapp": "919540700009",
+    "description": "Godrej Golf Links offers premium residences with a vibrant retail promenade in Sector 76, Gurugram."
+  },
+  {
+    "id": "godrej-south-estate",
+    "projectId": "GODREJ-SOU-111",
+    "name": "Godrej South Estate",
+    "developer": "Godrej",
+    "location": "Sector 67, Gurugram",
+    "priceNumeric": 240,
+    "typology": "Villas",
+    "units": 560,
+    "status": "Ready to Move",
+    "possession": null,
+    "reraId": "HRERA-GGM-1011-2024",
+    "banner": "EXCLUSIVE LAUNCH · LIMITED INVENTORY",
+    "featured": false,
+    "usp": [
+      "Grand Clubhouse & Spa",
+      "IGBC Green-Rated Community",
+      "Only 2 Apartments Per Floor"
+    ],
+    "amenities": [
+      "Power Backup",
+      "Water Features",
+      "CCTV",
+      "Library",
+      "EV Charging",
+      "Parking",
+      "Commercial Spaces"
+    ],
+    "image": "https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=2400&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1460317442991-0ec209397118?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1560448075-bb4caa6c8cfc?q=80&w=2400&auto=format&fit=crop"
+    ],
+    "floorplans": [
+      {
+        "name": "4 BHK",
+        "area": "2,450 sq.ft.",
+        "image": "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=2400&auto=format&fit=crop"
+      }
+    ],
+    "brochure": "/brochures/godrej-south-estate.pdf",
+    "phone": "+919540700009",
+    "whatsapp": "919540700009",
+    "description": "Godrej South Estate offers premium residences with resort-style amenities in Sector 67, Gurugram."
+  },
+  {
+    "id": "godrej-palm-retreat",
+    "projectId": "GODREJ-PAL-112",
+    "name": "Godrej Palm Retreat",
+    "developer": "Godrej",
+    "location": "Sector 109, Gurugram",
+    "priceNumeric": 320,
+    "typology": "Grade-A Office",
+    "units": null,
+    "status": "Under Construction",
+    "possession": "Q1 2028",
+    "reraId": "HRERA-GGM-1012-2024",
+    "banner": "BOOKING OPEN · LIMITED TIME ONLY",
+    "featured": false,
+    "usp": [
+      "Retail Plaza within Campus",
+      "Double-Height Lobbies",
+      "85% Green & Open Areas"
+    ],
+    "amenities": [
+      "Water Features",
+      "Open Spaces",
+      "Café",
+      "24x7 Security",
+      "Cycling Track",
       "Swimming Pool",
+      "Nature Trail"
+    ],
+    "image": "https://images.unsplash.com/photo-1460317442991-0ec209397118?q=80&w=2400&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1560448075-bb4caa6c8cfc?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=2400&auto=format&fit=crop"
+    ],
+    "floorplans": [
+      {
+        "name": "3 BHK",
+        "area": "1,850 sq.ft.",
+        "image": "https://images.unsplash.com/photo-1507081323647-4d250478b919?q=80&w=2400&auto=format&fit=crop"
+      }
+    ],
+    "brochure": "/brochures/godrej-palm-retreat.pdf",
+    "phone": "+919540700009",
+    "whatsapp": "919540700009",
+    "description": "Godrej Palm Retreat offers premium residences with a vibrant retail promenade in Sector 109, Gurugram."
+  },
+  {
+    "id": "sobha-city",
+    "projectId": "SOBHA-CIT-113",
+    "name": "Sobha City",
+    "developer": "Sobha",
+    "location": "Sector 65, Gurugram",
+    "priceNumeric": 120,
+    "typology": "Grade-A Office",
+    "units": null,
+    "status": "Ready to Move",
+    "possession": null,
+    "reraId": "HRERA-GGM-1013-2024",
+    "banner": "READY-TO-MOVE INVENTORY",
+    "featured": false,
+    "usp": [
+      "International Concierge Services",
+      "Retail Plaza within Campus",
+      "Double-Height Lobbies"
+    ],
+    "amenities": [
+      "Power Backup",
+      "Garden",
+      "High-rise Towers",
+      "Water Features",
+      "Yoga Deck",
+      "Spa",
+      "Indoor Games"
+    ],
+    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=2400&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1560448075-bb4caa6c8cfc?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=2400&auto=format&fit=crop"
+    ],
+    "floorplans": [
+      {
+        "name": "3 BHK",
+        "area": "2,200 sq.ft.",
+        "image": "https://images.unsplash.com/photo-1470723710355-95304d8aece4?q=80&w=2400&auto=format&fit=crop"
+      }
+    ],
+    "brochure": "/brochures/sobha-city.pdf",
+    "phone": "+919540700009",
+    "whatsapp": "919540700009",
+    "description": "Sobha City offers premium residences with expansive greens in Sector 65, Gurugram."
+  },
+  {
+    "id": "sobha-international-city",
+    "projectId": "SOBHA-INT-114",
+    "name": "Sobha International City",
+    "developer": "Sobha",
+    "location": "Sector 66, Gurugram",
+    "priceNumeric": 920,
+    "typology": "3 BHK",
+    "units": 220,
+    "status": "Ready to Move",
+    "possession": null,
+    "reraId": "HRERA-GGM-1014-2024",
+    "banner": "BOOKING OPEN · LIMITED TIME ONLY",
+    "featured": true,
+    "usp": [
+      "Smart Access & Security",
+      "NCR's Lowest Density Project",
+      "Grand Clubhouse & Spa"
+    ],
+    "amenities": [
+      "Daycare",
+      "Power Backup",
+      "24x7 Security",
+      "Community Hall",
+      "Mini Theatre",
+      "Library",
+      "Commercial Spaces"
+    ],
+    "image": "https://images.unsplash.com/photo-1560448075-bb4caa6c8cfc?q=80&w=2400&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1507081323647-4d250478b919?q=80&w=2400&auto=format&fit=crop"
+    ],
+    "floorplans": [
+      {
+        "name": "3 BHK",
+        "area": "1,850 sq.ft.",
+        "image": "https://images.unsplash.com/photo-1501045661006-fcebe0257c3f?q=80&w=2400&auto=format&fit=crop"
+      }
+    ],
+    "brochure": "/brochures/sobha-international-city.pdf",
+    "phone": "+919540700009",
+    "whatsapp": "919540700009",
+    "description": "Sobha International City offers premium residences with resort-style amenities in Sector 66, Gurugram."
+  },
+  {
+    "id": "sobha-eternia",
+    "projectId": "SOBHA-ETE-115",
+    "name": "Sobha Eternia",
+    "developer": "Sobha",
+    "location": "Sector 108, Gurugram",
+    "priceNumeric": 240,
+    "typology": "Villas",
+    "units": 220,
+    "status": "Ready to Move",
+    "possession": null,
+    "reraId": "HRERA-GGM-1015-2024",
+    "banner": "BOOKING OPEN · LIMITED TIME ONLY",
+    "featured": true,
+    "usp": [
+      "NCR's Lowest Density Project",
+      "Double-Height Lobbies",
+      "85% Green & Open Areas"
+    ],
+    "amenities": [
+      "24x7 Security",
+      "Clubhouse",
+      "Nature Trail",
+      "Garden",
+      "Sports",
+      "Indoor Games",
+      "Cycling Track"
+    ],
+    "image": "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=2400&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1507081323647-4d250478b919?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1470723710355-95304d8aece4?q=80&w=2400&auto=format&fit=crop"
+    ],
+    "floorplans": [
+      {
+        "name": "4 BHK",
+        "area": "2,450 sq.ft.",
+        "image": "https://images.unsplash.com/photo-1479839672681-43c71a248d01?q=80&w=2400&auto=format&fit=crop"
+      }
+    ],
+    "brochure": "/brochures/sobha-eternia.pdf",
+    "phone": "+919540700009",
+    "whatsapp": "919540700009",
+    "description": "Sobha Eternia offers premium residences with expansive greens in Sector 108, Gurugram."
+  },
+  {
+    "id": "sobha-ivory",
+    "projectId": "SOBHA-IVO-116",
+    "name": "Sobha Ivory",
+    "developer": "Sobha",
+    "location": "Dwarka Expressway, Gurugram",
+    "priceNumeric": 320,
+    "typology": "Retail & Office",
+    "units": null,
+    "status": "Ready to Move",
+    "possession": null,
+    "reraId": "HRERA-GGM-1016-2024",
+    "banner": "EXCLUSIVE LAUNCH · LIMITED INVENTORY",
+    "featured": true,
+    "usp": [
+      "Grand Clubhouse & Spa",
+      "IGBC Green-Rated Community",
+      "International Concierge Services"
+    ],
+    "amenities": [
+      "Co-working Lounge",
+      "Health Club",
+      "Roof Garden",
+      "Smart Entry",
+      "Parking",
+      "Swimming Pool",
+      "Scenic Views"
+    ],
+    "image": "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=2400&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1507081323647-4d250478b919?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1470723710355-95304d8aece4?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1501045661006-fcebe0257c3f?q=80&w=2400&auto=format&fit=crop"
+    ],
+    "floorplans": [
+      {
+        "name": "4 BHK",
+        "area": "2,450 sq.ft.",
+        "image": "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?q=80&w=2400&auto=format&fit=crop"
+      }
+    ],
+    "brochure": "/brochures/sobha-ivory.pdf",
+    "phone": "+919540700009",
+    "whatsapp": "919540700009",
+    "description": "Sobha Ivory offers premium residences with expansive greens in Dwarka Expressway, Gurugram."
+  },
+  {
+    "id": "sobha-vista",
+    "projectId": "SOBHA-VIS-117",
+    "name": "Sobha Vista",
+    "developer": "Sobha",
+    "location": "Sector 77, Gurugram",
+    "priceNumeric": 320,
+    "typology": "Grade-A Office",
+    "units": null,
+    "status": "Ready to Move",
+    "possession": null,
+    "reraId": "HRERA-GGM-1017-2024",
+    "banner": "READY-TO-MOVE INVENTORY",
+    "featured": false,
+    "usp": [
+      "85% Green & Open Areas",
+      "Bang on SPR Road",
+      "NCR's Lowest Density Project"
+    ],
+    "amenities": [
+      "Community Hall",
+      "Business Centre",
+      "Scenic Views",
+      "Daycare",
+      "Smart Entry",
+      "Co-working Lounge",
+      "Mini Theatre"
+    ],
+    "image": "https://images.unsplash.com/photo-1507081323647-4d250478b919?q=80&w=2400&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1470723710355-95304d8aece4?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1501045661006-fcebe0257c3f?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1479839672681-43c71a248d01?q=80&w=2400&auto=format&fit=crop"
+    ],
+    "floorplans": [
+      {
+        "name": "3 BHK",
+        "area": "3,600 sq.ft.",
+        "image": "https://images.unsplash.com/photo-1520367745676-56196632073f?q=80&w=2400&auto=format&fit=crop"
+      }
+    ],
+    "brochure": "/brochures/sobha-vista.pdf",
+    "phone": "+919540700009",
+    "whatsapp": "919540700009",
+    "description": "Sobha Vista offers premium residences with resort-style amenities in Sector 77, Gurugram."
+  },
+  {
+    "id": "sobha-heritage",
+    "projectId": "SOBHA-HER-118",
+    "name": "Sobha Heritage",
+    "developer": "Sobha",
+    "location": "Golf Course Road, Gurugram",
+    "priceNumeric": 240,
+    "typology": "3 BHK",
+    "units": 795,
+    "status": "Ready to Move",
+    "possession": null,
+    "reraId": "HRERA-GGM-1018-2024",
+    "banner": "BOOKING OPEN · LIMITED TIME ONLY",
+    "featured": true,
+    "usp": [
+      "Smart Access & Security",
+      "Only 2 Apartments Per Floor",
+      "Grand Clubhouse & Spa"
+    ],
+    "amenities": [
+      "Library",
+      "Daycare",
       "Jogging Track",
-      "Children\u2019s Play Area"
+      "Open Spaces",
+      "Roof Garden",
+      "Health Club",
+      "Swimming Pool"
     ],
-    "area": "1000 sq.ft onwards",
-    "type_of_property": "Residential"
+    "image": "https://images.unsplash.com/photo-1470723710355-95304d8aece4?q=80&w=2400&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1501045661006-fcebe0257c3f?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1479839672681-43c71a248d01?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?q=80&w=2400&auto=format&fit=crop"
+    ],
+    "floorplans": [
+      {
+        "name": "4 BHK",
+        "area": "2,450 sq.ft.",
+        "image": "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=2400&auto=format&fit=crop"
+      }
+    ],
+    "brochure": "/brochures/sobha-heritage.pdf",
+    "phone": "+919540700009",
+    "whatsapp": "919540700009",
+    "description": "Sobha Heritage offers premium residences with a vibrant retail promenade in Golf Course Road, Gurugram."
   },
   {
-    "id": "retail-plaza-meerut",
-    "title": "Retail & Entertainment Plaza in Meerut",
-    "description": "A mixed-use retail and entertainment plaza in Meerut\u2014ideal for brands and investors.",
-    "image": "https://images.unsplash.com/photo-1500048993953-d23a436266cf?auto=format&fit=crop&w=1200&q=80",
-    "location": "Meerut",
-    "price": "\u20b990 Lakhs onwards",
-    "developer": "UrbanPlaza Developers",
-    "type": "Commercial",
+    "id": "m3m-corporate-tower",
+    "projectId": "M3M-COR-119",
+    "name": "M3M Corporate Tower",
+    "developer": "M3M",
+    "location": "Sohna Road, Gurugram",
+    "priceNumeric": 240,
+    "typology": "3 BHK",
+    "units": 560,
+    "status": "Ready to Move",
+    "possession": null,
+    "reraId": "HRERA-GGM-1019-2024",
+    "banner": "READY-TO-MOVE INVENTORY",
     "featured": false,
-    "gallery": [
-      "https://images.unsplash.com/photo-1486304873000-235643847519?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80"
+    "usp": [
+      "Grand Clubhouse & Spa",
+      "Retail Plaza within Campus",
+      "Smart Access & Security"
     ],
-    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
     "amenities": [
-      "Multiplex",
-      "Food Court",
-      "Retail Stores",
-      "Ample Parking",
-      "24/7 Security"
+      "Gated Access",
+      "Yoga Deck",
+      "Sports",
+      "Swimming Pool",
+      "24x7 Security",
+      "Indoor Games",
+      "Clubhouse"
     ],
-    "area": "1000 sq.ft onwards",
-    "type_of_property": "Commercial"
+    "image": "https://images.unsplash.com/photo-1501045661006-fcebe0257c3f?q=80&w=2400&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1479839672681-43c71a248d01?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1520367745676-56196632073f?q=80&w=2400&auto=format&fit=crop"
+    ],
+    "floorplans": [
+      {
+        "name": "4 BHK",
+        "area": "3,600 sq.ft.",
+        "image": "https://images.unsplash.com/photo-1505692794403-34c6b7a7c810?q=80&w=2400&auto=format&fit=crop"
+      }
+    ],
+    "brochure": "/brochures/m3m-corporate-tower.pdf",
+    "phone": "+919540700009",
+    "whatsapp": "919540700009",
+    "description": "M3M Corporate Tower offers premium residences with expansive greens in Sohna Road, Gurugram."
   },
   {
-    "id": "skyhigh-towers",
-    "title": "SkyHigh Towers - High-Rise Residences",
-    "description": "Ultra-luxury high-rise apartments with sky decks and panoramic views in Delhi NCR.",
-    "image": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=1200&q=80",
-    "location": "Delhi NCR",
-    "price": "\u20b94 Cr onwards",
-    "developer": "SkyHoldings",
-    "type": "Residential",
-    "featured": false,
-    "gallery": [
-      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1527030280862-64139fba04ca?auto=format&fit=crop&w=1200&q=80"
+    "id": "m3m-merchant-square",
+    "projectId": "M3M-MER-120",
+    "name": "M3M Merchant Square",
+    "developer": "M3M",
+    "location": "Sector 76, Gurugram",
+    "priceNumeric": 650,
+    "typology": "2 BHK",
+    "units": 220,
+    "status": "Ready to Move",
+    "possession": null,
+    "reraId": "HRERA-GGM-1020-2024",
+    "banner": "READY-TO-MOVE INVENTORY",
+    "featured": true,
+    "usp": [
+      "IGBC Green-Rated Community",
+      "NCR's Lowest Density Project",
+      "Bang on SPR Road"
     ],
-    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
     "amenities": [
-      "Sky Deck",
-      "Infinity Pool",
-      "Gym & Spa",
-      "Concierge Service",
-      "Smart Home Features"
+      "Climate Control",
+      "Smart Entry",
+      "Health Club",
+      "Retail Plaza",
+      "Amphitheatre",
+      "Commercial Spaces",
+      "Nature Trail"
     ],
-    "area": "1000 sq.ft onwards",
-    "type_of_property": "Residential"
+    "image": "https://images.unsplash.com/photo-1479839672681-43c71a248d01?q=80&w=2400&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1520367745676-56196632073f?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=2400&auto=format&fit=crop"
+    ],
+    "floorplans": [
+      {
+        "name": "2 BHK",
+        "area": "2,450 sq.ft.",
+        "image": "https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=2400&auto=format&fit=crop"
+      }
+    ],
+    "brochure": "/brochures/m3m-merchant-square.pdf",
+    "phone": "+919540700009",
+    "whatsapp": "919540700009",
+    "description": "M3M Merchant Square offers premium residences with resort-style amenities in Sector 76, Gurugram."
   },
   {
-    "id": "business-center-ggn",
-    "title": "Business Center, Gurgaon Sector 43",
-    "description": "Modern commercial office center in the heart of Gurgaon\u2014ready-to-occupy and smart-equipped.",
-    "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
-    "location": "Gurgaon",
-    "price": "\u20b91.8 Cr onwards",
-    "developer": "BizCore Realty",
-    "type": "Commercial",
+    "id": "m3m-capital-walk",
+    "projectId": "M3M-CAP-121",
+    "name": "M3M Capital Walk",
+    "developer": "M3M",
+    "location": "Sector 67, Gurugram",
+    "priceNumeric": 650,
+    "typology": "4 BHK",
+    "units": 420,
+    "status": "Under Construction",
+    "possession": "Q1 2027",
+    "reraId": "HRERA-GGM-1021-2024",
+    "banner": "EXCLUSIVE LAUNCH · LIMITED INVENTORY",
     "featured": false,
-    "gallery": [
-      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1486304873000-235643847519?auto=format&fit=crop&w=1200&q=80"
+    "usp": [
+      "Smart Access & Security",
+      "Only 2 Apartments Per Floor",
+      "85% Green & Open Areas"
     ],
-    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
     "amenities": [
-      "Office Suites",
-      "Conference Rooms",
-      "Business Lounge",
-      "High-Speed Internet",
-      "Power Backup"
+      "Kids Play Area",
+      "Gym",
+      "Health Club",
+      "Cycling Track",
+      "Parking",
+      "Jogging Track",
+      "Indoor Games"
     ],
-    "area": "1000 sq.ft onwards",
-    "type_of_property": "Commercial"
+    "image": "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?q=80&w=2400&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1520367745676-56196632073f?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1505692794403-34c6b7a7c810?q=80&w=2400&auto=format&fit=crop"
+    ],
+    "floorplans": [
+      {
+        "name": "2 BHK",
+        "area": "1,850 sq.ft.",
+        "image": "https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=2400&auto=format&fit=crop"
+      }
+    ],
+    "brochure": "/brochures/m3m-capital-walk.pdf",
+    "phone": "+919540700009",
+    "whatsapp": "919540700009",
+    "description": "M3M Capital Walk offers premium residences with expansive greens in Sector 67, Gurugram."
+  },
+  {
+    "id": "m3m-soulstice",
+    "projectId": "M3M-SOU-122",
+    "name": "M3M Soulstice",
+    "developer": "M3M",
+    "location": "Sector 109, Gurugram",
+    "priceNumeric": 165,
+    "typology": "Villas",
+    "units": 795,
+    "status": "Under Construction",
+    "possession": "Q3 2027",
+    "reraId": "HRERA-GGM-1022-2024",
+    "banner": "EXCLUSIVE LAUNCH · LIMITED INVENTORY",
+    "featured": true,
+    "usp": [
+      "Only 2 Apartments Per Floor",
+      "International Concierge Services",
+      "Smart Access & Security"
+    ],
+    "amenities": [
+      "Power Backup",
+      "Garden",
+      "Gym",
+      "CCTV",
+      "High-rise Towers",
+      "Sports",
+      "Amphitheatre"
+    ],
+    "image": "https://images.unsplash.com/photo-1520367745676-56196632073f?q=80&w=2400&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1505692794403-34c6b7a7c810?q=80&w=2400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=2400&auto=format&fit=crop"
+    ],
+    "floorplans": [
+      {
+        "name": "3 BHK",
+        "area": "2,200 sq.ft.",
+        "image": "https://images.unsplash.com/photo-1499914485622-a88fac536970?q=80&w=2400&auto=format&fit=crop"
+      }
+    ],
+    "brochure": "/brochures/m3m-soulstice.pdf",
+    "phone": "+919540700009",
+    "whatsapp": "919540700009",
+    "description": "M3M Soulstice offers premium residences with expansive greens in Sector 109, Gurugram."
   }
 ]

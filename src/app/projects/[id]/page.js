@@ -1,47 +1,91 @@
-import projects from "../../../data/projects.json";   // ✅ only once
+// src/app/projects/[id]/page.js
+import { notFound } from "next/navigation";
 import ProjectDetailClient from "./ProjectDetailClient";
+import projects from "@/data/projects.json";
 
-export async function generateStaticParams() {
-  return projects.map((project) => ({
-    id: project.id,
-  }));
+// Pre-render dynamic routes for known projects (optional but nice)
+export function generateStaticParams() {
+  try {
+    if (Array.isArray(projects)) {
+      return projects.map((p) => ({ id: p.id }));
+    }
+  } catch {}
+  return [];
 }
 
-export async function generateMetadata({ params }) {
-  const project = projects.find((p) => p.id === params.id);
-  if (!project) {
-    return {
-      title: "Project Not Found | Altina Livings",
-      description: "Explore premium real estate projects with Altina Livings.",
-    };
-  }
+// Safe metadata — avoid OpenGraph type "product" (caused your error)
+export function generateMetadata({ params }) {
+  const project =
+    Array.isArray(projects) && projects.find((p) => p.id === params.id);
+
+  const title = project?.name || project?.title || "Project";
+  const description =
+    project?.description ||
+    `${project?.developer ? project.developer + " · " : ""}${
+      project?.location || ""
+    }`;
+  const image = project?.image || "/og-default.jpg";
 
   return {
-    title: project.title,
-    description: project.description,
-    alternates: {
-      canonical: `https://yourdomain.com/projects/${project.id}`,
-    },
+    title: `${title} | Altina`,
+    description,
     openGraph: {
-      title: project.title,
-      description: project.description,
-      images: [{ url: project.image, width: 1200, height: 630, alt: project.title }],
-      url: `https://yourdomain.com/projects/${project.id}`,
-      siteName: "Altina Livings",
       type: "website",
+      title: `${title} | Altina`,
+      description,
+      images: [{ url: image }],
     },
     twitter: {
       card: "summary_large_image",
-      title: project.title,
-      description: project.description,
-      images: [project.image],
+      title: `${title} | Altina`,
+      description,
+      images: [image],
     },
   };
 }
 
-export default function ProjectPage({ params }) {
-  const project = projects.find((p) => p.id === params.id);
-  if (!project) return <div className="p-6">Project not found</div>;
+// Pull a project by id
+function getProjectById(id) {
+  if (!Array.isArray(projects)) return null;
+  return projects.find((p) => String(p.id) === String(id)) || null;
+}
 
-  return <ProjectDetailClient project={project} />;
+export default function ProjectDetailPage({ params }) {
+  const project = getProjectById(params.id);
+
+  if (!project) {
+    // If id not found, go to 404
+    return notFound();
+  }
+
+  return (
+    <main className="main-with-header">
+      <div className="altina-container py-4">
+        {/* Tiny breadcrumb */}
+        <nav className="mb-3 text-sm text-gray-500">
+          <a href="/" className="hover:underline">Home</a> <span>/</span>{" "}
+          <a href="/projects" className="hover:underline">Projects</a> <span>/</span>{" "}
+          <span className="text-gray-700 font-medium">
+            {project.name || project.title}
+          </span>
+        </nav>
+      </div>
+
+      {/* 🚀 Single source of truth for the page layout.
+          This component contains:
+          - Premium Hero (gold→blue ribbon + shine)
+          - In-banner rotating highlights (project.usp)
+          - Gallery with lightbox
+          - Amenities
+          - Floorplans (uses project.floorplans array)
+          - Sticky enquiry form with gradient border
+      */}
+      <ProjectDetailClient project={project} />
+
+      {/* 💡 NOTE:
+          We intentionally removed the old "Project Highlights" section from this file.
+          Highlights now live INSIDE the banner in ProjectDetailClient’s <Hero />.
+      */}
+    </main>
+  );
 }

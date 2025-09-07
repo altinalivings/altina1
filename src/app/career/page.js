@@ -1,28 +1,38 @@
-import Hero from "@/components/Hero";
+import PageHero from "@/components/PageHero";
+import SeoJsonLd from "@/components/SeoJsonLd";
 
 export const metadata = {
-  title: "Careers – Altina Livings",
+  title: "Careers | ALTINA™ Livings",
   description:
-    "Join Altina Livings and grow your career in premium real estate consulting and partnerships.",
+    "Join ALTINA™ Livings and be part of our growing real estate advisory team.",
 };
 
 export default function CareerPage() {
-  return (
-    <main>
-      <Hero
-        title="Careers at Altina Livings"
-        subtitle="Join our growing team of real estate experts"
-        image="https://images.unsplash.com/photo-1486304873000-235643847519?auto=format&fit=crop&w=1600&h=600"
-      />
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "ALTINA™ Livings",
+    url: "https://www.altina.example/career",
+  };
 
-      <section className="py-16 container mx-auto px-6 text-center">
-        <h2 className="text-2xl font-bold mb-6">Why Work With Us?</h2>
-        <p className="text-gray-600 max-w-2xl mx-auto">
-          At Altina Livings, we believe in building careers along with communities.
-          We provide a collaborative environment, growth opportunities, and the
-          chance to work on premium real estate projects.
+  return (
+    <>
+      <SeoJsonLd schema={schema} />
+      <PageHero
+        title="Careers"
+        subtitle="Work with a premium channel partner delivering exceptional client outcomes."
+        image="https://images.unsplash.com/photo-1499914485622-a88fac536970?q=80&w=2400&auto=format&fit=crop"
+      />
+      <div className="altina-container py-16">
+        <p className="text-gray-700">
+          We’re always looking for passionate real estate professionals and
+          relationship managers. Send your CV to{" "}
+          <a href="mailto:careers@altina.com" className="text-brand-gold">
+            careers@altina.com
+          </a>
+          .
         </p>
-      </section>
-    </main>
+      </div>
+    </>
   );
 }

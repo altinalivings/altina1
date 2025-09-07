@@ -1,21 +1,28 @@
-import Hero from "@/components/Hero";
-import ProjectsClient from "@/components/ProjectsClient";
+
+import PageHero from "@/components/PageHero";
+import ProjectsExplorer from "@/components/ProjectsExplorer";
+import projects from "@/data/projects.json";
 
 export const metadata = {
-  title: "Projects – Altina Livings",
-  description:
-    "Explore premium residential & commercial projects by DLF, M3M, Sobha & Godrej with Altina Livings.",
+  title: "Projects | ALTINA™ Livings",
+  description: "Curated launches across Delhi NCR.",
 };
 
 export default function ProjectsPage() {
   return (
-    <>
-      <Hero
-        title="Our Projects"
-        subtitle="Explore premium residential and commercial projects with Altina Livings"
-        image="https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=1600&h=600"
+    <div className="min-h-screen">
+      <PageHero
+        title="Projects"
+        subtitle="Curated launches across Delhi NCR"
+        image="https://images.unsplash.com/photo-1495433324511-bf8e92934d90?q=80&w=2400&auto=format&fit=crop"
       />
-      <ProjectsClient />
-    </>
+
+      {/* Pull the explorer up so its filter sits on the hero bottom */}
+      <div className="-mt-20 sm:-mt-24 lg:-mt-28 relative z-10">
+        <main className="mx-auto max-w-6xl px-4 pb-12">
+          <ProjectsExplorer items={projects} />
+        </main>
+      </div>
+    </div>
   );
 }

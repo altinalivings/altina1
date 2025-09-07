@@ -1,29 +1,31 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        gold: {
-          50: '#fefce8',
-          100: '#fef9c3',
-          200: '#fef08a',
-          300: '#fde047',
-          400: '#facc15',
-          500: '#eab308',  // Primary gold
-          600: '#ca8a04',
-          700: '#a16207',
-          800: '#854d0e',
-          900: '#713f12',
-        },
-        primary: '#1e40af',
-        accent: '#eab308', // Using gold-500 as accent
+        // Neutral porcelain base + ink text for premium look
+        porcelain: "#F6F7F5",
+        ink: "#1C1C1C",
+        // Premium golds
+        gold: "#C9A227",
+        gold2: "#E2C35A",
+        // Optional soft mint bands
+        mint: "#DFF5E1",
+        mintSoft: "#EEF9F2",
+      },
+      fontFamily: {
+        serif: ["var(--font-playfair)", "ui-serif", "Georgia"],
+        sans: ["var(--font-inter)", "ui-sans-serif", "system-ui"],
+      },
+	   fontSize: {
+        base: "1.0625rem", // ~17px (default is 1rem = 16px)
+      },
+      boxShadow: {
+        card: "0 10px 24px rgba(16,24,40,0.08)",
+        gold: "0 14px 32px rgba(201,162,39,0.18)",
       },
     },
   },
   plugins: [],
-}
+};

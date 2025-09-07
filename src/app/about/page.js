@@ -1,29 +1,44 @@
-import Hero from "@/components/Hero";
+import PageHero from "@/components/PageHero";
+import SeoJsonLd from "@/components/SeoJsonLd";
 
 export const metadata = {
-  title: "About Us – Altina Livings",
+  title: "About Us | ALTINA™ Livings",
   description:
-    "Learn more about Altina Livings – Premium real estate channel partner with DLF, M3M, Sobha & Godrej. 15+ years of expertise, 3200+ happy clients.",
+    "ALTINA™ Livings — Premium Channel Partner for DLF, M3M, Sobha & Godrej.",
 };
 
 export default function AboutPage() {
-  return (
-    <main>
-      <Hero
-        title="About Altina Livings"
-        subtitle="Your trusted partner in premium real estate"
-        image="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1600&h=600"
-      />
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": ["Organization", "RealEstateAgent"],
+    name: "ALTINA™ Livings",
+    url: "https://www.altina.example",
+    logo: "https://www.altina.example/images/logos/Altina.png",
+    brand: [
+      { "@type": "Brand", name: "DLF" },
+      { "@type": "Brand", name: "M3M" },
+      { "@type": "Brand", name: "Sobha" },
+      { "@type": "Brand", name: "Godrej" },
+    ],
+    areaServed: ["Gurugram", "Delhi NCR"],
+  };
 
-      <section className="py-16 container mx-auto px-6 text-center">
-        <h2 className="text-3xl font-bold mb-6">Our Story</h2>
-        <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-          Founded in 2009, Altina Livings is a premier channel partner for India’s
-          top developers including DLF, M3M, Sobha & Godrej. We’ve served over
-          <b> 3200+ homebuyers and investors </b> with trust, transparency, and
-          excellence.
+  return (
+    <>
+      <SeoJsonLd schema={schema} />
+      <PageHero
+        title="About ALTINA™ Livings"
+        subtitle="Premium advisory. Priority allocations. Transparent process."
+        image="https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=2400&auto=format&fit=crop"
+      />
+      <div className="altina-container py-16">
+        <p className="text-lg text-gray-700 leading-relaxed">
+          ALTINA™ Livings is a trusted channel partner of India’s top developers
+          — DLF, M3M, Sobha & Godrej. We specialize in luxury residences,
+          commercial assets and investment-grade inventories, ensuring our
+          clients get the best options at the right time.
         </p>
-      </section>
-    </main>
+      </div>
+    </>
   );
 }

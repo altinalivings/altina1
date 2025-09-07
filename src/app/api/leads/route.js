@@ -1,25 +1,19 @@
-// /src/app/api/leads/route.js
-import { NextResponse } from "next/server";
-
-const SHEET_URL = process.env.SHEET_URL; // set in .env.local
-
 export async function POST(req) {
   try {
-    const body = await req.json();
-
-    const res = await fetch(SHEET_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
-
-    if (!res.ok) throw new Error("Google Sheets request failed");
-
-    return NextResponse.json({ success: true });
-  } catch (err) {
-    return NextResponse.json(
-      { success: false, error: err.message },
-      { status: 500 }
+    const formData = await req.formData(); // supports multipart/form-data
+    // forward to Apps Script
+    const r = await fetch(
+      "https://script.google.com/macros/s/AKfycbyaT79B9lI8SQRKMT92dxvJGBIHvuV1SOhjCszEocDUqqkwdnOYmI9pG5bhfBfXdf8H2g/exec",
+      { method: "POST", body: formData }
     );
+    return new Response(await r.text(), {
+      status: r.status,
+      headers: { "content-type": r.headers.get("content-type") || "text/plain" },
+    });
+  } catch (e) {
+    return new Response(JSON.stringify({ status: "error" }), {
+      status: 500,
+      headers: { "content-type": "application/json" },
+    });
   }
 }

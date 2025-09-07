@@ -1,42 +1,57 @@
-import Hero from "@/components/Hero";
+import PageHero from "@/components/PageHero";
+import SeoJsonLd from "@/components/SeoJsonLd";
 
 export const metadata = {
-  title: "Our Services – Altina Livings",
-  description:
-    "Discover the premium services offered by Altina Livings – real estate consulting, project promotions & exclusive deals.",
+  title: "Services | ALTINA™ Livings",
+  description: "End-to-end property consulting and investment services.",
 };
 
 export default function ServicesPage() {
-  return (
-    <main>
-      <Hero
-        title="Our Services"
-        subtitle="Delivering premium consulting & partnerships for luxury real estate"
-        image="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1600&h=600"
-      />
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Real Estate Advisory",
+    provider: {
+      "@type": "LocalBusiness",
+      name: "ALTINA™ Livings",
+      areaServed: ["Gurugram", "Delhi NCR"],
+    },
+  };
 
-      <section className="container mx-auto px-6 py-16 text-center">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="p-6 bg-white shadow rounded-lg">
-            <h3 className="text-xl font-semibold mb-2">Consulting</h3>
-            <p className="text-gray-600">
-              Expert advice for residential & commercial investments.
-            </p>
-          </div>
-          <div className="p-6 bg-white shadow rounded-lg">
-            <h3 className="text-xl font-semibold mb-2">Exclusive Offers</h3>
-            <p className="text-gray-600">
-              Access to deals from India’s top developers.
-            </p>
-          </div>
-          <div className="p-6 bg-white shadow rounded-lg">
-            <h3 className="text-xl font-semibold mb-2">End-to-End Support</h3>
-            <p className="text-gray-600">
-              Assistance from booking to possession with full transparency.
-            </p>
-          </div>
+  return (
+    <>
+      <SeoJsonLd schema={schema} />
+      <PageHero
+        title="Our Services"
+        subtitle="From shortlisting to site visits, negotiations and paperwork — done right."
+        image="https://images.unsplash.com/photo-1505691723518-36a5ac3be353?q=80&w=2400&auto=format&fit=crop"
+      />
+      <div className="altina-container py-16 grid gap-6 md:grid-cols-2">
+        <div className="card-premium p-6">
+          <h3 className="font-semibold">Property Consulting</h3>
+          <p className="mt-2 text-sm text-gray-700">
+            Helping you choose the right investment or dream home.
+          </p>
         </div>
-      </section>
-    </main>
+        <div className="card-premium p-6">
+          <h3 className="font-semibold">Priority Allotments</h3>
+          <p className="mt-2 text-sm text-gray-700">
+            Early-bird access to premium inventories.
+          </p>
+        </div>
+        <div className="card-premium p-6">
+          <h3 className="font-semibold">Site Visits & Negotiations</h3>
+          <p className="mt-2 text-sm text-gray-700">
+            Personalized tours and price support.
+          </p>
+        </div>
+        <div className="card-premium p-6">
+          <h3 className="font-semibold">NRI Desk</h3>
+          <p className="mt-2 text-sm text-gray-700">
+            End-to-end assistance for overseas investors.
+          </p>
+        </div>
+      </div>
+    </>
   );
 }

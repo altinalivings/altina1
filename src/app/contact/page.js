@@ -1,27 +1,38 @@
-import Hero from "@/components/Hero";
-import ContactForm from "@/components/ContactForm";
+import PageHero from "@/components/PageHero";
+import SeoJsonLd from "@/components/SeoJsonLd";
 
 export const metadata = {
-  title: "Contact Us – Altina Livings",
+  title: "Contact | ALTINA™ Livings",
   description:
-    "Get in touch with Altina Livings for enquiries on premium real estate projects in Gurgaon. Partnered with DLF, M3M, Sobha, and Godrej.",
+    "Get in touch with ALTINA™ Livings for enquiries and collaborations.",
 };
 
 export default function ContactPage() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Contact ALTINA™ Livings",
+    url: "https://www.altina.example/contact",
+  };
+
   return (
     <>
-      <Hero
-        title="Get in Touch"
-        subtitle="We’d love to hear from you. Our team will get back to you soon."
-        image="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1600&h=600"
+      <SeoJsonLd schema={schema} />
+      <PageHero
+        title="Contact Us"
+        subtitle="Reach out for enquiries, partnerships, or to schedule a site visit."
+        image="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2400&auto=format&fit=crop"
       />
-      <div className="max-w-3xl mx-auto px-6 py-16">
-        <h1 className="text-4xl font-bold mb-6 text-center">Contact Us</h1>
-        <p className="text-lg text-gray-600 mb-10 text-center">
-          Have questions about a project? Fill out the form below and our team
-          at <b>Altina Livings</b> will reach out to you shortly.
-        </p>
-        <ContactForm project="Contact Page" />
+      <div className="altina-container py-16">
+        <form className="card-premium p-6 max-w-xl mx-auto">
+          <div className="grid gap-4">
+            <input type="text" name="name" placeholder="Name" className="input" />
+            <input type="tel" name="phone" placeholder="Phone" className="input" />
+            <input type="email" name="email" placeholder="Email (optional)" className="input" />
+            <textarea name="message" rows={4} placeholder="Message" className="input" />
+          </div>
+          <button type="submit" className="btn-gold mt-4 w-full">Submit</button>
+        </form>
       </div>
     </>
   );
