@@ -1,8 +1,11 @@
-
+// src/app/projects/page.js
+import { Suspense } from "react";
 import PageHero from "@/components/PageHero";
 import ProjectsExplorer from "@/components/ProjectsExplorer";
 import projects from "@/data/projects.json";
-import { Suspense } from "react";
+
+// If you ever hit prerender issues again, you can uncomment this:
+// export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Projects | ALTINA™ Livings",
@@ -21,21 +24,15 @@ export default function ProjectsPage() {
       {/* Pull the explorer up so its filter sits on the hero bottom */}
       <div className="-mt-20 sm:-mt-24 lg:-mt-28 relative z-10">
         <main className="mx-auto max-w-6xl px-4 pb-12">
-          <ProjectsExplorer items={projects} />
+          <Suspense
+            fallback={
+              <div className="rounded-xl border p-6">Loading projects…</div>
+            }
+          >
+            <ProjectsExplorer items={projects} />
+          </Suspense>
         </main>
       </div>
     </div>
-	<Suspense
-      fallback={
-        <div className="altina-container py-10">
-          <div className="rounded-xl border p-6">Loading projects…</div>
-        </div>
-      }
-    >
-      <div className="altina-container py-8">
-        <h1 className="mb-4 text-2xl font-semibold">Explore Projects</h1>
-        <ProjectsExplorer items={data ?? []} />
-      </div>
-    </Suspense>
   );
 }
