@@ -2,6 +2,7 @@
 import PageHero from "@/components/PageHero";
 import ProjectsExplorer from "@/components/ProjectsExplorer";
 import projects from "@/data/projects.json";
+import { Suspense } from "react";
 
 export const metadata = {
   title: "Projects | ALTINA™ Livings",
@@ -24,5 +25,17 @@ export default function ProjectsPage() {
         </main>
       </div>
     </div>
+	<Suspense
+      fallback={
+        <div className="altina-container py-10">
+          <div className="rounded-xl border p-6">Loading projects…</div>
+        </div>
+      }
+    >
+      <div className="altina-container py-8">
+        <h1 className="mb-4 text-2xl font-semibold">Explore Projects</h1>
+        <ProjectsExplorer items={data ?? []} />
+      </div>
+    </Suspense>
   );
 }
