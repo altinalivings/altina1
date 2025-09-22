@@ -1,10 +1,9 @@
 // src/components/ProjectDetailClientShell.tsx
 "use client";
 
-import * as React from "react";
 import * as HeroMod from "@/components/ProjectHeroWithInfo";
 import * as DetailsMod from "@/components/ProjectDetailsSections";
-import RelatedProjects from "@/components/RelatedProjects";
+import * as RelatedNS from "@/components/RelatedProjects";
 import * as FloatMod from "@/components/FloatingCTAs";
 
 type Project = {
@@ -20,48 +19,60 @@ type Project = {
   images?: string[];
 };
 
-type Props = { project: Project };
-
-function pick<T = any>(mod: any, named: string) {
-  return (mod?.default ?? mod?.[named]) as T;
+function pick(mod: any, named: string) {
+  if (!mod) return undefined;
+  if (typeof mod === "function") return mod;
+  const val = (mod as any).default ?? (mod as any)[named];
+  return typeof val === "function" ? val : undefined;
 }
 
-const ProjectHeroWithInfo = pick<any>(HeroMod, "ProjectHeroWithInfo");
-const ProjectDetailsSections = pick<any>(DetailsMod, "ProjectDetailsSections");
-const FloatingCTAs = pick<any>(FloatMod, "FloatingCTAs");
+const ProjectHeroWithInfo = pick(HeroMod, "ProjectHeroWithInfo");
+const ProjectDetailsSections = pick(DetailsMod, "ProjectDetailsSections");
+const RelatedProjects = pick(RelatedNS, "RelatedProjects");
+const FloatingCTAs = pick(FloatMod, "FloatingCTAs");
 
-export default function ProjectDetailClientShell({ project }: Props) {
-  // Guard RelatedProjects to avoid rendering non-function
-  const RP: any = RelatedProjects;
-  const rpIsRenderable = typeof RP === "function";
+if (!ProjectHeroWithInfo) {
+  console.warn("[ProjectDetailClientShell] ProjectHeroWithInfo not found in module exports");
+}
+if (!ProjectDetailsSections) {
+  console.warn("[ProjectDetailClientShell] ProjectDetailsSections not found in module exports");
+}
+if (!RelatedProjects) {
+  console.warn("[ProjectDetailClientShell] RelatedProjects not found in module exports");
+}
+if (!FloatingCTAs) {
+  console.warn("[ProjectDetailClientShell] FloatingCTAs not found in module exports");
+}
 
+export default function ProjectDetailClientShell({ project }: { project: Project }) {
   return (
     <>
-      {ProjectHeroWithInfo && <ProjectHeroWithInfo project={project} />}
+      {ProjectHeroWithInfo ? (
+        <ProjectHeroWithInfo
+          id={project.id}
+          name={project.name}
+          developer={project.developer}
+          city={project.city}
+          location={project.location}
+          hero={project.hero}
+          configuration={project.configuration}
+          price={project.price}
+          brochure={project.brochure}
+          images={project.images}
+        />
+      ) : null}
 
-      <div className="mx-auto max-w-6xl px-4">
-        {ProjectDetailsSections && (
-          <ProjectDetailsSections project={project} />
-        )}
-      </div>
-
-      <section className="relative z-0 max-w-6xl mx-auto px-4 pb-10">
-        {rpIsRenderable ? (
-          <RP
-            currentId={project.id}
-            developer={project.developer}
-            city={project.city}
-          />
-        ) : (
-          <div className="text-sm text-white/60">
-            (debug) RelatedProjects is not a component
-          </div>
-        )}
+      <section className="relative z-0 max-w-6xl mx-auto px-4 pt-8 pb-10">
+        {ProjectDetailsSections ? <ProjectDetailsSections project={project as any} /> : null}
       </section>
 
-      {FloatingCTAs && (
-        <FloatingCTAs projectId={project.id} projectName={project.name} />
-      )}
+      <section className="relative z-0 max-w-6xl mx-auto px-4 pb-10">
+        {RelatedProjects ? (
+          <RelatedProjects currentId={project.id} developer={project.developer} city={project.city} />
+        ) : null}
+      </section>
+
+      {FloatingCTAs ? <FloatingCTAs projectId={project.id} projectName={project.name} /> : null}
     </>
   );
 }

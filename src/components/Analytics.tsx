@@ -8,6 +8,7 @@ const FB_PIXEL = process.env.NEXT_PUBLIC_FB_PIXEL;
 const LI_PARTNER = process.env.NEXT_PUBLIC_LI_PARTNER_ID;
 const GADS_ID = process.env.NEXT_PUBLIC_GADS_ID;
 
+// inject a script only once
 function injectScriptOnce(id: string, src: string, attrs: Record<string, string> = {}) {
   if (typeof document === "undefined") return;
   if (document.getElementById(id)) return;
@@ -31,7 +32,7 @@ function guardFn<T extends Function>(fn: any): T {
       },
       defineProperty(target, prop, desc) {
         if (prop === "length") return true;
-        Object.defineProperty(target, prop, desc);
+        Object.defineProperty(target as any, prop as any, desc as any);
         return true;
       },
     });
@@ -47,7 +48,7 @@ export default function Analytics() {
     if (typeof window === "undefined") return;
     const w = window as any;
 
-    // GA4
+    // ---- GA4 ----
     if (GA_ID) {
       injectScriptOnce("ga4-script", `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`);
       w.dataLayer = w.dataLayer || [];
@@ -55,24 +56,28 @@ export default function Analytics() {
       w.gtag = guardFn(w.gtag);
       w.gtag("js", new Date());
       w.gtag("config", GA_ID);
+      console.log("[Analytics] GA4 configured", GA_ID);
+    } else {
+      console.warn("[Analytics] GA4 env NEXT_PUBLIC_GA4_ID not set");
     }
 
-    // Google Ads
+    // ---- Google Ads (gtag) ----
     if (GADS_ID) {
       injectScriptOnce("gads-script", `https://www.googletagmanager.com/gtag/js?id=${GADS_ID}`);
       w.dataLayer = w.dataLayer || [];
       w.gtag = w.gtag || function () { w.dataLayer.push(arguments); };
       w.gtag = guardFn(w.gtag);
       w.gtag("config", GADS_ID);
+      console.log("[Analytics] Google Ads configured", GADS_ID);
     }
 
-    // Facebook Pixel — wrap the *local* function before assigning to fbq/n
+    // ---- Facebook Pixel ----
     if (FB_PIXEL && !w.fbq) {
       (function (f: any, b: any, e: any, v: any) {
         if (f.fbq) return;
         var n: any;
         var raw = function() { (n.callMethod ? n.callMethod : n.queue.push).apply(n, arguments); };
-        n = f.fbq = guardFn(raw);     // <-- ensure local n is the proxy, not the raw function
+        n = f.fbq = guardFn(raw); // guard the local function before assignment
         if (!f._fbq) f._fbq = n;
         n.push = n;
         n.loaded = true;
@@ -85,21 +90,29 @@ export default function Analytics() {
       })(w, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
     }
     if (FB_PIXEL) {
-      // Ensure both fbq and _fbq reference the guarded proxy
       w.fbq = guardFn(w.fbq);
       w._fbq = w.fbq;
-      w.fbq("init", FB_PIXEL);
-      w.fbq("track", "PageView");
+      try {
+        w.fbq("init", FB_PIXEL);
+        w.fbq("track", "PageView");
+        console.log("[Analytics] FB Pixel initialized", FB_PIXEL);
+      } catch (e) {
+        console.warn("[Analytics] FB Pixel call failed (likely blocked by extension):", (e as any)?.message);
+      }
+    } else {
+      console.warn("[Analytics] FB Pixel env NEXT_PUBLIC_FB_PIXEL not set");
     }
 
-    // LinkedIn Insight
+    // ---- LinkedIn Insight ----
     if (LI_PARTNER && !w.lintrk) {
       w._linkedin_data_partner_ids = w._linkedin_data_partner_ids || [];
       if (!w._linkedin_data_partner_ids.includes(LI_PARTNER)) {
         w._linkedin_data_partner_ids.push(LI_PARTNER);
       }
       injectScriptOnce("li-insight", "https://snap.licdn.com/li.lms-analytics/insight.min.js");
+      console.log("[Analytics] LinkedIn Insight configured", LI_PARTNER);
     }
+
   }, []);
 
   return null;

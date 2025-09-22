@@ -11,12 +11,12 @@ import LeadBus from "@/components/LeadBus";
 import Analytics from "@/components/Analytics";
 import Notifier from "@/components/Notifier";
 import AutoCallbackPrompt from "@/components/AutoCallbackPrompt";
-import AnalyticsGuards from "@/components/AnalyticsGuards";
 import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.altinalivings.com";
+const FB_PIXEL = process.env.NEXT_PUBLIC_FB_PIXEL;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -46,29 +46,9 @@ const preInteractiveGuard = `;(function(){try{
       return p;
     }catch(e){ return fn; }
   }
-  // Ensure assignments to fbq/_fbq/gtag are wrapped BEFORE any scripts run
-  try{
-    Object.defineProperty(w,'fbq',{
-      configurable:true, enumerable:true,
-      set:function(v){ this.__fbq = guard(v); },
-      get:function(){ return this.__fbq; }
-    });
-  }catch(e){}
-  try{
-    Object.defineProperty(w,'_fbq',{
-      configurable:true, enumerable:true,
-      set:function(v){ this.__fbq = guard(v); },
-      get:function(){ return this.__fbq; }
-    });
-  }catch(e){}
-  try{
-    Object.defineProperty(w,'gtag',{
-      configurable:true, enumerable:true,
-      set:function(v){ this.__gtag = guard(v); },
-      get:function(){ return this.__gtag; }
-    });
-  }catch(e){}
-  // If already present, wrap now (setter will store guarded version)
+  try{Object.defineProperty(w,'fbq',{configurable:true,enumerable:true,set:function(v){this.__fbq=guard(v);},get:function(){return this.__fbq;}});}catch(e){}
+  try{Object.defineProperty(w,'_fbq',{configurable:true,enumerable:true,set:function(v){this.__fbq=guard(v);},get:function(){return this.__fbq;}});}catch(e){}
+  try{Object.defineProperty(w,'gtag',{configurable:true,enumerable:true,set:function(v){this.__gtag=guard(v);},get:function(){return this.__gtag;}});}catch(e){}
   try{ if('fbq' in w && typeof w.fbq==='function'){ var tmp=w.fbq; w.fbq=tmp; } }catch(e){}
   try{ if('_fbq' in w && typeof w._fbq==='function'){ var tmp2=w._fbq; w._fbq=tmp2; } }catch(e){}
   try{ if('gtag' in w && typeof w.gtag==='function'){ var tmp3=w.gtag; w.gtag=tmp3; } }catch(e){}
@@ -96,9 +76,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className="bg-black text-white">
       <head>
         <Script id="analytics-guards-pre" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: preInteractiveGuard }} />
+        {FB_PIXEL ? (
+          <noscript>
+            {`<img height="1" width="1" style="display:none" alt=""
+              src="https://www.facebook.com/tr?id=${FB_PIXEL}&ev=PageView&noscript=1"
+/>`}
+          </noscript>
+        ) : null}
       </head>
       <body className={inter.className + " flex min-h-screen flex-col"}>
-        <AnalyticsGuards />
         <Header />
         <main className="flex-1">{children}</main>
         <SiteFooter />
