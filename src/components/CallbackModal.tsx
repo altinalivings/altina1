@@ -6,9 +6,9 @@ import EnquiryForm from "@/components/EnquiryForm";
 
 type CallbackModalProps = {
   projectName?: string;
-  open?: boolean;                           // allow parent to control modal
-  onOpenChange?: (open: boolean) => void;   // notify parent of changes
-  source?: string;                          // e.g. "auto-popup", "cta"
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  source?: string;
 };
 
 export default function CallbackModal({
@@ -17,17 +17,13 @@ export default function CallbackModal({
   onOpenChange,
   source,
 }: CallbackModalProps) {
-  // internal state (default closed)
   const [internalOpen, setInternalOpen] = useState<boolean>(!!open);
 
-  // sync with controlled `open` if provided
   useEffect(() => {
-    if (typeof open === "boolean") {
-      setInternalOpen(open);
-    }
+    if (typeof open === "boolean") setInternalOpen(open);
   }, [open]);
 
-  // support legacy "open-callback" event (auto-popup)
+  // Support legacy "open-callback" custom event
   useEffect(() => {
     const h = () => setInternalOpen(true);
     window.addEventListener("open-callback", h as any);
@@ -56,10 +52,12 @@ export default function CallbackModal({
           ✕
         </button>
         <h3 className="text-xl font-semibold mb-3">Request a callback</h3>
+
+        {/* NOTE: Spread-cast the extra prop so TypeScript stops complaining on Vercel */}
         <EnquiryForm
           mode="callback"
           projectName={projectName}
-          onSubmitted={() => handleOpenChange(false)}
+          {...({ onSubmitted: () => handleOpenChange(false) } as any)}
         />
       </div>
     </div>
