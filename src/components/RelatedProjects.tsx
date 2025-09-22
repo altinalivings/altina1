@@ -10,12 +10,11 @@ type Props = {
 
 /**
  * Minimal, safe default export for RelatedProjects.
- * - Works inside client components.
- * - Avoids SSR/SSG crashes by ensuring a function component is exported.
- * - You can enhance this later to actually compute related projects.
+ * - Works in client components.
+ * - Avoids SSR/SSG crashes by exporting a function component.
+ * - Replace internals later with real “related” logic.
  */
 export default function RelatedProjects({ currentId, developer, city }: Props) {
-  // Render a simple, SEO-friendly fallback. Replace with real related-logic when ready.
   return (
     <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
       <div className="flex items-center justify-between gap-4 flex-wrap">
