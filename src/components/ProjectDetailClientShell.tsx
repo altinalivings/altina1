@@ -3,7 +3,9 @@
 
 import * as HeroMod from "@/components/ProjectHeroWithInfo";
 import * as DetailsMod from "@/components/ProjectDetailsSections";
-import RelatedProjects from "@/components/RelatedProjects";`r`n// Namespace shim (keeps existing JSX working)`r`nconst RelatedMod = { RelatedProjects };
+import RelatedProjects from "@/components/RelatedProjects";
+// Namespace shim (keeps existing JSX working)
+const RelatedMod = { RelatedProjects };
 // removed: import * as RailMod from "@/components/ProjectCTARail";
 import * as FloatMod from "@/components/FloatingCTAs";
 
