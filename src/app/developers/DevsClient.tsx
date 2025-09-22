@@ -4,8 +4,6 @@
 import PageHero from "@/components/PageHero";
 import FloatingCTAs from "@/components/FloatingCTAs";
 import FeaturedDevelopers from "@/components/FeaturedDevelopers";
-
-// If you already have this file, great. If not, you can keep the fallback [].
 import developers from "@/data/developers.json";
 
 type Dev = {
@@ -19,8 +17,28 @@ type Dev = {
 };
 
 export default function DevsClient() {
-  // Robust fallback so builds never fail if JSON is empty/missing shape
-  const items = (Array.isArray(developers) ? (developers as Dev[]) : []) as Dev[];
+  // developers.json example item shape (from your repo):
+  // { slug, name, logo, hero, tagline, about, usps, stats, projects, map, ... }
+  const raw = (Array.isArray(developers) ? (developers as any[]) : []) as any[];
+
+  const items: Dev[] = raw.map((d) => {
+    const id =
+      d.id ??
+      d.slug ??
+      (typeof d.name === "string"
+        ? d.name.toLowerCase().replace(/\s+/g, "-")
+        : "developer");
+
+    return {
+      id,
+      name: d.name ?? id,
+      logo: d.logo,
+      city: d.city, // optional in your JSON
+      projectsCount: Array.isArray(d.projects) ? d.projects.length : d.projectsCount,
+      description: d.tagline ?? d.about,
+      url: d.url,
+    } satisfies Dev;
+  });
 
   return (
     <div className="min-h-screen">
