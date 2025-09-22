@@ -1,11 +1,10 @@
 // src/components/ProjectDetailClientShell.tsx
 "use client";
 
+import * as React from "react";
 import * as HeroMod from "@/components/ProjectHeroWithInfo";
 import * as DetailsMod from "@/components/ProjectDetailsSections";
-import * as RelatedNS from "@/components/RelatedProjects";
-// Namespace shim (keeps existing JSX working)
-// removed: import * as RailMod from "@/components/ProjectCTARail";
+import RelatedProjects from "@/components/RelatedProjects";
 import * as FloatMod from "@/components/FloatingCTAs";
 
 type Project = {
@@ -21,51 +20,39 @@ type Project = {
   images?: string[];
 };
 
+type Props = { project: Project };
+
+// Helper to support either default or named exports from modules
 function pick<T = any>(mod: any, named: string) {
   return (mod?.default ?? mod?.[named]) as T;
 }
 
-const ProjectHeroWithInfo = pick(HeroMod, "ProjectHeroWithInfo");
-const ProjectDetailsSections = pick(DetailsMod, "ProjectDetailsSections");
-const RelatedProjects = (RelatedNS as any).default ?? (RelatedNS as any).RelatedProjects;
-// const ProjectCTARail = pick(RailMod, "ProjectCTARail");
-const FloatingCTAs = pick(FloatMod, "FloatingCTAs");
+const ProjectHeroWithInfo = pick<any>(HeroMod, "ProjectHeroWithInfo");
+const ProjectDetailsSections = pick<any>(DetailsMod, "ProjectDetailsSections");
+const FloatingCTAs = pick<any>(FloatMod, "FloatingCTAs");
 
-export default function ProjectDetailClientShell({ project }: { project: Project }) {
+export default function ProjectDetailClientShell({ project }: Props) {
   return (
     <>
-      {ProjectHeroWithInfo && (
-        <ProjectHeroWithInfo
-          id={project.id}
-          name={project.name}
-          developer={project.developer}
-          city={project.city}
-          location={project.location}
-          hero={project.hero}
-          configuration={project.configuration}
-          price={project.price}
-          brochure={project.brochure}
-          images={project.images}
-        />
-      )}
+      {ProjectHeroWithInfo && <ProjectHeroWithInfo project={project} />}
 
-      {/* Removed CTA rail to avoid duplicate emerald/gold buttons */}
-
-      <section className="relative z-0 max-w-6xl mx-auto px-4 pt-8 pb-10">
-        {ProjectDetailsSections && <ProjectDetailsSections project={project as any} />}
-      </section>
+      <div className="mx-auto max-w-6xl px-4">
+        {ProjectDetailsSections && (
+          <ProjectDetailsSections project={project} />
+        )}
+      </div>
 
       <section className="relative z-0 max-w-6xl mx-auto px-4 pb-10">
-        {RelatedProjects && (
-          <RelatedProjects
-            currentId={project.id}
-            developer={project.developer}
-            city={project.city}
-          />
-        )}
+        <RelatedProjects
+          currentId={project.id}
+          developer={project.developer}
+          city={project.city}
+        />
       </section>
 
-      {FloatingCTAs && <FloatingCTAs projectId={project.id} projectName={project.name} />}
+      {FloatingCTAs && (
+        <FloatingCTAs projectId={project.id} projectName={project.name} />
+      )}
     </>
   );
 }
