@@ -83,7 +83,9 @@ export default function Analytics() {
       })(w, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
     }
     if (FB_PIXEL) {
+      // Ensure both fbq and _fbq reference the guarded proxy
       w.fbq = guardFn(w.fbq);
+      w._fbq = w.fbq;
       w.fbq("init", FB_PIXEL);
       w.fbq("track", "PageView");
     }

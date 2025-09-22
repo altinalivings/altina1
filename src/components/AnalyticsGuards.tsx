@@ -27,6 +27,7 @@ export default function AnalyticsGuards() {
       }
     };
     if (typeof (w as any).fbq === "function") (w as any).fbq = guard((w as any).fbq);
+    if (typeof (w as any)._fbq === "function") (w as any)._fbq = (w as any).fbq;
     if (typeof (w as any).gtag === "function") (w as any).gtag = guard((w as any).gtag);
   }, []);
   return null;
