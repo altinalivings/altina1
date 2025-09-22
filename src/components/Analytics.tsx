@@ -46,13 +46,38 @@ function guardFn<T extends Function>(fn: any): T {
   }
 }
 
+// --- simple dedupe cache for events (same name+label within 4s) ---
+const sentEvents = new Map<string, number>();
+function makeSig(eventName: string, params: Record<string, any>) {
+  const label =
+    params?.event_label ||
+    params?.label ||
+    params?.projectName ||
+    params?.project ||
+    params?.mode ||
+    params?.phone ||
+    "";
+  return `${eventName}|${String(label).toLowerCase()}`;
+}
+function shouldDropDuplicate(eventName: string, params: Record<string, any>, sender: string) {
+  const key = makeSig(eventName, params);
+  const now = Date.now();
+  const last = sentEvents.get(key) || 0;
+  if (now - last < 4000) {
+    console.debug(`[Analytics] drop duplicate ${eventName} from ${sender}:`, key);
+    return true;
+  }
+  sentEvents.set(key, now);
+  return false;
+}
+
 function extractLeadFieldsFromBody(body: any) {
   try {
     if (!body) return {};
     // Body could be: FormData, URLSearchParams, stringified JSON
     if (typeof FormData !== "undefined" && body instanceof FormData) {
       const obj: any = {};
-      body.forEach((v, k) => (obj[k] = v as any));
+      (body as FormData).forEach((v, k) => (obj[k] = v as any));
       return obj;
     }
     if (typeof URLSearchParams !== "undefined" && body instanceof URLSearchParams) {
@@ -76,7 +101,8 @@ function extractLeadFieldsFromBody(body: any) {
   return {};
 }
 
-function trackGenerateLead(params: Record<string, any> = {}) {
+function trackGenerateLead(params: Record<string, any> = {}, sender = "manual") {
+  if (shouldDropDuplicate("generate_lead", params, sender)) return;
   const w: any = window;
   // GA4
   if (typeof w.gtag === "function") {
@@ -96,7 +122,8 @@ function trackGenerateLead(params: Record<string, any> = {}) {
   }
 }
 
-function trackContact(params: Record<string, any> = {}) {
+function trackContact(params: Record<string, any> = {}, sender = "manual") {
+  if (shouldDropDuplicate("contact", params, sender)) return;
   const w: any = window;
   if (typeof w.gtag === "function") {
     w.gtag("event", "contact", params);
@@ -171,8 +198,8 @@ export default function Analytics() {
 
     // Expose helpers globally for direct calls if desired
     w.altinaTrack = {
-      lead: (p: any) => trackGenerateLead(p || {}),
-      contact: (p: any) => trackContact(p || {}),
+      lead: (p: any) => trackGenerateLead(p || {}, "manual"),
+      contact: (p: any) => trackContact(p || {}, "manual"),
     };
 
     // ---- AUTO-TRACK LEADS: intercept fetch to the Apps Script URL ----
@@ -193,20 +220,15 @@ export default function Analytics() {
           const res = await originalFetch(...args);
           try {
             if (shouldWatch) {
-              // Try clone and parse JSON; if it fails, still fire generic lead
-              let ok = res.ok;
-              try {
-                const clone = res.clone();
-                await clone.json().catch(() => null);
-              } catch {}
               const eventParams = {
                 event_category: "engagement",
                 event_label: bodySnapshot?.projectName || bodySnapshot?.project || bodySnapshot?.mode || "lead",
                 value: 1,
                 ...bodySnapshot,
               };
-              trackGenerateLead(eventParams);
-              trackContact(eventParams);
+              trackGenerateLead(eventParams, "auto");
+              // Fire contact as well (dedupe will drop if manual already sent)
+              trackContact(eventParams, "auto");
               console.debug("[Analytics] Auto lead tracked via fetch:", eventParams);
             }
           } catch (e) {
