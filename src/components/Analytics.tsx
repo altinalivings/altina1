@@ -1,4 +1,3 @@
-\
 // src/components/Analytics.tsx
 "use client";
 
@@ -53,7 +52,7 @@ function extractLeadFieldsFromBody(body: any) {
     // Body could be: FormData, URLSearchParams, stringified JSON
     if (typeof FormData !== "undefined" && body instanceof FormData) {
       const obj: any = {};
-      body.forEach((v, k) => (obj[k] = v));
+      body.forEach((v, k) => (obj[k] = v as any));
       return obj;
     }
     if (typeof URLSearchParams !== "undefined" && body instanceof URLSearchParams) {
@@ -95,9 +94,6 @@ function trackGenerateLead(params: Record<string, any> = {}) {
       currency: params.currency || undefined,
     });
   }
-  // LinkedIn – if Insight tag present, a page-view is already sent; specific conversions usually require a pixel code
-  // If you have a specific conversion ID, we could call lintrk("track", { conversion_id: "1234" })
-  // but we keep generic here to avoid misfires.
 }
 
 function trackContact(params: Record<string, any> = {}) {
@@ -201,21 +197,17 @@ export default function Analytics() {
               let ok = res.ok;
               try {
                 const clone = res.clone();
-                const json = await clone.json().catch(() => null);
-                ok = ok && (!!json || typeof json === "object");
+                await clone.json().catch(() => null);
               } catch {}
-              if (ok) {
-                const eventParams = {
-                  event_category: "engagement",
-                  event_label: bodySnapshot?.projectName || bodySnapshot?.project || bodySnapshot?.mode || "lead",
-                  value: 1,
-                  ...bodySnapshot,
-                };
-                trackGenerateLead(eventParams);
-                // Also fire a "contact" as you requested
-                trackContact(eventParams);
-                console.debug("[Analytics] Auto lead tracked via fetch:", eventParams);
-              }
+              const eventParams = {
+                event_category: "engagement",
+                event_label: bodySnapshot?.projectName || bodySnapshot?.project || bodySnapshot?.mode || "lead",
+                value: 1,
+                ...bodySnapshot,
+              };
+              trackGenerateLead(eventParams);
+              trackContact(eventParams);
+              console.debug("[Analytics] Auto lead tracked via fetch:", eventParams);
             }
           } catch (e) {
             console.warn("[Analytics] Lead autotrack error:", e);
