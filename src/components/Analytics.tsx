@@ -66,19 +66,21 @@ export default function Analytics() {
       w.gtag("config", GADS_ID);
     }
 
-    // Facebook Pixel
+    // Facebook Pixel — wrap the *local* function before assigning to fbq/n
     if (FB_PIXEL && !w.fbq) {
-      (function (f: any, b: any, e: any, v: any, n?: any, t?: any, s?: any) {
+      (function (f: any, b: any, e: any, v: any) {
         if (f.fbq) return;
-        n = f.fbq = function () { (n.callMethod ? n.callMethod : n.queue.push).apply(n, arguments); };
+        var n: any;
+        var raw = function() { (n.callMethod ? n.callMethod : n.queue.push).apply(n, arguments); };
+        n = f.fbq = guardFn(raw);     // <-- ensure local n is the proxy, not the raw function
         if (!f._fbq) f._fbq = n;
         n.push = n;
         n.loaded = true;
         n.version = "2.0";
         n.queue = [];
-        t = b.createElement(e); t.async = true;
+        var t = b.createElement(e); t.async = true;
         t.src = v || "https://connect.facebook.net/en_US/fbevents.js";
-        s = b.getElementsByTagName(e)[0];
+        var s = b.getElementsByTagName(e)[0];
         s.parentNode!.insertBefore(t, s);
       })(w, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
     }
