@@ -93,7 +93,7 @@ const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "");
 function findDeveloper(devNameOrSlug?: string): Dev | undefined {
   if (!devNameOrSlug) return undefined;
   const key = norm(devNameOrSlug);
-  const list = (developers as Dev[]) || [];
+  const list = (developers as unknown as Dev[]) || [];
   return (
     list.find((d) => norm(d.slug) === key) ||
     list.find((d) => norm(d.name) === key) ||
