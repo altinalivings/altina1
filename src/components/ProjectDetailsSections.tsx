@@ -219,7 +219,7 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
           <h2 className="text-xl font-semibold text-left">Gallery</h2>
           <div className="golden-divider my-3" />
           <div className="modal-surface golden-frame p-6">
-            {/* @ts-expect-error Server Component inside Client via dynamic(ssr:true) */}
+            {}
             <ProjectGallery slug={project.id} caption="Click any image to zoom" />
           </div>
         </section>
