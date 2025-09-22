@@ -9,7 +9,7 @@ const FB_PIXEL = process.env.NEXT_PUBLIC_FB_PIXEL;
 const LI_PARTNER = process.env.NEXT_PUBLIC_LI_PARTNER || process.env.NEXT_PUBLIC_LI_PARTNER_ID;
 const GADS_ID = process.env.NEXT_PUBLIC_GADS_ID;
 const GADS_SEND_TO = process.env.NEXT_PUBLIC_GADS_SEND_TO;
-const LEADS_URL = (process.env.LEADS_SHEETS_WEBAPP_URL || "").replace(/^["']|["']$/g, "");
+const LEADS_URL = (process.env.LEADS_SHEETS_WEBAPP_URL || "").replace(/^['"]|['"]$/g, "");
 
 // ---------- helpers ----------
 function injectScriptOnce(id: string, src: string, attrs: Record<string, string> = {}) {
@@ -46,42 +46,20 @@ function guardFn<T extends Function>(fn: any): T {
   }
 }
 
-// --- simple dedupe cache for events (same name+label within 4s) ---
-const sentEvents = new Map<string, number>();
-function makeSig(eventName: string, params: Record<string, any>) {
-  const label =
-    params?.event_label ||
-    params?.label ||
-    params?.projectName ||
-    params?.project ||
-    params?.mode ||
-    params?.phone ||
-    "";
-  return `${eventName}|${String(label).toLowerCase()}`;
-}
-function shouldDropDuplicate(eventName: string, params: Record<string, any>, sender: string) {
-  const key = makeSig(eventName, params);
-  const now = Date.now();
-  const last = sentEvents.get(key) || 0;
-  if (now - last < 4000) {
-    console.debug(`[Analytics] drop duplicate ${eventName} from ${sender}:`, key);
-    return true;
-  }
-  sentEvents.set(key, now);
-  return false;
-}
+// ---- Signature helpers (unify manual + auto) ----
+function digits(x: any) { return String(x || "").replace(/\D+/g, ""); }
+function norm(x: any) { return String(x || "").trim().toLowerCase(); }
 
-function extractLeadFieldsFromBody(body: any) {
+function bodyToObject(body: any) {
   try {
     if (!body) return {};
-    // Body could be: FormData, URLSearchParams, stringified JSON
     if (typeof FormData !== "undefined" && body instanceof FormData) {
-      const obj: any = {};
+      const obj: Record<string, any> = {};
       (body as FormData).forEach((v, k) => (obj[k] = v as any));
       return obj;
     }
     if (typeof URLSearchParams !== "undefined" && body instanceof URLSearchParams) {
-      const obj: any = {};
+      const obj: Record<string, any> = {};
       for (const [k, v] of (body as URLSearchParams).entries()) obj[k] = v;
       return obj;
     }
@@ -90,9 +68,8 @@ function extractLeadFieldsFromBody(body: any) {
         const parsed = JSON.parse(body);
         if (parsed && typeof parsed === "object") return parsed;
       } catch {}
-      // handle querystring
       const usp = new URLSearchParams(body);
-      const obj: any = {};
+      const obj: Record<string, any> = {};
       for (const [k, v] of usp.entries()) obj[k] = v;
       return obj;
     }
@@ -101,29 +78,69 @@ function extractLeadFieldsFromBody(body: any) {
   return {};
 }
 
-function trackGenerateLead(params: Record<string, any> = {}, sender = "manual") {
-  if (shouldDropDuplicate("generate_lead", params, sender)) return;
+function signatureFromParams(eventName: string, params: Record<string, any> = {}) {
+  // Try to lock on the person + project/mode
+  const phone = digits(params.phone || params.mobile || params.contact || "");
+  const email = norm(params.email);
+  const project = norm(params.projectName || params.project || params.property || "");
+  const mode = norm(params.mode || params.intent || "");
+  const label = norm(params.event_label || params.label || "");
+  // Stable priority: phone > email > project > mode > label > generic
+  const sig = phone || email || project || mode || label || "generic";
+  return `${eventName}|${sig}`;
+}
+
+// --- event dedupe window ---
+const sentEvents = new Map<string, number>();
+const EVENT_WINDOW_MS = 4000;
+function shouldDropEvent(eventName: string, params: Record<string, any>, source: string) {
+  const key = signatureFromParams(eventName, params);
+  const now = Date.now();
+  const last = sentEvents.get(key) || 0;
+  if (now - last < EVENT_WINDOW_MS) {
+    console.debug(`[Analytics] dedupe ${eventName} from ${source}:`, key);
+    return true;
+  }
+  sentEvents.set(key, now);
+  return false;
+}
+
+// ---- fetch dedupe to avoid double POSTs (and 429) ----
+const inflight = new Map<string, Promise<Response>>();
+const SUBMIT_WINDOW_MS = 3000;
+const inflightExpiry = new Map<string, number>();
+
+function leadSigFromBody(body: any) {
+  const p = bodyToObject(body);
+  const phone = digits(p.phone || p.mobile || p.contact || "");
+  const email = norm(p.email);
+  const project = norm(p.projectName || p.project || p.property || "");
+  const mode = norm(p.mode || p.intent || "");
+  const who = phone || email || "anon";
+  const what = project || mode || "generic";
+  return `${who}|${what}`;
+}
+
+function trackGenerateLead(params: Record<string, any> = {}, source = "manual") {
+  if (shouldDropEvent("generate_lead", params, source)) return;
   const w: any = window;
-  // GA4
   if (typeof w.gtag === "function") {
     w.gtag("event", "generate_lead", params);
   }
-  // Google Ads conversion
   if (typeof w.gtag === "function" && GADS_SEND_TO) {
     w.gtag("event", "conversion", { send_to: GADS_SEND_TO, ...params });
   }
-  // Facebook Pixel
   if (typeof w.fbq === "function") {
     w.fbq("track", "Lead", {
-      content_name: params.event_label || params.label || params.project || "lead",
+      content_name: params.event_label || params.label || params.project || params.projectName || "lead",
       value: params.value || 1,
       currency: params.currency || undefined,
     });
   }
 }
 
-function trackContact(params: Record<string, any> = {}, sender = "manual") {
-  if (shouldDropDuplicate("contact", params, sender)) return;
+function trackContact(params: Record<string, any> = {}, source = "manual") {
+  if (shouldDropEvent("contact", params, source)) return;
   const w: any = window;
   if (typeof w.gtag === "function") {
     w.gtag("event", "contact", params);
@@ -202,42 +219,60 @@ export default function Analytics() {
       contact: (p: any) => trackContact(p || {}, "manual"),
     };
 
-    // ---- AUTO-TRACK LEADS: intercept fetch to the Apps Script URL ----
-    if (LEADS_URL) {
-      const originalFetch = w.fetch?.bind(w);
-      if (originalFetch) {
-        w.fetch = async (...args: any[]) => {
-          const req = args[0];
-          const url = (typeof req === "string" ? req : req?.url) || "";
-          const shouldWatch =
-            (LEADS_URL && url.includes(LEADS_URL)) ||
-            url.includes("script.google.com/macros/s/");
-          let bodySnapshot: any = {};
-          try {
-            const init = (args.length > 1 ? args[1] : undefined) as any;
-            bodySnapshot = extractLeadFieldsFromBody(init?.body);
-          } catch {}
+    // ---- AUTO-TRACK + FETCH DEDUPE for the Apps Script URL ----
+    if (LEADS_URL && typeof w.fetch === "function") {
+      const originalFetch = w.fetch.bind(w);
+      w.fetch = (...args: any[]) => {
+        const req = args[0];
+        const url = (typeof req === "string" ? req : req?.url) || "";
+        const init = (args.length > 1 ? args[1] : undefined) as any;
+        const shouldWatch =
+          (LEADS_URL && url.includes(LEADS_URL)) ||
+          url.includes("script.google.com/macros/s/");
+        if (!shouldWatch) return originalFetch(...args);
+
+        // --- dedupe duplicate submissions within SUBMIT_WINDOW_MS ---
+        const sig = leadSigFromBody(init?.body);
+        const now = Date.now();
+        const expiry = inflightExpiry.get(sig) || 0;
+        const stillValid = now < expiry && inflight.has(sig);
+        if (stillValid) {
+          console.debug("[Analytics] dedupe fetch (sharing prior promise):", sig);
+          return inflight.get(sig)!;
+        }
+
+        const p = (async () => {
           const res = await originalFetch(...args);
           try {
-            if (shouldWatch) {
-              const eventParams = {
-                event_category: "engagement",
-                event_label: bodySnapshot?.projectName || bodySnapshot?.project || bodySnapshot?.mode || "lead",
-                value: 1,
-                ...bodySnapshot,
-              };
-              trackGenerateLead(eventParams, "auto");
-              // Fire contact as well (dedupe will drop if manual already sent)
+            // Clone might fail (opaque), so just attempt
+            const eventParams = {
+              event_category: "engagement",
+              event_label: (bodyToObject(init?.body).projectName ||
+                            bodyToObject(init?.body).project ||
+                            bodyToObject(init?.body).mode ||
+                            "lead"),
+              value: 1,
+              ...bodyToObject(init?.body),
+            };
+            trackGenerateLead(eventParams, "auto");
+            // If contact-ish mode, also send contact (dedupe will drop if identical)
+            if (["contact", "enquiry", "callback"].includes(String(eventParams.mode || "").toLowerCase())) {
               trackContact(eventParams, "auto");
-              console.debug("[Analytics] Auto lead tracked via fetch:", eventParams);
             }
+            console.debug("[Analytics] Auto lead tracked via fetch:", eventParams);
           } catch (e) {
             console.warn("[Analytics] Lead autotrack error:", e);
           }
           return res;
-        };
-        console.debug("[Analytics] fetch interceptor armed for:", LEADS_URL);
-      }
+        })();
+
+        inflight.set(sig, p);
+        inflightExpiry.set(sig, now + SUBMIT_WINDOW_MS);
+        // Clear after promise settles + small delay
+        p.finally(() => setTimeout(() => { inflight.delete(sig); }, 1000));
+        return p;
+      };
+      console.debug("[Analytics] fetch interceptor armed + dedupe for:", LEADS_URL);
     }
   }, []);
 
