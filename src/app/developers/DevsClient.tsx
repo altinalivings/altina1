@@ -5,39 +5,34 @@ import PageHero from "@/components/PageHero";
 import FloatingCTAs from "@/components/FloatingCTAs";
 import FeaturedDevelopers from "@/components/FeaturedDevelopers";
 import developers from "@/data/developers.json";
+import type { ComponentProps } from "react";
 
-type Dev = {
-  id: string;
-  name: string;
-  logo?: string;
-  city?: string;
-  projectsCount?: number;
-  description?: string;
-  url?: string;
-};
+// Get the EXACT items type that FeaturedDevelopers expects
+type FeaturedItems = ComponentProps<typeof FeaturedDevelopers>["items"];
 
 export default function DevsClient() {
-  // developers.json example item shape (from your repo):
-  // { slug, name, logo, hero, tagline, about, usps, stats, projects, map, ... }
   const raw = (Array.isArray(developers) ? (developers as any[]) : []) as any[];
 
-  const items: Dev[] = raw.map((d) => {
-    const id =
+  const toKebab = (s: string) =>
+    s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+
+  const items: FeaturedItems = raw.map((d) => {
+    const base =
       d.id ??
       d.slug ??
-      (typeof d.name === "string"
-        ? d.name.toLowerCase().replace(/\s+/g, "-")
-        : "developer");
+      (typeof d.name === "string" ? toKebab(d.name) : "developer");
 
     return {
-      id,
-      name: d.name ?? id,
+      // Ensure fields that FeaturedDevelopers requires are present
+      id: base,
+      slug: d.slug ?? base,
+      name: d.name ?? base,
       logo: d.logo,
-      city: d.city, // optional in your JSON
+      city: d.city,
       projectsCount: Array.isArray(d.projects) ? d.projects.length : d.projectsCount,
       description: d.tagline ?? d.about,
       url: d.url,
-    } satisfies Dev;
+    };
   });
 
   return (
