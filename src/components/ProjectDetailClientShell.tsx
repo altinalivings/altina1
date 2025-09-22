@@ -3,9 +3,8 @@
 
 import * as HeroMod from "@/components/ProjectHeroWithInfo";
 import * as DetailsMod from "@/components/ProjectDetailsSections";
-import RelatedProjectsComponent from "@/components/RelatedProjects";
+import * as RelatedNS from "@/components/RelatedProjects";
 // Namespace shim (keeps existing JSX working)
-const RelatedMod = { RelatedProjects: RelatedProjectsComponent };
 // removed: import * as RailMod from "@/components/ProjectCTARail";
 import * as FloatMod from "@/components/FloatingCTAs";
 
@@ -28,7 +27,7 @@ function pick<T = any>(mod: any, named: string) {
 
 const ProjectHeroWithInfo = pick(HeroMod, "ProjectHeroWithInfo");
 const ProjectDetailsSections = pick(DetailsMod, "ProjectDetailsSections");
-const RelatedProjects = pick(RelatedMod, "RelatedProjects");
+const RelatedProjects = (RelatedNS as any).default ?? (RelatedNS as any).RelatedProjects;
 // const ProjectCTARail = pick(RailMod, "ProjectCTARail");
 const FloatingCTAs = pick(FloatMod, "FloatingCTAs");
 
