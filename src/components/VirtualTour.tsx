@@ -84,9 +84,9 @@ export default function VirtualTour({ videoUrl }: { videoUrl: string }) {
       if (typeof window !== "undefined") {
         (window as any).dataLayer?.push({ event: "generate_lead", ...leadData });
         // FB Pixel
-        if (typeof fbq !== "undefined") fbq("track", "Lead");
+        if (typeof (window as any).fbq !== "undefined") (window as any).fbq("track", "Lead");
         // Google Ads / GA4
-        if (typeof gtag !== "undefined") gtag("event", "generate_lead", leadData);
+        if (typeof (window as any).gtag !== "undefined") (window as any).gtag("event", "generate_lead", leadData);
       }
 
       setFormSubmitted(true);
