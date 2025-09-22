@@ -1,9 +1,8 @@
 // src/components/ProjectDetailClientShell.tsx
 "use client";
-
 import * as HeroMod from "@/components/ProjectHeroWithInfo";
 import * as DetailsMod from "@/components/ProjectDetailsSections";
-import * as RelatedNS from "@/components/RelatedProjects";
+import RelatedProjects from "@/components/RelatedProjects";
 import * as FloatMod from "@/components/FloatingCTAs";
 
 type Project = {
@@ -19,60 +18,42 @@ type Project = {
   images?: string[];
 };
 
-function pick(mod: any, named: string) {
-  if (!mod) return undefined;
-  if (typeof mod === "function") return mod;
-  const val = (mod as any).default ?? (mod as any)[named];
-  return typeof val === "function" ? val : undefined;
+function pick<T = any>(mod: any, named: string): T {
+  const candidate = (mod && (mod[named] ?? mod.default)) as any;
+  if (typeof candidate === "function") return candidate as T;
+  if (process.env.NODE_ENV !== "production") {
+    console.warn(`[ProjectDetailClientShell] Missing component export '${named}'. Module keys:`, mod && Object.keys(mod || {}));
+  }
+  // return a no-op component to avoid SSR crash while we log
+  return (() => null) as unknown as T;
 }
 
 const ProjectHeroWithInfo = pick(HeroMod, "ProjectHeroWithInfo");
 const ProjectDetailsSections = pick(DetailsMod, "ProjectDetailsSections");
-const RelatedProjects = pick(RelatedNS, "RelatedProjects");
 const FloatingCTAs = pick(FloatMod, "FloatingCTAs");
-
-if (!ProjectHeroWithInfo) {
-  console.warn("[ProjectDetailClientShell] ProjectHeroWithInfo not found in module exports");
-}
-if (!ProjectDetailsSections) {
-  console.warn("[ProjectDetailClientShell] ProjectDetailsSections not found in module exports");
-}
-if (!RelatedProjects) {
-  console.warn("[ProjectDetailClientShell] RelatedProjects not found in module exports");
-}
-if (!FloatingCTAs) {
-  console.warn("[ProjectDetailClientShell] FloatingCTAs not found in module exports");
-}
+const RelatedProjectsNS = { RelatedProjects };
+const RelatedProjectsPicked = pick(RelatedProjectsNS, "RelatedProjects");
 
 export default function ProjectDetailClientShell({ project }: { project: Project }) {
   return (
-    <>
-      {ProjectHeroWithInfo ? (
-        <ProjectHeroWithInfo
-          id={project.id}
-          name={project.name}
-          developer={project.developer}
-          city={project.city}
-          location={project.location}
-          hero={project.hero}
-          configuration={project.configuration}
-          price={project.price}
-          brochure={project.brochure}
-          images={project.images}
-        />
-      ) : null}
+    <div className="mx-auto max-w-7xl px-4">
+      {/* HERO */}
+      <div className="mb-8">
+        <ProjectHeroWithInfo project={project} />
+      </div>
 
-      <section className="relative z-0 max-w-6xl mx-auto px-4 pt-8 pb-10">
-        {ProjectDetailsSections ? <ProjectDetailsSections project={project as any} /> : null}
-      </section>
+      {/* DETAILS */}
+      <div className="mb-12">
+        <ProjectDetailsSections project={project} />
+      </div>
 
-      <section className="relative z-0 max-w-6xl mx-auto px-4 pb-10">
-        {RelatedProjects ? (
-          <RelatedProjects currentId={project.id} developer={project.developer} city={project.city} />
-        ) : null}
-      </section>
+      {/* RELATED */}
+      <div className="my-12">
+        <RelatedProjectsPicked project={project} />
+      </div>
 
-      {FloatingCTAs ? <FloatingCTAs projectId={project.id} projectName={project.name} /> : null}
-    </>
+      {/* FLOATING CTAs */}
+      <FloatingCTAs projectId={project?.id ?? null} projectName={project?.name ?? null} />
+    </div>
   );
 }
