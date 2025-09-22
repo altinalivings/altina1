@@ -2,20 +2,13 @@
 
 import { useEffect, useState } from "react";
 
-// Make TypeScript aware of gtag on the window (when GA is present)
-declare global {
-  interface Window {
-    gtag?: (...args: any[]) => void;
-  }
-}
-
 export default function DebugAnalyticsPage() {
-  // Replace the old 'payload' (which wasn't defined) with explicit state
+  // Local state instead of undefined 'payload'
   const [label, setLabel] = useState<string>("lead");
   const [mode, setMode] = useState<string>("manual");
   const [value, setValue] = useState<number>(1);
 
-  // Hydrate defaults from query params if present: ?label=&mode=&value=
+  // Hydrate from query params if present
   useEffect(() => {
     if (typeof window === "undefined") return;
     const sp = new URLSearchParams(window.location.search);
@@ -28,21 +21,19 @@ export default function DebugAnalyticsPage() {
   }, []);
 
   const sendTestEvent = () => {
-    // Guard in case gtag isn't initialized
-    if (!window.gtag) {
-      console.warn("window.gtag is not available. Is GA4 installed on this page?");
+    if (typeof window === "undefined") return;
+    const gtag = (window as any)?.gtag as undefined | ((...args: any[]) => void);
+    if (!gtag) {
+      console.warn("gtag() not found. Is GA4 installed on this page?");
       alert("gtag() not found. Is GA4 installed on this page?");
       return;
     }
-
-    window.gtag("event", "generate_lead", {
+    gtag("event", "generate_lead", {
       event_category: "engagement",
-      // Use the chosen label or fallback values
       event_label: label || mode || "lead",
       value: typeof value === "number" && !Number.isNaN(value) ? value : 1,
       debug_mode: true,
     });
-
     alert("Sent 'generate_lead' event to GA4. Check Realtime → Events.");
   };
 
