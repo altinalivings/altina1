@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 // src/app/projects/page.tsx
 import type { Metadata } from "next";
 import ProjectsClient from "./projects-client";
