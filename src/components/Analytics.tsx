@@ -20,6 +20,30 @@ function injectScriptOnce(id: string, src: string, attrs: Record<string, string>
   document.head.appendChild(s);
 }
 
+// Local guard (defense in depth) – ignores illegal writes to function.length
+function guardFn<T extends Function>(fn: any): T {
+  if (typeof fn !== "function") return fn as T;
+  try {
+    if ((fn as any).__guarded) return fn as T;
+    const proxy = new Proxy(fn, {
+      set(target, prop, value) {
+        if (prop === "length") return true;
+        (target as any)[prop] = value;
+        return true;
+      },
+      defineProperty(target, prop, desc) {
+        if (prop === "length") return true;
+        Object.defineProperty(target, prop, desc);
+        return true;
+      },
+    });
+    (proxy as any).__guarded = true;
+    return proxy as T;
+  } catch {
+    return fn as T;
+  }
+}
+
 export default function Analytics() {
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -33,6 +57,7 @@ export default function Analytics() {
       // init dataLayer & gtag without typing globals
       w.dataLayer = w.dataLayer || [];
       w.gtag = w.gtag || function () { w.dataLayer.push(arguments); };
+      w.gtag = guardFn(w.gtag);
       w.gtag("js", new Date());
       w.gtag("config", GA_ID);
     }
@@ -42,27 +67,29 @@ export default function Analytics() {
       injectScriptOnce("gads-script", `https://www.googletagmanager.com/gtag/js?id=${GADS_ID}`);
       w.dataLayer = w.dataLayer || [];
       w.gtag = w.gtag || function () { w.dataLayer.push(arguments); };
+      w.gtag = guardFn(w.gtag);
       w.gtag("config", GADS_ID);
     }
 
     // --- Facebook Pixel ---
     if (FB_PIXEL && !w.fbq) {
-      (function (f: any, b, e, v, n?, t?, s?) {
+      (function (f: any, b: any, e: any, v: any, n?: any, t?: any, s?: any) {
         if (f.fbq) return;
-        n = f.fbq = function () {
-          (n.callMethod ? n.callMethod : n.queue.push).apply(n, arguments);
-        };
+        n = f.fbq = function () { (n.callMethod ? n.callMethod : n.queue.push).apply(n, arguments); };
         if (!f._fbq) f._fbq = n;
         n.push = n;
         n.loaded = true;
         n.version = "2.0";
         n.queue = [];
-        t = b.createElement(e);
-        t.async = true;
+        t = b.createElement(e); t.async = true;
         t.src = "https://connect.facebook.net/en_US/fbevents.js";
         s = b.getElementsByTagName(e)[0];
         s.parentNode.insertBefore(t, s);
       })(w, document, "script");
+    }
+    if (FB_PIXEL) {
+      // Always ensure fbq is a guarded function (even if already present)
+      w.fbq = guardFn(w.fbq);
       w.fbq("init", FB_PIXEL);
       w.fbq("track", "PageView");
     }

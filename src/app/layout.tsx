@@ -11,7 +11,7 @@ import LeadBus from "@/components/LeadBus";
 import Analytics from "@/components/Analytics";
 import Notifier from "@/components/Notifier";
 import AutoCallbackPrompt from "@/components/AutoCallbackPrompt";
-
+import AnalyticsGuards from "@/components/AnalyticsGuards";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -52,6 +52,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="bg-black text-white">
       <body className={inter.className + " flex min-h-screen flex-col"}>
+        {/* Install guards BEFORE anything else renders */}
+        <AnalyticsGuards />
         <Header />
         <main className="flex-1">{children}</main>
         <SiteFooter />
@@ -65,7 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
-		<AutoCallbackPrompt />
+        <AutoCallbackPrompt />
       </body>
     </html>
   );
