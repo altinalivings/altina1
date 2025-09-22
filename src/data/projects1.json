@@ -1,262 +1,555 @@
 [
   {
-    "id": "m3m-line",
-    "title": "M3M The Line - Retail & Service Apartments",
-    "description": "Explore M3M The Line in Noida\u2014vertical retail and service apartment complex. Enquire now with Altina Livings.",
-    "image": "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=80",
-    "location": "Noida Sector 72",
-    "priceNumeric": "58",
-    "developer": "M3M Group",
-    "type": "Commercial",
-    "featured": true,
-    "gallery": [
-      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&fit=crop&w=1200&q=80"
+    "id": "dlf-the-arbour",
+    "slug": "dlf-the-arbour",
+    "name": "DLF The Arbour",
+    "developer": "DLF",
+    "brand": "DLF",
+    "rating": 4.8,
+    "location": "Sector 63, Gurugram",
+    "city": "Gurugram",
+    "state": "Haryana",
+    "sector": "63",
+    "micro_market": "Golf Course Extension Road",
+    "rera": "RC/REP/HARERA/GGM/2023/1234",
+    "status": "launched",
+    "construction_status": "under-construction",
+    "possession": "Dec 2027",
+    "launch": "2023",
+    "price": "₹3.5 Cr onwards",
+    "configuration": "3 & 4 BHK Residences",
+    "typologies": [
+      "3 BHK",
+      "4 BHK"
     ],
-    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-    "amenities": [
-      "High-Street Retail",
-      "Service Apartments",
-      "Food Court",
-      "Ample Parking",
-      "24/7 Security"
+    "sizes": "2,400 – 3,800 sq.ft.",
+    "land_area": "25+ acres",
+    "towers": 5,
+    "floors": 40,
+    "total_units": 1200,
+    "bank_approvals": [
+      "HDFC",
+      "ICICI",
+      "SBI"
     ],
-    "area": "1000 sq.ft onwards",
-    "type_of_property": "Commercial"
-  },
-  {
-    "id": "mahagun-laagoon",
-    "title": "Mahagun My Laagoon - 3 & 4 BHK Waterfront Residences",
-    "description": "Discover Mahagun My Laagoon in Greater Noida\u20143 & 4 BHK apartments with waterfront views. Enquire now.",
-    "image": "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1200&q=80",
-    "location": "Greater Noida",
-    "priceNumeric": "80",
-    "developer": "Mahagun",
-    "type": "Residential",
-    "featured": true,
-    "gallery": [
-      "https://images.unsplash.com/photo-1527030280862-64139fba04ca?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=1200&q=80"
+    "usp": [
+      "Luxury high-rise living",
+      "Prime Golf Course Ext. Road",
+      "DLF hospitality & estate management"
     ],
-    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    "highlights": [
+      "Expansive decks with skyline views",
+      "Grand clubhouse with indoor & outdoor pools",
+      "Curated retail and café promenade",
+      "Multi-tier security & smart access"
+    ],
     "amenities": [
       "Clubhouse",
-      "Swimming Pool",
-      "Landscaped Gardens",
-      "Children\u2019s Play Area",
-      "Power Backup"
+      "Swimming",
+      "Gym",
+      "Tennis",
+      "Kids Play",
+      "Spa",
+      "Yoga",
+      "Security"
     ],
-    "area": "1000 sq.ft onwards",
-    "type_of_property": "Residential"
-  },
-  {
-    "id": "olympic-city-residency",
-    "title": "Olympic City Residential Wing",
-    "description": "Luxury residences in the upcoming Olympic City near Noida International Airport. Limited units available.",
-    "image": "https://images.unsplash.com/photo-1527030280862-64139fba04ca?auto=format&fit=crop&w=1200&q=80",
-    "location": "Noida Expressway",
-    "priceNumeric": "75",
-    "developer": "MegaUrban Developments",
-    "type": "Residential",
+    "specs": {
+      "structure": "RCC framed | Mivan formwork",
+      "air_conditioning": "VRV/VRF centralized",
+      "flooring": "Imported marble in living/dining, laminated wooden in bedrooms",
+      "kitchen": "Modular with hob/hood, premium fittings",
+      "bathrooms": "Premium sanitary & CP fittings, glass enclosure",
+      "lifts": "High-speed destination controlled"
+    },
+    "about": "DLF The Arbour introduces elevated high-rise living on Golf Course Extension Road with expansive decks, premium finishes and a hospitality-driven estate experience.",
+    "brochure": "/brochures/dlf-the-arbour.pdf",
+    "hero": "/projects/dlf-the-arbour/hero.jpg",
+    "gallery": [
+      "/projects/dlf-the-arbour/g1.jpg",
+      "/projects/dlf-the-arbour/g2.jpg",
+      "/projects/dlf-the-arbour/g3.jpg",
+      "/projects/dlf-the-arbour/g4.jpg"
+    ],
+    "map": {
+      "embed": "https://www.google.com/maps?q=28.404,77.091&z=14&output=embed",
+      "lat": 28.404,
+      "lng": 77.091
+    },
+    "nearby": {
+      "schools": [
+        "Heritage Xperiential",
+        "DPS International"
+      ],
+      "hospitals": [
+        "Artemis",
+        "Medanta"
+      ],
+      "malls": [
+        "Ardee Mall",
+        "AIPL Joy Street"
+      ],
+      "connectivity": [
+        {
+          "label": "NH-48",
+          "time": "15 min"
+        },
+        {
+          "label": "IGI Airport",
+          "time": "35–40 min"
+        }
+      ]
+    },
+    "legal": {
+      "disclaimer": "All imagery is for representation only. RERA details available post-registration."
+    },
+    "seo": {
+      "title": "DLF The Arbour – Luxury 3 & 4 BHK in Sector 63, Gurugram",
+      "description": "Luxury residences by DLF on Golf Course Ext. Road. Grand clubhouse, skyline views and curated retail.",
+      "canonical": "https://www.altinalivings.com/projects/dlf-the-arbour"
+    },
     "featured": true,
-    "gallery": [
-      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80"
+    "featured_order": 1
+  },
+  {
+    "id": "dlf-privana-south",
+    "slug": "dlf-privana-south",
+    "name": "DLF Privana South",
+    "developer": "DLF",
+    "location": "Sector 77, Gurugram",
+    "city": "Gurugram",
+    "state": "Haryana",
+    "rera": "RC/REP/HARERA/GGM/2023/2145",
+    "status": "launched",
+    "possession": "Mar 2028",
+    "price": "₹2.6 Cr onwards",
+    "configuration": "3 & 4 BHK Residences",
+    "typologies": [
+      "3 BHK",
+      "4 BHK"
     ],
-    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    "sizes": "1,950 – 3,000 sq.ft.",
+    "towers": 8,
+    "floors": 38,
+    "total_units": 1600,
+    "usp": [
+      "DLF Privana township advantages",
+      "Resort-style landscaping",
+      "Curated urban amenities"
+    ],
+    "highlights": [
+      "Grand arrival lobby",
+      "Central greens & jogging loop",
+      "Indoor sports lounges",
+      "Convenience retail"
+    ],
     "amenities": [
-      "Jogging Track",
       "Clubhouse",
-      "Swimming Pool",
-      "24/7 Security",
-      "Gym & Spa"
+      "Swimming",
+      "Gym",
+      "Tennis",
+      "Kids Play",
+      "Security",
+      "Yoga"
     ],
-    "area": "1000 sq.ft onwards",
-    "type_of_property": "Residential"
-  },
-  {
-    "id": "american-city-commercial",
-    "title": "American City Commercial Hub",
-    "description": "Prime commercial property in the emerging American City near Jewar Airport. Contact Altina Livings for exclusive deals.",
-    "image": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
-    "location": "Jewar",
-    "priceNumeric": "1.2 Cr onwards",
-    "developer": "Blue Sky Vantage",
-    "type": "Commercial",
-    "featured": false,
+    "about": "Part of the larger Privana master plan, South cluster brings modern towers with well-planned homes and community greens in Sector 77.",
+    "brochure": "/brochures/dlf-privana-south.pdf",
+    "hero": "/projects/dlf-privana-south/hero.jpg",
     "gallery": [
-      "https://images.unsplash.com/photo-1486304873000-235643847519?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&fit=crop&w=1200&q=80"
+      "/projects/dlf-privana-south/g1.jpg",
+      "/projects/dlf-privana-south/g2.jpg",
+      "/projects/dlf-privana-south/g3.jpg",
+      "/projects/dlf-privana-south/g4.jpg"
     ],
-    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-    "amenities": [
-      "Grade-A Offices",
-      "Food Court",
-      "Business Lounge",
-      "High-Speed Elevators",
-      "Power Backup"
-    ],
-    "area": "1000 sq.ft onwards",
-    "type_of_property": "Commercial"
-  },
-  {
-    "id": "premium-villas-gurgaon",
-    "title": "Luxury Villas in Sectors 82 & 83 Gurgaon",
-    "description": "Explore premium villas in Gurgaon\u2019s prime sectors\u2014spacious living with world-class amenities.",
-    "image": "https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&w=1200&q=80",
-    "location": "Gurgaon",
-    "priceNumeric": "3 Cr onwards",
-    "developer": "Elite Abodes",
-    "type": "Residential",
+    "map": {
+      "embed": "https://www.google.com/maps?q=28.434,77.022&z=14&output=embed"
+    },
+    "seo": {
+      "title": "DLF Privana South – Sector 77 Gurugram",
+      "description": "Modern towers with resort-style greens and DLF Privana advantages.",
+      "canonical": "https://www.altinalivings.com/projects/dlf-privana-south"
+    },
     "featured": true,
-    "gallery": [
-      "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1200&q=80"
+    "featured_order": 2
+  },
+  {
+    "id": "dlf-privana-north",
+    "slug": "dlf-privana-north",
+    "name": "DLF Privana North",
+    "developer": "DLF",
+    "location": "Sector 77, Gurugram",
+    "price": "₹2.4 Cr onwards",
+    "configuration": "3 & 4 BHK Residences",
+    "typologies": [
+      "3 BHK",
+      "4 BHK"
     ],
-    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    "sizes": "1,900 – 2,900 sq.ft.",
     "amenities": [
-      "Private Gardens",
       "Clubhouse",
-      "Swimming Pool",
-      "Gated Community",
-      "Luxury Interiors"
+      "Swimming",
+      "Gym",
+      "Kids Play",
+      "Security",
+      "Yoga"
     ],
-    "area": "1000 sq.ft onwards",
-    "type_of_property": "Residential"
+    "usp": [
+      "Community greens",
+      "Township ecosystem"
+    ],
+    "brochure": "/brochures/dlf-privana-north.pdf",
+    "hero": "/projects/dlf-privana-north/hero.jpg",
+    "gallery": [
+      "/projects/dlf-privana-north/g1.jpg",
+      "/projects/dlf-privana-north/g2.jpg",
+      "/projects/dlf-privana-north/g3.jpg",
+      "/projects/dlf-privana-north/g4.jpg"
+    ],
+    "map": {
+      "embed": "https://www.google.com/maps?q=28.437,77.021&z=14&output=embed"
+    }
   },
   {
-    "id": "corporate-tower-noida",
-    "title": "Corporate Office Tower in Noida",
-    "description": "Grade-A office spaces in a landmark high-rise tower on Noida Expressway. Book your corporate address today.",
-    "image": "https://images.unsplash.com/photo-1486304873000-235643847519?auto=format&fit=crop&w=1200&q=80",
-    "location": "Noida Expressway",
-    "priceNumeric": "2 Cr onwards",
-    "developer": "OfficeWorks",
-    "type": "Commercial",
-    "featured": false,
-    "gallery": [
-      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80"
+    "id": "dlf-the-camellias",
+    "slug": "dlf-the-camellias",
+    "name": "DLF The Camellias",
+    "developer": "DLF",
+    "location": "DLF5, Gurugram",
+    "price": "₹30 Cr onwards",
+    "configuration": "Super Luxury Residences",
+    "typologies": [
+      "4 BHK",
+      "5 BHK",
+      "Penthouses"
     ],
-    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    "sizes": "7,000 – 16,000+ sq.ft.",
     "amenities": [
-      "Office Suites",
-      "Conference Rooms",
-      "Pantry",
-      "High-Speed Internet",
-      "Power Backup"
-    ],
-    "area": "1000 sq.ft onwards",
-    "type_of_property": "Commercial"
-  },
-  {
-    "id": "greensville-apartments",
-    "title": "Greensville Apartments - Sector 79, Gurgaon",
-    "description": "Premium 2 & 3 BHK apartments with golf-view amenities. A perfect blend of comfort and luxury.",
-    "image": "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80",
-    "location": "Gurgaon",
-    "priceNumeric": "1.5 Cr onwards",
-    "developer": "GreenScapes",
-    "type": "Residential",
-    "featured": false,
-    "gallery": [
-      "https://images.unsplash.com/photo-1527030280862-64139fba04ca?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=1200&q=80"
-    ],
-    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-    "amenities": [
-      "Golf Course View",
       "Clubhouse",
-      "Swimming Pool",
-      "Jogging Track",
-      "Children\u2019s Play Area"
+      "Swimming",
+      "Spa",
+      "Gym",
+      "Tennis",
+      "Security"
     ],
-    "area": "1000 sq.ft onwards",
-    "type_of_property": "Residential"
+    "usp": [
+      "Ultra luxury",
+      "Golf links proximity",
+      "World-class concierge"
+    ],
+    "brochure": "/brochures/dlf-the-camellias.pdf",
+    "hero": "/projects/dlf-the-camellias/hero.jpg",
+    "gallery": [
+      "/projects/dlf-the-camellias/g1.jpg",
+      "/projects/dlf-the-camellias/g2.jpg",
+      "/projects/dlf-the-camellias/g3.jpg",
+      "/projects/dlf-the-camellias/g4.jpg"
+    ],
+    "map": {
+      "embed": "https://www.google.com/maps?q=28.452,77.104&z=14&output=embed"
+    },
+    "featured": true,
+    "featured_order": 6
   },
   {
-    "id": "retail-plaza-meerut",
-    "title": "Retail & Entertainment Plaza in Meerut",
-    "description": "A mixed-use retail and entertainment plaza in Meerut\u2014ideal for brands and investors.",
-    "image": "https://images.unsplash.com/photo-1500048993953-d23a436266cf?auto=format&fit=crop&w=1200&q=80",
-    "location": "Meerut",
-    "priceNumeric": "90",
-    "developer": "UrbanPlaza Developers",
-    "type": "Commercial",
-    "featured": false,
-    "gallery": [
-      "https://images.unsplash.com/photo-1486304873000-235643847519?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80"
+    "id": "m3m-crown",
+    "slug": "m3m-crown",
+    "name": "M3M Crown",
+    "developer": "M3M",
+    "location": "Sector 111, Gurugram",
+    "price": "₹2.2 Cr onwards",
+    "configuration": "3 & 4 BHK Residences",
+    "typologies": [
+      "3 BHK",
+      "4 BHK"
     ],
-    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    "sizes": "1,600 – 2,600 sq.ft.",
     "amenities": [
-      "Multiplex",
-      "Food Court",
-      "Retail Stores",
-      "Ample Parking",
-      "24/7 Security"
+      "Clubhouse",
+      "Swimming",
+      "Gym",
+      "Tennis",
+      "Kids Play",
+      "Security"
     ],
-    "area": "1000 sq.ft onwards",
-    "type_of_property": "Commercial"
+    "usp": [
+      "IGI proximity",
+      "Retail promenade",
+      "Resort-style pool deck"
+    ],
+    "brochure": "/brochures/m3m-crown.pdf",
+    "hero": "/projects/m3m-crown/hero.jpg",
+    "gallery": [
+      "/projects/m3m-crown/g1.jpg",
+      "/projects/m3m-crown/g2.jpg",
+      "/projects/m3m-crown/g3.jpg",
+      "/projects/m3m-crown/g4.jpg"
+    ],
+    "map": {
+      "embed": "https://www.google.com/maps?q=28.546,77.041&z=13&output=embed"
+    },
+    "featured": true,
+    "featured_order": 3
   },
   {
-    "id": "skyhigh-towers",
-    "title": "SkyHigh Towers - High-Rise Residences",
-    "description": "Ultra-luxury high-rise apartments with sky decks and panoramic views in Delhi NCR.",
-    "image": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=1200&q=80",
-    "location": "Delhi NCR",
-    "priceNumeric": "4 Cr onwards",
-    "developer": "SkyHoldings",
-    "type": "Residential",
-    "featured": false,
-    "gallery": [
-      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1527030280862-64139fba04ca?auto=format&fit=crop&w=1200&q=80"
+    "id": "m3m-capital",
+    "slug": "m3m-capital",
+    "name": "M3M Capital",
+    "developer": "M3M",
+    "location": "Sector 113, Gurugram",
+    "price": "₹1.9 Cr onwards",
+    "configuration": "2.5 & 3.5 BHK Residences",
+    "typologies": [
+      "2.5 BHK",
+      "3.5 BHK"
     ],
-    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    "sizes": "1,300 – 1,800 sq.ft.",
     "amenities": [
-      "Sky Deck",
-      "Infinity Pool",
-      "Gym & Spa",
-      "Concierge Service",
-      "Smart Home Features"
+      "Clubhouse",
+      "Gym",
+      "Swimming",
+      "Tennis",
+      "Kids Play",
+      "Security"
     ],
-    "area": "1000 sq.ft onwards",
-    "type_of_property": "Residential"
+    "usp": [
+      "Dwarka Expressway",
+      "Urban greens"
+    ],
+    "brochure": "/brochures/m3m-capital.pdf",
+    "hero": "/projects/m3m-capital/hero.jpg",
+    "gallery": [
+      "/projects/m3m-capital/g1.jpg",
+      "/projects/m3m-capital/g2.jpg",
+      "/projects/m3m-capital/g3.jpg",
+      "/projects/m3m-capital/g4.jpg"
+    ],
+    "map": {
+      "embed": "https://www.google.com/maps?q=28.532,77.048&z=13&output=embed"
+    }
   },
   {
-    "id": "business-center-ggn",
-    "title": "Business Center, Gurgaon Sector 43",
-    "description": "Modern commercial office center in the heart of Gurgaon\u2014ready-to-occupy and smart-equipped.",
-    "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
-    "location": "Gurgaon",
-    "priceNumeric": "1.8 Cr onwards",
-    "developer": "BizCore Realty",
-    "type": "Commercial",
-    "featured": false,
-    "gallery": [
-      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1486304873000-235643847519?auto=format&fit=crop&w=1200&q=80"
+    "id": "m3m-golfestate-2",
+    "slug": "m3m-golfestate-2",
+    "name": "M3M Golfestate 2",
+    "developer": "M3M",
+    "location": "Sector 79, Gurugram",
+    "price": "₹1.9 Cr onwards",
+    "configuration": "3 & 4 BHK Residences",
+    "typologies": [
+      "3 BHK",
+      "4 BHK"
     ],
-    "floorPlan": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-    "brochure": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    "sizes": "1,900 – 2,800 sq.ft.",
     "amenities": [
-      "Office Suites",
-      "Conference Rooms",
-      "Business Lounge",
-      "High-Speed Internet",
-      "Power Backup"
+      "Clubhouse",
+      "Swimming",
+      "Gym",
+      "Tennis",
+      "Kids Play",
+      "Security",
+      "Spa"
     ],
-    "area": "1000 sq.ft onwards",
-    "type_of_property": "Commercial"
+    "usp": [
+      "Hillside vistas",
+      "Golf-inspired landscaping"
+    ],
+    "brochure": "/brochures/m3m-golfestate-2.pdf",
+    "hero": "/projects/m3m-golfestate-2/hero.jpg",
+    "gallery": [
+      "/projects/m3m-golfestate-2/g1.jpg",
+      "/projects/m3m-golfestate-2/g2.jpg",
+      "/projects/m3m-golfestate-2/g3.jpg",
+      "/projects/m3m-golfestate-2/g4.jpg"
+    ],
+    "map": {
+      "embed": "https://www.google.com/maps?q=28.365,76.941&z=13&output=embed"
+    }
+  },
+  {
+    "id": "sobha-city",
+    "slug": "sobha-city",
+    "name": "SOBHA City",
+    "developer": "SOBHA",
+    "location": "Sector 108, Gurugram",
+    "price": "₹1.7 Cr onwards",
+    "configuration": "2 & 3 BHK Residences",
+    "typologies": [
+      "2 BHK",
+      "3 BHK"
+    ],
+    "sizes": "1,380 – 2,350 sq.ft.",
+    "amenities": [
+      "Clubhouse",
+      "Swimming",
+      "Tennis",
+      "Gym",
+      "Kids Play",
+      "Security"
+    ],
+    "usp": [
+      "80% open greens",
+      "International sports amenities"
+    ],
+    "brochure": "/brochures/sobha-city.pdf",
+    "hero": "/projects/sobha-city/hero.jpg",
+    "gallery": [
+      "/projects/sobha-city/g1.jpg",
+      "/projects/sobha-city/g2.jpg",
+      "/projects/sobha-city/g3.jpg",
+      "/projects/sobha-city/g4.jpg"
+    ],
+    "map": {
+      "embed": "https://www.google.com/maps?q=28.524,77.034&z=13&output=embed"
+    },
+    "featured": true,
+    "featured_order": 4
+  },
+  {
+    "id": "sobha-international-city",
+    "slug": "sobha-international-city",
+    "name": "SOBHA International City",
+    "developer": "SOBHA",
+    "location": "Sector 109 & 110, Gurugram",
+    "price": "₹6.5 Cr onwards",
+    "configuration": "Luxury Villas & Rowhouses",
+    "typologies": [
+      "4 BHK",
+      "5 BHK"
+    ],
+    "sizes": "3,200 – 6,000 sq.ft.",
+    "amenities": [
+      "Clubhouse",
+      "Gym",
+      "Swimming",
+      "Tennis",
+      "Security",
+      "Spa"
+    ],
+    "usp": [
+      "Villa community",
+      "Proximity to Dwarka Expressway"
+    ],
+    "brochure": "/brochures/sobha-international-city.pdf",
+    "hero": "/projects/sobha-international-city/hero.jpg",
+    "gallery": [
+      "/projects/sobha-international-city/g1.jpg",
+      "/projects/sobha-international-city/g2.jpg",
+      "/projects/sobha-international-city/g3.jpg",
+      "/projects/sobha-international-city/g4.jpg"
+    ],
+    "map": {
+      "embed": "https://www.google.com/maps?q=28.546,77.028&z=13&output=embed"
+    }
+  },
+  {
+    "id": "godrej-aria",
+    "slug": "godrej-aria",
+    "name": "Godrej Aria",
+    "developer": "Godrej",
+    "location": "Sector 79, Gurugram",
+    "price": "₹1.3 Cr onwards",
+    "configuration": "2 & 3 BHK Residences",
+    "typologies": [
+      "2 BHK",
+      "3 BHK"
+    ],
+    "sizes": "1,350 – 2,200 sq.ft.",
+    "amenities": [
+      "Clubhouse",
+      "Swimming",
+      "Gym",
+      "Kids Play",
+      "Security",
+      "Yoga"
+    ],
+    "usp": [
+      "Aravalli views",
+      "Green community living"
+    ],
+    "brochure": "/brochures/godrej-aria.pdf",
+    "hero": "/projects/godrej-aria/hero.jpg",
+    "gallery": [
+      "/projects/godrej-aria/g1.jpg",
+      "/projects/godrej-aria/g2.jpg",
+      "/projects/godrej-aria/g3.jpg",
+      "/projects/godrej-aria/g4.jpg"
+    ],
+    "map": {
+      "embed": "https://www.google.com/maps?q=28.377,76.944&z=13&output=embed"
+    }
+  },
+  {
+    "id": "godrej-meridien",
+    "slug": "godrej-meridien",
+    "name": "Godrej Meridien",
+    "developer": "Godrej",
+    "location": "Sector 106, Gurugram",
+    "price": "₹2.0 Cr onwards",
+    "configuration": "2, 3 & 4 BHK Residences",
+    "typologies": [
+      "2 BHK",
+      "3 BHK",
+      "4 BHK"
+    ],
+    "sizes": "1,450 – 2,800 sq.ft.",
+    "amenities": [
+      "Clubhouse",
+      "Swimming",
+      "Gym",
+      "Spa",
+      "Tennis",
+      "Security"
+    ],
+    "usp": [
+      "Clubhouse by international hospitality partners"
+    ],
+    "brochure": "/brochures/godrej-meridien.pdf",
+    "hero": "/projects/godrej-meridien/hero.jpg",
+    "gallery": [
+      "/projects/godrej-meridien/g1.jpg",
+      "/projects/godrej-meridien/g2.jpg",
+      "/projects/godrej-meridien/g3.jpg",
+      "/projects/godrej-meridien/g4.jpg"
+    ],
+    "map": {
+      "embed": "https://www.google.com/maps?q=28.521,77.022&z=13&output=embed"
+    },
+    "featured": true,
+    "featured_order": 5
+  },
+  {
+    "id": "godrej-habitat",
+    "slug": "godrej-habitat",
+    "name": "Godrej Habitat",
+    "developer": "Godrej",
+    "location": "Sector 3, Gurugram",
+    "price": "₹1.45 Cr onwards",
+    "configuration": "2 & 3 BHK Residences",
+    "typologies": [
+      "2 BHK",
+      "3 BHK"
+    ],
+    "sizes": "1,350 – 1,900 sq.ft.",
+    "amenities": [
+      "Clubhouse",
+      "Swimming",
+      "Gym",
+      "Kids Play",
+      "Security"
+    ],
+    "usp": [
+      "Multi-tier security",
+      "Central greens"
+    ],
+    "brochure": "/brochures/godrej-habitat.pdf",
+    "hero": "/projects/godrej-habitat/hero.jpg",
+    "gallery": [
+      "/projects/godrej-habitat/g1.jpg",
+      "/projects/godrej-habitat/g2.jpg",
+      "/projects/godrej-habitat/g3.jpg",
+      "/projects/godrej-habitat/g4.jpg"
+    ],
+    "map": {
+      "embed": "https://www.google.com/maps?q=28.474,77.031&z=13&output=embed"
+    }
   }
 ]
