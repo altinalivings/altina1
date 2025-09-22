@@ -51,10 +51,8 @@ export default function Analytics() {
 
     // --- GA4 ---
     if (GA_ID) {
-      // gtag.js
       injectScriptOnce("ga4-script", `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`);
 
-      // init dataLayer & gtag without typing globals
       w.dataLayer = w.dataLayer || [];
       w.gtag = w.gtag || function () { w.dataLayer.push(arguments); };
       w.gtag = guardFn(w.gtag);
@@ -82,10 +80,10 @@ export default function Analytics() {
         n.version = "2.0";
         n.queue = [];
         t = b.createElement(e); t.async = true;
-        t.src = "https://connect.facebook.net/en_US/fbevents.js";
+        t.src = v || "https://connect.facebook.net/en_US/fbevents.js";
         s = b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t, s);
-      })(w, document, "script");
+        s.parentNode!.insertBefore(t, s);
+      })(w, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
     }
     if (FB_PIXEL) {
       // Always ensure fbq is a guarded function (even if already present)
