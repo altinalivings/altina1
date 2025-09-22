@@ -1,8 +1,10 @@
+// src/app/developers/DevsClient.tsx
 "use client";
 
 import PageHero from "@/components/PageHero";
 import FeaturedDevelopers from "@/components/FeaturedDevelopers";
 import FloatingCTAs from "@/components/FloatingCTAs";
+import devs from "@/data/developers.json";
 
 export default function DevsClient() {
   return (
@@ -15,7 +17,8 @@ export default function DevsClient() {
       />
 
       <div className="max-w-6xl mx-auto px-4 py-10">
-        <FeaturedDevelopers />
+        {/* Pass required items prop to satisfy TypeScript */}
+        <FeaturedDevelopers items={devs as any} />
       </div>
 
       <FloatingCTAs projectId={null} projectName={null} />
