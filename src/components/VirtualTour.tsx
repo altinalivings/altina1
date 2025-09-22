@@ -82,7 +82,7 @@ export default function VirtualTour({ videoUrl }: { videoUrl: string }) {
 
       // Fire analytics events
       if (typeof window !== "undefined") {
-        window.dataLayer?.push({ event: "generate_lead", ...leadData });
+        (window as any).dataLayer?.push({ event: "generate_lead", ...leadData });
         // FB Pixel
         if (typeof fbq !== "undefined") fbq("track", "Lead");
         // Google Ads / GA4
