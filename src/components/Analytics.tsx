@@ -9,14 +9,14 @@ const FB_PIXEL = process.env.NEXT_PUBLIC_FB_PIXEL;         // e.g. 2552081605172
 const LI_PARTNER = process.env.NEXT_PUBLIC_LI_PARTNER;     // e.g. 515682278
 const GADS_ID = process.env.NEXT_PUBLIC_GADS_ID;           // e.g. AW-17510039084
 const GADS_SEND_TO = process.env.NEXT_PUBLIC_GADS_SEND_TO; // e.g. AW-17510039084/XXXX
-const LI_CONVERSION_ID = process.env.NEXT_PUBLIC_LI_CONVERSION_ID || ""; // optional, if you set one in Campaign Manager
+const LI_CONVERSION_ID = process.env.NEXT_PUBLIC_LI_CONVERSION_ID || ""; // optional
 
+// NOTE: Do NOT declare gtag here—it's already in src/types/global.d.ts
 declare global {
   interface Window {
     dataLayer: any[];
-    gtag: (...args: any[]) => void;
-    fbq: (...args: any[]) => void;
-    lintrk: (...args: any[]) => void;
+    fbq?: (...args: any[]) => void;
+    lintrk?: (...args: any[]) => void;
     altinaTrack?: {
       lead?: (payload?: any) => void;
       contact?: (payload?: any) => void;
@@ -148,7 +148,10 @@ export default function Analytics() {
                     console.log('[analytics] Meta Lead fired', payload);
                   }
                   if (window.lintrk && '${LI_CONVERSION_ID}') {
-                    try { window.lintrk('track', { conversion_id: '${LI_CONVERSION_ID}' }); console.log('[analytics] LinkedIn conversion fired'); } catch(e){}
+                    try {
+                      window.lintrk('track', { conversion_id: '${LI_CONVERSION_ID}' });
+                      console.log('[analytics] LinkedIn conversion fired');
+                    } catch(e){}
                   }
                 } catch(e) { console.warn('[analytics] lead error', e); }
               },
@@ -174,7 +177,10 @@ export default function Analytics() {
                     console.log('[analytics] Meta Contact fired', payload);
                   }
                   if (window.lintrk && '${LI_CONVERSION_ID}') {
-                    try { window.lintrk('track', { conversion_id: '${LI_CONVERSION_ID}' }); console.log('[analytics] LinkedIn conversion fired'); } catch(e){}
+                    try {
+                      window.lintrk('track', { conversion_id: '${LI_CONVERSION_ID}' });
+                      console.log('[analytics] LinkedIn conversion fired');
+                    } catch(e){}
                   }
                 } catch(e) { console.warn('[analytics] contact error', e); }
               }
@@ -191,9 +197,8 @@ export default function Analytics() {
             const originalFetch = window.fetch.bind(window);
             window.fetch = async function(input, init) {
               const url = (typeof input === 'string') ? input : (input && input.url) || '';
-              const isLeadApi =
-			 // Only auto-track newsletter subscribe; forms already track manually
-			const isLeadApi = url.includes('/api/subscribe');
+              // Only auto-track newsletter subscribe; forms already track manually
+              const isLeadApi = url.includes('/api/subscribe');
 
               // Attempt to capture request payload (best-effort, non-blocking)
               let payload = {};
