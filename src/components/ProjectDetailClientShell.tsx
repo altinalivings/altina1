@@ -22,7 +22,6 @@ type Project = {
 
 type Props = { project: Project };
 
-// Helper to support either default or named exports from modules
 function pick<T = any>(mod: any, named: string) {
   return (mod?.default ?? mod?.[named]) as T;
 }
@@ -32,6 +31,10 @@ const ProjectDetailsSections = pick<any>(DetailsMod, "ProjectDetailsSections");
 const FloatingCTAs = pick<any>(FloatMod, "FloatingCTAs");
 
 export default function ProjectDetailClientShell({ project }: Props) {
+  // Guard RelatedProjects to avoid rendering non-function
+  const RP: any = RelatedProjects;
+  const rpIsRenderable = typeof RP === "function";
+
   return (
     <>
       {ProjectHeroWithInfo && <ProjectHeroWithInfo project={project} />}
@@ -43,11 +46,17 @@ export default function ProjectDetailClientShell({ project }: Props) {
       </div>
 
       <section className="relative z-0 max-w-6xl mx-auto px-4 pb-10">
-        <RelatedProjects
-          currentId={project.id}
-          developer={project.developer}
-          city={project.city}
-        />
+        {rpIsRenderable ? (
+          <RP
+            currentId={project.id}
+            developer={project.developer}
+            city={project.city}
+          />
+        ) : (
+          <div className="text-sm text-white/60">
+            (debug) RelatedProjects is not a component
+          </div>
+        )}
       </section>
 
       {FloatingCTAs && (
