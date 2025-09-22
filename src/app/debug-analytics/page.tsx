@@ -4,17 +4,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
-declare global {
-  interface Window {
-    gtag?: (...args: any[]) => void;
-  }
-}
-
 export default function DebugAnalyticsPage() {
   const sp = useSearchParams();
   const [fired, setFired] = useState(false);
 
-  // Derive a "payload" from URL params to keep behavior flexible
+  // URL params: ?label=Brochure&value=3&mode=cta&category=engagement
   const params = useMemo(() => {
     const label = sp.get("label") ?? sp.get("mode") ?? "lead";
     const valueRaw = sp.get("value");
@@ -24,9 +18,11 @@ export default function DebugAnalyticsPage() {
   }, [sp]);
 
   useEffect(() => {
-    if (typeof window === "undefined" || !window.gtag) return;
+    if (typeof window === "undefined") return;
+    const gtag = (window as any)?.gtag as undefined | ((...args: any[]) => void);
+    if (!gtag) return;
 
-    window.gtag("event", "generate_lead", {
+    gtag("event", "generate_lead", {
       event_category: params.category,
       event_label: params.label,
       value: params.value,
