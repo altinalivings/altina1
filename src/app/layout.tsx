@@ -12,6 +12,7 @@ import Analytics from "@/components/Analytics";
 import Notifier from "@/components/Notifier";
 import AutoCallbackPrompt from "@/components/AutoCallbackPrompt";
 import AnalyticsGuards from "@/components/AnalyticsGuards";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,6 +31,8 @@ export const metadata: Metadata = {
   },
   alternates: { canonical: SITE_URL },
 };
+
+const preInteractiveGuard = `;(function(){try{var w=window;function guard(fn){if(typeof fn!=='function')return fn;try{if(fn.__guarded)return fn;var p=new Proxy(fn,{set:function(t,prop,val){if(prop==='length')return true;t[prop]=val;return true;},defineProperty:function(t,prop,desc){if(prop==='length')return true;Object.defineProperty(t,prop,desc);return true;}});p.__guarded=true;return p;}catch(e){return fn;}};try{if('fbq'in w && typeof w.fbq==='function'){w.fbq=guard(w.fbq);}else{Object.defineProperty(w,'fbq',{configurable:true,enumerable:true,set:function(v){this.__fbq=guard(v);},get:function(){return this.__fbq;}});}}catch(e){}try{if('gtag'in w && typeof w.gtag==='function'){w.gtag=guard(w.gtag);}else{Object.defineProperty(w,'gtag',{configurable:true,enumerable:true,set:function(v){this.__gtag=guard(v);},get:function(){return this.__gtag;}});}}catch(e){}}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const orgJsonLd = {
@@ -51,8 +54,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="en" className="bg-black text-white">
+      <head>
+        {/* Ensure guards are installed *before* any 3rd-party scripts */}
+        <Script id="analytics-guards-pre" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: preInteractiveGuard }} />
+      </head>
       <body className={inter.className + " flex min-h-screen flex-col"}>
-        {/* Install guards BEFORE anything else renders */}
+        {/* Redundant guard post-hydration */}
         <AnalyticsGuards />
         <Header />
         <main className="flex-1">{children}</main>

@@ -8,10 +8,9 @@ const FB_PIXEL = process.env.NEXT_PUBLIC_FB_PIXEL;
 const LI_PARTNER = process.env.NEXT_PUBLIC_LI_PARTNER_ID;
 const GADS_ID = process.env.NEXT_PUBLIC_GADS_ID;
 
-// Helper to inject a script only once
 function injectScriptOnce(id: string, src: string, attrs: Record<string, string> = {}) {
   if (typeof document === "undefined") return;
-  if (document.getElementById(id)) return; // already injected
+  if (document.getElementById(id)) return;
   const s = document.createElement("script");
   s.async = true;
   s.src = src;
@@ -20,7 +19,6 @@ function injectScriptOnce(id: string, src: string, attrs: Record<string, string>
   document.head.appendChild(s);
 }
 
-// Local guard (defense in depth) – ignores illegal writes to function.length
 function guardFn<T extends Function>(fn: any): T {
   if (typeof fn !== "function") return fn as T;
   try {
@@ -49,10 +47,9 @@ export default function Analytics() {
     if (typeof window === "undefined") return;
     const w = window as any;
 
-    // --- GA4 ---
+    // GA4
     if (GA_ID) {
       injectScriptOnce("ga4-script", `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`);
-
       w.dataLayer = w.dataLayer || [];
       w.gtag = w.gtag || function () { w.dataLayer.push(arguments); };
       w.gtag = guardFn(w.gtag);
@@ -60,7 +57,7 @@ export default function Analytics() {
       w.gtag("config", GA_ID);
     }
 
-    // --- Google Ads (optional) ---
+    // Google Ads
     if (GADS_ID) {
       injectScriptOnce("gads-script", `https://www.googletagmanager.com/gtag/js?id=${GADS_ID}`);
       w.dataLayer = w.dataLayer || [];
@@ -69,7 +66,7 @@ export default function Analytics() {
       w.gtag("config", GADS_ID);
     }
 
-    // --- Facebook Pixel ---
+    // Facebook Pixel
     if (FB_PIXEL && !w.fbq) {
       (function (f: any, b: any, e: any, v: any, n?: any, t?: any, s?: any) {
         if (f.fbq) return;
@@ -86,13 +83,12 @@ export default function Analytics() {
       })(w, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
     }
     if (FB_PIXEL) {
-      // Always ensure fbq is a guarded function (even if already present)
       w.fbq = guardFn(w.fbq);
       w.fbq("init", FB_PIXEL);
       w.fbq("track", "PageView");
     }
 
-    // --- LinkedIn Insight Tag ---
+    // LinkedIn Insight
     if (LI_PARTNER && !w.lintrk) {
       w._linkedin_data_partner_ids = w._linkedin_data_partner_ids || [];
       if (!w._linkedin_data_partner_ids.includes(LI_PARTNER)) {
@@ -102,6 +98,5 @@ export default function Analytics() {
     }
   }, []);
 
-  // No visible UI; this component only manages script injection
   return null;
 }
