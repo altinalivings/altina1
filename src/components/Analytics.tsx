@@ -11,19 +11,6 @@ const GADS_ID = process.env.NEXT_PUBLIC_GADS_ID;           // e.g. AW-1751003908
 const GADS_SEND_TO = process.env.NEXT_PUBLIC_GADS_SEND_TO; // e.g. AW-17510039084/XXXX
 const LI_CONVERSION_ID = process.env.NEXT_PUBLIC_LI_CONVERSION_ID || ""; // optional
 
-// NOTE: Do NOT declare gtag here—it's already in src/types/global.d.ts
-declare global {
-  interface Window {
-    dataLayer: any[];
-    fbq?: (...args: any[]) => void;
-    lintrk?: (...args: any[]) => void;
-    altinaTrack?: {
-      lead?: (payload?: any) => void;
-      contact?: (payload?: any) => void;
-    };
-  }
-}
-
 export default function Analytics() {
   const debug = process.env.NODE_ENV !== "production";
 

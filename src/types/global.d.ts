@@ -6,6 +6,9 @@ declare global {
     gtag?: (...args: any[]) => void;
     fbq?: (...args: any[]) => void;
     lintrk?: (...args: any[]) => void;
-    altinaTrack?: { sendLead: (payload: any) => void };
+    altinaTrack?: {
+      lead?: (payload?: any) => void;
+      contact?: (payload?: any) => void;
+    };
   }
 }
