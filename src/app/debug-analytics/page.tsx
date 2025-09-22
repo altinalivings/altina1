@@ -1,55 +1,106 @@
-'use client';
+"use client";
 
-export default function DebugAnalytics() {
-  const lead = (mode: string, label: string, project = '') => {
-    window.altinaTrack?.lead?.({ mode, label, project, value: 1 });
-  };
-  const contact = (label: string, project = '') => {
-    window.altinaTrack?.contact?.({ label, project, value: 1 });
-  };
-  const rawGA = () => {
-    if (typeof window.gtag === 'function') {
-      window.gtag('event', 'generate_lead', {
-  event_category: 'engagement',
-  event_label: payload?.label || payload?.mode || 'lead',
-  value: payload?.value || 1,
-        debug_mode: true,
-      });
-	  
-      console.log('[debug] manual gtag generate_lead fired');
-    } else {
-      console.warn('[debug] gtag not available');
+import { useEffect, useState } from "react";
+
+// Make TypeScript aware of gtag on the window (when GA is present)
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
+
+export default function DebugAnalyticsPage() {
+  // Replace the old 'payload' (which wasn't defined) with explicit state
+  const [label, setLabel] = useState<string>("lead");
+  const [mode, setMode] = useState<string>("manual");
+  const [value, setValue] = useState<number>(1);
+
+  // Hydrate defaults from query params if present: ?label=&mode=&value=
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const sp = new URLSearchParams(window.location.search);
+    const l = sp.get("label");
+    const m = sp.get("mode");
+    const v = sp.get("value");
+    if (l) setLabel(l);
+    if (m) setMode(m);
+    if (v && !Number.isNaN(Number(v))) setValue(Number(v));
+  }, []);
+
+  const sendTestEvent = () => {
+    // Guard in case gtag isn't initialized
+    if (!window.gtag) {
+      console.warn("window.gtag is not available. Is GA4 installed on this page?");
+      alert("gtag() not found. Is GA4 installed on this page?");
+      return;
     }
-  };
 
-  const Btn = (p: any) => (
-    <button
-      {...p}
-      className="rounded-lg border border-white/20 px-4 py-2 hover:bg-white/5"
-    />
-  );
+    window.gtag("event", "generate_lead", {
+      event_category: "engagement",
+      // Use the chosen label or fallback values
+      event_label: label || mode || "lead",
+      value: typeof value === "number" && !Number.isNaN(value) ? value : 1,
+      debug_mode: true,
+    });
+
+    alert("Sent 'generate_lead' event to GA4. Check Realtime → Events.");
+  };
 
   return (
-    <main className="mx-auto max-w-xl p-6 space-y-4">
-      <h1 className="text-xl font-semibold">Analytics Debug</h1>
-      <p className="text-sm text-neutral-300">
-        Open GA4 → Reports → Realtime, then click any button below to see events within seconds.
+    <div style={{ padding: "2rem", maxWidth: 720, margin: "0 auto" }}>
+      <h1 style={{ fontSize: "1.5rem", fontWeight: 700, marginBottom: "1rem" }}>
+        Debug Analytics
+      </h1>
+      <p style={{ marginBottom: "1rem" }}>
+        This page sends a <code>generate_lead</code> event to GA4 using <code>gtag</code>.
+        You can also pass query params like <code>?label=test&amp;mode=cta&amp;value=5</code>.
       </p>
-      <div className="grid gap-3">
-        <Btn onClick={() => lead('callback', '/debug-analytics', 'General Enquiry')}>
-          Fire generate_lead (callback)
-        </Btn>
-        <Btn onClick={() => lead('visit', '/debug-analytics', 'M3M Crown')}>
-          Fire generate_lead (visit)
-        </Btn>
-        <Btn onClick={() => contact('/debug-analytics', 'General Enquiry')}>
-          Fire contact
-        </Btn>
-        <Btn onClick={rawGA}>Fire GA4 manually (generate_lead)</Btn>
+
+      <div style={{ display: "grid", gap: "0.75rem", marginBottom: "1rem" }}>
+        <label>
+          <div style={{ fontSize: 14, opacity: 0.8 }}>Label</div>
+          <input
+            value={label}
+            onChange={(e) => setLabel(e.target.value)}
+            style={{ width: "100%", padding: "0.5rem", border: "1px solid #ddd", borderRadius: 8 }}
+            placeholder="lead"
+          />
+        </label>
+
+        <label>
+          <div style={{ fontSize: 14, opacity: 0.8 }}>Mode</div>
+          <input
+            value={mode}
+            onChange={(e) => setMode(e.target.value)}
+            style={{ width: "100%", padding: "0.5rem", border: "1px solid #ddd", borderRadius: 8 }}
+            placeholder="manual"
+          />
+        </label>
+
+        <label>
+          <div style={{ fontSize: 14, opacity: 0.8 }}>Value</div>
+          <input
+            type="number"
+            value={String(value)}
+            onChange={(e) => setValue(Number(e.target.value))}
+            style={{ width: "100%", padding: "0.5rem", border: "1px solid #ddd", borderRadius: 8 }}
+            placeholder="1"
+          />
+        </label>
       </div>
-      <p className="text-xs text-neutral-500">
-        Check your browser console for <code>[analytics]</code> logs and GA4 Realtime for event names.
-      </p>
-    </main>
+
+      <button
+        onClick={sendTestEvent}
+        style={{
+          padding: "0.75rem 1rem",
+          borderRadius: 999,
+          border: "none",
+          cursor: "pointer",
+          fontWeight: 600,
+        }}
+      >
+        Send generate_lead
+      </button>
+    </div>
   );
 }
