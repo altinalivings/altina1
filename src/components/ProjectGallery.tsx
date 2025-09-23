@@ -99,4 +99,5 @@ export default function ProjectGallery({ slug, images, caption, className }: Pro
       `}</style>
     </section>
   );
+  
 }
