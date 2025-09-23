@@ -1,10 +1,9 @@
 // src/components/ProjectGallery.tsx
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 
-// Lightbox (touch swipe, zoom, and thumbnails filmstrip)
 import Lightbox from "yet-another-react-lightbox";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
@@ -12,29 +11,38 @@ import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 
 type Props = {
-  /** REQUIRED: pass public URLs for images */
-  images: string[];
-  /** Used only for a fallback title/alt text */
+  /** Optional: if omitted, the component will fetch from /api/gallery/<slug> */
+  images?: string[];
+  /** Used for autodiscovery and accessibility text */
   slug?: string;
   caption?: string;
 };
 
-/**
- * ProjectGallery (client-only)
- * - No Node 'fs' usage (safe to import from client components)
- * - Shows a responsive grid of thumbs
- * - Click -> swipeable, zoomable lightbox with thumbnail strip
- */
 export default function ProjectGallery({ images, slug, caption }: Props) {
+  const [list, setList] = useState<string[]>(images ?? []);
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
 
-  const slides = useMemo(
-    () => (images ?? []).map((src) => ({ src })),
-    [images]
-  );
+  // Auto-fetch if images not provided but slug is
+  useEffect(() => {
+    let isMounted = true;
+    async function load() {
+      if ((!images || images.length === 0) && slug) {
+        try {
+          const res = await fetch(`/api/gallery/${encodeURIComponent(slug)}`, { cache: "force-cache" });
+          if (!res.ok) return;
+          const data = await res.json();
+          if (isMounted && Array.isArray(data?.images)) setList(data.images);
+        } catch {}
+      }
+    }
+    load();
+    return () => { isMounted = false; };
+  }, [slug, images]);
 
-  if (!images?.length) {
+  const slides = useMemo(() => list.map((src) => ({ src })), [list]);
+
+  if (!list?.length) {
     return <div className="text-sm text-neutral-400">Gallery coming soon.</div>;
   }
 
@@ -42,9 +50,8 @@ export default function ProjectGallery({ images, slug, caption }: Props) {
     <div>
       {caption ? <p className="text-neutral-400 text-sm mb-3">{caption}</p> : null}
 
-      {/* Thumbnails grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-        {images.map((src, i) => (
+        {list.map((src, i) => (
           <button
             key={src + i}
             type="button"
@@ -63,7 +70,6 @@ export default function ProjectGallery({ images, slug, caption }: Props) {
         ))}
       </div>
 
-      {/* Lightbox */}
       <Lightbox
         open={open}
         close={() => setOpen(false)}
