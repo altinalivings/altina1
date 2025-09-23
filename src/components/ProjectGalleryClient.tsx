@@ -1,95 +1,71 @@
+// src/components/ProjectGalleryClient.tsx
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Keyboard, A11y } from "swiper/modules";
-import Lightbox from "yet-another-react-lightbox";
-import Zoom from "yet-another-react-lightbox/plugins/zoom";
-import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 
-import "swiper/css";
-import "swiper/css/navigation";
+import Lightbox from "yet-another-react-lightbox";
+import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 
-export default function ProjectGalleryClient({
-  images,
-  className,
-  caption,
-}: {
-  images: string[];
-  className?: string;
+type Props = {
+  images?: string[];
+  slug?: string;
   caption?: string;
-}) {
+};
+
+/**
+ * Client gallery: grid of thumbs -> lightbox with swipe, zoom, and thumbnail strip
+ */
+export default function ProjectGalleryClient({ images = [], slug, caption }: Props) {
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
 
-  if (!images?.length) return null;
+  const slides = useMemo(
+    () => images.map((src) => ({ src })),
+    [images]
+  );
+
+  if (!images?.length) {
+    return <div className="text-sm text-neutral-400">Gallery coming soon.</div>;
+  }
 
   return (
-    <div className={className ?? ""}>
-      <Swiper
-        modules={[Navigation, Keyboard, A11y]}
-        navigation
-        keyboard={{ enabled: true }}
-        spaceBetween={16}
-        slidesPerView={1}
-        breakpoints={{
-          640: { slidesPerView: 2, spaceBetween: 16 },
-          1024: { slidesPerView: 3, spaceBetween: 20 },
-        }}
-        loop={images.length > 3}
-        className="rounded-2xl overflow-hidden border border-[rgba(197,166,87,0.35)] shadow-sm"
-      >
-        {images.map((src, i) => (
-          <SwiperSlide key={src}>
-            <button
-              type="button"
-              aria-label={`Open image ${i + 1} of ${images.length}`}
-              onClick={() => {
-                setIndex(i);
-                setOpen(true);
-              }}
-              className="block w-full h-full focus:outline-none"
-            >
-              <div className="relative w-full aspect-[4/3] bg-neutral-950/60 rounded-xl overflow-hidden">
-                <Image
-                  src={src}
-                  alt="Project gallery image"
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1280px) 33vw, 400px"
-                  className="object-cover hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-            </button>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+    <div>
+      {caption ? <p className="text-neutral-400 text-sm mb-3">{caption}</p> : null}
 
-      {caption ? (
-        <p className="mt-3 text-sm text-neutral-300/90 italic text-center">
-          {caption}
-        </p>
-      ) : null}
+      {/* Thumbnails grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+        {images.map((src, i) => (
+          <button
+            key={src + i}
+            type="button"
+            className="relative aspect-[4/3] overflow-hidden rounded-xl border border-white/10 focus:outline-none focus:ring-2 focus:ring-altina-gold/60"
+            onClick={() => { setIndex(i); setOpen(true); }}
+            aria-label={`Open image ${i + 1} ${slug ? "for " + slug : ""}`}
+          >
+            <Image
+              src={src}
+              alt={`${slug || "project"} image ${i + 1}`}
+              fill
+              sizes="(max-width: 640px) 50vw, (max-width: 960px) 33vw, 25vw"
+              className="object-cover transition-transform duration-300 hover:scale-[1.02]"
+            />
+          </button>
+        ))}
+      </div>
 
       <Lightbox
         open={open}
         close={() => setOpen(false)}
         index={index}
-        slides={images.map((src) => ({ src }))}
-        plugins={[Zoom, Thumbnails]}
-        // Tweak thumbnail rail if you like
-        thumbnails={{
-          position: "bottom",
-          width: 100,   // px per thumb
-          height: 70,   // keeps a compact rail
-          border: 0,
-          gap: 8,
-          showToggle: true,
-        }}
-        // Improve zoom UX
-        zoom={{ scrollToZoom: true, maxZoomPixelRatio: 2.5 }}
+        slides={slides}
+        plugins={[Thumbnails, Zoom]}
+        carousel={{ finite: false }}
+        thumbnails={{ position: "bottom" }}
+        zoom={{ maxZoomPixelRatio: 2.5, scrollToZoom: true }}
       />
     </div>
   );

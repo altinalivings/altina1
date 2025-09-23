@@ -1,45 +1,47 @@
 // src/components/ProjectGallery.tsx
-"use client";
+// Server wrapper: auto-discovers images from /public/projects/<slug>/gallery
+import path from "path";
+import fs from "fs";
+import ProjectGalleryClient from "./ProjectGalleryClient";
 
-import { useEffect, useState } from "react";
-import ProjectGalleryClient from "@/components/ProjectGalleryClient";
-
-export default function ProjectGallery({
-  slug,
-  className,
-  caption,
-}: {
-  slug: string;
-  className?: string;
+type Props = {
+  slug?: string;
+  images?: string[]; // if provided, overrides auto-discover
   caption?: string;
-}) {
-  const [images, setImages] = useState<string[] | null>(null);
+};
 
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const res = await fetch(`/api/gallery/${encodeURIComponent(slug)}`, {
-          cache: "no-store",
-        });
-        const data = await res.json();
-        if (!cancelled) setImages(Array.isArray(data.images) ? data.images : []);
-      } catch {
-        if (!cancelled) setImages([]);
+function listImagesFromPublic(slug: string): string[] {
+  const roots = [
+    path.join(process.cwd(), "public", "projects", slug, "gallery"),
+    path.join(process.cwd(), "public", "projects", slug),
+  ];
+  const exts = new Set([".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif"]);
+
+  for (const dir of roots) {
+    try {
+      const files = fs.readdirSync(dir)
+        .filter((f) => exts.has(path.extname(f).toLowerCase()))
+        .sort((a, b) => a.localeCompare(b, undefined, { numeric: True, sensitivity: "base" }));
+      if (files.length) {
+        // turn into public URLs
+        const rel = dir.split(path.join(process.cwd(), "public"))[1].replace(/\\+/g, "/");
+        return files.map((f) => `${rel}/${f}`);
       }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [slug]);
+    } catch {
+      // ignore missing dirs
+    }
+  }
+  return [];
+}
 
-  if (!images) return null;           // or a skeleton if you prefer
-  if (images.length === 0) return null;
+export default async function ProjectGallery({ slug, images, caption }: Props) {
+  const discovered = slug ? listImagesFromPublic(slug) : [];
+  const list = (images && images.length ? images : discovered) ?? [];
 
   return (
     <ProjectGalleryClient
-      images={images}
-      className={className}
+      slug={slug}
+      images={list}
       caption={caption}
     />
   );
