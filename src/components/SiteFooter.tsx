@@ -11,6 +11,7 @@ type Socials = {
   instagram?: string;
   facebook?: string;
   whatsapp?: string;
+  youtube?: string;
 };
 
 const GOLD = "#C5A657";
@@ -20,36 +21,60 @@ const IVORY_BG = "rgba(255, 255, 240, 0.9)";
 
 /* ---------- inline SVG icons ---------- */
 function IconSVG({ name, className }: { name: keyof Socials; className?: string }) {
-  const cls = `w-6 h-6 ${className ?? ""}`;
+  const cls = `w-6 h-6 transition-colors duration-200 ${className ?? ""}`;
   switch (name) {
     case "linkedin":
       return (
         <svg viewBox="0 0 24 24" className={cls} aria-hidden>
-          <path fill="currentColor" d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0zM.5 8.5h4.9V24H.5zM9 8.5h4.7v2.1h.1c.7-1.2 2.3-2.5 4.7-2.5 5 0 5.9 3.3 5.9 7.6V24h-4.9v-6.8c0-1.6 0-3.6-2.2-3.6-2.2 0-2.5 1.7-2.5 3.5V24H9z"/>
+          <path
+            fill="currentColor"
+            d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0zM.5 8.5h4.9V24H.5zM9 8.5h4.7v2.1h.1c.7-1.2 2.3-2.5 4.7-2.5 5 0 5.9 3.3 5.9 7.6V24h-4.9v-6.8c0-1.6 0-3.6-2.2-3.6-2.2 0-2.5 1.7-2.5 3.5V24H9z"
+          />
         </svg>
       );
     case "x":
       return (
         <svg viewBox="0 0 24 24" className={cls} aria-hidden>
-          <path fill="currentColor" d="M18.244 2H21.5l-7.5 8.574L23 22h-6.373l-4.99-6.07L5.85 22H2.5l8.16-9.33L1 2h6.495l4.52 5.59L18.244 2zm-1.115 18h1.63L7.04 4H5.32L17.129 20z"/>
+          <path
+            fill="currentColor"
+            d="M18.244 2H21.5l-7.5 8.574L23 22h-6.373l-4.99-6.07L5.85 22H2.5l8.16-9.33L1 2h6.495l4.52 5.59L18.244 2zm-1.115 18h1.63L7.04 4H5.32L17.129 20z"
+          />
         </svg>
       );
     case "facebook":
       return (
         <svg viewBox="0 0 24 24" className={cls} aria-hidden>
-          <path fill="currentColor" d="M22 12a10 10 0 1 0-11.5 9.88v-6.99H7.9V12h2.6V9.8c0-2.57 1.53-3.99 3.87-3.99 1.12 0 2.29.2 2.29.2v2.52h-1.29c-1.27 0-1.66.79-1.66 1.6V12h2.83l-.45 2.89h-2.38v6.99A10 10 0 0 0 22 12z"/>
+          <path
+            fill="currentColor"
+            d="M22 12a10 10 0 1 0-11.5 9.88v-6.99H7.9V12h2.6V9.8c0-2.57 1.53-3.99 3.87-3.99 1.12 0 2.29.2 2.29.2v2.52h-1.29c-1.27 0-1.66.79-1.66 1.6V12h2.83l-.45 2.89h-2.38v6.99A10 10 0 0 0 22 12z"
+          />
         </svg>
       );
     case "instagram":
       return (
         <svg viewBox="0 0 24 24" className={cls} aria-hidden>
-          <path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 1.9.26 2.35.43.59.23 1.01.5 1.46.95.45.45.72.87.95 1.46.17.45.37 1.14.43 2.35.07 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.26 1.9-.43 2.35a3.6 3.6 0 0 1-.95 1.46 3.6 3.6 0 0 1-1.46.95c-.45.17-1.14.37-2.35.43-1.3.07-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-1.9-.26-2.35-.43a3.6 3.6 0 0 1-1.46-.95 3.6 3.6 0 0 1-.95-1.46c-.17-.45-.37-1.14-.43-2.35C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.26-1.9.43-2.35.23-.59.5-1.01.95-1.46.45-.45.87-.72 1.46-.95.45-.17 1.14-.37 2.35-.43C8.4 2.2 8.8 2.2 12 2.2zm0 5.5a4.3 4.3 0 1 0 0 8.6 4.3 4.3 0 0 0 0-8.6zm6-2.0a1.24 1.24 0 1 1 0 2.48 1.24 1.24 0 0 1 0-2.48z"/>
+          <path
+            fill="currentColor"
+            d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 1.9.26 2.35.43.59.23 1.01.5 1.46.95.45.45.72.87.95 1.46.17.45.37 1.14.43 2.35.07 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.26 1.9-.43 2.35a3.6 3.6 0 0 1-.95 1.46 3.6 3.6 0 0 1-1.46.95c-.45.17-1.14.37-2.35.43-1.3.07-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-1.9-.26-2.35-.43a3.6 3.6 0 0 1-1.46-.95 3.6 3.6 0 0 1-.95-1.46c-.17-.45-.37-1.14-.43-2.35C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.26-1.9.43-2.35.23-.59.5-1.01.95-1.46.45-.45.87-.72 1.46-.95.45-.17 1.14-.37 2.35-.43C8.4 2.2 8.8 2.2 12 2.2zm0 5.5a4.3 4.3 0 1 0 0 8.6 4.3 4.3 0 0 0 0-8.6zm6-2.0a1.24 1.24 0 1 1 0 2.48 1.24 1.24 0 0 1 0-2.48z"
+          />
+        </svg>
+      );
+    case "youtube":
+      return (
+        <svg viewBox="0 0 24 24" className={cls} aria-hidden xmlns="http://www.w3.org/2000/svg">
+          <path
+            fill="currentColor"
+            d="M23.5 6.2s-.2-1.6-.9-2.3c-.9-.9-1.9-.9-2.3-1C17.5 2.5 12 2.5 12 2.5h0s-5.5 0-8.3.4c-.4 0-1.4.1-2.3 1-.7.7-.9 2.3-.9 2.3S0 8.1 0 9.9v2.2c0 1.8.2 3.7.2 3.7s.2 1.6.9 2.3c.9.9 2.1.9 2.6 1 1.9.2 8.3.4 8.3.4s5.5 0 8.3-.4c.4 0 1.4-.1 2.3-1 .7-.7.9-2.3.9-2.3s.2-1.8.2-3.7V9.9c0-1.8-.2-3.7-.2-3.7zM9.6 14.6V7.9l6.2 3.3-6.2 3.4z"
+          />
         </svg>
       );
     case "whatsapp":
       return (
         <svg viewBox="0 0 24 24" className={cls} aria-hidden>
-          <path fill="currentColor" d="M.5 23.5l1.7-6A10.5 10.5 0 1 1 12 22.5c-1.8 0-3.5-.5-5-1.4L.5 23.5zM12 3.5a8.5 8.5 0 0 0-7.3 12.9l.2.4-1 3.5 3.6-.9.3.2A8.5 8.5 0 1 0 12 3.5zm4.8 10.1c-.2-.1-1.3-.6-1.5-.7-.2-.1-.3-.1-.5.1-.1.2-.6.7-.7.8-.1.1-.3.1-.5 0s-1-.4-1.8-1.1c-.7-.7-1.1-1.5-1.3-1.7-.1-.2 0-.4.1-.5.1-.1.2-.3.3-.4.1-.1.1-.2.2-.3.1-.1.1-.2 0-.4 0-.1-.5-1.2-.7-1.6-.2-.4-.4-.3-.5-.3h-.4c-.1 0-.4.1-.6.3s-.8.8-.8 2c0 1.2.8 2.3.9 2.5.1.2 1.6 2.5 3.9 3.5.5.2.9.3 1.2.4.5.2.9.2 1.3.1.4-.1 1.3-.5 1.5-1 .2-.5.2-.9.1-1 0-.1-.2-.1-.4-.2z"/>
+          <path
+            fill="currentColor"
+            d="M.5 23.5l1.7-6A10.5 10.5 0 1 1 12 22.5c-1.8 0-3.5-.5-5-1.4L.5 23.5zM12 3.5a8.5 8.5 0 0 0-7.3 12.9l.2.4-1 3.5 3.6-.9.3.2A8.5 8.5 0 1 0 12 3.5zm4.8 10.1c-.2-.1-1.3-.6-1.5-.7-.2-.1-.3-.1-.5.1-.1.2-.6.7-.7.8-.1.1-.3.1-.5 0s-1-.4-1.8-1.1c-.7-.7-1.1-1.5-1.3-1.7-.1-.2 0-.4.1-.5.1-.1.2-.3.3-.4.1-.1.1-.2.2-.3.1-.1.1-.2 0-.4 0-.1-.5-1.2-.7-1.6-.2-.4-.4-.3-.5-.3h-.4c-.1 0-.4.1-.6.3s-.8.8-.8 2c0 1.2.8 2.3.9 2.5.1.2 1.6 2.5 3.9 3.5.5.2.9.3 1.2.4.5.2.9.2 1.3.1.4-.1 1.3-.5 1.5-1 .2-.5.2-.9.1-1 0-.1-.2-.1-.4-.2z"
+          />
         </svg>
       );
     default:
@@ -57,94 +82,59 @@ function IconSVG({ name, className }: { name: keyof Socials; className?: string 
   }
 }
 
+/* ---------- Social icon wrapper ---------- */
 function SocialIcon({ href, name }: { href: string; name: keyof Socials }) {
+  // Brand hover classes (Tailwind arbitrary colors)
+  const hoverClass =
+    name === "youtube"
+      ? "group-hover:text-[#FF0000]"
+      : name === "whatsapp"
+      ? "group-hover:text-[#25D366]"
+      : name === "linkedin"
+      ? "group-hover:text-[#0A66C2]"
+      : name === "facebook"
+      ? "group-hover:text-[#1877F2]"
+      : name === "instagram"
+      ? "group-hover:text-[#E1306C]"
+      : /* x */ "group-hover:text-[#1DA1F2]";
+
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={name}
-      className="inline-flex h-10 w-10 items-center justify-center rounded-full transition text-altina-ivory/90 hover:text-altina-ivory"
+      className="group inline-flex h-10 w-10 items-center justify-center rounded-full transition"
       style={{
+        // white icon by default; golden ring always
+        color: "#FFFFFF",
         background: "rgba(13,13,13,0.85)",
         boxShadow: `0 0 0 1px ${GOLD_BORDER} inset, 0 0 12px rgba(0,0,0,0.25)`,
       }}
     >
-      <IconSVG name={name} />
+      <IconSVG name={name} className={hoverClass} />
     </a>
   );
 }
 
+/* ---------- Footer Component ---------- */
 export default function SiteFooter({
   phone = "+91 98912 34195",
   socials = {
     x: "https://x.com/Altinalivings",
     linkedin: "https://www.linkedin.com/company/108414321/",
     instagram: "https://www.instagram.com/altinalivings",
-    facebook: "https://www.facebook.com/profile.php?id=61580035583494",
+    facebook: "https://www.facebook.com/profile.php?id=61581061191134",
     whatsapp: "https://wa.me/919891234195",
+    youtube: "https://www.youtube.com/@Altinalivings",
   },
 }: {
   phone?: string;
   socials?: Socials;
 }) {
-  // ---------- Lead auto-popup (15s, cancels when a lead is submitted) ----------
   const fetchPatched = useRef(false);
-
   useEffect(() => {
-    const path = typeof window !== "undefined" ? window.location.pathname : "";
-    if (path === "/contact") return;
-    if (sessionStorage.getItem("altina_lead_submitted") === "1") return;
-
-    const markSubmitted = () => {
-      try {
-        sessionStorage.setItem("altina_lead_submitted", "1");
-      } catch {}
-    };
-    window.addEventListener("lead:submitted", markSubmitted);
-
-    if (!fetchPatched.current && typeof window.fetch === "function") {
-      fetchPatched.current = true;
-      const _fetch = window.fetch.bind(window);
-      window.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
-        const res = await _fetch(input as any, init as any);
-        try {
-          const url =
-            typeof input === "string"
-              ? input
-              : (input as Request)?.url || String(input);
-          if (
-            res?.ok &&
-            (url.includes("/api/lead") ||
-              url.includes("/api/leads") ||
-              url.includes("/api/contact"))
-          ) {
-            markSubmitted();
-          }
-        } catch {}
-        return res;
-      };
-    }
-
-    const alreadyOpened = sessionStorage.getItem("altina_autopopup_done") === "1";
-    const t = window.setTimeout(() => {
-      if (
-        sessionStorage.getItem("altina_lead_submitted") !== "1" &&
-        !alreadyOpened
-      ) {
-        sessionStorage.setItem("altina_autopopup_done", "1");
-        window.dispatchEvent(
-          new CustomEvent("lead:open", {
-            detail: { mode: "callback", source: "auto-popup", page: path || "/" },
-          })
-        );
-      }
-    }, 15000);
-
-    return () => {
-      window.clearTimeout(t);
-      window.removeEventListener("lead:submitted", markSubmitted);
-    };
+    /* auto-popup disabled */
   }, []);
 
   const openCallback = () =>
@@ -215,6 +205,7 @@ export default function SiteFooter({
             {socials.instagram && <SocialIcon href={socials.instagram} name="instagram" />}
             {socials.facebook && <SocialIcon href={socials.facebook} name="facebook" />}
             {socials.whatsapp && <SocialIcon href={socials.whatsapp} name="whatsapp" />}
+            {socials.youtube && <SocialIcon href={socials.youtube} name="youtube" />}
           </div>
         </div>
 

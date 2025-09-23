@@ -84,7 +84,7 @@ export default function EnquiryForm({
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ __no_autotrack: 1, ...payload }),
       });
 
       if (!res.ok) {

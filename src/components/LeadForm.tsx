@@ -84,13 +84,13 @@ export default function LeadForm({ project }: { project?: string }) {
       ts: new Date().toISOString(),
     }
     try {
-      const res = await fetch('/api/lead', { method: 'POST', body: JSON.stringify(payload) })
+      const res = await fetch('/api/lead', { method: 'POST', body: JSON.stringify({ __no_autotrack: 1, ...payload }) })
       if (!res.ok) throw new Error('Bad response')
       // Google Ads conversion event
       // @ts-ignore
-      if (typeof window.gtag === 'function' && process.env.NEXT_PUBLIC_GADS_SENDTO) {
+      if (typeof window.gtag === 'function' && process.env.NEXT_PUBLIC_GADS_SEND_TO) {
         // @ts-ignore
-        window.gtag('event', 'conversion', { send_to: process.env.NEXT_PUBLIC_GADS_SENDTO })
+        window.gtag('event', 'conversion', { send_to: process.env.NEXT_PUBLIC_GADS_SEND_TO })
       }
       // Facebook Lead event
       // @ts-ignore

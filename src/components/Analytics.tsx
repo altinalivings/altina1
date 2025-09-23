@@ -9,7 +9,7 @@ const FB_PIXEL = process.env.NEXT_PUBLIC_FB_PIXEL;
 const LI_PARTNER = process.env.NEXT_PUBLIC_LI_PARTNER || process.env.NEXT_PUBLIC_LI_PARTNER_ID;
 const GADS_ID = process.env.NEXT_PUBLIC_GADS_ID;
 const GADS_SEND_TO = process.env.NEXT_PUBLIC_GADS_SEND_TO;
-const LEADS_URL = (process.env.LEADS_SHEETS_WEBAPP_URL || "").replace(/^['"]|['"]$/g, "");
+const LEADS_URL = (process.env.NEXT_PUBLIC_LEADS_SHEETS_WEBAPP_URL || "").replace(/^['"]|['"]$/g, "");
 
 // ---------- helpers ----------
 function injectScriptOnce(id: string, src: string, attrs: Record<string, string> = {}) {
@@ -244,6 +244,9 @@ export default function Analytics() {
         const p = (async () => {
           const res = await originalFetch(...args);
           try {
+            // allow explicit opt-out from components
+            const noAuto = bodyToObject(init?.body).__no_autotrack === '1' || bodyToObject(init?.body).__no_autotrack === 1;
+            if (noAuto) return res;
             // Clone might fail (opaque), so just attempt
             const eventParams = {
               event_category: "engagement",

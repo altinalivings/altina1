@@ -5,7 +5,7 @@ import EnquiryForm from '@/components/EnquiryForm'
 export default function EnquiryModal({ projectName }: { projectName?: string }) {
   const [open, setOpen] = useState(false)
   useEffect(() => {
-    const h = () => setOpen(true)
+    const h = () => { if (typeof window !== 'undefined' && ((window as any).__ALTINA_POPUP_OPEN__ || (window as any).__ALTINA_POPUP_SCHEDULED__)) return; (window as any).__ALTINA_POPUP_OPEN__ = true; setOpen(true) }
     window.addEventListener('open-enquiry', h as any)
     return () => window.removeEventListener('open-enquiry', h as any)
   }, [])

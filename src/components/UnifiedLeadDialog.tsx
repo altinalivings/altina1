@@ -124,7 +124,7 @@ export default function UnifiedLeadDialog({
       const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ __no_autotrack: 1, ...payload }),
       });
 
       if (!res.ok) {

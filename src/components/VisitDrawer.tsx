@@ -81,7 +81,7 @@ export default function VisitDrawer({ open, onClose, projectName, page }: Props)
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ __no_autotrack: 1, ...payload }),
       });
       if (!res.ok) throw new Error((await res.text().catch(() => "")) || "Unable to submit");
 

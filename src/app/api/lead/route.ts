@@ -22,7 +22,7 @@ export async function POST(req: Request) {
 
     if (!name) return bad("Name required");
     if (!/^\+?[0-9\s\-()]{8,}$/.test(phone)) return bad("Valid phone required");
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return bad("Valid email required");
+    if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return bad("Valid email required");
 
     const ua = req.headers.get("user-agent") || "";
     const lang = req.headers.get("accept-language") || "";
