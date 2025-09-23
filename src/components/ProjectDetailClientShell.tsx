@@ -1,9 +1,7 @@
 // src/components/ProjectDetailClientShell.tsx
 "use client";
-import * as HeroMod from "@/components/ProjectHeroWithInfo";
-import * as DetailsMod from "@/components/ProjectDetailsSections";
-import RelatedProjects from "@/components/RelatedProjects";
-import * as FloatMod from "@/components/FloatingCTAs";
+
+import dynamic from "next/dynamic";
 
 type Project = {
   id: string;
@@ -18,42 +16,65 @@ type Project = {
   images?: string[];
 };
 
-function pick<T = any>(mod: any, named: string): T {
-  const candidate = (mod && (mod[named] ?? mod.default)) as any;
-  if (typeof candidate === "function") return candidate as T;
-  if (process.env.NODE_ENV !== "production") {
-    console.warn(`[ProjectDetailClientShell] Missing component export '${named}'. Module keys:`, mod && Object.keys(mod || {}));
-  }
-  // return a no-op component to avoid SSR crash while we log
-  return (() => null) as unknown as T;
-}
+// IMPORTANT: server components must be pulled in via dynamic() from a client shell.
+// We don't change their source files; we just import them safely and support both
+// default and named exports.
 
-const ProjectHeroWithInfo = pick(HeroMod, "ProjectHeroWithInfo");
-const ProjectDetailsSections = pick(DetailsMod, "ProjectDetailsSections");
-const FloatingCTAs = pick(FloatMod, "FloatingCTAs");
-const RelatedProjectsNS = { RelatedProjects };
-const RelatedProjectsPicked = pick(RelatedProjectsNS, "RelatedProjects");
+const ProjectHeroWithInfo = dynamic(
+  () =>
+    import("@/components/ProjectHeroWithInfo").then((m: any) => m.default ?? m.ProjectHeroWithInfo),
+  { ssr: true }
+);
+
+const ProjectDetailsSections = dynamic(
+  () =>
+    import("@/components/ProjectDetailsSections").then((m: any) => m.default ?? m.ProjectDetailsSections),
+  { ssr: true }
+);
+
+const RelatedProjects = dynamic(
+  () =>
+    import("@/components/RelatedProjects").then((m: any) => m.default ?? m.RelatedProjects ?? (() => null)),
+  { ssr: true, loading: () => null as any }
+);
+
+// Floating CTAs are typically client-only; render on client.
+const FloatingCTAs = dynamic(
+  () => import("@/components/FloatingCTAs").then((m: any) => m.default ?? m.FloatingCTAs),
+  { ssr: false }
+);
 
 export default function ProjectDetailClientShell({ project }: { project: Project }) {
+  if (!project) return null;
+
   return (
-    <div className="mx-auto max-w-7xl px-4">
+    <>
       {/* HERO */}
-      <div className="mb-8">
-        <ProjectHeroWithInfo project={project} />
-      </div>
+      <ProjectHeroWithInfo
+        id={project.id}
+        name={project.name}
+        developer={project.developer}
+        city={project.city}
+        location={project.location}
+        hero={project.hero}
+        configuration={project.configuration}
+        price={project.price}
+        brochure={project.brochure}
+        images={project.images}
+      />
 
       {/* DETAILS */}
-      <div className="mb-12">
+      <section className="relative z-10">
         <ProjectDetailsSections project={project} />
-      </div>
+      </section>
 
-      {/* RELATED */}
-      <div className="my-12">
-        <RelatedProjectsPicked project={project} />
-      </div>
+      {/* RELATED PROJECTS */}
+      <section className="relative z-0 max-w-6xl mx-auto px-4 pb-10">
+        <RelatedProjects currentId={project.id} developer={project.developer} city={project.city} />
+      </section>
 
-      {/* FLOATING CTAs */}
-      <FloatingCTAs projectId={project?.id ?? null} projectName={project?.name ?? null} />
-    </div>
+      {/* FLOATING CTAs (client) */}
+      <FloatingCTAs projectId={project.id} projectName={project.name} />
+    </>
   );
 }
