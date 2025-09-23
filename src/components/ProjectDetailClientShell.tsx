@@ -1,8 +1,11 @@
 // src/components/ProjectDetailClientShell.tsx
 "use client";
 
-import dynamic from "next/dynamic";
-import React from "react";
+import * as HeroMod from "@/components/ProjectHeroWithInfo";
+import * as DetailsMod from "@/components/ProjectDetailsSections";
+import * as RelatedMod from "@/components/RelatedProjects";
+// removed: import * as RailMod from "@/components/ProjectCTARail";
+import * as FloatMod from "@/components/FloatingCTAs";
 
 type Project = {
   id: string;
@@ -17,55 +20,51 @@ type Project = {
   images?: string[];
 };
 
-type HeroProps = { project: Project };
-type DetailsProps = { project: Project };
-type RelatedProps = { currentId: string; developer?: string; city?: string };
-type FloatingProps = { projectId: string; projectName: string };
+function pick<T = any>(mod: any, named: string) {
+  return (mod?.default ?? mod?.[named]) as T;
+}
 
-// Use dynamic() and explicitly type props so TS knows these components accept props.
-const ProjectHeroWithInfo = dynamic<HeroProps>(
-  () =>
-    import("@/components/ProjectHeroWithInfo").then((m: any) => (m.default ?? m.ProjectHeroWithInfo) as React.ComponentType<HeroProps>),
-  { ssr: true }
-);
-
-const ProjectDetailsSections = dynamic<DetailsProps>(
-  () =>
-    import("@/components/ProjectDetailsSections").then((m: any) => (m.default ?? m.ProjectDetailsSections) as React.ComponentType<DetailsProps>),
-  { ssr: true }
-);
-
-const RelatedProjects = dynamic<RelatedProps>(
-  () =>
-    import("@/components/RelatedProjects").then((m: any) => (m.default ?? m.RelatedProjects ?? (() => null)) as React.ComponentType<RelatedProps>),
-  { ssr: true, loading: () => null as any }
-);
-
-const FloatingCTAs = dynamic<FloatingProps>(
-  () => import("@/components/FloatingCTAs").then((m: any) => (m.default ?? m.FloatingCTAs) as React.ComponentType<FloatingProps>),
-  { ssr: false }
-);
+const ProjectHeroWithInfo = pick(HeroMod, "ProjectHeroWithInfo");
+const ProjectDetailsSections = pick(DetailsMod, "ProjectDetailsSections");
+const RelatedProjects = pick(RelatedMod, "RelatedProjects");
+// const ProjectCTARail = pick(RailMod, "ProjectCTARail");
+const FloatingCTAs = pick(FloatMod, "FloatingCTAs");
 
 export default function ProjectDetailClientShell({ project }: { project: Project }) {
-  if (!project) return null;
-
   return (
     <>
-      {/* HERO */}
-      <ProjectHeroWithInfo project={project} />
+      {ProjectHeroWithInfo && (
+        <ProjectHeroWithInfo
+          id={project.id}
+          name={project.name}
+          developer={project.developer}
+          city={project.city}
+          location={project.location}
+          hero={project.hero}
+          configuration={project.configuration}
+          price={project.price}
+          brochure={project.brochure}
+          images={project.images}
+        />
+      )}
 
-      {/* DETAILS */}
-      <section className="relative z-10">
-        <ProjectDetailsSections project={project} />
+      {/* Removed CTA rail to avoid duplicate emerald/gold buttons */}
+
+      <section className="relative z-0 max-w-6xl mx-auto px-4 pt-8 pb-10">
+        {ProjectDetailsSections && <ProjectDetailsSections project={project as any} />}
       </section>
 
-      {/* RELATED PROJECTS */}
       <section className="relative z-0 max-w-6xl mx-auto px-4 pb-10">
-        <RelatedProjects currentId={project.id} developer={project.developer} city={project.city} />
+        {RelatedProjects && (
+          <RelatedProjects
+            currentId={project.id}
+            developer={project.developer}
+            city={project.city}
+          />
+        )}
       </section>
 
-      {/* FLOATING CTAs (client) */}
-      <FloatingCTAs projectId={project.id} projectName={project.name} />
+      {FloatingCTAs && <FloatingCTAs projectId={project.id} projectName={project.name} />}
     </>
   );
 }

@@ -93,7 +93,7 @@ const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "");
 function findDeveloper(devNameOrSlug?: string): Dev | undefined {
   if (!devNameOrSlug) return undefined;
   const key = norm(devNameOrSlug);
-  const list = (developers as unknown as Dev[]) || [];
+  const list = (developers as Dev[]) || [];
   return (
     list.find((d) => norm(d.slug) === key) ||
     list.find((d) => norm(d.name) === key) ||
@@ -219,7 +219,7 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
           <h2 className="text-xl font-semibold text-left">Gallery</h2>
           <div className="golden-divider my-3" />
           <div className="modal-surface golden-frame p-6">
-            {}
+            {/* @ts-expect-error Server Component inside Client via dynamic(ssr:true) */}
             <ProjectGallery slug={project.id} caption="Click any image to zoom" />
           </div>
         </section>

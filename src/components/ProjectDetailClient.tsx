@@ -249,7 +249,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
             <h3 className="text-lg font-semibold">Gallery</h3>
             <div className="golden-divider my-3" />
             {/* Server island renders inside this client page */}
-            
+            {/* @ts-expect-error Server Component inside Client via dynamic(ssr:true) */}
             <ProjectGallery slug={project.id} caption="Click any image to zoom" />
           </div>
         ) : null}
