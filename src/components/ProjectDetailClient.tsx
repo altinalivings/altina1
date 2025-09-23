@@ -9,8 +9,7 @@ import { GatedDownloadButton } from "@/components/BrochureLeadGate";
 import ProjectCTARail from "@/components/ProjectCTARail";
 import dynamic from "next/dynamic";
 
-// Important: ProjectGallery is a SERVER component; import via dynamic with ssr:true wrapper or just use directly.
-// Since this file is a client component, we render a small server island:
+// ProjectGallery is a SERVER component; render via dynamic from this client component
 const ProjectGallery = dynamic(() => import("@/components/ProjectGallery"), { ssr: true });
 
 type AmenityMap = { id: string; label: string; icon?: string };
@@ -48,7 +47,7 @@ type Project = {
   about?: string;
   brochure?: string;
   hero?: string;
-  gallery?: string[]; // retained in case you also want grid fallbacks
+  gallery?: string[];
   map?: { embed?: string; lat?: number; lng?: number };
 };
 
@@ -249,7 +248,6 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
             <h3 className="text-lg font-semibold">Gallery</h3>
             <div className="golden-divider my-3" />
             {/* Server island renders inside this client page */}
-            {/* @ts-expect-error Server Component inside Client via dynamic(ssr:true) */}
             <ProjectGallery slug={project.id} caption="Click any image to zoom" />
           </div>
         ) : null}
