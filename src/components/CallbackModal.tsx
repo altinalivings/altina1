@@ -1,51 +1,63 @@
+// src/components/CallbackModal.tsx
 "use client";
 
-import React from "react";
-import dynamic from "next/dynamic";
-
-const EnquiryForm = dynamic(() => import("./EnquiryForm"), { ssr: false });
+import { useEffect } from "react";
+// Keep your existing EnquiryForm import/path
+import EnquiryForm from "./EnquiryForm";
 
 type Props = {
   open: boolean;
-  onOpenChange: (v: boolean) => void;
-  projectName?: string | null;
+  onOpenChange: (open: boolean) => void;
+  projectName?: string;
+  /** default "callback" to match your old behavior */
   mode?: "callback" | "enquiry";
-  source?: string;
 };
 
+/**
+ * Controlled modal: renders nothing when closed (prevents "skeleton" leftover).
+ * Locks scroll when open and cleans up on unmount.
+ */
 export default function CallbackModal({
   open,
   onOpenChange,
-  projectName = null,
+  projectName,
   mode = "callback",
 }: Props) {
+  useEffect(() => {
+    const root = document.documentElement;
+    if (open) root.classList.add("overflow-hidden");
+    else root.classList.remove("overflow-hidden");
+    return () => root.classList.remove("overflow-hidden");
+  }, [open]);
+
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[100]">
+    <div className="fixed inset-0 z-[200]">
       <div
         className="absolute inset-0 bg-black/60"
         onClick={() => onOpenChange(false)}
-        aria-hidden="true"
       />
-      <div className="absolute inset-0 grid place-items-center p-4">
-        <div className="relative w-full max-w-2xl rounded-2xl bg-white p-6 shadow-xl">
-          <button
-            type="button"
-            aria-label="Close"
-            onClick={() => onOpenChange(false)}
-            className="absolute right-3 top-3 rounded-full bg-black/20 px-2.5 py-1 text-white hover:bg-black/40"
-          >
-            ✕
-          </button>
-          <h3 className="mb-4 text-xl font-semibold text-black/80">Request a callback</h3>
-          {/* @ts-expect-error EnquiryForm might accept different modes */}
-          <EnquiryForm
-            mode={mode}
-            projectName={projectName ?? undefined}
-            onSubmitted={() => onOpenChange(false)}
-          />
-        </div>
+      <div
+        role="dialog"
+        aria-modal="true"
+        className="relative mx-auto mt-20 w-[min(720px,92vw)] rounded-2xl bg-white p-6 shadow-xl"
+      >
+        <button
+          onClick={() => onOpenChange(false)}
+          aria-label="Close"
+          className="absolute right-3 top-3 rounded-full px-2 py-1 text-black/60 hover:text-black"
+        >
+          ✕
+        </button>
+
+        <h3 className="mb-3 text-xl font-semibold">
+          {mode === "callback" ? "Request a callback" : "Get in touch"}
+        </h3>
+
+        {/* Avoid hard typing to prevent TS prop mismatches in your project */}
+        {/* @ts-ignore */}
+        <EnquiryForm mode={mode} projectName={projectName} />
       </div>
     </div>
   );

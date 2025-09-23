@@ -251,3 +251,5 @@ html, body {
   width: 100%;
   background: linear-gradient(90deg, transparent, rgba(219, 184, 101, 0.8), transparent);
 }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

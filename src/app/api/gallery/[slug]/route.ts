@@ -1,35 +1,41 @@
+// src/app/api/gallery/[slug]/route.ts
 import { NextResponse } from "next/server";
 import path from "path";
-import fs from "fs";
+import { promises as fs } from "fs";
 
+export const dynamic = "force-static"; // cache on the edge
 export const runtime = "nodejs";
 
-function naturalSort(a: string, b: string) {
+const exts = new Set([".jpg", ".jpeg", ".png", ".webp", ".gif"]);
+
+function naturalCompare(a: string, b: string) {
   return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
 }
 
-export async function GET(
-  _req: Request,
-  { params }: { params: { slug: string } }
-) {
-  const slug = params.slug;
-  const root = process.cwd();
-  const primary = path.join(root, "public", "projects", slug, "gallery");
-  const fallback = path.join(root, "public", "projects", slug);
+async function findImagesFor(slug: string) {
+  const publicDir = path.join(process.cwd(), "public");
+  // Preferred: /public/projects/<slug>/gallery
+  const first = path.join(publicDir, "projects", slug, "gallery");
+  // Fallback: /public/projects/<slug>
+  const second = path.join(publicDir, "projects", slug);
 
-  const tryList = (dir: string): string[] => {
+  for (const dir of [first, second]) {
     try {
-      const files = fs.readdirSync(dir);
-      const imgs = files.filter((f) => /\.(jpe?g|png|webp|gif|avif)$/i.test(f));
-      imgs.sort(naturalSort);
-      return imgs.map((f) => `projects/${slug}/${dir.endsWith("gallery") ? "gallery/" : ""}${f}`);
+      const entries = await fs.readdir(dir, { withFileTypes: true });
+      const candidates = entries
+        .filter((e) => e.isFile() && exts.has(path.extname(e.name).toLowerCase()))
+        .map((e) => `/projects/${slug}/${dir.endsWith("gallery") ? "gallery/" : ""}${e.name}`)
+        .sort(naturalCompare);
+      if (candidates.length) return candidates;
     } catch {
-      return [];
+      // try next
     }
-  };
+  }
+  return [];
+}
 
-  let list = tryList(primary);
-  if (!list.length) list = tryList(fallback);
-
-  return NextResponse.json({ images: list });
+export async function GET(_: Request, { params }: { params: { slug: string } }) {
+  const { slug } = params;
+  const images = await findImagesFor(slug);
+  return NextResponse.json({ images });
 }
