@@ -1,48 +1,79 @@
 // src/components/ProjectGallery.tsx
-// Server wrapper: auto-discovers images from /public/projects/<slug>/gallery
-import path from "path";
-import fs from "fs";
-import ProjectGalleryClient from "./ProjectGalleryClient";
+"use client";
+
+import { useMemo, useState } from "react";
+import Image from "next/image";
+
+// Lightbox (touch swipe, zoom, and thumbnails filmstrip)
+import Lightbox from "yet-another-react-lightbox";
+import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import "yet-another-react-lightbox/styles.css";
+import "yet-another-react-lightbox/plugins/thumbnails.css";
 
 type Props = {
+  /** REQUIRED: pass public URLs for images */
+  images: string[];
+  /** Used only for a fallback title/alt text */
   slug?: string;
-  images?: string[]; // if provided, overrides auto-discover
   caption?: string;
 };
 
-function listImagesFromPublic(slug: string): string[] {
-  const roots = [
-    path.join(process.cwd(), "public", "projects", slug, "gallery"),
-    path.join(process.cwd(), "public", "projects", slug),
-  ];
-  const exts = new Set([".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif"]);
+/**
+ * ProjectGallery (client-only)
+ * - No Node 'fs' usage (safe to import from client components)
+ * - Shows a responsive grid of thumbs
+ * - Click -> swipeable, zoomable lightbox with thumbnail strip
+ */
+export default function ProjectGallery({ images, slug, caption }: Props) {
+  const [open, setOpen] = useState(false);
+  const [index, setIndex] = useState(0);
 
-  for (const dir of roots) {
-    try {
-      const files = fs.readdirSync(dir)
-        .filter((f) => exts.has(path.extname(f).toLowerCase()))
-        .sort((a, b) => a.localeCompare(b, undefined, { numeric: True, sensitivity: "base" }));
-      if (files.length) {
-        // turn into public URLs
-        const rel = dir.split(path.join(process.cwd(), "public"))[1].replace(/\\+/g, "/");
-        return files.map((f) => `${rel}/${f}`);
-      }
-    } catch {
-      // ignore missing dirs
-    }
+  const slides = useMemo(
+    () => (images ?? []).map((src) => ({ src })),
+    [images]
+  );
+
+  if (!images?.length) {
+    return <div className="text-sm text-neutral-400">Gallery coming soon.</div>;
   }
-  return [];
-}
-
-export default async function ProjectGallery({ slug, images, caption }: Props) {
-  const discovered = slug ? listImagesFromPublic(slug) : [];
-  const list = (images && images.length ? images : discovered) ?? [];
 
   return (
-    <ProjectGalleryClient
-      slug={slug}
-      images={list}
-      caption={caption}
-    />
+    <div>
+      {caption ? <p className="text-neutral-400 text-sm mb-3">{caption}</p> : null}
+
+      {/* Thumbnails grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+        {images.map((src, i) => (
+          <button
+            key={src + i}
+            type="button"
+            className="relative aspect-[4/3] overflow-hidden rounded-xl border border-white/10 focus:outline-none focus:ring-2 focus:ring-altina-gold/60"
+            onClick={() => { setIndex(i); setOpen(true); }}
+            aria-label={`Open image ${i + 1} ${slug ? "for " + slug : ""}`}
+          >
+            <Image
+              src={src}
+              alt={`${slug || "project"} image ${i + 1}`}
+              fill
+              sizes="(max-width: 640px) 50vw, (max-width: 960px) 33vw, 25vw"
+              className="object-cover transition-transform duration-300 hover:scale-[1.02]"
+            />
+          </button>
+        ))}
+      </div>
+
+      {/* Lightbox */}
+      <Lightbox
+        open={open}
+        close={() => setOpen(false)}
+        index={index}
+        slides={slides}
+        plugins={[Thumbnails, Zoom]}
+        carousel={{ finite: false }}
+        thumbnails={{ position: "bottom" }}
+        zoom={{ maxZoomPixelRatio: 2.5, scrollToZoom: true }}
+      />
+    </div>
   );
 }
