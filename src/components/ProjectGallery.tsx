@@ -1,9 +1,6 @@
-// src/components/ProjectGallery.tsx
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import Image from "next/image";
-
+import React from "react";
 import Lightbox from "yet-another-react-lightbox";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
@@ -11,75 +8,95 @@ import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 
 type Props = {
-  /** Optional: if omitted, the component will fetch from /api/gallery/<slug> */
+  slug: string;
   images?: string[];
-  /** Used for autodiscovery and accessibility text */
-  slug?: string;
   caption?: string;
+  className?: string;
 };
 
-export default function ProjectGallery({ images, slug, caption }: Props) {
-  const [list, setList] = useState<string[]>(images ?? []);
-  const [open, setOpen] = useState(false);
-  const [index, setIndex] = useState(0);
+const stripBtn =
+  "rounded-full w-10 h-10 grid place-items-center border border-white/20 bg-black/40 hover:bg-black/60 text-white";
 
-  // Auto-fetch if images not provided but slug is
-  useEffect(() => {
-    let isMounted = true;
-    async function load() {
-      if ((!images || images.length === 0) && slug) {
-        try {
-          const res = await fetch(`/api/gallery/${encodeURIComponent(slug)}`, { cache: "force-cache" });
-          if (!res.ok) return;
-          const data = await res.json();
-          if (isMounted && Array.isArray(data?.images)) setList(data.images);
-        } catch {}
-      }
+export default function ProjectGallery({ slug, images, caption, className }: Props) {
+  const [list, setList] = React.useState<string[]>(images ?? []);
+  const [open, setOpen] = React.useState(false);
+  const [index, setIndex] = React.useState(0);
+  const stripRef = React.useRef<HTMLDivElement | null>(null);
+
+  React.useEffect(() => {
+    let ignore = false;
+    async function run() {
+      if (images && images.length) return;
+      try {
+        const res = await fetch(`/api/gallery/${encodeURIComponent(slug)}`, { cache: "no-store" });
+        if (!res.ok) return;
+        const data: { images: string[] } = await res.json();
+        if (!ignore && data?.images?.length) setList(data.images);
+      } catch {}
     }
-    load();
-    return () => { isMounted = false; };
+    run();
+    return () => { ignore = true; };
   }, [slug, images]);
 
-  const slides = useMemo(() => list.map((src) => ({ src })), [list]);
+  const scrollStrip = (delta: number) => {
+    const el = stripRef.current;
+    if (!el) return;
+    el.scrollBy({ left: delta, behavior: "smooth" });
+  };
 
-  if (!list?.length) {
-    return <div className="text-sm text-neutral-400">Gallery coming soon.</div>;
-  }
+  const thumbs = list.map((src) => (src.startsWith("/") ? src : `/${src}`));
 
   return (
-    <div>
-      {caption ? <p className="text-neutral-400 text-sm mb-3">{caption}</p> : null}
+    <section className={className ?? ""}>
+      <p className="text-sm text-white/70 mb-3">{caption ?? "Click any image to zoom"}</p>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-        {list.map((src, i) => (
-          <button
-            key={src + i}
-            type="button"
-            className="relative aspect-[4/3] overflow-hidden rounded-xl border border-white/10 focus:outline-none focus:ring-2 focus:ring-altina-gold/60"
-            onClick={() => { setIndex(i); setOpen(true); }}
-            aria-label={`Open image ${i + 1} ${slug ? "for " + slug : ""}`}
-          >
-            <Image
-              src={src}
-              alt={`${slug || "project"} image ${i + 1}`}
-              fill
-              sizes="(max-width: 640px) 50vw, (max-width: 960px) 33vw, 25vw"
-              className="object-cover transition-transform duration-300 hover:scale-[1.02]"
-            />
-          </button>
-        ))}
+      <div className="relative flex items-center gap-2">
+        <button type="button" onClick={() => scrollStrip(-400)} aria-label="Previous"
+          className={stripBtn}>‹</button>
+
+        <div
+          ref={stripRef}
+          className="flex-1 overflow-x-auto scroll-smooth no-scrollbar"
+          style={{ scrollbarWidth: "none" }}
+        >
+          <ul className="flex gap-3 snap-x snap-mandatory">
+            {thumbs.map((src, i) => (
+              <li key={i} className="snap-start shrink-0">
+                <button
+                  type="button"
+                  className="block rounded-xl overflow-hidden border border-white/10 hover:border-white/30 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                  onClick={() => { setIndex(i); setOpen(true); }}
+                >
+                  <img
+                    src={src}
+                    alt={`Gallery ${i + 1}`}
+                    width={320}
+                    height={200}
+                    className="h-44 w-[20rem] object-cover"
+                    loading="lazy"
+                  />
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <button type="button" onClick={() => scrollStrip(400)} aria-label="Next"
+          className={stripBtn}>›</button>
       </div>
 
       <Lightbox
         open={open}
         close={() => setOpen(false)}
         index={index}
-        slides={slides}
+        slides={thumbs.map((src) => ({ src }))}
         plugins={[Thumbnails, Zoom]}
         carousel={{ finite: false }}
-        thumbnails={{ position: "bottom" }}
-        zoom={{ maxZoomPixelRatio: 2.5, scrollToZoom: true }}
       />
-    </div>
+      <style jsx global>{`
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      `}</style>
+    </section>
   );
 }
