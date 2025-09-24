@@ -88,7 +88,7 @@ export default function ProjectGallery({ slug, images: imagesProp, caption = "Cl
           >
             <img
               src={src}
-              alt={`${project.name} by ${project.developer} in ${project.city}`}`}
+              alt={`Gallery image ${i + 1}`}
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
               loading={i < 4 ? "eager" : "lazy"}
             />
@@ -147,7 +147,7 @@ function RowSwiper({
           >
             <img
               src={src}
-              alt={`${project.name} by ${project.developer} in ${project.city}`}`}
+              alt={`Gallery image ${startIndex + idx + 1}`}
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
               loading="lazy"
             />
@@ -230,7 +230,7 @@ function Lightbox({
                 (i === index ? "ring-yellow-400" : "ring-white/10")
               }
             >
-              <img src={src} alt={`${project.name} by ${project.developer} in ${project.city}`}`} className="h-16 w-24 object-cover" />
+              <img src={src} alt={`thumb ${i + 1}`} className="h-16 w-24 object-cover" />
             </button>
           ))}
         </div>

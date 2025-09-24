@@ -7,10 +7,6 @@ import Image from "next/image";
 import { Menu, X } from "lucide-react";
 
 const NAV = [
-  { label: "Blog", href: "/blog" },
-  { label: "Gurugram", href: "/gurgaon" },
-  { label: "Noida", href: "/noida" },
-  { label: "Delhi", href: "/delhi" },
   { href: "/", label: "Home" },
   { href: "/projects", label: "Projects" },
   { href: "/services", label: "Services We Offer" },
