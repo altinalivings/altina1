@@ -240,12 +240,18 @@ export default function SiteFooter({
         <div className="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-neutral-400">
           <div>© {new Date().getFullYear()} Altina Livings. All rights reserved.</div>
           <div className="flex gap-4">
-            <Link href="/sitemap" className="hover:underline">Sitemap</Link>
+            <Link href="/sitemap.xml" className="hover:underline">Sitemap</Link>
             <Link href="/privacy" className="hover:underline">Privacy</Link>
             <Link href="/terms" className="hover:underline">Terms</Link>
           </div>
         </div>
       </div>
-    </footer>
+    <ul className="space-y-2">
+  <li><Link href="/blog" className="hover:underline">Blog</Link></li>
+  <li><Link href="/gurgaon" className="hover:underline">Gurugram</Link></li>
+  <li><Link href="/noida" className="hover:underline">Noida</Link></li>
+  <li><Link href="/delhi" className="hover:underline">Delhi</Link></li>
+</ul>
+</footer>
   );
 }

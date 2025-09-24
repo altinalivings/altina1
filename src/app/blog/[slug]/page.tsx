@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import posts from "@/data/posts.json";
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const post = posts.find((p) => p.slug === params.slug);
+  const post: any = (posts as any[]).find((p: any) => p.slug === params.slug);
   if (!post) return { title: "Insights | Altina™ Livings" };
   return {
     title: `${post.title} | Altina™ Insights`,
@@ -17,13 +17,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default function BlogPost({ params }: { params: { slug: string } }) {
-  const post = posts.find((p) => p.slug === params.slug);
+  const post: any = (posts as any[]).find((p: any) => p.slug === params.slug);
   if (!post) {
-    return (
-      <main className="mx-auto max-w-3xl px-4 py-10">
-        <h1 className="text-2xl font-bold">Post not found</h1>
-      </main>
-    );
+    return <main className="mx-auto max-w-3xl px-4 py-10"><h1 className="text-2xl font-bold">Post not found</h1></main>;
   }
   return (
     <main className="mx-auto max-w-3xl px-4 py-10">

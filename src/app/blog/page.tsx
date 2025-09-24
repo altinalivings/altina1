@@ -11,7 +11,7 @@ export default function BlogIndex() {
     <main className="mx-auto max-w-6xl px-4 py-10">
       <h1 className="text-3xl font-bold mb-6">Insights & Blog</h1>
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {posts.map((p) => (
+        {posts.map((p: any) => (
           <li key={p.slug} className="rounded-xl border border-white/10 p-5">
             <h2 className="text-xl font-semibold mb-2">
               <Link href={`/blog/${p.slug}`} className="hover:underline">{p.title}</Link>
