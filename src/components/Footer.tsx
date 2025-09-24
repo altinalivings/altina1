@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Link from 'next/link'
 
 export default function Footer() {
@@ -14,6 +15,12 @@ export default function Footer() {
           <Link href="/privacy" className="hover:text-white">Privacy</Link>
         </div>
       </div>
-    </footer>
+    <ul className="space-y-2">
+  <li><Link href="/blog" className="hover:underline">Blog</Link></li>
+  <li><Link href="/gurgaon" className="hover:underline">Gurugram</Link></li>
+  <li><Link href="/noida" className="hover:underline">Noida</Link></li>
+  <li><Link href="/delhi" className="hover:underline">Delhi</Link></li>
+</ul>
+</footer>
   )
 }

@@ -1,3 +1,5 @@
+import projects from "@/data/projects.json";
+import Link from "next/link";
 // src/components/ProjectDetailsSections.tsx
 "use client";
 
@@ -318,3 +320,18 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
     </div>
   );
 }
+
+{/* More projects by the same developer */}
+<section className="mt-10">
+  <h2 className="text-xl font-semibold">More projects by {project.developer}</h2>
+  <ul className="list-disc pl-5">
+    {projects
+      .filter(pj => pj.developer === project.developer && pj.slug !== project.slug)
+      .slice(0, 6)
+      .map(pj => (
+        <li key={pj.slug}>
+          <Link href={`/projects/${pj.slug}`} className="hover:underline">{pj.name}</Link>
+        </li>
+      ))}
+  </ul>
+</section>
