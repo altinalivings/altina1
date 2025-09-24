@@ -1,9 +1,10 @@
-import projects from "@/data/projects.json";
-import Link from "next/link";
+
 // src/components/ProjectDetailsSections.tsx
 "use client";
 
 import { useMemo } from "react";
+import projects from "@/data/projects.json";
+import Link from "next/link";
 import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
