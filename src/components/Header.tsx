@@ -71,12 +71,7 @@ export default function Header() {
           >
             WhatsApp
           </a>
-        
-        <Link href="/blog" className="hover:opacity-80">Blog</Link>
-        <Link href="/gurgaon" className="hover:opacity-80">Gurugram</Link>
-        <Link href="/noida" className="hover:opacity-80">Noida</Link>
-        <Link href="/delhi" className="hover:opacity-80">Delhi</Link>
-</nav>
+        </nav>
 
         {/* Mobile toggle */}
         <button
