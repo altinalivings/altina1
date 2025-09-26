@@ -43,7 +43,7 @@ export default function ContactPage() {
           <ul className="space-y-2 text-neutral-300">
             <li>Delhi NCR</li>
             <li>+91 98912 34195</li>
-            <li>hello@altina.example</li>
+            <li>hello@altinalivings.com</li>
           </ul>
           <div className="mt-4 overflow-hidden rounded-xl border border-white/10">
             <iframe

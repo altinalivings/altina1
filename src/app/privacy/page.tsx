@@ -1,4 +1,5 @@
 // src/app/privacy/page.tsx
+// src/app/privacy/page.tsx
 import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 
@@ -87,7 +88,7 @@ export default function PrivacyPage() {
               By submitting our forms, you consent to receive communications about projects and offers via{" "}
               <strong>Call, SMS, Email or WhatsApp</strong>. This consent overrides any DNC/NDNC registration. You can
               opt out anytime by replying STOP/UNSUBSCRIBE or emailing{" "}
-              <a className="underline" href="mailto:hello@altina.example">hello@altina.example</a>.
+              <a className="underline" href="mailto:hello@altinalivings.com">hello@altinalivings.com</a>.
             </p>
           </div>
         </div>
@@ -154,7 +155,7 @@ export default function PrivacyPage() {
             </ul>
             <p className="text-neutral-300 mt-3">
               To exercise your rights, email{" "}
-              <a className="underline" href="mailto:hello@altina.example">hello@altina.example</a>.
+              <a className="underline" href="mailto:hello@altinalivings.com">hello@altinalivings.com</a>.
             </p>
           </div>
         </div>
@@ -166,7 +167,7 @@ export default function PrivacyPage() {
           <div className="golden-frame modal-surface p-6">
             <p className="text-neutral-300">
               For questions about this Policy or your data, contact:{" "}
-              <a className="underline" href="mailto:hello@altina.example">hello@altina.example</a> • Delhi NCR, India.
+              <a className="underline" href="mailto:hello@altinalivings.com">hello@altinalivings.com</a> • Delhi NCR, India.
             </p>
           </div>
         </div>
