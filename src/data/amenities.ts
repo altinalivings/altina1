@@ -13,7 +13,7 @@ const AMENITIES: Amenity[] = [
     "icon": "/icons/clubhouse.svg"
   },
   {
-    "id": "pool",
+    "id": "Pool",
     "label": "Swimming Pool",
     "icon": "/icons/pool.svg"
   },
