@@ -63,15 +63,17 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
   return (
     <article>
       {/* HERO — slim height for blog */}
-      <section className="relative w-full aspect-[12/5] overflow-hidden rounded-2xl border border-white/10">
+    // app/blog/[slug]/page.tsx  — hero section
+<section className="relative w-full aspect-[12/5] overflow-hidden rounded-2xl border border-white/10
+                    bg-[radial-gradient(ellipse_at_center,_#FFF6D6,_#c5a657_70%)]">
   {post.coverImage ? (
     <Image
-      src={post.coverImage}      // e.g. /blog/dlf-midtown-hero.jpg (1920x800)
+      src={post.coverImage}                 // e.g. /blog/dlf-midtown-hero.jpg (1920x800)
       alt={post.title}
       fill
       priority
       sizes="100vw"
-      className="object-cover"   // no crop since container uses same ratio
+      className="object-contain object-center"  // <-- key change: contain (no cropping)
     />
   ) : (
     <Image
@@ -80,12 +82,12 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
       fill
       priority
       sizes="100vw"
-      className="object-cover"
+      className="object-contain object-center"
     />
   )}
-  {/* keep your gradient if you like */}
-  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6">
+
+  {/* Remove the dark gradient overlay for contain, or it will show on the side margins */}
+  <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4 md:p-6">
     <h1 className="text-lg md:text-2xl font-bold drop-shadow-lg">{post.title}</h1>
     {(post.date || post.author) && (
       <p className="mt-1 text-xs md:text-sm opacity-80">
@@ -94,6 +96,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
     )}
   </div>
 </section>
+
 
 
       {/* BODY */}
