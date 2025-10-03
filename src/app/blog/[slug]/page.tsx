@@ -63,7 +63,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
   return (
     <article>
       {/* HERO — slim height for blog */}
-    // app/blog/[slug]/page.tsx  — hero section
+    
 <section className="relative w-full aspect-[12/5] overflow-hidden rounded-2xl border border-white/10
                     bg-[radial-gradient(ellipse_at_center,_#FFF6D6,_#c5a657_70%)]">
   {post.coverImage ? (
