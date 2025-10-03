@@ -31,27 +31,27 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
   return (
     <article>
       {/* HERO with aspect ratio */}
-      <section className="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-2xl border border-white/10">
-        {post.coverImage ? (
-          <Image
-            src={post.coverImage}
-            alt={post.title}
-            fill
-            priority
-            sizes="60vw"
-            className="object-cover"
-          />
-        ) : (
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#FFF6D6] via-[#f7e9b7] to-[#c5a657]/40" />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/30 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
-          <h1 className="text-3xl md:text-4xl font-bold drop-shadow-lg">{post.title}</h1>
-          <p className="mt-2 text-sm opacity-80">
-            {post.date} • {post.author}
-          </p>
-        </div>
-      </section>
+      <section className="relative w-full h-[320px] overflow-hidden rounded-2xl border border-white/10">
+  {post.coverImage ? (
+    <Image
+      src={post.coverImage}
+      alt={post.title}
+      fill
+      priority
+      sizes="100vw"
+      className="object-cover"
+    />
+  ) : (
+    <div className="absolute inset-0 bg-gradient-to-b from-[#FFF6D6] to-[#c5a657]/40" />
+  )}
+  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent" />
+  <div className="absolute bottom-0 left-0 right-0 p-6">
+    <h1 className="text-2xl md:text-3xl font-bold drop-shadow-lg">{post.title}</h1>
+    <p className="mt-2 text-sm opacity-80">
+      {post.date} • {post.author}
+    </p>
+  </div>
+</section>
 
       {/* BODY */}
       <main className="mx-auto max-w-3xl px-4 py-8">
