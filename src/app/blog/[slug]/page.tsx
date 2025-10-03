@@ -38,7 +38,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
             alt={post.title}
             fill
             priority
-            sizes="100vw"
+            sizes="60vw"
             className="object-cover"
           />
         ) : (
