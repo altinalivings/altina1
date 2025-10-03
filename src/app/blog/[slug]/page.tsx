@@ -31,7 +31,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
   return (
     <article>
       {/* HERO with aspect ratio */}
-<section className="relative w-full h-[200px] md:h-[240px] overflow-hidden rounded-2xl border border-white/10">
+<section className="relative w-full h-[340px] md:h-[240px] overflow-hidden rounded-2xl border border-white/10">
   {post.coverImage ? (
     <Image
       src={post.coverImage}
