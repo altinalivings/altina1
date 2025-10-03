@@ -31,7 +31,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
   return (
     <article>
       {/* HERO with aspect ratio */}
-<section className="relative w-full h-[260px] md:h-[300px] overflow-hidden rounded-2xl border border-white/10">
+<section className="relative w-full h-[200px] md:h-[240px] overflow-hidden rounded-2xl border border-white/10">
   {post.coverImage ? (
     <Image
       src={post.coverImage}
@@ -46,10 +46,13 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
   )}
   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
   <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6">
-    <h1 className="text-xl md:text-3xl font-bold drop-shadow-lg">{post.title}</h1>
-    <p className="mt-1 text-xs md:text-sm opacity-80">{post.date} • {post.author}</p>
+    <h1 className="text-lg md:text-2xl font-bold drop-shadow-lg">{post.title}</h1>
+    <p className="mt-1 text-xs md:text-sm opacity-80">
+      {post.date} • {post.author}
+    </p>
   </div>
 </section>
+
 
 
 
