@@ -19,14 +19,13 @@ export default function BlogIndex() {
             className="rounded-xl overflow-hidden border border-white/10 bg-white/0"
           >
             {p.coverImage ? (
-              <div className="relative h-40">
+              <div className="relative w-full aspect-[3/2]">
                 <Image
                   src={p.coverImage}
                   alt={p.title || "Blog cover"}
                   fill
-                  sizes="33vw"
+                  sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
                   className="object-cover"
-                  priority={false}
                 />
               </div>
             ) : null}
