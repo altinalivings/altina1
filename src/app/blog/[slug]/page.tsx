@@ -63,38 +63,38 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
   return (
     <article>
       {/* HERO — slim height for blog */}
-      <section className="relative w-full h-[200px] md:h-[240px] overflow-hidden rounded-2xl border border-white/10">
-        {post.coverImage ? (
-          <Image
-            src={post.coverImage}
-            alt={post.title}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center"
-          />
-        ) : (
-          <Image
-            src={DEFAULT_OG}
-            alt="Altina™ Insights"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center"
-          />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6">
-          <h1 className="text-lg md:text-2xl font-bold drop-shadow-lg">
-            {post.title}
-          </h1>
-          {(post.date || post.author) && (
-            <p className="mt-1 text-xs md:text-sm opacity-80">
-              {post.date ?? ""} {post.date && post.author ? "•" : ""} {post.author ?? ""}
-            </p>
-          )}
-        </div>
-      </section>
+      <section className="relative w-full aspect-[12/5] overflow-hidden rounded-2xl border border-white/10">
+  {post.coverImage ? (
+    <Image
+      src={post.coverImage}      // e.g. /blog/dlf-midtown-hero.jpg (1920x800)
+      alt={post.title}
+      fill
+      priority
+      sizes="100vw"
+      className="object-cover"   // no crop since container uses same ratio
+    />
+  ) : (
+    <Image
+      src="/blog/altina-blog-default.jpg"
+      alt="Altina™ Insights"
+      fill
+      priority
+      sizes="100vw"
+      className="object-cover"
+    />
+  )}
+  {/* keep your gradient if you like */}
+  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6">
+    <h1 className="text-lg md:text-2xl font-bold drop-shadow-lg">{post.title}</h1>
+    {(post.date || post.author) && (
+      <p className="mt-1 text-xs md:text-sm opacity-80">
+        {post.date ?? ""} {post.date && post.author ? "•" : ""} {post.author ?? ""}
+      </p>
+    )}
+  </div>
+</section>
+
 
       {/* BODY */}
       <main className="mx-auto max-w-3xl px-4 py-8">
