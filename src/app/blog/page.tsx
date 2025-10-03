@@ -14,10 +14,15 @@ export default function BlogIndex() {
         {posts.map((p) => (
           <li key={p.slug} className="rounded-xl border border-white/10 p-5">
             <h2 className="text-xl font-semibold mb-2">
-              <Link href={/blog/} className="hover:underline">{p.title}</Link>
+              {/* FIX: changed regex to string with slug */}
+              <Link href={`/blog/${p.slug}`} className="hover:underline">
+                {p.title}
+              </Link>
             </h2>
             <p className="text-sm opacity-80">{p.excerpt}</p>
-            <p className="text-xs opacity-60 mt-2">{p.date} • {p.author}</p>
+            <p className="text-xs opacity-60 mt-2">
+              {p.date} • {p.author}
+            </p>
           </li>
         ))}
       </ul>
