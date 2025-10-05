@@ -1,87 +1,138 @@
 import "./globals.css";
+import "../styles/altina-gold.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Script from "next/script";
 import Header from "@/components/Header";
 import SiteFooter from "@/components/SiteFooter";
-import BrochureLeadGate from "@/components/BrochureLeadGate";
+import StickyCTABar from "@/components/StickyCTABar";
+import ModalBridge from "@/components/ModalBridge";
+import GlobalLeadModal from "@/components/GlobalLeadModal";
+import LeadBus from "@/components/LeadBus";
+import Analytics from "@/components/Analytics";
+import Notifier from "@/components/Notifier";
+import AutoCallbackPrompt from "@/components/AutoCallbackPrompt";
+import AnalyticsGuards from "@/components/AnalyticsGuards";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.altinalivings.com";
+const FB_PIXEL = process.env.NEXT_PUBLIC_FB_PIXEL;
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "";
+const LI_ID = process.env.NEXT_PUBLIC_LI_PARTNER_ID || "";
+
 export const metadata: Metadata = {
-  title: "ALTINA™ Livings – Gateway to Luxury Livings",
+  metadataBase: new URL(SITE_URL),
+  title: { default: "ALTINA™ Livings", template: "%s | ALTINA™ Livings" },
   description:
-    "Altina™ Livings brings you luxury residences and premium commercial investments across Delhi-NCR.",
+    "ALTINA™ Livings partners with DLF, Sobha, M3M, Godrej to bring premium real estate launches across Delhi NCR.",
   openGraph: {
     type: "website",
+    url: SITE_URL,
     siteName: "ALTINA™ Livings",
-    title: "ALTINA™ Livings – Gateway to Luxury Livings",
-    description:
-      "Premium channel partner for DLF, Godrej, M3M, Sobha and more. Discover verified luxury homes and investments.",
     images: ["/og-default.jpg"],
   },
+  alternates: { canonical: SITE_URL },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const preInteractiveGuard = `;(function(){try{
+  var w=window;
+  function guard(fn){
+    if(typeof fn!=='function') return fn;
+    try{
+      if(fn.__guarded) return fn;
+      var p=new Proxy(fn,{
+        set:function(t,prop,val){ if(prop==='length') return true; t[prop]=val; return true; },
+        defineProperty:function(t,prop,desc){ if(prop==='length') return true; Object.defineProperty(t,prop,desc); return true; }
+      });
+      p.__guarded=true;
+      return p;
+    }catch(e){ return fn; }
+  }
+  try{Object.defineProperty(w,'fbq',{configurable:true,enumerable:true,set:function(v){this.__fbq=guard(v);},get:function(){return this.__fbq;}});}catch(e){}
+  try{Object.defineProperty(w,'_fbq',{configurable:true,enumerable:true,set:function(v){this.__fbq=guard(v);},get:function(){return this.__fbq;}});}catch(e){}
+  try{Object.defineProperty(w,'gtag',{configurable:true,enumerable:true,set:function(v){this.__gtag=guard(v);},get:function(){return this.__gtag;}});}catch(e){}
+}catch(e){} })();`;
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const orgJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "ALTINA™ Livings",
+    url: "https://www.altinalivings.com",
+    logo: "https://www.altinalivings.com/logo.png",
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: "+91-9891234195",
+      contactType: "customer service",
+      areaServed: "IN",
+    },
+    sameAs: [
+      "https://www.facebook.com/profile.php?id=61580035583494",
+      "https://www.instagram.com/altinalivings",
+      "https://www.linkedin.com/company/108414321/",
+      "https://www.youtube.com/@Altinalivings",
+    ],
+  };
+
   return (
-    <html lang="en">
-      <body className={`${inter.className} bg-[#0D0D0D] text-white`}>
-        {/* ✅ Header */}
+    <html lang="en" className="bg-black text-white">
+      <head>
+        <Script
+          id="analytics-guards-pre"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: preInteractiveGuard }}
+        />
+      </head>
+
+      <body className={inter.className + " flex min-h-screen flex-col"}>
+        {/* 🧩 Global safety guards */}
+        <AnalyticsGuards />
+
+        {/* 🏠 Header */}
         <Header />
 
-        {/* ✅ Main content */}
-        {children}
+        {/* 🧱 Main Content */}
+        <main className="flex-1">{children}</main>
 
-        {/* ✅ BrochureLeadGate is auto-triggered via events */}
-        {/* <BrochureLeadGate /> */}
-
-        {/* ✅ Footer */}
+        {/* 🦶 Footer */}
         <SiteFooter />
 
-        {/* ✅ Lead form / popup script */}
-        <Script src="/submitLead.js" strategy="afterInteractive" />
+        {/* 📞 CTAs, Modals, Leads, Analytics */}
+        <StickyCTABar />
+        <ModalBridge />
+        <GlobalLeadModal />
+        <LeadBus />
+        <Analytics />
+        <Notifier />
+        <AutoCallbackPrompt />
 
-        <Script id="lead-popup-init" strategy="afterInteractive">
-          {`
-            window.addEventListener("lead:open", function(e) {
-              try {
-                const d = e.detail || {};
-                if (window.openLeadPopup) {
-                  window.openLeadPopup(d.mode, d.projectId, d.projectName);
-                } else if (document.getElementById("lead-modal")) {
-                  document.getElementById("lead-modal").classList.remove("hidden");
-                }
-              } catch(err) {
-                console.warn("Lead popup trigger failed:", err);
-              }
-            });
-          `}
-        </Script>
+        {/* 🧾 Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
 
-        {/* ✅ Analytics */}
+        {/* ✅ Analytics Script Loader */}
         <Script id="altina-analytics" strategy="afterInteractive">
           {`
             (function() {
-              var GA_ID = process.env.NEXT_PUBLIC_GA_ID || "";
-              if (GA_ID && !window.__ga_loaded) {
+              // GA4
+              if ('${GA_ID}' && !window.__ga_loaded) {
                 var s=document.createElement('script');
                 s.async=true;
-                s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;
+                s.src='https://www.googletagmanager.com/gtag/js?id=${GA_ID}';
                 document.head.appendChild(s);
                 window.dataLayer=window.dataLayer||[];
                 function gtag(){dataLayer.push(arguments);}
                 window.gtag=gtag;
                 gtag('js', new Date());
-                gtag('config', GA_ID);
+                gtag('config', '${GA_ID}');
                 window.__ga_loaded=true;
               }
 
-              var FB_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID || "";
-              if (FB_ID && !window.__fb_loaded) {
+              // FB Pixel
+              if ('${FB_PIXEL}' && !window.__fb_loaded) {
                 !(function(f,b,e,v,n,t,s){
                   if(f.fbq)return;n=f.fbq=function(){n.callMethod?
                   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -90,33 +141,36 @@ export default function RootLayout({
                   t.src=v;s=b.getElementsByTagName(e)[0];
                   s.parentNode.insertBefore(t,s)
                 })(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
-                fbq('init', FB_ID);
+                fbq('init', '${FB_PIXEL}');
                 fbq('track', 'PageView');
-                window.__fb_loaded = true;
+                window.__fb_loaded=true;
               }
 
-              var LI_ID = process.env.NEXT_PUBLIC_LI_PARTNER_ID || "";
-              if (LI_ID && !window.__li_loaded) {
+              // LinkedIn Insight
+              if ('${LI_ID}' && !window.__li_loaded) {
                 var s=document.createElement("script");
                 s.type="text/javascript"; s.async=true;
                 s.src="https://snap.licdn.com/li.lms-analytics/insight.min.js";
                 document.head.appendChild(s);
-                window.__li_loaded = true;
-                window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
-                window.lintrk.q = [];
+                window.lintrk=function(a,b){window.lintrk.q.push([a,b])};
+                window.lintrk.q=[];
+                window.__li_loaded=true;
               }
             })();
           `}
         </Script>
 
-        <noscript>
-          <img
-            height="1"
-            width="1"
-            style={{ display: "none" }}
-            src={`https://www.facebook.com/tr?id=${process.env.NEXT_PUBLIC_FB_PIXEL_ID}&ev=PageView&noscript=1`}
-          />
-        </noscript>
+        {/* 🧠 FB Pixel no-script fallback */}
+        {FB_PIXEL ? (
+          <noscript>
+            <img
+              height="1"
+              width="1"
+              style={{ display: "none" }}
+              src={`https://www.facebook.com/tr?id=${FB_PIXEL}&ev=PageView&noscript=1`}
+            />
+          </noscript>
+        ) : null}
       </body>
     </html>
   );
