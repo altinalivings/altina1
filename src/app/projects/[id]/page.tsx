@@ -178,38 +178,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
     <main className="bg-[#0B0B0C] text-white">
       <ProjectDetailClientShell project={p} />
 
-      {/* 🟡 Golden Section: Pricing / Possession / Connectivity */}
-      <section className="max-w-6xl mx-auto px-4 py-10 border-t border-altina-gold/20">
-        <h2 className="text-2xl font-semibold text-altina-gold mb-4">
-          Key Project Details
-        </h2>
-        <div className="grid md:grid-cols-3 gap-6 text-sm">
-          {p.price && (
-            <div>
-              <h3 className="text-altina-gold font-semibold mb-1">Pricing</h3>
-              <p>{p.price}</p>
-            </div>
-          )}
-          {p.possession && (
-            <div>
-              <h3 className="text-altina-gold font-semibold mb-1">Possession</h3>
-              <p>{p.possession}</p>
-            </div>
-          )}
-          {p.connectivity && (
-            <div>
-              <h3 className="text-altina-gold font-semibold mb-1">Connectivity</h3>
-              <ul className="space-y-1">
-                {p.connectivity.map((c, i) => (
-                  <li key={i}>
-                    <span className="font-medium">{c.label}:</span> {c.time}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      </section>
+     
 
       
 
