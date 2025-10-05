@@ -185,7 +185,7 @@ export default function SiteFooter({
       <div className="max-w-6xl mx-auto px-4 py-10 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
         <div>
           <div className="flex items-center gap-2">
-            <img src="/logos/Altina.png" alt="ALTINA" className="h-16 w-auto" />
+            <img src="/logos/Altina.png" alt="ALTINA" className="h-20 w-auto" />
             <span className="text-lg font-semibold">ALTINA™ Livings</span>
           </div>
           <p className="text-neutral-400 mt-2">
