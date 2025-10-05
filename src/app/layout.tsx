@@ -88,7 +88,28 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* ------------------- Consent / Tracking pixel no-script ------------------- */}
+        {/* ✅ Restores working lead popup logic */}
+        <Script src="/submitLead.js" strategy="afterInteractive" />
+
+        {/* Optional safety net: ensures event dispatch works globally */}
+        <Script id="lead-popup-init" strategy="afterInteractive">
+          {`
+            window.addEventListener("lead:open", function(e) {
+              try {
+                const d = e.detail || {};
+                if (window.openLeadPopup) {
+                  window.openLeadPopup(d.mode, d.projectId, d.projectName);
+                } else if (document.getElementById("lead-modal")) {
+                  document.getElementById("lead-modal").classList.remove("hidden");
+                }
+              } catch(err) {
+                console.warn("Lead popup trigger failed:", err);
+              }
+            });
+          `}
+        </Script>
+
+        {/* Facebook noscript fallback */}
         <noscript>
           <img
             height="1"
