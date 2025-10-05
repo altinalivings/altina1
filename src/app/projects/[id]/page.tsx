@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Script from "next/script";
 import projectsData from "@/data/projects.json";
 import ProjectDetailClientShell from "@/components/ProjectDetailClientShell";
+import FAQs from "@/components/FAQs"; // ✅ Added back
 
 type Project = {
   id: string;
@@ -40,7 +41,7 @@ function priceNumber(p?: string) {
   return v || undefined;
 }
 
-// --- SSG params
+// --- Static params
 export function generateStaticParams() {
   return list.map((p) => ({ id: p.id }));
 }
@@ -153,6 +154,10 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
   return (
     <main className="min-h-screen bg-[#0D0D0D] text-white">
       <ProjectDetailClientShell project={p} />
+      {/* ✅ FAQs section */}
+      <section className="max-w-6xl mx-auto px-4 py-12 border-t border-white/10">
+        <FAQs projectId={p.id} />
+      </section>
       <ProjectSchema p={p} />
       <ProjectBreadcrumbs p={p} />
     </main>
