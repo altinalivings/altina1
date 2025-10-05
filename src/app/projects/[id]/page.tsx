@@ -211,37 +211,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
         </div>
       </section>
 
-      {/* 🟡 Virtual Tour Section */}
-      {p.virtualTourUrl && (
-        <section className="max-w-6xl mx-auto px-4 py-10 border-t border-altina-gold/20">
-          <h2 className="text-2xl font-semibold text-altina-gold mb-4">
-            Virtual Tour
-          </h2>
-          <div className="aspect-video rounded-2xl overflow-hidden border border-altina-gold/30 shadow-lg">
-            <iframe
-              src={p.virtualTourUrl.replace("watch?v=", "embed/")}
-              title={`${p.name} Virtual Tour`}
-              allowFullScreen
-              className="w-full h-full"
-            ></iframe>
-          </div>
-        </section>
-      )}
-
-      {/* 🟡 Developer Section */}
-      {p.developer && (
-        <section className="max-w-6xl mx-auto px-4 py-10 border-t border-altina-gold/20">
-          <h2 className="text-2xl font-semibold text-altina-gold mb-4">
-            About the Developer
-          </h2>
-          <p className="text-neutral-300 leading-relaxed">
-            {p.developer} is one of India’s most reputed developers, known for
-            excellence, trust, and innovation. ALTINA™ Livings is proud to
-            associate with {p.developer} to bring world-class real estate like{" "}
-            {p.name} to our clients.
-          </p>
-        </section>
-      )}
+      
 
       {/* 🟡 FAQ Section */}
       <section className="max-w-6xl mx-auto px-4 py-10 border-t border-altina-gold/20">
