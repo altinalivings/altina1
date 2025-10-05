@@ -1,165 +1,318 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import Script from "next/script";
-import projectsData from "@/data/projects.json";
-import ProjectDetailClientShell from "@/components/ProjectDetailClientShell";
-import FAQs from "@/components/FAQs"; // ✅ Added back
+'use client';
+
+import Image from 'next/image';
+import Script from 'next/script';
+import projects from '@/data/projects.json';
+
+type FAQ = { q: string; a: string };
+type Video = { title: string; url: string };
 
 type Project = {
   id: string;
+  slug: string;
   name: string;
   developer?: string;
-  city?: string;
+  brand?: string;
+  rating?: number;
   location?: string;
-  configuration?: string;
+  city?: string;
+  state?: string;
+  sector?: string;
+  micro_market?: string;
+  rera?: string;
+  status?: string;
+  construction_status?: string;
+  possession?: string;
+  launch?: string;
   price?: string;
-  hero?: string;
+  configuration?: string;
+  typologies?: string[];
+  sizes?: string;
+  land_area?: string;
+  towers?: number;
+  floors?: string;
+  total_units?: string;
+  bank_approvals?: string[];
+  usp?: string[];
+  highlights?: string[];
+  amenities?: string[];
+  specs?: Record<string, string>;
+  about?: string;
+  aboutDeveloper?: string;
   brochure?: string;
-  images?: string[];
-  description?: string;
+  hero?: string;
+  gallery?: string[];
+  videoGallery?: Video[];
+  virtualTourUrl?: string;
+  map?: { embed?: string; lat?: number; lng?: number };
+  nearby?: {
+    schools?: string[];
+    hospitals?: string[];
+    malls?: string[];
+    connectivity?: { label: string; time: string }[];
+  };
+  legal?: { disclaimer?: string };
+  faqs?: FAQ[];
+  seo?: { title?: string; description?: string; canonical?: string };
+  featured?: boolean;
+  featured_order?: number;
 };
 
-const SITE =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-  "https://www.altinalivings.com";
-
-const list: Project[] = Array.isArray(projectsData)
-  ? (projectsData as Project[])
-  : [];
-const findProject = (id: string) => list.find((p) => p.id === id);
-
-const abs = (u?: string) =>
-  !u
-    ? undefined
-    : /^https?:\/\//i.test(u)
-    ? u
-    : `${SITE}${u.startsWith("/") ? u : `/${u}`}`;
-
-function priceNumber(p?: string) {
-  if (!p) return undefined;
-  const v = p.replace(/[^\d.]/g, "");
-  return v || undefined;
+function ytToEmbed(url: string) {
+  try {
+    if (url.includes('youtube.com/watch?v=')) {
+      const id = url.split('watch?v=')[1].split('&')[0];
+      return `https://www.youtube.com/embed/${id}`;
+    }
+    if (url.includes('youtu.be/')) {
+      const id = url.split('youtu.be/')[1].split('?')[0];
+      return `https://www.youtube.com/embed/${id}`;
+    }
+    return url;
+  } catch {
+    return url;
+  }
 }
 
-// --- Static params
-export function generateStaticParams() {
-  return list.map((p) => ({ id: p.id }));
-}
+export default function ProjectDetail({ params }: { params: { id: string } }) {
+  const list = projects as Project[];
+  const p =
+    list.find((x) => x.id === params.id) ||
+    list.find((x) => x.slug === params.id);
 
-// --- Metadata (SEO + OG)
-export async function generateMetadata({
-  params,
-}: {
-  params: { id: string };
-}): Promise<Metadata> {
-  const p = findProject(params.id);
-  if (!p) return { title: "Project not found | ALTINA™ Livings" };
+  if (!p) {
+    return (
+      <div className="max-w-6xl mx-auto px-4 py-20">
+        <h1 className="text-2xl font-semibold">Project not found</h1>
+        <p className="opacity-70 mt-2">We couldn’t find this listing.</p>
+      </div>
+    );
+  }
 
-  const title = `${p.name}${p.city ? ` in ${p.city}` : ""} | ${
-    p.developer ? `${p.developer} • ` : ""
-  }ALTINA™ Livings`;
-  const description =
-    [
-      p.description,
-      p.configuration,
-      p.location ? `Location: ${p.location}` : "",
-      p.price ? `Price: ${p.price}` : "",
-    ]
-      .filter(Boolean)
-      .join(" • ")
-      .slice(0, 300) ||
-    `Explore ${p.name}${p.city ? ` in ${p.city}` : ""}.`;
-
-  return {
-    title,
-    description,
-    alternates: { canonical: `/projects/${p.id}` },
-    openGraph: {
-      title,
-      description,
-      url: `${SITE}/projects/${p.id}`,
-      siteName: "ALTINA™ Livings",
-      images: p.hero
-        ? [{ url: abs(p.hero)!, width: 1200, height: 630, alt: p.name }]
-        : undefined,
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: p.hero ? [abs(p.hero)!] : undefined,
-    },
-  };
-}
-
-// --- JSON-LD: Product schema
-function ProjectSchema({ p }: { p: Project }) {
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: p.name,
-    sku: p.id,
-    brand: p.developer
-      ? { "@type": "Brand", name: p.developer }
-      : { "@type": "Brand", name: "ALTINA" },
-    description: [p.configuration, p.location, p.city].filter(Boolean).join(" • "),
-    image: p.hero ? [abs(p.hero)] : undefined,
-    category: "Real Estate",
-    url: `${SITE}/projects/${p.id}`,
-    offers: {
-      "@type": "Offer",
-      price: priceNumber(p.price),
-      priceCurrency: "INR",
-      url: `${SITE}/projects/${p.id}`,
-      itemCondition: "https://schema.org/NewCondition",
-      availability: "https://schema.org/InStock",
-    },
-  };
+  const faqJsonLd =
+    p.faqs && p.faqs.length
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: p.faqs.map((f) => ({
+            '@type': 'Question',
+            name: f.q,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: f.a,
+            },
+          })),
+        }
+      : null;
 
   return (
-    <Script
-      id={`project-schema-${p.id}`}
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
-}
+    <div className="max-w-6xl mx-auto px-4 py-8">
+      {/* JSON-LD for FAQ */}
+      {faqJsonLd ? (
+        <Script
+          id="faq-jsonld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      ) : null}
 
-// --- JSON-LD: Breadcrumb schema
-function ProjectBreadcrumbs({ p }: { p: Project }) {
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Projects", item: `${SITE}/projects` },
-      { "@type": "ListItem", position: 2, name: p.name, item: `${SITE}/projects/${p.id}` },
-    ],
-  };
+      {/* HERO / OVERVIEW */}
+      <section className="grid gap-6 md:grid-cols-2 items-center">
+        <div>
+          <h1 className="text-3xl md:text-4xl font-bold">{p.name}</h1>
+          {p.developer && (
+            <p className="mt-1 text-neutral-400">by {p.developer}</p>
+          )}
+          {p.location && (
+            <p className="mt-2 text-neutral-300">{p.location}</p>
+          )}
+          {p.about && (
+            <p className="mt-4 text-neutral-300 leading-relaxed">{p.about}</p>
+          )}
 
-  return (
-    <Script
-      id={`breadcrumbs-${p.id}`}
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
-}
+          {/* CTAs */}
+          <div className="mt-6 flex flex-wrap gap-3">
+            {p.brochure && (
+              <a
+                href={p.brochure}
+                className="rounded-xl px-5 py-2 text-sm font-semibold text-[#0D0D0D] border border-altina-gold/60 shadow-altina bg-gold-grad hover:opacity-95"
+                onClick={(e) => {
+                  try {
+                    window.dispatchEvent(
+                      new CustomEvent('lead:open', {
+                        detail: {
+                          mode: 'brochure',
+                          projectId: p.id,
+                          projectName: p.name,
+                        },
+                      })
+                    );
+                  } catch {}
+                }}
+              >
+                Download Brochure
+              </a>
+            )}
+            <button
+              className="rounded-xl px-5 py-2 text-sm font-semibold text-[#0D0D0D] border border-altina-gold/60 shadow-altina bg-gold-grad hover:opacity-95"
+              onClick={() => {
+                try {
+                  window.dispatchEvent(
+                    new CustomEvent('lead:open', {
+                      detail: {
+                        mode: 'enquire',
+                        projectId: p.id,
+                        projectName: p.name,
+                      },
+                    })
+                  );
+                } catch {}
+              }}
+            >
+              Request Call
+            </button>
+          </div>
 
-// --- Page
-export default function ProjectPage({ params }: { params: { id: string } }) {
-  const p = findProject(params.id);
-  if (!p) return notFound();
+          {/* Key info line */}
+          <div className="mt-4 text-sm text-neutral-300 space-y-1">
+            {p.price && <div><span className="text-neutral-400">Price:</span> {p.price}</div>}
+            {p.possession && <div><span className="text-neutral-400">Possession:</span> {p.possession}</div>}
+            {p.configuration && <div><span className="text-neutral-400">Configuration:</span> {p.configuration}</div>}
+            {p.rera && <div><span className="text-neutral-400">RERA:</span> {p.rera}</div>}
+          </div>
+        </div>
 
-  return (
-    <main className="min-h-screen bg-[#0D0D0D] text-white">
-      <ProjectDetailClientShell project={p} />
-      {/* ✅ FAQs section */}
-      <section className="max-w-6xl mx-auto px-4 py-12 border-t border-white/10">
-        <FAQs projectId={p.id} />
+        <div className="rounded-xl overflow-hidden border border-white/10 bg-[#0B0B0C]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={p.hero || '/placeholder.jpg'}
+            alt={`${p.name} hero`}
+            className="w-full h-full object-cover"
+          />
+        </div>
       </section>
-      <ProjectSchema p={p} />
-      <ProjectBreadcrumbs p={p} />
-    </main>
+
+      {/* HIGHLIGHTS */}
+      {p.highlights && p.highlights.length > 0 && (
+        <section className="mt-10">
+          <h2 className="text-2xl font-semibold mb-4">Highlights</h2>
+          <ul className="grid md:grid-cols-2 gap-3 text-neutral-300">
+            {p.highlights.map((h, i) => (
+              <li key={i} className="border border-white/10 rounded-xl p-4 bg-[#0B0B0C]">
+                {h}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {/* AMENITIES */}
+      {p.amenities && p.amenities.length > 0 && (
+        <section className="mt-10">
+          <h2 className="text-2xl font-semibold mb-4">Amenities</h2>
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
+            {p.amenities.map((a, i) => (
+              <div key={i} className="border border-white/10 rounded-xl p-3 bg-[#0B0B0C] text-neutral-300">
+                {a}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* GALLERY */}
+      {p.gallery && p.gallery.length > 0 && (
+        <section className="mt-10">
+          <h2 className="text-2xl font-semibold mb-4">Gallery</h2>
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {p.gallery.map((g, i) => (
+              <div key={i} className="rounded-xl overflow-hidden border border-white/10">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={g} alt={`${p.name} gallery ${i + 1}`} className="w-full h-56 object-cover" />
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* LOCATION MAP */}
+      {p.map?.embed && (
+        <section className="mt-10">
+          <h2 className="text-2xl font-semibold mb-4">Location</h2>
+          <div className="rounded-xl overflow-hidden border border-white/10 bg-[#0B0B0C]">
+            <iframe
+              src={p.map.embed}
+              title={`${p.name} location map`}
+              className="w-full h-[360px]"
+              loading="lazy"
+            />
+          </div>
+        </section>
+      )}
+
+      {/* VIRTUAL TOUR / VIDEO GALLERY */}
+      {(p.videoGallery && p.videoGallery.length > 0) || p.virtualTourUrl ? (
+        <section className="mt-10">
+          <h2 className="text-2xl font-semibold mb-4">Virtual Tour</h2>
+          <div className="grid gap-6">
+            {p.virtualTourUrl && (
+              <div className="rounded-xl overflow-hidden border border-white/10 bg-[#0B0B0C] aspect-video">
+                <iframe
+                  src={ytToEmbed(p.virtualTourUrl)}
+                  title={`${p.name} virtual tour`}
+                  className="w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            )}
+            {p.videoGallery?.map((v, i) => (
+              <div key={i} className="rounded-xl overflow-hidden border border-white/10 bg-[#0B0B0C] aspect-video">
+                <iframe
+                  src={ytToEmbed(v.url)}
+                  title={v.title}
+                  className="w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {/* FAQ — appears AFTER Virtual Tour and BEFORE About Developer */}
+      {p.faqs && p.faqs.length > 0 && (
+        <section className="mt-12 border-t border-white/10 pt-10">
+          <h2 className="text-2xl font-semibold mb-6 text-[#C5A657]">Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            {p.faqs.map((f, idx) => (
+              <details key={idx} className="group border border-white/10 rounded-xl p-5 bg-[#0B0B0C]">
+                <summary className="cursor-pointer list-none flex justify-between items-center">
+                  <span className="text-lg font-medium text-white">{f.q}</span>
+                  <span className="ml-4 transition-transform group-open:rotate-180 text-white">▼</span>
+                </summary>
+                <div className="mt-3 text-neutral-400">{f.a}</div>
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* ABOUT DEVELOPER */}
+      {p.aboutDeveloper && (
+        <section className="mt-12">
+          <h2 className="text-2xl font-semibold mb-4">About the Developer</h2>
+          <p className="text-neutral-300 leading-relaxed">{p.aboutDeveloper}</p>
+        </section>
+      )}
+
+      {/* LEGAL DISCLAIMER */}
+      {p.legal?.disclaimer && (
+        <section className="mt-12 text-xs text-neutral-400 border-t border-white/10 pt-6">
+          {p.legal.disclaimer}
+        </section>
+      )}
+    </div>
   );
 }
