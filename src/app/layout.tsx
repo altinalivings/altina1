@@ -6,8 +6,6 @@ import Header from "@/components/Header";
 import SiteFooter from "@/components/SiteFooter";
 import BrochureLeadGate from "@/components/BrochureLeadGate";
 
-
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -32,22 +30,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} bg-[#0D0D0D] text-white`}>
-        {/* ✅ Header restored */}
+        {/* ✅ Header */}
         <Header />
 
-        {/* ✅ Main content */}
+        {/* ✅ Page content */}
         {children}
 
-        {/* ✅ Global brochure/lead gate restored */}
+        {/* ✅ Brochure lead popup */}
         <BrochureLeadGate />
 
         {/* ✅ Footer */}
         <SiteFooter />
 
-        {/* ✅ Lead form / popup script */}
+        {/* ✅ Lead form script */}
         <Script src="/submitLead.js" strategy="afterInteractive" />
 
-        {/* ✅ Global listener (keeps “Request Call” working) */}
+        {/* ✅ Popup trigger listener */}
         <Script id="lead-popup-init" strategy="afterInteractive">
           {`
             window.addEventListener("lead:open", function(e) {
@@ -65,7 +63,7 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* ✅ Analytics Scripts (GA4, FB Pixel, LinkedIn Insight) */}
+        {/* ✅ Analytics (GA4, FB, LinkedIn) */}
         <Script id="altina-analytics" strategy="afterInteractive">
           {`
             (function() {
@@ -112,7 +110,7 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* ✅ FB Pixel no-script fallback */}
+        {/* ✅ FB Pixel fallback */}
         <noscript>
           <img
             height="1"
@@ -125,4 +123,3 @@ export default function RootLayout({
     </html>
   );
 }
-export default BrochureLeadGate;
