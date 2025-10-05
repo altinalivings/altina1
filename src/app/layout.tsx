@@ -37,7 +37,7 @@ export default function RootLayout({
         {children}
 
         {/* ✅ Brochure lead popup */}
-        <BrochureLeadGate />
+{/* ✅ BrochureLeadGate is auto-triggered by events — no direct render needed */}
 
         {/* ✅ Footer */}
         <SiteFooter />
