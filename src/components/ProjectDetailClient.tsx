@@ -2,11 +2,9 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ProjectOverviewSection, Section } from "@/components/ProjectDetailsSections";
+import { ProjectOverviewSection, Section, Project as ProjectType } from "@/components/ProjectDetailsSections";
 
-export default function ProjectDetailClient({ project }: { project: any }) {
-  // This client component is kept lightweight and only renders the overview trio,
-  // so it compiles even if you don’t use it directly elsewhere.
+export default function ProjectDetailClient({ project }: { project: ProjectType }) {
   return (
     <Section className="pt-6 pb-10">
       <motion.div

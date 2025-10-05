@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 type Connectivity = { label: string; time?: string };
-type Project = {
+export type Project = {
   id: string;
   name: string;
   developer?: string;
@@ -22,7 +22,7 @@ type Project = {
   status?: string;
 };
 
-/** Generic section wrapper that matches your spacing + gold separators */
+/** Generic section wrapper (keeps spacing + gold accents) */
 export function Section({
   title,
   children,
@@ -35,10 +35,7 @@ export function Section({
   return (
     <section className={`relative z-0 max-w-6xl mx-auto px-4 ${className}`}>
       {title ? (
-        <h2
-          className="text-xl md:text-2xl font-semibold mb-4"
-          style={{ color: "#C5A657" }}
-        >
+        <h2 className="text-xl md:text-2xl font-semibold mb-4" style={{ color: "#C5A657" }}>
           {title}
         </h2>
       ) : null}
@@ -47,7 +44,7 @@ export function Section({
   );
 }
 
-/** Golden “at-a-glance” row just under the hero */
+/** Golden at-a-glance row under hero */
 export function GlanceBar({ p }: { p: Project }) {
   const items = [
     { label: "Configuration", value: p.configuration },
@@ -64,17 +61,14 @@ export function GlanceBar({ p }: { p: Project }) {
         <div
           className="mt-4 rounded-2xl p-[1px]"
           style={{
-            background:
-              "linear-gradient(180deg, rgba(197,166,87,0.6) 0%, rgba(142,111,45,0.35) 100%)",
+            background: "linear-gradient(180deg, rgba(197,166,87,0.6) 0%, rgba(142,111,45,0.35) 100%)",
             boxShadow: "0 0 0 1px rgba(197,166,87,0.25) inset",
           }}
         >
           <div className="rounded-2xl bg-[#0D0D0D]/80 backdrop-blur px-4 py-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {items.map((it) => (
               <div key={it.label}>
-                <div className="text-xs uppercase tracking-wide text-neutral-400">
-                  {it.label}
-                </div>
+                <div className="text-xs uppercase tracking-wide text-neutral-400">{it.label}</div>
                 <div className="text-sm mt-0.5">{it.value}</div>
               </div>
             ))}
@@ -85,7 +79,7 @@ export function GlanceBar({ p }: { p: Project }) {
   );
 }
 
-/** NEW: Overview trio (Pricing • Possession • Connectivity) — what your client asked for */
+/** Overview cards: Pricing • Possession • Connectivity */
 export function ProjectOverviewSection({ project }: { project: Project }) {
   const conn =
     project?.nearby?.connectivity && project.nearby.connectivity.length
@@ -98,8 +92,7 @@ export function ProjectOverviewSection({ project }: { project: Project }) {
     {
       title: "Pricing",
       value: project.price || "TBA",
-      hint:
-        "Pricing & offers change frequently. Request a call for today’s availability.",
+      hint: "Pricing & offers change frequently. Request a call for today’s availability.",
       icon: "₹",
     },
     {
@@ -128,8 +121,7 @@ export function ProjectOverviewSection({ project }: { project: Project }) {
             transition={{ duration: 0.35, delay: i * 0.06 }}
             className="rounded-2xl p-[1px]"
             style={{
-              background:
-                "linear-gradient(180deg, rgba(197,166,87,0.55) 0%, rgba(142,111,45,0.35) 100%)",
+              background: "linear-gradient(180deg, rgba(197,166,87,0.55) 0%, rgba(142,111,45,0.35) 100%)",
               boxShadow: "0 0 0 1px rgba(197,166,87,0.22) inset",
             }}
           >
@@ -138,17 +130,13 @@ export function ProjectOverviewSection({ project }: { project: Project }) {
                 <div
                   className="inline-flex h-7 w-7 items-center justify-center rounded-lg text-[#0D0D0D] text-sm font-bold"
                   style={{
-                    background:
-                      "linear-gradient(180deg, rgba(255,246,214,0.92) 0%, rgba(255,246,214,0.8) 100%)",
+                    background: "linear-gradient(180deg, rgba(255,246,214,0.92) 0%, rgba(255,246,214,0.8) 100%)",
                     boxShadow: "0 0 0 1px rgba(197,166,87,0.45) inset",
                   }}
                 >
                   {c.icon}
                 </div>
-                <div
-                  className="text-sm font-semibold"
-                  style={{ color: "#C5A657" }}
-                >
+                <div className="text-sm font-semibold" style={{ color: "#C5A657" }}>
                   {c.title}
                 </div>
               </div>
@@ -162,7 +150,7 @@ export function ProjectOverviewSection({ project }: { project: Project }) {
   );
 }
 
-/** Simple related-strip with your golden accent */
+/** Related strip with gold accent */
 export function RelatedProjects({
   text,
   href = "/projects",
@@ -175,8 +163,7 @@ export function RelatedProjects({
       <div
         className="rounded-2xl p-[1px]"
         style={{
-          background:
-            "linear-gradient(180deg, rgba(197,166,87,0.5) 0%, rgba(142,111,45,0.3) 100%)",
+          background: "linear-gradient(180deg, rgba(197,166,87,0.5) 0%, rgba(142,111,45,0.3) 100%)",
           boxShadow: "0 0 0 1px rgba(197,166,87,0.25) inset",
         }}
       >
@@ -197,12 +184,8 @@ export function RelatedProjects({
   );
 }
 
-/** FAQ block (same as before, gold headers) */
-export function FAQsSection({
-  items,
-}: {
-  items: { q: string; a: string }[];
-}) {
+/** FAQ block with gold header */
+export function FAQsSection({ items }: { items: { q: string; a: string }[] }) {
   if (!items?.length) return null;
   return (
     <Section title="Frequently Asked Questions" className="pb-12">
@@ -215,12 +198,10 @@ export function FAQsSection({
                 className="ml-3 rounded-md px-2 py-1 text-xs"
                 style={{
                   color: "#0D0D0D",
-                  background:
-                    "linear-gradient(180deg, rgba(255,246,214,0.92) 0%, rgba(255,246,214,0.8) 100%)",
+                  background: "linear-gradient(180deg, rgba(255,246,214,0.92) 0%, rgba(255,246,214,0.8) 100%)",
                   boxShadow: "0 0 0 1px rgba(197,166,87,0.45) inset",
                 }}
               >
-                {/** acts like a chevron label */}
                 Open
               </span>
             </summary>

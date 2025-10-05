@@ -1,27 +1,16 @@
 "use client";
 
-import { GlanceBar, FAQsSection, RelatedProjects } from "./ProjectDetailsSections";
+import Image from "next/image";
+import React from "react";
+import {
+  GlanceBar,
+  FAQsSection,
+  RelatedProjects,
+  ProjectOverviewSection,
+  Project as ProjectType,
+} from "./ProjectDetailsSections";
 
-type Project = {
-  id: string;
-  name: string;
-  developer?: string;
-  brand?: string;
-  city?: string;
-  location?: string;
-  configuration?: string;
-  price?: string;
-  hero?: string;
-  brochure?: string;
-  gallery?: string[];
-  nearby?: {
-    connectivity?: { label: string; time?: string }[];
-  };
-  possession?: string;
-  status?: string;
-};
-
-export default function ProjectDetailClientShell({ project }: { project: Project }) {
+export default function ProjectDetailClientShell({ project }: { project: ProjectType }) {
   const p = project;
 
   const openLead = (mode: "callback" | "site-visit") =>
@@ -55,8 +44,7 @@ export default function ProjectDetailClientShell({ project }: { project: Project
           <div
             className="inline-block rounded-2xl p-[1px]"
             style={{
-              background:
-                "linear-gradient(180deg, rgba(197,166,87,0.7) 0%, rgba(142,111,45,0.5) 100%)",
+              background: "linear-gradient(180deg, rgba(197,166,87,0.7) 0%, rgba(142,111,45,0.5) 100%)",
               boxShadow: "0 0 0 1px rgba(197,166,87,0.35) inset",
             }}
           >
@@ -66,9 +54,7 @@ export default function ProjectDetailClientShell({ project }: { project: Project
                 {p.configuration ? `${p.configuration} • ` : ""}
                 {p.location || p.city}
               </p>
-              {p.price ? (
-                <div className="mt-2 text-[#C5A657] font-semibold">{p.price}</div>
-              ) : null}
+              {p.price ? <div className="mt-2 text-[#C5A657] font-semibold">{p.price}</div> : null}
 
               {/* Primary CTAs */}
               <div className="mt-3 flex flex-wrap gap-2">
@@ -77,8 +63,7 @@ export default function ProjectDetailClientShell({ project }: { project: Project
                   className="rounded-full px-4 py-2 text-sm font-semibold"
                   style={{
                     color: "#0D0D0D",
-                    background:
-                      "linear-gradient(180deg, rgba(255,246,214,0.92) 0%, rgba(255,246,214,0.8) 100%)",
+                    background: "linear-gradient(180deg, rgba(255,246,214,0.92) 0%, rgba(255,246,214,0.8) 100%)",
                     boxShadow: "0 0 0 1px rgba(197,166,87,0.45) inset",
                   }}
                 >
@@ -105,11 +90,12 @@ export default function ProjectDetailClientShell({ project }: { project: Project
       {/* GOLD AT-A-GLANCE */}
       <GlanceBar p={p} />
 
+      {/* Overview trio */}
+      <ProjectOverviewSection project={p} />
+
       {/* Related */}
       <RelatedProjects
-        text={`More from ${p.brand || p.developer || "the same brand"} in ${
-          p.city || "Delhi NCR"
-        }.`}
+        text={`More from ${p.brand || p.developer || "the same brand"} in ${p.city || "Delhi NCR"}.`}
         href="/projects"
       />
 
