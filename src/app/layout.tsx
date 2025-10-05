@@ -124,3 +124,4 @@ export default function RootLayout({
     </html>
   );
 }
+export default BrochureLeadGate;
