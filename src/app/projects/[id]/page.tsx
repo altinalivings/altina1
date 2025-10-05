@@ -148,11 +148,37 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
   const p = findProject(params.id);
   if (!p) return notFound();
 
+  // 🟡 Default FAQs (dynamic)
+  const faqs = [
+    {
+      q: `What is the price of ${p.name}?`,
+      a: `The price for ${p.name} starts at ${p.price || "market-linked rates"}.`,
+    },
+    {
+      q: `When is possession for ${p.name}?`,
+      a: p.possession
+        ? `${p.name} is expected to be ready by ${p.possession}.`
+        : `Possession timelines are subject to developer updates.`,
+    },
+    {
+      q: `Where is ${p.name} located?`,
+      a: p.location
+        ? `${p.name} is located at ${p.location}.`
+        : `Located in a prime micro-market in Delhi NCR.`,
+    },
+    {
+      q: `How can I get the brochure for ${p.name}?`,
+      a: p.brochure
+        ? `You can download the official brochure by clicking on “Download Brochure” on this page.`
+        : `Brochure details are available upon request.`,
+    },
+  ];
+
   return (
     <main className="bg-[#0B0B0C] text-white">
       <ProjectDetailClientShell project={p} />
 
-      {/* 🟡 New Golden Section: Pricing / Possession / Connectivity */}
+      {/* 🟡 Golden Section: Pricing / Possession / Connectivity */}
       <section className="max-w-6xl mx-auto px-4 py-10 border-t border-altina-gold/20">
         <h2 className="text-2xl font-semibold text-altina-gold mb-4">
           Key Project Details
@@ -202,60 +228,42 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
         </section>
       )}
 
-      {/* 🟡 Developer Information Section */}
+      {/* 🟡 Developer Section */}
       {p.developer && (
         <section className="max-w-6xl mx-auto px-4 py-10 border-t border-altina-gold/20">
           <h2 className="text-2xl font-semibold text-altina-gold mb-4">
             About the Developer
           </h2>
           <p className="text-neutral-300 leading-relaxed">
-            {p.developer} is one of India’s most trusted developers known for
-            quality craftsmanship, timely delivery, and architectural excellence.
-            ALTINA™ Livings proudly partners with {p.developer} to bring premium
-            properties like {p.name} to discerning buyers in Delhi-NCR.
+            {p.developer} is one of India’s most reputed developers, known for
+            excellence, trust, and innovation. ALTINA™ Livings is proud to
+            associate with {p.developer} to bring world-class real estate like{" "}
+            {p.name} to our clients.
           </p>
         </section>
       )}
 
-      {/* 🟡 FAQ Schema Embed */}
-      <Script
-        id={`faq-schema-${p.id}`}
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: [
-              {
-                "@type": "Question",
-                name: `What is the price of ${p.name}?`,
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: `The price for ${p.name} starts at ${p.price || "market-linked rates"}.`,
-                },
-              },
-              {
-                "@type": "Question",
-                name: `When is possession for ${p.name}?`,
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: `${p.possession || "Possession timelines are project-dependent."}`,
-                },
-              },
-              {
-                "@type": "Question",
-                name: `Where is ${p.name} located?`,
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: `${p.location || "Located in a prime area of Delhi-NCR."}`,
-                },
-              },
-            ],
-          }),
-        }}
-      />
+      {/* 🟡 FAQ Section */}
+      <section className="max-w-6xl mx-auto px-4 py-10 border-t border-altina-gold/20">
+        <h2 className="text-2xl font-semibold text-altina-gold mb-6">
+          Frequently Asked Questions
+        </h2>
+        <div className="space-y-4">
+          {faqs.map((faq, i) => (
+            <details
+              key={i}
+              className="border border-altina-gold/20 rounded-xl p-4 hover:border-altina-gold/40 transition-colors"
+            >
+              <summary className="cursor-pointer font-medium text-altina-gold">
+                {faq.q}
+              </summary>
+              <p className="mt-2 text-neutral-300 text-sm">{faq.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
 
-      {/* 🟡 Schema JSONs */}
+      {/* 🟡 JSON-LD Schemas */}
       <ProjectSchema p={p} />
       <ProjectBreadcrumbs p={p} />
     </main>
