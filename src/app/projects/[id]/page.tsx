@@ -153,8 +153,9 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
       </section>
 
       {/* Gallery */}
-      {gallery.length > 0 and (
-        <section className="mb-10">
+      {gallery.length > 0 && (
+  <section className="mb-10">
+
           <h2 className="text-xl font-semibold mb-3">Gallery</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {gallery.map((src: string, i: number) => (
