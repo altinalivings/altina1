@@ -125,7 +125,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               'https://connect.facebook.net/en_US/fbevents.js'); fbq('init', FB_ID); fbq('track', 'PageView');
               window.__fb_loaded=true;
             }
-            var LI_ID=(window && window.__altina_li)||'${os.environ.get("NEXT_PUBLIC_LI_PARTNER_ID","")}';
+            var LI_ID = (window && window.__altina_li) || process.env.NEXT_PUBLIC_LI_PARTNER_ID || "";
             if(LI_ID && !window.__li_loaded){
               (function(){var s=document.createElement("script"); s.type="text/javascript"; s.async=true;
               s.src="https://snap.licdn.com/li.lms-analytics/insight.min.js"; document.head.appendChild(s);})();
