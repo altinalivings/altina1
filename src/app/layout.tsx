@@ -13,6 +13,7 @@ import Notifier from "@/components/Notifier";
 import AutoCallbackPrompt from "@/components/AutoCallbackPrompt";
 import AnalyticsGuards from "@/components/AnalyticsGuards";
 import Script from "next/script";
+import CookieConsent from "@/components/CookieConsent";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -102,7 +103,43 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </noscript>
         ) : null}
         <AutoCallbackPrompt />
-      </body>
+      
+    <Script id="altina-analytics-consent" strategy="afterInteractive">
+      {`
+        (function(){
+          function initAll(){
+            var GA_ID = (window && window.__altina_ga) || '${os.environ.get("NEXT_PUBLIC_GA_ID","")}';
+            if(GA_ID && !window.__ga_loaded){
+              var s=document.createElement('script'); s.async=1; s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID; document.head.appendChild(s);
+              window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} window.gtag=gtag;
+              gtag('js', new Date()); gtag('config', GA_ID);
+              window.__ga_loaded=true;
+            }
+            var FB_ID=(window && window.__altina_fb)||'${os.environ.get("NEXT_PUBLIC_FB_PIXEL_ID","")}';
+            if(FB_ID && !window.__fb_loaded){
+              !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+              n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+              n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+              t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script',
+              'https://connect.facebook.net/en_US/fbevents.js'); fbq('init', FB_ID); fbq('track', 'PageView');
+              window.__fb_loaded=true;
+            }
+            var LI_ID=(window && window.__altina_li)||'${os.environ.get("NEXT_PUBLIC_LI_PARTNER_ID","")}';
+            if(LI_ID && !window.__li_loaded){
+              (function(){var s=document.createElement("script"); s.type="text/javascript"; s.async=true;
+              s.src="https://snap.licdn.com/li.lms-analytics/insight.min.js"; document.head.appendChild(s);})();
+              window.__li_loaded=true;
+            }
+          }
+          var consent = localStorage.getItem('altina_cookie_consent');
+          if(consent==='accepted'){ initAll(); }
+          window.addEventListener('altina-analytics-enable', initAll);
+        })();
+      `}
+    </Script>
+    <CookieConsent />
+    
+</body>
     </html>
   );
 }

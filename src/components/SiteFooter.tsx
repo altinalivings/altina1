@@ -246,6 +246,7 @@ export default function SiteFooter({
           </div>
         </div>
       </div>
-    </footer>
+      <a href="/blog" className="hover:text-[#C9A23F]">Blog</a>
+</footer>
   );
 }
