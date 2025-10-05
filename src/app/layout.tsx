@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 import Header from "@/components/Header";
 import SiteFooter from "@/components/SiteFooter";
-import BrochureLeadGate from "@/components/BrochureLeadGate";
+import { BrochureLeadGate } from "@/components/BrochureLeadGate"; // ✅ fixed named import
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -42,10 +42,10 @@ export default function RootLayout({
         {/* ✅ Footer */}
         <SiteFooter />
 
-        {/* ✅ Your existing popup logic */}
+        {/* ✅ Lead form / popup script */}
         <Script src="/submitLead.js" strategy="afterInteractive" />
 
-        {/* ✅ Global listener to reopen pop-up */}
+        {/* ✅ Global listener (keeps “Request Call” working) */}
         <Script id="lead-popup-init" strategy="afterInteractive">
           {`
             window.addEventListener("lead:open", function(e) {
@@ -63,7 +63,7 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* ✅ Analytics kept intact */}
+        {/* ✅ Analytics Scripts (GA4, FB Pixel, LinkedIn Insight) */}
         <Script id="altina-analytics" strategy="afterInteractive">
           {`
             (function() {
@@ -110,6 +110,7 @@ export default function RootLayout({
           `}
         </Script>
 
+        {/* ✅ FB Pixel no-script fallback */}
         <noscript>
           <img
             height="1"
