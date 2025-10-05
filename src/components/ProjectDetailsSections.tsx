@@ -1,54 +1,114 @@
-
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import Link from "next/link";
 
-type SectionProps = { title: string; children: React.ReactNode };
+/* -------------------------------------------------------
+ * GOLD “AT-A-GLANCE” STRIP
+ * Pulls from projects.json:
+ * - price
+ * - possession (falls back to status)
+ * - nearby.connectivity[0] (falls back to location/city)
+ * ----------------------------------------------------- */
+export function GlanceBar({ p }: { p: any }) {
+  const price = p?.price || "Price on request";
+  const possession = p?.possession || p?.status || "TBA";
 
-export const Section = ({ title, children }: SectionProps) => (
-  <section className="my-8 border border-altina-gold/30 rounded-2xl p-6 bg-[#0D0D0D]/80 shadow-lg">
-    <h2 className="text-xl font-semibold text-altina-gold mb-4 border-b border-altina-gold/40 pb-2">
-      {title}
-    </h2>
-    <div className="text-neutral-200 text-sm leading-relaxed">{children}</div>
-  </section>
-);
-
-export const ProjectOverviewSection = ({ project }: { project: any }) => {
-  const info = [
-    { label: "Price", value: project.price },
-    { label: "Configuration", value: project.configuration },
-    { label: "Possession", value: project.possession },
-    { label: "Location", value: project.location },
-    { label: "RERA", value: project.rera },
-  ].filter(i => i.value);
+  const firstConn = Array.isArray(p?.nearby?.connectivity)
+    ? p.nearby.connectivity[0]
+    : null;
+  const connectivity =
+    (firstConn?.label
+      ? `${firstConn.label}${firstConn.time ? ` • ${firstConn.time}` : ""}`
+      : "") || p?.location || p?.city || "Great connectivity";
 
   return (
-    <motion.section
-      className="my-8 border border-altina-gold/40 rounded-2xl p-6 bg-[#111]/70 shadow-altina backdrop-blur-sm"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-    >
-      <h2 className="text-xl font-semibold text-altina-gold mb-5 border-b border-altina-gold/30 pb-2">
-        Project Overview
-      </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {info.map((item, i) => (
+    <section className="max-w-6xl mx-auto px-4 mt-6">
+      <div className="grid gap-4 md:grid-cols-3">
+        {[
+          { label: "Price", value: price },
+          { label: "Possession / Status", value: possession },
+          { label: "Connectivity", value: connectivity },
+        ].map((it, i) => (
           <div
             key={i}
-            className="flex flex-col justify-between border border-altina-gold/20 rounded-xl p-4 bg-[#0B0B0C]/80 hover:bg-[#141414]/90 transition-all"
+            className="rounded-2xl p-[1px] bg-gradient-to-b from-[#C5A657]/70 to-[#8E6F2D]/40"
+            style={{ boxShadow: "0 0 0 1px rgba(197,166,87,0.35) inset" }}
           >
-            <span className="text-neutral-400 text-xs uppercase tracking-wider mb-1">
-              {item.label}
-            </span>
-            <span className="text-altina-gold text-base font-medium">
-              {item.value}
-            </span>
+            <div className="rounded-2xl px-5 py-4 bg-[#0E0E0E]">
+              <div className="text-xs tracking-wide text-[#C5A657]">
+                {it.label}
+              </div>
+              <div className="mt-1 text-lg font-semibold">{it.value}</div>
+            </div>
           </div>
         ))}
       </div>
-    </motion.section>
+    </section>
   );
-};
+}
+
+/* -------------------------------------------------------
+ * FAQs — kept simple and theme-consistent
+ * Expects an array of { q, a }
+ * ----------------------------------------------------- */
+export function FAQsSection({
+  items,
+  heading = "Frequently Asked Questions",
+}: {
+  items: { q: string; a: string }[];
+  heading?: string;
+}) {
+  if (!items?.length) return null;
+  return (
+    <section className="max-w-6xl mx-auto px-4 mt-10">
+      <h2 className="text-xl font-semibold mb-4 text-[#C5A657]">
+        {heading}
+      </h2>
+      <div className="divide-y divide-white/10 rounded-2xl overflow-hidden border border-white/10">
+        {items.map((f, idx) => (
+          <details key={idx} className="bg-[#0F0F0F] group">
+            <summary className="cursor-pointer list-none px-4 py-4 hover:bg-white/[0.03]">
+              <span className="text-base">{f.q}</span>
+            </summary>
+            <div className="px-4 pb-5 text-neutral-300">{f.a}</div>
+          </details>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* -------------------------------------------------------
+ * Related Projects — minimal (keeps gold look)
+ * Pass { text, href }
+ * ----------------------------------------------------- */
+export function RelatedProjects({
+  text,
+  href,
+}: {
+  text: string;
+  href: string;
+}) {
+  return (
+    <section className="max-w-6xl mx-auto px-4 mt-8">
+      <div className="rounded-2xl border border-white/10 bg-[#0E0E0E] p-5 flex items-center justify-between">
+        <div>
+          <div className="text-[#C5A657] text-sm mb-1">Related projects</div>
+          <div className="text-neutral-300">{text}</div>
+        </div>
+        <Link
+          href={href}
+          className="rounded-full px-4 py-2 text-sm font-semibold"
+          style={{
+            color: "#0D0D0D",
+            background:
+              "linear-gradient(180deg, rgba(255,246,214,0.92) 0%, rgba(255,246,214,0.8) 100%)",
+            boxShadow: "0 0 0 1px rgba(197,166,87,0.45) inset",
+          }}
+        >
+          View all projects
+        </Link>
+      </div>
+    </section>
+  );
+}
