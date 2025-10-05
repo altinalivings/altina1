@@ -116,7 +116,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               gtag('js', new Date()); gtag('config', GA_ID);
               window.__ga_loaded=true;
             }
-            var FB_ID=(window && window.__altina_fb)||'${os.environ.get("NEXT_PUBLIC_FB_PIXEL_ID","")}';
+            var FB_ID = (window && window.__altina_fb) || process.env.NEXT_PUBLIC_FB_PIXEL_ID || "";
             if(FB_ID && !window.__fb_loaded){
               !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
               n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
