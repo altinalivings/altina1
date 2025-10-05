@@ -4,7 +4,8 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 import Header from "@/components/Header";
 import SiteFooter from "@/components/SiteFooter";
-import { BrochureLeadGate } from "@/components/BrochureLeadGate";
+import BrochureLeadGate from "@/components/BrochureLeadGate";
+
 
 
 const inter = Inter({ subsets: ["latin"] });
