@@ -44,7 +44,7 @@ export default function Header() {
             alt="ALTINA™ Livings"
             width={40}
             height={40}
-            className="h-10 w-10 rounded"
+            className="h-20 w-20 rounded"
             priority
           />
           <div className="leading-tight">
