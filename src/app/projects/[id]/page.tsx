@@ -3,11 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import projects from "@/data/projects.json";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
 
 type Project = typeof projects[number];
 
-function getProjectByParam(param: string): Project | undefined {
+function getProject(param: string): Project | undefined {
   return projects.find((p) => p.id === param || p.slug === param);
 }
 
@@ -16,17 +15,17 @@ export async function generateMetadata({
 }: {
   params: { id: string };
 }): Promise<Metadata> {
-  const p = getProjectByParam(params.id);
+  const p = getProject(params.id);
   if (!p) return { title: "Project not found" };
 
-  const title = p.seo?.title ?? `${p.name} | ${p.configuration}`;
+  const title = p.seo?.title || `${p.name} | ${p.configuration}`;
   const description =
-    p.seo?.description ??
+    p.seo?.description ||
     `${p.name} by ${p.brand || p.developer} in ${
       p.micro_market || p.location || p.city
     }.`;
   const canonical =
-    p.seo?.canonical ??
+    p.seo?.canonical ||
     `https://www.altinalivings.com/projects/${p.slug || p.id}`;
   const ogImg = p.hero || "/og-default.jpg";
 
@@ -40,9 +39,7 @@ export async function generateMetadata({
       siteName: "ALTINA™ Livings",
       title,
       description,
-      images: [
-        { url: ogImg, width: 1200, height: 630, alt: p.heroAlt || p.name },
-      ],
+      images: [{ url: ogImg, width: 1200, height: 630, alt: p.heroAlt || p.name }],
     },
     twitter: {
       card: "summary_large_image",
@@ -53,9 +50,10 @@ export async function generateMetadata({
   };
 }
 
+// JSON-LD: Product + FAQ + Breadcrumb (kept for SEO)
 function JsonLd({ p }: { p: Project }) {
   const canonical =
-    p.seo?.canonical ??
+    p.seo?.canonical ||
     `https://www.altinalivings.com/projects/${p.slug || p.id}`;
 
   const product = {
@@ -75,15 +73,18 @@ function JsonLd({ p }: { p: Project }) {
     },
   };
 
-  const faq = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: (p.faq || []).map((qa: any) => ({
-      "@type": "Question",
-      name: qa.q,
-      acceptedAnswer: { "@type": "Answer", text: qa.a },
-    })),
-  };
+  const faq =
+    Array.isArray(p.faq) && p.faq.length
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: p.faq.map((qa: any) => ({
+            "@type": "Question",
+            name: qa.q,
+            acceptedAnswer: { "@type": "Answer", text: qa.a },
+          })),
+        }
+      : null;
 
   const breadcrumb = {
     "@context": "https://schema.org",
@@ -105,7 +106,7 @@ function JsonLd({ p }: { p: Project }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(product) }}
       />
-      {Array.isArray(p.faq) && p.faq.length > 0 && (
+      {faq && (
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faq) }}
@@ -120,46 +121,45 @@ function JsonLd({ p }: { p: Project }) {
 }
 
 export default function ProjectPage({ params }: { params: { id: string } }) {
-  const p = getProjectByParam(params.id);
+  const p = getProject(params.id);
   if (!p) return notFound();
 
   const other = projects.filter((x) => x.id !== p.id).slice(0, 2);
   const gallery = Array.isArray(p.gallery) ? p.gallery : [];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <Suspense fallback={<div className="opacity-70">Loading…</div>}>
-        <JsonLd p={p as any} />
-      </Suspense>
+    <div className="container mx-auto px-4 py-10">
+      <JsonLd p={p as any} />
 
+      {/* Header */}
       <header className="mb-6">
-        <h1 className="text-2xl md:text-4xl font-semibold">{p.name}</h1>
-        <p className="text-sm md:text-base opacity-80">
-          {p.configuration} • {p.micro_market || p.location || p.city}{" "}
-          {p.rera ? `• RERA: ${p.rera}` : ""}
+        <h1 className="text-3xl md:text-4xl font-semibold">{p.name}</h1>
+        <p className="text-sm opacity-80">
+          {p.configuration} • {p.micro_market || p.location || p.city}
+          {p.rera ? ` • RERA: ${p.rera}` : ""}
         </p>
       </header>
 
-      {/* Hero */}
+      {/* Hero (explicit width/height to prevent black tiles) */}
       {p.hero && (
-        <div className="mb-6 relative w-full aspect-[16/9] overflow-hidden rounded-xl ring-1 ring-white/10">
+        <div className="mb-8 overflow-hidden rounded-xl ring-1 ring-white/10">
           <Image
             src={p.hero}
-            alt={p.heroAlt || `${p.name} hero image`}
-            fill
-            className="object-cover"
+            alt={p.heroAlt || `${p.name} hero`}
+            width={1600}
+            height={900}
+            className="w-full h-auto object-cover"
             priority
-            sizes="(max-width: 768px) 100vw, 1200px"
           />
         </div>
       )}
 
-      {/* Key info */}
-      <section className="grid md:grid-cols-2 gap-6 mb-8">
-        <div className="space-y-3">
-          <h2 className="text-xl font-semibold">Overview</h2>
-          <p className="opacity-90">{p.about}</p>
-          <ul className="list-disc pl-5 opacity-90">
+      {/* Two-column overview like your original UI */}
+      <section className="grid md:grid-cols-2 gap-8 mb-12">
+        <div>
+          <h2 className="text-xl font-semibold mb-3">Overview</h2>
+          <p className="opacity-90 mb-4">{p.about}</p>
+          <ul className="list-disc pl-5 opacity-90 space-y-1">
             {p.price && (
               <li>
                 <strong>Price:</strong> {p.price}
@@ -186,7 +186,9 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
               </li>
             )}
           </ul>
-          <div className="flex flex-wrap gap-3 pt-2">
+
+          {/* CTAs – Altina gold theme */}
+          <div className="flex flex-wrap gap-3 pt-4">
             {p.brochure && (
               <a
                 href={p.brochure}
@@ -219,35 +221,30 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
           </div>
         </div>
 
-        <div className="space-y-3">
-          <h2 className="text-xl font-semibold">Highlights</h2>
-          <ul className="list-disc pl-5 opacity-90">
-            {(p.highlights || p.usp || [])
-              .slice(0, 6)
-              .map((h: any, i: number) => (
-                <li key={i}>{h}</li>
-              ))}
+        <div>
+          <h2 className="text-xl font-semibold mb-3">Highlights</h2>
+          <ul className="list-disc pl-5 opacity-90 space-y-1">
+            {(p.highlights || p.usp || []).map((h: string, i: number) => (
+              <li key={i}>{h}</li>
+            ))}
           </ul>
         </div>
       </section>
 
-      {/* Gallery */}
+      {/* Gallery – fixed sizes for reliable rendering */}
       {gallery.length > 0 && (
-        <section className="mb-10">
+        <section className="mb-12">
           <h2 className="text-xl font-semibold mb-3">Gallery</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {gallery.map((src: string, i: number) => (
-              <div
-                key={i}
-                className="relative aspect-square overflow-hidden rounded-lg ring-1 ring-white/10"
-              >
+            {gallery.map((src, i) => (
+              <div key={i} className="overflow-hidden rounded-lg ring-1 ring-white/10">
                 <Image
                   src={src}
                   alt={p.galleryAlt?.[i] || `${p.name} image ${i + 1}`}
-                  fill
-                  className="object-cover"
+                  width={800}
+                  height={800}
+                  className="w-full h-auto object-cover"
                   loading="lazy"
-                  sizes="(max-width: 768px) 50vw, 400px"
                 />
               </div>
             ))}
@@ -255,10 +252,10 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
         </section>
       )}
 
-      {/* Internal links */}
+      {/* Explore more projects (kept) */}
       {other.length > 0 && (
-        <section className="mb-12">
-          <h2 className="text-xl font-semibold mb-3">Explore more projects</h2>
+        <section className="mb-10">
+          <h2 className="text-xl font-semibold mb-3">Explore More Projects</h2>
           <div className="flex flex-wrap gap-3">
             {other.map((o) => (
               <Link
@@ -273,32 +270,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
         </section>
       )}
 
-      {/* Lead section anchor */}
-      <div id="lead" className="pt-8"></div>
-
-      {/* Lightweight analytics event binding */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            (function(){
-              function on(evt, sel, fn){
-                document.addEventListener(evt, function(e){
-                  var el = e.target.closest(sel);
-                  if(el) fn(e, el);
-                });
-              }
-              function fire(name, params){
-                try{ window.gtag && window.gtag('event', name, params||{}); }catch(e){}
-                try{ window.fbq && window.fbq('trackCustom', name, params||{}); }catch(e){}
-                try{ window.lintrk && window.lintrk('track', { conversion_id: name }); }catch(e){}
-              }
-              on('click','[data-evt="brochure_download"]', function(){ fire('brochure_download', {project:'${p?.name || ""}'}); });
-              on('click','[data-evt="book_site_visit"]', function(){ fire('generate_lead', {project:'${p?.name || ""}', source:'book_site_visit'}); });
-              on('click','[data-evt="whatsapp_click"]', function(){ fire('whatsapp_click', {project:'${p?.name || ""}'}); });
-            })();
-          `,
-        }}
-      />
+      <div id="lead" className="pt-6" />
     </div>
   );
 }
