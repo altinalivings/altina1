@@ -1,180 +1,160 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import projects from "@/data/projects.json";
 import { notFound } from "next/navigation";
+import Script from "next/script";
+import projectsData from "@/data/projects.json";
+import ProjectDetailClientShell from "@/components/ProjectDetailClientShell";
 
-type Project = typeof projects[number];
+type Project = {
+  id: string;
+  name: string;
+  developer?: string;
+  city?: string;
+  location?: string;
+  configuration?: string;
+  price?: string;
+  hero?: string;
+  brochure?: string;
+  images?: string[];
+  description?: string;
+};
 
-function getProject(param: string): Project | undefined {
-  return projects.find((p) => p.id === param || p.slug === param);
+const SITE =
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
+  "https://www.altinalivings.com";
+
+const list: Project[] = Array.isArray(projectsData)
+  ? (projectsData as Project[])
+  : [];
+const findProject = (id: string) => list.find((p) => p.id === id);
+
+const abs = (u?: string) =>
+  !u
+    ? undefined
+    : /^https?:\/\//i.test(u)
+    ? u
+    : `${SITE}${u.startsWith("/") ? u : `/${u}`}`;
+
+function priceNumber(p?: string) {
+  if (!p) return undefined;
+  const v = p.replace(/[^\d.]/g, "");
+  return v || undefined;
 }
 
+// --- SSG params
+export function generateStaticParams() {
+  return list.map((p) => ({ id: p.id }));
+}
+
+// --- Metadata (SEO + OG)
 export async function generateMetadata({
   params,
 }: {
   params: { id: string };
 }): Promise<Metadata> {
-  const p = getProject(params.id);
-  if (!p) return { title: "Project not found" };
+  const p = findProject(params.id);
+  if (!p) return { title: "Project not found | ALTINA™ Livings" };
 
-  const title = p.seo?.title || `${p.name} | ${p.configuration}`;
+  const title = `${p.name}${p.city ? ` in ${p.city}` : ""} | ${
+    p.developer ? `${p.developer} • ` : ""
+  }ALTINA™ Livings`;
   const description =
-    p.seo?.description ||
-    `${p.name} by ${p.brand || p.developer} in ${
-      p.micro_market || p.location || p.city
-    }.`;
-  const canonical =
-    p.seo?.canonical ||
-    `https://www.altinalivings.com/projects/${p.slug || p.id}`;
-  const ogImg = p.hero || "/og-default.jpg";
+    [
+      p.description,
+      p.configuration,
+      p.location ? `Location: ${p.location}` : "",
+      p.price ? `Price: ${p.price}` : "",
+    ]
+      .filter(Boolean)
+      .join(" • ")
+      .slice(0, 300) ||
+    `Explore ${p.name}${p.city ? ` in ${p.city}` : ""}.`;
 
   return {
     title,
     description,
-    alternates: { canonical },
+    alternates: { canonical: `/projects/${p.id}` },
     openGraph: {
-      type: "website",
-      url: canonical,
-      siteName: "ALTINA™ Livings",
       title,
       description,
-      images: [{ url: ogImg, width: 1200, height: 630, alt: p.name }],
+      url: `${SITE}/projects/${p.id}`,
+      siteName: "ALTINA™ Livings",
+      images: p.hero
+        ? [{ url: abs(p.hero)!, width: 1200, height: 630, alt: p.name }]
+        : undefined,
+      type: "website",
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [ogImg],
+      images: p.hero ? [abs(p.hero)!] : undefined,
     },
   };
 }
 
-export default function ProjectPage({ params }: { params: { id: string } }) {
-  const p = getProject(params.id);
-  if (!p) return notFound();
-
-  const others = projects.filter((x) => x.id !== p.id).slice(0, 2);
-  const gallery = Array.isArray(p.gallery) ? p.gallery : [];
+// --- JSON-LD: Product schema
+function ProjectSchema({ p }: { p: Project }) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: p.name,
+    sku: p.id,
+    brand: p.developer
+      ? { "@type": "Brand", name: p.developer }
+      : { "@type": "Brand", name: "ALTINA" },
+    description: [p.configuration, p.location, p.city].filter(Boolean).join(" • "),
+    image: p.hero ? [abs(p.hero)] : undefined,
+    category: "Real Estate",
+    url: `${SITE}/projects/${p.id}`,
+    offers: {
+      "@type": "Offer",
+      price: priceNumber(p.price),
+      priceCurrency: "INR",
+      url: `${SITE}/projects/${p.id}`,
+      itemCondition: "https://schema.org/NewCondition",
+      availability: "https://schema.org/InStock",
+    },
+  };
 
   return (
-    <div className="container mx-auto px-4 py-10">
-      {/* Header */}
-      <header className="mb-6">
-        <h1 className="text-3xl md:text-4xl font-semibold">{p.name}</h1>
-        <p className="text-sm opacity-80">
-          {p.configuration} • {p.micro_market || p.location || p.city}{" "}
-          {p.rera && `• RERA: ${p.rera}`}
-        </p>
-      </header>
+    <Script
+      id={`project-schema-${p.id}`}
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
 
-      {/* Hero */}
-      {p.hero && (
-        <div className="mb-8 overflow-hidden rounded-xl ring-1 ring-white/10">
-          <Image
-            src={p.hero}
-            alt={p.name}
-            width={1600}
-            height={900}
-            className="w-full h-auto object-cover"
-            priority
-          />
-        </div>
-      )}
+// --- JSON-LD: Breadcrumb schema
+function ProjectBreadcrumbs({ p }: { p: Project }) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Projects", item: `${SITE}/projects` },
+      { "@type": "ListItem", position: 2, name: p.name, item: `${SITE}/projects/${p.id}` },
+    ],
+  };
 
-      {/* Overview & Highlights */}
-      <section className="grid md:grid-cols-2 gap-8 mb-12">
-        <div>
-          <h2 className="text-xl font-semibold mb-3">Overview</h2>
-          <p className="opacity-90 mb-4">{p.about}</p>
-          <ul className="list-disc pl-5 opacity-90 space-y-1">
-            {p.price && <li><strong>Price:</strong> {p.price}</li>}
-            {p.status && <li><strong>Status:</strong> {p.status}</li>}
-            {p.possession && <li><strong>Possession:</strong> {p.possession}</li>}
-            {p.towers && <li><strong>Towers:</strong> {p.towers}</li>}
-            {p.floors && <li><strong>Floors:</strong> {p.floors}</li>}
-          </ul>
+  return (
+    <Script
+      id={`breadcrumbs-${p.id}`}
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
 
-          <div className="flex flex-wrap gap-3 pt-4">
-            {p.brochure && (
-              <a
-                href={p.brochure}
-                target="_blank"
-                rel="noopener"
-                className="px-4 py-2 rounded-lg bg-[#C9A23F] text-black font-medium"
-              >
-                Download Brochure
-              </a>
-            )}
-            <a
-              href="#lead"
-              className="px-4 py-2 rounded-lg border border-white/20"
-            >
-              Book Site Visit
-            </a>
-            <a
-              href={`https://wa.me/919891234195?text=Hi%20Altina%20Livings%2C%20I'm%20interested%20in%20${encodeURIComponent(
-                p.name
-              )}`}
-              target="_blank"
-              rel="noopener"
-              className="px-4 py-2 rounded-lg border border-[#25D366] text-[#25D366]"
-            >
-              WhatsApp
-            </a>
-          </div>
-        </div>
+// --- Page
+export default function ProjectPage({ params }: { params: { id: string } }) {
+  const p = findProject(params.id);
+  if (!p) return notFound();
 
-        <div>
-          <h2 className="text-xl font-semibold mb-3">Highlights</h2>
-          <ul className="list-disc pl-5 opacity-90 space-y-1">
-            {(p.highlights || p.usp || []).map((h, i) => (
-              <li key={i}>{h}</li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* Gallery */}
-      {gallery.length > 0 && (
-        <section className="mb-12">
-          <h2 className="text-xl font-semibold mb-3">Gallery</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {gallery.map((src, i) => (
-              <div key={i} className="overflow-hidden rounded-lg ring-1 ring-white/10">
-                <Image
-                  src={src}
-                  alt={`${p.name} image ${i + 1}`}
-                  width={800}
-                  height={800}
-                  className="w-full h-auto object-cover"
-                  loading="lazy"
-                />
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Explore More */}
-      {others.length > 0 && (
-        <section className="mb-10">
-          <h2 className="text-xl font-semibold mb-3">Explore More Projects</h2>
-          <div className="flex flex-wrap gap-3">
-            {others.map((o) => (
-              <Link
-                key={o.id}
-                href={`/projects/${o.slug || o.id}`}
-                className="px-4 py-2 rounded-lg border border-white/20 hover:text-[#C9A23F]"
-              >
-                {o.name}
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
-
-      <div id="lead" className="pt-6" />
-    </div>
+  return (
+    <main className="min-h-screen bg-[#0D0D0D] text-white">
+      <ProjectDetailClientShell project={p} />
+      <ProjectSchema p={p} />
+      <ProjectBreadcrumbs p={p} />
+    </main>
   );
 }
