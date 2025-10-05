@@ -33,19 +33,18 @@ export default function RootLayout({
         {/* ✅ Header */}
         <Header />
 
-        {/* ✅ Page content */}
+        {/* ✅ Main content */}
         {children}
 
-        {/* ✅ Brochure lead popup */}
-{/* ✅ BrochureLeadGate is auto-triggered by events — no direct render needed */}
+        {/* ✅ BrochureLeadGate is auto-triggered via events */}
+        {/* <BrochureLeadGate /> */}
 
         {/* ✅ Footer */}
         <SiteFooter />
 
-        {/* ✅ Lead form script */}
+        {/* ✅ Lead form / popup script */}
         <Script src="/submitLead.js" strategy="afterInteractive" />
 
-        {/* ✅ Popup trigger listener */}
         <Script id="lead-popup-init" strategy="afterInteractive">
           {`
             window.addEventListener("lead:open", function(e) {
@@ -63,7 +62,7 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* ✅ Analytics (GA4, FB, LinkedIn) */}
+        {/* ✅ Analytics */}
         <Script id="altina-analytics" strategy="afterInteractive">
           {`
             (function() {
@@ -110,7 +109,6 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* ✅ FB Pixel fallback */}
         <noscript>
           <img
             height="1"
