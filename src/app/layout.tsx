@@ -108,7 +108,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       {`
         (function(){
           function initAll(){
-            var GA_ID = (window && window.__altina_ga) || '${os.environ.get("NEXT_PUBLIC_GA_ID","")}';
+            var GA_ID = (window && window.__altina_ga) || process.env.NEXT_PUBLIC_GA_ID || "";
+
             if(GA_ID && !window.__ga_loaded){
               var s=document.createElement('script'); s.async=1; s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID; document.head.appendChild(s);
               window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} window.gtag=gtag;
