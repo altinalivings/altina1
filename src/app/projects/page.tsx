@@ -1,13 +1,15 @@
-//export const dynamic = "force-dynamic";
 // src/app/projects/page.tsx
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import ProjectsClient from "./projects-client";
 import ProjectsSchema from "./ProjectsSchema";
 
 const SITE =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
   "https://www.altinalivings.com";
-export const revalidate = 3600; // rebuild static HTML every hour
+
+// Rebuild static HTML every hour for SEO freshness
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Projects in Delhi NCR | ALTINA™ Livings",
@@ -26,7 +28,11 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <>
-      <ProjectsClient />
+      {/* 👇 Wrap your Client Component in Suspense */}
+      <Suspense fallback={<div className="py-20 text-center text-neutral-400">Loading projects…</div>}>
+        <ProjectsClient />
+      </Suspense>
+
       <ProjectsSchema />
     </>
   );
