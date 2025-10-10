@@ -207,7 +207,8 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
       {/* 🟡 JSON-LD Schemas */}
       <ProjectSchema p={p} />
       <ProjectBreadcrumbs p={p} />
-	  <RelatedProjects currentId={project.id} projects={projects} />
+	  <RelatedProjects currentId={p.id} projects={projects} />
+
     </main>
   );
 }
