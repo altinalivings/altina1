@@ -5,6 +5,7 @@ import projectsData from "@/data/projects.json";
 import ProjectDetailClientShell from "@/components/ProjectDetailClientShell";
 import RelatedProjects from "@/components/RelatedProjects";
 
+export const revalidate = 3600; // ISR: re-generate static HTML every hour
 
 type Project = {
   id: string;
@@ -32,6 +33,7 @@ const SITE =
 const list: Project[] = Array.isArray(projectsData)
   ? (projectsData as Project[])
   : [];
+
 const findProject = (id: string) => list.find((p) => p.id === id);
 
 const abs = (u?: string) =>
@@ -61,15 +63,16 @@ export async function generateMetadata({
 
   const title = `${p.name}${p.city ? ` in ${p.city}` : ""} | ALTINA™ Livings`;
   const description =
-    [
-      p.about,
-      p.configuration,
-      p.location ? `Location: ${p.location}` : "",
-      p.price ? `Price: ${p.price}` : "",
-    ]
-      .filter(Boolean)
-      .join(" • ")
-      .slice(0, 300) ||
+    (
+      [
+        p.about,
+        p.configuration,
+        p.location ? `Location: ${p.location}` : "",
+        p.price ? `Price: ${p.price}` : "",
+      ]
+        .filter(Boolean)
+        .join(" • ")
+    ).slice(0, 300) ||
     `Explore ${p.name}${p.city ? ` in ${p.city}` : ""}.`;
 
   return {
@@ -180,10 +183,6 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
     <main className="bg-[#0B0B0C] text-white">
       <ProjectDetailClientShell project={p} />
 
-     
-
-      
-
       {/* 🟡 FAQ Section */}
       <section className="max-w-6xl mx-auto px-4 py-10 border-t border-altina-gold/20">
         <h2 className="text-2xl font-semibold text-altina-gold mb-6">
@@ -207,8 +206,9 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
       {/* 🟡 JSON-LD Schemas */}
       <ProjectSchema p={p} />
       <ProjectBreadcrumbs p={p} />
-	  <RelatedProjects currentId={p.id} projects={projects} />
 
+      {/* 🔗 Internal linking boost */}
+      <RelatedProjects currentId={p.id} projects={list} />
     </main>
   );
 }
