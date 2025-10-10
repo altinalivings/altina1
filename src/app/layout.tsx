@@ -78,10 +78,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="bg-black text-white">
       <head>
-       <meta
-    name="google-site-verification"
-    content="_1iZhV_tnYBQBc5MU2VMF9YObRDPkiFdNlGpxmsYIOU"
-  />
+      <meta name="google-site-verification" content="_1iZhV_tnYBQBc5MU2VMF9YObRDPkiFdNlGpxmsYIOU">
+
   <Script
     id="analytics-guards-pre"
     strategy="beforeInteractive"
