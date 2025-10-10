@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import Script from "next/script";
 import projectsData from "@/data/projects.json";
 import ProjectDetailClientShell from "@/components/ProjectDetailClientShell";
+import RelatedProjects from "@/components/RelatedProjects";
+
 
 type Project = {
   id: string;
@@ -205,6 +207,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
       {/* 🟡 JSON-LD Schemas */}
       <ProjectSchema p={p} />
       <ProjectBreadcrumbs p={p} />
+	  <RelatedProjects currentId={project.id} projects={projects} />
     </main>
   );
 }
