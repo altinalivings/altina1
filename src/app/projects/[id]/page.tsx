@@ -115,7 +115,9 @@ export async function generateMetadata({
 }
 
 function ProjectSchema({ p }: { p: Project }) {
-  const schema = {
+  const priceValue = priceNumber(p.price); // <-- parse first
+
+  const base: any = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: p.name,
@@ -123,40 +125,36 @@ function ProjectSchema({ p }: { p: Project }) {
     brand: p.developer
       ? { "@type": "Brand", name: p.developer }
       : { "@type": "Brand", name: "ALTINA™ Livings" },
-    description: [p.configuration, p.location, p.city, p.about]
-      .filter(Boolean)
-      .join(" • "),
+    description: [p.configuration, p.location, p.city, p.about].filter(Boolean).join(" • "),
     image: p.hero ? [abs(p.hero)] : undefined,
     category: "Real Estate",
     url: `${SITE}/projects/${p.id}`,
-    offers: {
+  };
+
+  // ➜ Only include offers if we have a valid numeric price
+  if (priceValue) {
+    base.offers = {
       "@type": "Offer",
-      price: priceNumber(p.price),
+      price: priceValue,
       priceCurrency: "INR",
       url: `${SITE}/projects/${p.id}`,
       itemCondition: "https://schema.org/NewCondition",
       availability: "https://schema.org/InStock",
-      // nice-to-have for Google
-      priceValidUntil: new Date(Date.now() + 1000 * 60 * 60 * 24 * 90)
-        .toISOString()
-        .slice(0, 10), // +90 days, YYYY-MM-DD
+      priceValidUntil: new Date(Date.now() + 1000 * 60 * 60 * 24 * 90).toISOString().slice(0, 10),
       seller: {
         "@type": "Organization",
         name: "ALTINA™ Livings",
         url: SITE,
         telephone: "+91-9891234195",
       },
-    },
-    // Optional if you have real data:
-    // aggregateRating: { "@type": "AggregateRating", ratingValue: "4.8", reviewCount: "17" }
-    // review: [{ "@type":"Review", author:{ "@type":"Person", name:"..."}, reviewBody:"...", reviewRating:{ "@type":"Rating", ratingValue:"5"}, datePublished:"2025-09-28" }]
-  };
+    };
+  }
 
   return (
     <Script
       id={`project-schema-${p.id}`}
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(base) }}
     />
   );
 }
