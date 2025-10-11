@@ -43,10 +43,26 @@ const abs = (u?: string) =>
     ? u
     : `${SITE}${u.startsWith("/") ? u : `/${u}`}`;
 
+// ✅ Parse Indian-style prices (₹, Cr, Lakh) to a clean integer string in INR
 function priceNumber(p?: string) {
   if (!p) return undefined;
-  const v = p.replace(/[^\d.]/g, "");
-  return v || undefined;
+  const str = p.toLowerCase().replace(/[₹,\s]/g, "").trim();
+
+  // e.g. "4.7cr", "4.7crore"
+  const cr = str.match(/^([\d.]+)(cr|crore)$/);
+  if (cr) return String(Math.round(parseFloat(cr[1]) * 10000000)); // 1 Cr = 10,000,000
+
+  // e.g. "85l", "85lakh"
+  const lk = str.match(/^([\d.]+)(l|lakh)$/);
+  if (lk) return String(Math.round(parseFloat(lk[1]) * 100000)); // 1 Lakh = 100,000
+
+  // fallback: already numeric (e.g. "47000000") or ambiguous ("4.7" → assume Cr)
+  const n = parseFloat(str);
+  if (!isNaN(n)) {
+    if (n < 1000) return String(Math.round(n * 10000000)); // treat small numbers as crores
+    return String(Math.round(n));
+  }
+  return undefined;
 }
 
 export function generateStaticParams() {
@@ -106,8 +122,10 @@ function ProjectSchema({ p }: { p: Project }) {
     sku: p.id,
     brand: p.developer
       ? { "@type": "Brand", name: p.developer }
-      : { "@type": "Brand", name: "ALTINA" },
-    description: [p.configuration, p.location, p.city].filter(Boolean).join(" • "),
+      : { "@type": "Brand", name: "ALTINA™ Livings" },
+    description: [p.configuration, p.location, p.city, p.about]
+      .filter(Boolean)
+      .join(" • "),
     image: p.hero ? [abs(p.hero)] : undefined,
     category: "Real Estate",
     url: `${SITE}/projects/${p.id}`,
@@ -118,7 +136,20 @@ function ProjectSchema({ p }: { p: Project }) {
       url: `${SITE}/projects/${p.id}`,
       itemCondition: "https://schema.org/NewCondition",
       availability: "https://schema.org/InStock",
+      // nice-to-have for Google
+      priceValidUntil: new Date(Date.now() + 1000 * 60 * 60 * 24 * 90)
+        .toISOString()
+        .slice(0, 10), // +90 days, YYYY-MM-DD
+      seller: {
+        "@type": "Organization",
+        name: "ALTINA™ Livings",
+        url: SITE,
+        telephone: "+91-9891234195",
+      },
     },
+    // Optional if you have real data:
+    // aggregateRating: { "@type": "AggregateRating", ratingValue: "4.8", reviewCount: "17" }
+    // review: [{ "@type":"Review", author:{ "@type":"Person", name:"..."}, reviewBody:"...", reviewRating:{ "@type":"Rating", ratingValue:"5"}, datePublished:"2025-09-28" }]
   };
 
   return (
@@ -153,61 +184,35 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
   const p = findProject(params.id);
   if (!p) return notFound();
 
-  // 🟡 Default FAQs (dynamic)
   const faqs = [
-    {
-      q: `What is the price of ${p.name}?`,
-      a: `The price for ${p.name} starts at ${p.price || "market-linked rates"}.`,
-    },
-    {
-      q: `When is possession for ${p.name}?`,
-      a: p.possession
-        ? `${p.name} is expected to be ready by ${p.possession}.`
-        : `Possession timelines are subject to developer updates.`,
-    },
-    {
-      q: `Where is ${p.name} located?`,
-      a: p.location
-        ? `${p.name} is located at ${p.location}.`
-        : `Located in a prime micro-market in Delhi NCR.`,
-    },
-    {
-      q: `How can I get the brochure for ${p.name}?`,
-      a: p.brochure
-        ? `You can download the official brochure by clicking on “Download Brochure” on this page.`
-        : `Brochure details are available upon request.`,
-    },
+    { q: `What is the price of ${p.name}?`, a: `The price for ${p.name} starts at ${p.price || "market-linked rates"}.` },
+    { q: `When is possession for ${p.name}?`, a: p.possession ? `${p.name} is expected to be ready by ${p.possession}.` : `Possession timelines are subject to developer updates.` },
+    { q: `Where is ${p.name} located?`, a: p.location ? `${p.name} is located at ${p.location}.` : `Located in a prime micro-market in Delhi NCR.` },
+    { q: `How can I get the brochure for ${p.name}?`, a: p.brochure ? `You can download the official brochure by clicking on “Download Brochure” on this page.` : `Brochure details are available upon request.` },
   ];
 
   return (
     <main className="bg-[#0B0B0C] text-white">
       <ProjectDetailClientShell project={p} />
 
-      {/* 🟡 FAQ Section */}
+      {/* FAQ */}
       <section className="max-w-6xl mx-auto px-4 py-10 border-t border-altina-gold/20">
-        <h2 className="text-2xl font-semibold text-altina-gold mb-6">
-          Frequently Asked Questions
-        </h2>
+        <h2 className="text-2xl font-semibold text-altina-gold mb-6">Frequently Asked Questions</h2>
         <div className="space-y-4">
           {faqs.map((faq, i) => (
-            <details
-              key={i}
-              className="border border-altina-gold/20 rounded-xl p-4 hover:border-altina-gold/40 transition-colors"
-            >
-              <summary className="cursor-pointer font-medium text-altina-gold">
-                {faq.q}
-              </summary>
+            <details key={i} className="border border-altina-gold/20 rounded-xl p-4 hover:border-altina-gold/40 transition-colors">
+              <summary className="cursor-pointer font-medium text-altina-gold">{faq.q}</summary>
               <p className="mt-2 text-neutral-300 text-sm">{faq.a}</p>
             </details>
           ))}
         </div>
       </section>
 
-      {/* 🟡 JSON-LD Schemas */}
+      {/* JSON-LD */}
       <ProjectSchema p={p} />
       <ProjectBreadcrumbs p={p} />
 
-      {/* 🔗 Internal linking boost */}
+      {/* Internal linking */}
       <RelatedProjects currentId={p.id} projects={list} />
     </main>
   );
