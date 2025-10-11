@@ -115,9 +115,13 @@ export async function generateMetadata({
 }
 
 function ProjectSchema({ p }: { p: Project }) {
-  const priceValue = priceNumber(p.price); // <-- parse first
+  const priceValue = priceNumber(p.price); // parse first
 
-  const base: any = {
+  // ⛔ If we don't have a numeric price AND we have no reviews/ratings,
+  //     don't emit Product schema (prevents "invalid item" in GSC)
+  if (!priceValue) return null;
+
+  const schema = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: p.name,
@@ -125,39 +129,43 @@ function ProjectSchema({ p }: { p: Project }) {
     brand: p.developer
       ? { "@type": "Brand", name: p.developer }
       : { "@type": "Brand", name: "ALTINA™ Livings" },
-    description: [p.configuration, p.location, p.city, p.about].filter(Boolean).join(" • "),
+    description: [p.configuration, p.location, p.city, p.about]
+      .filter(Boolean)
+      .join(" • "),
     image: p.hero ? [abs(p.hero)] : undefined,
     category: "Real Estate",
     url: `${SITE}/projects/${p.id}`,
-  };
-
-  // ➜ Only include offers if we have a valid numeric price
-  if (priceValue) {
-    base.offers = {
+    offers: {
       "@type": "Offer",
       price: priceValue,
       priceCurrency: "INR",
       url: `${SITE}/projects/${p.id}`,
       itemCondition: "https://schema.org/NewCondition",
       availability: "https://schema.org/InStock",
-      priceValidUntil: new Date(Date.now() + 1000 * 60 * 60 * 24 * 90).toISOString().slice(0, 10),
+      priceValidUntil: new Date(Date.now() + 1000 * 60 * 60 * 24 * 90)
+        .toISOString()
+        .slice(0, 10),
       seller: {
         "@type": "Organization",
         name: "ALTINA™ Livings",
         url: SITE,
         telephone: "+91-9891234195",
       },
-    };
-  }
+    },
+    // If you ever have real data:
+    // aggregateRating: { "@type": "AggregateRating", ratingValue: "4.8", reviewCount: "17" },
+    // review: [ ... ]
+  };
 
   return (
     <Script
       id={`project-schema-${p.id}`}
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(base) }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
   );
 }
+
 
 function ProjectBreadcrumbs({ p }: { p: Project }) {
   const schema = {
