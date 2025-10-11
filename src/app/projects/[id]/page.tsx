@@ -207,6 +207,24 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
           ))}
         </div>
       </section>
+	  // after the FAQ UI list
+<Script
+  id={`faq-schema-${p.id}`}
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        { "@type": "Question", name: `What is the price of ${p.name}?`, acceptedAnswer: { "@type": "Answer", text: `The price for ${p.name} starts at ${p.price || "market-linked rates"}.` } },
+        { "@type": "Question", name: `When is possession for ${p.name}?`, acceptedAnswer: { "@type": "Answer", text: p.possession ? `${p.name} is expected to be ready by ${p.possession}.` : `Possession timelines are subject to developer updates.` } },
+        { "@type": "Question", name: `Where is ${p.name} located?`, acceptedAnswer: { "@type": "Answer", text: p.location ? `${p.name} is located at ${p.location}.` : `Located in a prime micro-market in Delhi NCR.` } },
+        { "@type": "Question", name: `How can I get the brochure for ${p.name}?`, acceptedAnswer: { "@type": "Answer", text: p.brochure ? `You can download the official brochure by clicking on “Download Brochure” on this page.` : `Brochure details are available upon request.` } },
+      ],
+    }),
+  }}
+/>
+
 
       {/* JSON-LD */}
       <ProjectSchema p={p} />
