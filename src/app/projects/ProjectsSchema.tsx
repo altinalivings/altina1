@@ -14,17 +14,14 @@ const abs = (u?: string) => {
   return `${SITE}${u.startsWith("/") ? u : `/${u}`}`;
 };
 
-// Parse INR like "₹4.7 Cr", "85 Lakh", or plain numbers to a clean integer string
+// Parse INR like "₹4.7 Cr", "85 Lakh", or plain numbers
 function priceNumber(p?: string) {
   if (!p) return undefined;
   const str = p.toLowerCase().replace(/[₹,\s]/g, "").trim();
-
-  const cr = str.match(/^([\d.]+)(cr|crore)$/); // e.g., 4.7cr
-  if (cr) return String(Math.round(parseFloat(cr[1]) * 10000000)); // 1 Cr = 10,000,000
-
-  const lk = str.match(/^([\d.]+)(l|lakh)$/);   // e.g., 85l
-  if (lk) return String(Math.round(parseFloat(lk[1]) * 100000));   // 1 Lakh = 100,000
-
+  const cr = str.match(/^([\d.]+)(cr|crore)$/);
+  if (cr) return String(Math.round(parseFloat(cr[1]) * 10000000));
+  const lk = str.match(/^([\d.]+)(l|lakh)$/);
+  if (lk) return String(Math.round(parseFloat(lk[1]) * 100000));
   const n = parseFloat(str);
   if (!isNaN(n)) {
     if (n < 1000) return String(Math.round(n * 10000000)); // treat small like "4.7" as Cr
@@ -36,47 +33,46 @@ function priceNumber(p?: string) {
 export default function ProjectsSchema() {
   const items = Array.isArray(projects) ? projects : [];
 
-  const graph = items.map((p: any) => {
-    const priceValue = priceNumber(p?.price);
+  const graph = items
+    .map((p: any) => {
+      const priceValue = priceNumber(p?.price);
+      if (!priceValue) return null; // ⟵ SKIP items without numeric price
 
-    const node: any = {
-      "@type": "Product",
-      name: p?.name || "",
-      sku: p?.id || "",
-      brand: p?.developer
-        ? { "@type": "Brand", name: p.developer }
-        : { "@type": "Brand", name: "ALTINA™ Livings" },
-      description: [p?.configuration, p?.location, p?.city || "Delhi NCR"]
-        .filter(Boolean)
-        .join(" • "),
-      image: p?.hero ? [abs(p.hero)] : undefined,
-      category: "Real Estate",
-      url: abs(`/projects/${p?.slug || p?.id}`),
-    };
-
-    // Include offers ONLY when we have a valid numeric price
-    if (priceValue) {
-      node.offers = {
-        "@type": "Offer",
-        price: priceValue,
-        priceCurrency: "INR",
+      return {
+        "@type": "Product",
+        name: p?.name || "",
+        sku: p?.id || "",
+        brand: p?.developer
+          ? { "@type": "Brand", name: p.developer }
+          : { "@type": "Brand", name: "ALTINA™ Livings" },
+        description: [p?.configuration, p?.location, p?.city || "Delhi NCR"]
+          .filter(Boolean)
+          .join(" • "),
+        image: p?.hero ? [abs(p.hero)] : undefined,
+        category: "Real Estate",
         url: abs(`/projects/${p?.slug || p?.id}`),
-        itemCondition: "https://schema.org/NewCondition",
-        availability: "https://schema.org/InStock",
-        priceValidUntil: new Date(Date.now() + 1000 * 60 * 60 * 24 * 90)
-          .toISOString()
-          .slice(0, 10),
-        seller: {
-          "@type": "Organization",
-          name: "ALTINA™ Livings",
-          url: SITE,
-          telephone: "+91-9891234195",
+        offers: {
+          "@type": "Offer",
+          price: priceValue,
+          priceCurrency: "INR",
+          url: abs(`/projects/${p?.slug || p?.id}`),
+          itemCondition: "https://schema.org/NewCondition",
+          availability: "https://schema.org/InStock",
+          priceValidUntil: new Date(Date.now() + 1000 * 60 * 60 * 24 * 90)
+            .toISOString()
+            .slice(0, 10),
+          seller: {
+            "@type": "Organization",
+            name: "ALTINA™ Livings",
+            url: SITE,
+            telephone: "+91-9891234195",
+          },
         },
       };
-    }
+    })
+    .filter(Boolean); // remove null entries
 
-    return node;
-  });
+  if (!graph.length) return null; // nothing to output
 
   const schema = { "@context": "https://schema.org", "@graph": graph };
 
