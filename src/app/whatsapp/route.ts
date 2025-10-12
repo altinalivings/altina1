@@ -42,7 +42,7 @@ export async function GET(request: Request) {
           // Wait for 5 seconds, then redirect to WhatsApp
           setTimeout(() => {
             window.location.href = '${waUrl}';
-          }, 5000);
+          }, 10000);
         </script>
       </head>
       <body>
