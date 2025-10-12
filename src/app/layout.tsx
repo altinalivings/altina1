@@ -160,6 +160,30 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 window.lintrk.q=[];
                 window.__li_loaded=true;
               }
+
+              // 🟢 Site-wide WhatsApp click tracking (GA4)
+              document.addEventListener('click', function(e){
+                try {
+                  var a = e.target.closest && e.target.closest('a');
+                  if(!a) return;
+                  var href = a.getAttribute('href') || '';
+                  href = href.toLowerCase();
+                  if(href.includes('wa.me/') || href.includes('api.whatsapp.com/send') || href.startsWith('whatsapp://')){
+                    if(typeof window.gtag === 'function'){
+                      window.gtag('event', 'whatsapp_click', {
+                        event_category: 'engagement',
+                        event_label: href
+                      });
+                    }
+                    if(window.dataLayer){
+                      window.dataLayer.push({
+                        event: 'whatsapp_click',
+                        wa_href: href
+                      });
+                    }
+                  }
+                } catch(err){}
+              }, true);
             })();
           `}
         </Script>
