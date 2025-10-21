@@ -88,7 +88,7 @@ export default function ContactPage() {
                 rel="noopener noreferrer"
                 className="text-[var(--altina-gold)] hover:underline"
               >
-                301, Sam Residency, Crossing Republik, Ghaziabad
+                Appartment no 301, 12th floor, GH Plot No 6, Sam Residency, Crossing Republik, Ghaziabad
               </a>
             </li>
             <li>📞 +91 98912 34195</li>
