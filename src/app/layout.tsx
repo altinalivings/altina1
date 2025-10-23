@@ -75,6 +75,32 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     ],
   };
 
+  // ✅ Enhanced LocalBusiness / RealEstateAgent JSON-LD
+  const businessJsonLd = {
+    "@context": "https://schema.org",
+    "@type": ["RealEstateAgent", "LocalBusiness"],
+    name: "ALTINA™ Livings",
+    image: "https://www.altinalivings.com/logo.png",
+    url: "https://www.altinalivings.com",
+    telephone: "+91-9891234195",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress:
+        "Suite C, 704, 7th Floor, Palm Court, Mehrauli-Gurgaon Road, Sector 16",
+      addressLocality: "Gurugram",
+      addressRegion: "Haryana",
+      postalCode: "122007",
+      addressCountry: "IN",
+    },
+    areaServed: ["Delhi NCR", "Gurgaon", "Noida"],
+    sameAs: [
+      "https://www.facebook.com/profile.php?id=61580035583494",
+      "https://www.instagram.com/altinalivings",
+      "https://www.linkedin.com/company/108414321/",
+      "https://www.youtube.com/@Altinalivings",
+    ],
+  };
+
   return (
     <html lang="en" className="bg-black text-white">
       <head>
@@ -115,6 +141,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(businessJsonLd) }}
         />
 
         {/* ✅ Analytics Script Loader */}

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 
 import projects from "@/data/projects.json";
 import developers from "@/data/developers.json";
@@ -14,14 +15,14 @@ import LocationsSection from "@/components/LocationsSection";
 import FloatingCTAs from "@/components/FloatingCTAs";
 
 export const metadata: Metadata = {
-  title: "ALTINA™ Livings | Trusted Real Estate Channel Partner in Delhi NCR",
+  title: "Luxury Apartments & Builder Floors in Delhi NCR | ALTINA™ Livings",
   description:
-    "Discover luxury apartments, villas, and commercial spaces across Gurgaon, Noida, and Delhi NCR. ALTINA™ Livings partners with DLF, Sobha, M3M, and Godrej to bring premium launches.",
-  alternates: { canonical: "/" },
+    "Explore luxury flats, independent floors, and commercial projects by DLF, Sobha & Godrej across Delhi NCR. ALTINA™ Livings — Your Gateway to Luxury Living.",
+  alternates: { canonical: "https://www.altinalivings.com" },
   openGraph: {
-    title: "ALTINA™ Livings | Luxury Properties in Delhi NCR",
+    title: "Luxury Properties Delhi NCR | ALTINA™ Livings",
     description:
-      "Explore curated projects in Delhi NCR with ALTINA™ Livings, your trusted real estate channel partner.",
+      "Discover premium residential & commercial projects in Delhi NCR with ALTINA™ Livings, trusted channel partner for marquee developers.",
     images: ["/og-default.jpg"],
     url: "https://www.altinalivings.com",
   },
@@ -93,12 +94,45 @@ export default function HomePage() {
       </section>
 
       <FeaturedProjects items={featuredProjects} />
-    {/* <FeaturedDevelopers items={(developers as any[])} />*/}
+      {/* <FeaturedDevelopers items={(developers as any[])} /> */}
       <ServicesWeOffer />
       <ValueProposition />
       <MiniCTA />
       <TestimonialsSection />
       <LocationsSection />
+
+      {/* Optional: Homepage FAQ rich result */}
+      <Script
+        id="home-faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "What makes ALTINA™ Livings different?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text:
+                    "ALTINA™ Livings curates luxury residential and commercial projects across Delhi NCR, partnering with marquee developers like DLF, Sobha, and Godrej.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Which areas does ALTINA™ Livings operate in?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text:
+                    "We specialize in premium properties in Delhi, Gurugram, and Noida — including DLF Midtown, Independent Floors, and SCO plots.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
+
       <FloatingCTAs projectId={null} projectName={null} />
     </main>
   );
