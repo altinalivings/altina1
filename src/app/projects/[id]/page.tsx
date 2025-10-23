@@ -231,13 +231,19 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
         }}
       />
 		
-		<section className="max-w-6xl mx-auto px-4 mt-8">
-  <RelatedProjects currentId={p.id} projects={list} />
-</section>
+{/* JSON-LD Schemas */}
+<ProjectSchema p={p} />
+<ProjectBreadcrumbs p={p} />
 
-      {/* JSON-LD for Product & Breadcrumbs */}
-      <ProjectSchema p={p} />
-      <ProjectBreadcrumbs p={p} />
+{/* Related Projects - centered and styled */}
+<section className="max-w-6xl mx-auto px-4 mt-12 pb-12">
+  <div className="border-t border-altina-gold/20 pt-8">
+    <h2 className="text-xl sm:text-2xl font-semibold text-altina-gold mb-6">
+      More like this
+    </h2>
+    <RelatedProjects currentId={p.id} projects={list} />
+  </div>
+</section>
 
       
     </main>
