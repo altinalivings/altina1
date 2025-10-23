@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import projectsData from "@/data/projects.json"; // fallback source
+import projectsData from "@/data/projects.json"; // fallback
 
 type Project = {
   id: string;
@@ -17,10 +17,9 @@ type Project = {
 
 type Props = {
   currentId: string;
-  // Optional props (backward compatible)
-  projects?: Project[];
-  developer?: string;
-  city?: string;
+  projects?: Project[];     // optional (fallback to JSON)
+  developer?: string;       // for similarity
+  city?: string;            // for similarity
 };
 
 export default function RelatedProjects({
@@ -29,16 +28,13 @@ export default function RelatedProjects({
   developer,
   city,
 }: Props) {
-  // ✅ Fallback to JSON if projects prop is not provided
   const source: Project[] = Array.isArray(projects)
     ? projects
     : (projectsData as Project[]);
 
-  // Safety: if still not an array, render nothing
   if (!Array.isArray(source) || !source.length) return null;
 
-  // Prefer similarity by developer/city, else just show any others with images
-  let pool = source.filter((p) => p && p.id && p.id !== currentId);
+  const pool = source.filter((p) => p && p.id && p.id !== currentId);
 
   const similar =
     (developer || city)
@@ -49,9 +45,10 @@ export default function RelatedProjects({
         )
       : [];
 
-  const candidates = (similar.length ? similar : pool).filter((p) => !!p.hero);
+  const items = (similar.length ? similar : pool)
+    .filter((p) => !!p.hero)
+    .slice(0, 3);
 
-  const items = candidates.slice(0, 3);
   if (!items.length) return null;
 
   return (
@@ -60,17 +57,19 @@ export default function RelatedProjects({
         <Link
           key={p.id}
           href={`/projects/${p.id}`}
-          className="group relative flex flex-col rounded-2xl border border-altina-gold/30 bg-gradient-to-b from-[#111] to-[#0b0b0b] p-4 shadow-md transition-all hover:border-altina-gold/80 hover:shadow-[0_0_20px_rgba(212,175,55,0.35)]"
+          aria-label={`View details for ${p.name}`}
+          className="group relative flex flex-col rounded-2xl border border-altina-gold/30 bg-gradient-to-b from-[#111] to-[#0b0b0b] p-4 shadow-md transition-all hover:border-altina-gold/80 hover:shadow-[0_0_20px_rgba(212,175,55,0.35)] min-h-[230px]"
         >
           {/* Image */}
           {p.hero && (
-            <div className="relative mb-4 overflow-hidden rounded-xl">
+            <div className="relative mb-4 overflow-hidden rounded-xl aspect-[16/9]">
               <Image
                 src={p.hero}
                 alt={p.heroAlt || p.name}
-                width={500}
-                height={280}
-                className="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                priority={false}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
             </div>
@@ -79,10 +78,10 @@ export default function RelatedProjects({
           {/* Text */}
           <div className="flex flex-col flex-1 justify-between">
             <div>
-              <h3 className="text-lg font-semibold text-altina-ivory group-hover:text-altina-gold transition">
+              <h3 className="text-lg font-semibold text-altina-ivory transition group-hover:text-altina-gold">
                 {p.name}
               </h3>
-              <p className="text-sm text-altina-gold/70 mt-1">
+              <p className="mt-1 text-sm text-altina-gold/70">
                 {p.brand || p.developer || "Premium Developer"}
                 {p.city ? ` • ${p.city}` : ""}
               </p>
