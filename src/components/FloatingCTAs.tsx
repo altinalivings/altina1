@@ -16,8 +16,6 @@ const btn =
   "bg-black/65 backdrop-blur px-4 py-3 text-sm font-medium tracking-wide " +
   "shadow-[0_2px_12px_rgba(0,0,0,0.35)] hover:bg-amber-400/15 transition text-white";
 
-// Ultra-robust singleton: use a window-scoped flag.
-// Any second instance will self-disable.
 function useSingletonWinFlag(flagKey = "__ALTINA_FCTAS_MOUNTED__"): boolean {
   const [allowed, setAllowed] = useState(false);
   useEffect(() => {
@@ -29,7 +27,11 @@ function useSingletonWinFlag(flagKey = "__ALTINA_FCTAS_MOUNTED__"): boolean {
     }
     w[flagKey] = true;
     setAllowed(true);
-    return () => { try { w[flagKey] = false; } catch {} };
+    return () => {
+      try {
+        w[flagKey] = false;
+      } catch {}
+    };
   }, [flagKey]);
   return allowed;
 }
@@ -46,7 +48,7 @@ export default function FloatingCTAs({
   className,
   hideOnMobile = true,
 }: Props) {
-  const allowed = useSingletonWinFlag(); // prevents duplicates globally
+  const allowed = useSingletonWinFlag();
   if (!allowed) return null;
 
   const common = { projectId, projectName };
@@ -59,16 +61,65 @@ export default function FloatingCTAs({
 
   return (
     <div className={`${wrapBase} ${mobileRule} ${topRule} ${className || ""}`}>
+      {/* 📞 Request Callback */}
       <button onClick={onCallback} className={btn} aria-label="Request Callback">
-        <img src="/icons/phone.png" alt="" className="h-4 w-4" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          viewBox="0 0 24 24"
+          className="h-4 w-4"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M2 5.5C2 4.12 3.12 3 4.5 3h2A2.5 2.5 0 0 1 9 5.5v2A2.5 2.5 0 0 1 6.5 10h-.38a.5.5 0 0 0-.47.68 12.03 12.03 0 0 0 8.67 8.67.5.5 0 0 0 .68-.47V17.5A2.5 2.5 0 0 1 17.5 15h2A2.5 2.5 0 0 1 22 17.5v2A2.5 2.5 0 0 1 19.5 22C10.94 22 2 13.06 2 4.5V5.5Z"
+          />
+        </svg>
         <span>Request Callback</span>
       </button>
+
+      {/* 📄 Download Brochure */}
       <button onClick={onBrochure} className={btn} aria-label="Download Brochure">
-        <img src="/icons/download.png" alt="" className="h-4 w-4" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          viewBox="0 0 24 24"
+          className="h-4 w-4"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M4 20h16M12 4v12m0 0l4-4m-4 4l-4-4"
+          />
+        </svg>
         <span>Download Brochure</span>
       </button>
+
+      {/* 🏡 Organize Visit */}
       <button onClick={onVisit} className={btn} aria-label="Organize Visit">
-        <img src="/icons/home.png" alt="" className="h-4 w-4" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          viewBox="0 0 24 24"
+          className="h-4 w-4"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3 10.5L12 4l9 6.5v9a.5.5 0 0 1-.5.5H3.5a.5.5 0 0 1-.5-.5v-9Z"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M9 21V12h6v9"
+          />
+        </svg>
         <span>Organize Visit</span>
       </button>
     </div>

@@ -213,7 +213,8 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
           ))}
         </div>
       </section>
-
+{/* Internal linking */}
+      <RelatedProjects currentId={p.id} projects={list} />
       {/* FAQPage JSON-LD */}
       <Script
         id={`faq-schema-${p.id}`}
@@ -236,8 +237,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
       <ProjectSchema p={p} />
       <ProjectBreadcrumbs p={p} />
 
-      {/* Internal linking */}
-      <RelatedProjects currentId={p.id} projects={list} />
+      
     </main>
   );
 }
