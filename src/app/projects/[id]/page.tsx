@@ -213,8 +213,6 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
           ))}
         </div>
       </section>
-{/* Internal linking */}
-      <RelatedProjects currentId={p.id} projects={list} />
       {/* FAQPage JSON-LD */}
       <Script
         id={`faq-schema-${p.id}`}
@@ -232,6 +230,10 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
           }),
         }}
       />
+		
+		<section className="max-w-6xl mx-auto px-4 mt-8">
+  <RelatedProjects currentId={p.id} projects={list} />
+</section>
 
       {/* JSON-LD for Product & Breadcrumbs */}
       <ProjectSchema p={p} />
