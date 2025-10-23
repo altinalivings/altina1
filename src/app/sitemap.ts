@@ -3,18 +3,14 @@ import type { MetadataRoute } from "next";
 import fs from "fs";
 import path from "path";
 import projects from "@/data/projects.json";
+import posts from "@/data/posts.json";
 
 const SITE =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
   "https://www.altinalivings.com";
 
-/**
- * Helper: get approximate last modified date of your repo (fallback to current time).
- * In Vercel builds, we'll use the current deployment date if git data isn't available.
- */
 function getLastModified(): string {
   try {
-    // Try reading the .git directory mtime if exists
     const gitPath = path.join(process.cwd(), ".git");
     const stat = fs.statSync(gitPath);
     return new Date(stat.mtime).toISOString();
@@ -23,13 +19,6 @@ function getLastModified(): string {
   }
 }
 
-/**
- * Generate XML sitemap entries for:
- *  - Home
- *  - /projects listing
- *  - All individual projects
- *  - Includes <image:image> tags for hero images (Image SEO)
- */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = getLastModified();
 
@@ -46,8 +35,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.9,
     },
+    {
+      url: `${SITE}/blog`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
   ];
 
+  // 🔹 Project detail entries
   const projectEntries: MetadataRoute.Sitemap = (projects as any[])
     .filter(Boolean)
     .map((p) => ({
@@ -55,18 +51,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.7,
-      // 🖼️ Include hero image for Google Images
       images: p.hero
         ? [
             {
               loc: p.hero.startsWith("http")
                 ? p.hero
                 : `${SITE}${p.hero.startsWith("/") ? p.hero : `/${p.hero}`}`,
-              title: `${p.name} by ${p.developer || "Altina Livings"}`,
+              title: `${p.name} by ${p.developer || "Altina™ Livings"}`,
             },
           ]
         : undefined,
     }));
 
-  return [...base, ...projectEntries];
+  // 🔹 Blog post entries
+  const blogEntries: MetadataRoute.Sitemap = (posts as any[])
+    .filter(Boolean)
+    .map((b) => ({
+      url: `${SITE}/blog/${b.slug}`,
+      lastModified: b.lastmod || now,
+      changeFrequency: "monthly",
+      priority: 0.6,
+      images: b.coverImage
+        ? [
+            {
+              loc: b.coverImage.startsWith("http")
+                ? b.coverImage
+                : `${SITE}${b.coverImage.startsWith("/") ? b.coverImage : `/${b.coverImage}`}`,
+              title: b.title,
+            },
+          ]
+        : undefined,
+    }));
+
+  return [...base, ...projectEntries, ...blogEntries];
 }
