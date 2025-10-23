@@ -236,7 +236,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
 <ProjectBreadcrumbs p={p} />
 
 {/* Related Projects - centered and styled */}
-<section className="max-w-6xl mx-auto px-4 mt-12 pb-12">
+<section className="max-w-6xl mx-auto px-4 py-10 border-t border-altina-gold/20">
   <div className="border-t border-altina-gold/20 pt-8">
     <h2 className="text-xl sm:text-2xl font-semibold text-altina-gold mb-6">
       More like this
