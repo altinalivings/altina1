@@ -3,6 +3,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import projectsData from "@/data/projects.json"; // fallback source
 
 type Project = {
   id: string;
@@ -14,24 +15,48 @@ type Project = {
   heroAlt?: string;
 };
 
+type Props = {
+  currentId: string;
+  // Optional props (backward compatible)
+  projects?: Project[];
+  developer?: string;
+  city?: string;
+};
+
 export default function RelatedProjects({
   currentId,
   projects,
-}: {
-  currentId: string;
-  projects: Project[];
-}) {
-  // Filter out the current project + show only featured or similar
-  const others = projects
-    .filter((p) => p.id !== currentId)
-    .filter((p) => p.hero)
-    .slice(0, 3);
+  developer,
+  city,
+}: Props) {
+  // ✅ Fallback to JSON if projects prop is not provided
+  const source: Project[] = Array.isArray(projects)
+    ? projects
+    : (projectsData as Project[]);
 
-  if (!others.length) return null;
+  // Safety: if still not an array, render nothing
+  if (!Array.isArray(source) || !source.length) return null;
+
+  // Prefer similarity by developer/city, else just show any others with images
+  let pool = source.filter((p) => p && p.id && p.id !== currentId);
+
+  const similar =
+    (developer || city)
+      ? pool.filter(
+          (p) =>
+            (developer && p.developer && p.developer === developer) ||
+            (city && p.city && p.city === city)
+        )
+      : [];
+
+  const candidates = (similar.length ? similar : pool).filter((p) => !!p.hero);
+
+  const items = candidates.slice(0, 3);
+  if (!items.length) return null;
 
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {others.map((p) => (
+      {items.map((p) => (
         <Link
           key={p.id}
           href={`/projects/${p.id}`}
