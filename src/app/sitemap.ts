@@ -1,5 +1,7 @@
 // src/app/sitemap.ts
 import type { MetadataRoute } from "next";
+import fs from "fs";
+import path from "path";
 import projects from "@/data/projects.json";
 
 const SITE =
@@ -7,15 +9,30 @@ const SITE =
   "https://www.altinalivings.com";
 
 /**
- * Generates a clean XML sitemap:
- *  - Homepage, /projects listing
- *  - One URL per project from data/projects.json
- *  - Weekly change frequency; priorities tuned for listing & detail pages
+ * Helper: get approximate last modified date of your repo (fallback to current time).
+ * In Vercel builds, we'll use the current deployment date if git data isn't available.
+ */
+function getLastModified(): string {
+  try {
+    // Try reading the .git directory mtime if exists
+    const gitPath = path.join(process.cwd(), ".git");
+    const stat = fs.statSync(gitPath);
+    return new Date(stat.mtime).toISOString();
+  } catch {
+    return new Date().toISOString();
+  }
+}
+
+/**
+ * Generate XML sitemap entries for:
+ *  - Home
+ *  - /projects listing
+ *  - All individual projects
+ *  - Includes <image:image> tags for hero images (Image SEO)
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
+  const now = getLastModified();
 
-  // Static pages (add more routes here if needed)
   const base: MetadataRoute.Sitemap = [
     {
       url: `${SITE}/`,
@@ -31,7 +48,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // Project detail pages
   const projectEntries: MetadataRoute.Sitemap = (projects as any[])
     .filter(Boolean)
     .map((p) => ({
@@ -39,6 +55,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.7,
+      // 🖼️ Include hero image for Google Images
+      images: p.hero
+        ? [
+            {
+              loc: p.hero.startsWith("http")
+                ? p.hero
+                : `${SITE}${p.hero.startsWith("/") ? p.hero : `/${p.hero}`}`,
+              title: `${p.name} by ${p.developer || "Altina Livings"}`,
+            },
+          ]
+        : undefined,
     }));
 
   return [...base, ...projectEntries];
