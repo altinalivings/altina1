@@ -20,7 +20,7 @@ export const metadata: Metadata = {
       "Stay updated with premium property news, investment trends, and expert articles by ALTINA™ Livings.",
     url: `${SITE}/blog`,
     siteName: "ALTINA™ Livings",
-    type: "blog",
+    type: "website",
   },
 };
 
