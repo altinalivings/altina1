@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import projectsData from "@/data/projects.json"; // fallback
+import projectsData from "@/data/projects.json";
 
 type Project = {
   id: string;
@@ -13,14 +13,35 @@ type Project = {
   city?: string;
   hero?: string;
   heroAlt?: string;
+  featured?: boolean;
+  featured_order?: number;
 };
 
 type Props = {
   currentId: string;
-  projects?: Project[];     // optional (fallback to JSON)
-  developer?: string;       // for similarity
-  city?: string;            // for similarity
+  projects?: Project[];
+  developer?: string;
+  city?: string;
 };
+
+// normalize strings for fuzzy matching (lowercase, strip brackets, punctuation, extra spaces)
+function norm(s?: string) {
+  return (s || "")
+    .toLowerCase()
+    .replace(/\(.*?\)/g, " ")  // remove parentheticals
+    .replace(/[^a-z0-9\s]/g, " ") // remove punctuation
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function includesToken(a?: string, b?: string) {
+  const A = norm(a);
+  const B = norm(b);
+  if (!A || !B) return false;
+  // token-level contains (so "dlf urban" includes "dlf")
+  const tokensB = new Set(B.split(" "));
+  return A.split(" ").some((t) => t && tokensB.has(t));
+}
 
 export default function RelatedProjects({
   currentId,
@@ -34,21 +55,41 @@ export default function RelatedProjects({
 
   if (!Array.isArray(source) || !source.length) return null;
 
-  const pool = source.filter((p) => p && p.id && p.id !== currentId);
+  const pool = source.filter((p) => p && p.id && p.id !== currentId && p.hero);
 
-  const similar =
-    (developer || city)
-      ? pool.filter(
-          (p) =>
-            (developer && p.developer && p.developer === developer) ||
-            (city && p.city && p.city === city)
-        )
-      : [];
+  // Score by similarity; prefer same developer/brand, then same city, then featured/order
+  const devRef = developer;
+  const brandRef = source.find((p) => p.id === currentId)?.brand;
+  const cityRef = city;
 
-  const items = (similar.length ? similar : pool)
-    .filter((p) => !!p.hero)
-    .slice(0, 3);
+  const scored = pool
+    .map((p) => {
+      let score = 0;
 
+      // developer fuzzy match (e.g., "DLF (DLF Urban Pvt. Ltd.)" vs "DLF")
+      if (includesToken(p.developer, devRef) || includesToken(devRef, p.developer)) score += 50;
+
+      // brand fuzzy match
+      if (includesToken(p.brand, brandRef) || includesToken(brandRef, p.brand)) score += 20;
+
+      // city match (exact-ish after normalization)
+      if (norm(p.city) && norm(p.city) === norm(cityRef)) score += 10;
+
+      // featured gets a little boost
+      if (p.featured) score += 5;
+
+      // minor penalty if no hero (we filtered those out above anyway)
+      if (!p.hero) score -= 1;
+
+      // lower featured_order is better
+      const orderBias = typeof p.featured_order === "number" ? (100 - Math.min(99, p.featured_order)) : 0;
+      score += orderBias * 0.1;
+
+      return { p, score };
+    })
+    .sort((a, b) => b.score - a.score);
+
+  const items = scored.slice(0, 3).map((x) => x.p);
   if (!items.length) return null;
 
   return (
@@ -69,7 +110,6 @@ export default function RelatedProjects({
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                priority={false}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
             </div>
