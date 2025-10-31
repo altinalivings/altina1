@@ -62,8 +62,12 @@ export default function FloatingCTAs({
   return (
     <div className={`${wrapBase} ${mobileRule} ${topRule} ${className || ""}`}>
       {/* 📞 Request Callback */}
-		  {/*<button onClick={onCallback} className={btn} aria-label="Request Callback">*/}
-	  <button type="button" className="..." onClick={() => dispatchLead('callback')}>
+      <button
+        type="button"
+        onClick={onCallback}
+        className={btn}
+        aria-label="Request Callback"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -71,6 +75,7 @@ export default function FloatingCTAs({
           strokeWidth="1.8"
           viewBox="0 0 24 24"
           className="h-4 w-4"
+          aria-hidden="true"
         >
           <path
             strokeLinecap="round"
@@ -82,7 +87,12 @@ export default function FloatingCTAs({
       </button>
 
       {/* 📄 Download Brochure */}
-      <button onClick={onBrochure} className={btn} aria-label="Download Brochure">
+      <button
+        type="button"
+        onClick={onBrochure}
+        className={btn}
+        aria-label="Download Brochure"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -90,18 +100,20 @@ export default function FloatingCTAs({
           strokeWidth="1.8"
           viewBox="0 0 24 24"
           className="h-4 w-4"
+          aria-hidden="true"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M4 20h16M12 4v12m0 0l4-4m-4 4l-4-4"
-          />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M4 20h16M12 4v12m0 0l4-4m-4 4l-4-4" />
         </svg>
         <span>Download Brochure</span>
       </button>
 
       {/* 🏡 Organize Visit */}
-      <button onClick={onVisit} className={btn} aria-label="Organize Visit">
+      <button
+        type="button"
+        onClick={onVisit}
+        className={btn}
+        aria-label="Organize Visit"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -109,17 +121,14 @@ export default function FloatingCTAs({
           strokeWidth="1.8"
           viewBox="0 0 24 24"
           className="h-4 w-4"
+          aria-hidden="true"
         >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
             d="M3 10.5L12 4l9 6.5v9a.5.5 0 0 1-.5.5H3.5a.5.5 0 0 1-.5-.5v-9Z"
           />
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M9 21V12h6v9"
-          />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 21V12h6v9" />
         </svg>
         <span>Organize Visit</span>
       </button>
