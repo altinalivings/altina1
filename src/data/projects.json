@@ -1,0 +1,301 @@
+[
+  {
+    "id": "dlf-one-midtown",
+    "slug": "dlf-one-midtown-moti-nagar",
+    "name": "DLF One Midtown",
+    "developer": "DLF (DLF Urban Pvt. Ltd.)",
+    "brand": "DLF",
+    "rating": 4.7,
+    "location": "Shivaji Marg, Moti Nagar, West Delhi, Delhi",
+    "city": "New Delhi",
+    "state": "Delhi",
+    "sector": "Moti Nagar / Shivaji Marg",
+    "micro_market": "Moti Nagar, West Delhi",
+    "rera": "DLRERA2021P0007",
+    "status": "ready to move",
+    "construction_status": "complete / near-complete",
+    "possession": "Jul 2024",
+    "launch": "2021",
+    "price": "₹4.7 Cr onwards",
+    "configuration": "2, 3 & 4 BHK Residences",
+    "typologies": ["2 BHK", "3 BHK", "4 BHK + SQ"],
+    "sizes": "1,732 – 3,000 sq.ft.",
+    "land_area": "≈ 5.14 acres",
+    "towers": 4,
+    "floors": "up to 39 floors",
+    "total_units": "≈ 915 apartments",
+    "bank_approvals": ["HDFC", "ICICI", "SBI"],
+    "usp": [
+      "Surrounded by 128 acres of landscaped park",
+      "Luxury finishes & premium design partners",
+      "Excellent connectivity via multiple metro lines, arterial roads",
+      "Resident-exclusive clubhouse and full amenity set"
+    ],
+    "highlights": [
+      "Infinity edge swimming pool",
+      "Lush landscaped greens & gardens",
+      "Expansive balconies with laminated glass railings",
+      "Spacious halls / luxury flooring (marble in living/dining, wooden/laminated in bedrooms)"
+    ],
+    "amenities": [
+      "Clubhouse",
+      "Pool",
+      "Gym",
+      "spa",
+      "kids",
+      "jogging",
+      "Landscaped Gardens",
+      "security",
+      "Public / Retail / Banquets / Dining options"
+    ],
+    "specs": {
+      "structure": "High-rise towers (RCC framed) with premium façade finishes",
+      "air_conditioning": "VRV / VRF systems",
+      "flooring": "Imported marble in living / dining; laminated wooden / similar in bedrooms",
+      "kitchen": "Modular kitchens; premium fittings",
+      "bathrooms": "Glass shower partitions; premium sanitary & CP fittings",
+      "lifts": "High-speed lifts; destination control / smart access (as per luxury standard)"
+    },
+    "about": "DLF One Midtown is an ultra-luxury residential development in Moti Nagar, West Delhi. Spread over ~5 acres, surrounded by large green open spaces, offering 2,3 & 4 BHK residences with premium amenities and excellent connectivity. It is RERA-registered and mostly ready for possession.",
+    "aboutDeveloper": "DLF is India’s leading real estate developer with landmark communities, premium residences and commercial assets across the country. With 75+ years in the industry, DLF is known for quality, delivery, and estate management.",
+    "brochure": "/brochures/dlf-one-midtown.pdf",
+    "hero": "/projects/dlf-one-midtown/hero.jpg",
+    "gallery": [
+      "/projects/dlf-one-midtown/g1.jpg",
+      "/projects/dlf-one-midtown/g2.jpg",
+      "/projects/dlf-one-midtown/g3.jpg",
+      "/projects/dlf-one-midtown/g4.jpg"
+    ],
+    "videoGallery": [
+      { "title": "DLF One Midtown – Walkthrough", "url": "https://www.youtube.com/watch?v=t2UzbAW6-D8" }
+    ],
+    "virtualTourUrl": "https://www.youtube.com/watch?v=t2UzbAW6-D8",
+    "map": {
+      "embed": "https://www.google.com/maps?q=28.650,77.135&z=16&output=embed",
+      "lat": 28.65,
+      "lng": 77.135
+    },
+    "nearby": {
+      "schools": ["Some reputed schools in West Delhi / nearby Moti Nagar"],
+      "hospitals": ["Nearby hospitals in Moti Nagar / West Delhi"],
+      "malls": ["Retail centres in and around Moti Nagar / Kirti Nagar / Punjabi Bagh"],
+      "connectivity": [
+        { "label": "Metro Stations (Moti Nagar / Kirti Nagar etc.)", "time": "within ~5-10 min walk / drive" },
+        { "label": "IGI Airport", "time": "approx 25-40 min depending on traffic" }
+      ]
+    },
+    "legal": {
+      "disclaimer": "All imagery & specifications are for representation. Buyers should verify RERA, possession status, actual unit sizes, pricing, and approvals from official documentation."
+    },
+    "faqs": [
+      { "q": "What is the price range for DLF One Midtown?", "a": "2, 3 & 4 BHK residences start from ₹4.7 Cr onwards (varies by layout and view)." },
+      { "q": "When is the possession for DLF One Midtown?", "a": "The project is largely complete and ready for possession from July 2024." },
+      { "q": "How is the connectivity of DLF One Midtown?", "a": "Excellent metro/Ring Road access; central to West/Central Delhi hubs." }
+    ],
+    "seo": {
+      "title": "DLF One Midtown – Luxury 2, 3 & 4 BHK Residences in Moti Nagar, Delhi",
+      "description": "Luxury residences by DLF in West Delhi with premium amenities, surrounded by greens, excellent connectivity & ready possession.",
+      "canonical": "https://www.dlfhomes.co.in/dlf-midtown-moti-nagar-delhi"
+    },
+    "featured": true,
+    "featured_order": 1
+  },
+  {
+    "id": "dlf-independent-floors-phase-2-3",
+    "slug": "dlf-independent-floors-phase-2-3",
+    "name": "DLF Independent Floors (Phase 2 & 3)",
+    "developer": "DLF",
+    "brand": "DLF",
+    "rating": 4.7,
+    "location": "DLF City Phase 2 & Phase 3, Gurugram",
+    "city": "Gurugram",
+    "state": "Haryana",
+    "sector": "DLF Phase 2 & 3",
+    "micro_market": "DLF City",
+    "rera": "TBA",
+    "status": "launched",
+    "construction_status": "under-construction",
+    "possession": "TBA (phase-wise)",
+    "launch": "2025",
+    "price": "₹TBA",
+    "configuration": "3 & 4 BHK Independent Floors",
+    "typologies": ["3 BHK", "4 BHK"],
+    "sizes": "1,800 – 3,200 sq.ft.",
+    "land_area": "Low-rise plotted (multiple pockets)",
+    "towers": 0,
+    "floors": "Stilt + 4",
+    "total_units": "TBA",
+    "bank_approvals": ["HDFC", "ICICI", "SBI", "Axis"],
+    "usp": [
+      "Low-rise independent floors in prime DLF City",
+      "Walkable access to MG Road, Cyber Hub & Rapid Metro",
+      "Gated pockets with DLF estate management"
+    ],
+    "highlights": [
+      "Private low-density living (one floor per level)",
+      "Stilt parking & lift in each block",
+      "Premium modular kitchens & branded fittings",
+      "Multi-tier security, access-controlled lobbies"
+    ],
+    "amenities": [
+      "Security",
+      "Lift (per block)",
+      "Stilt Parking",
+      "Power Backup",
+      "Kids Play",
+      "Green Pockets",
+      "Maintenance by DLF"
+    ],
+    "specs": {
+      "structure": "RCC framed, low-rise",
+      "air_conditioning": "Provisioned; VRV/VRF in select offerings",
+      "flooring": "Imported/vitrified tiles in living; wooden/laminate in bedrooms",
+      "kitchen": "Modular with hob/hood, stone countertop, premium fittings",
+      "bathrooms": "Branded sanitary & CP fittings, shower enclosures",
+      "lifts": "Lift in each low-rise block"
+    },
+    "about": "DLF Independent Floors (Phase 2 & 3) bring low-rise luxury to the heart of DLF City—offering privacy, stilt parking, lifts, premium finishes and estate-managed living with unmatched access to MG Road, Cyber Hub and Rapid Metro.",
+    "aboutDeveloper": "DLF is India’s leading real estate developer with landmark communities, premium residences and commercial assets across the country. With 75+ years in the industry, DLF is known for quality, delivery, and estate management.",
+    "brochure": "/brochures/dlf-independent-floors-phase-2-3.pdf",
+    "hero": "/projects/dlf-independent-floors-phase-2-3/hero.jpg",
+    "gallery": [
+      "/projects/dlf-independent-floors-p2p3/g1.jpg",
+      "/projects/dlf-independent-floors-p2p3/g2.jpg",
+      "/projects/dlf-independent-floors-p2p3/g3.jpg",
+      "/projects/dlf-independent-floors-p2p3/g4.jpg"
+    ],
+    "videoGallery": [],
+    "map": {
+      "embed": "https://www.google.com/maps?q=DLF+City+Phase+2,+Gurugram&z=14&output=embed",
+      "lat": 28.476,
+      "lng": 77.096
+    },
+    "nearby": {
+      "schools": ["Shalom Hills", "The Shri Ram School Moulsari"],
+      "hospitals": ["Artemis Hospital", "Medanta"],
+      "malls": ["DLF CyberHub", "DLF City Centre", "Ambience Mall"],
+      "connectivity": [
+        { "label": "Rapid Metro (Phase 2/3)", "time": "5–10 min" },
+        { "label": "NH-48", "time": "10–15 min" },
+        { "label": "IGI Airport", "time": "20–30 min" }
+      ]
+    },
+    "legal": {
+      "disclaimer": "All imagery & details are indicative. Specifications/approvals are subject to change. Verify latest RERA details and availability."
+    },
+    "faqs": [
+      { "q": "What is the price range for DLF Independent Floors Phase 2 & 3?", "a": "Indicatively from ₹4.5 Cr onwards (varies by pocket, floor level and size)." },
+      { "q": "When is the possession for DLF Independent Floors?", "a": "Phase-wise; many pockets are already ready/near-ready." },
+      { "q": "How is the connectivity of DLF Independent Floors?", "a": "Near MG Road, CyberHub, NH-48 and Rapid Metro—5–10 mins from most pockets." }
+    ],
+    "seo": {
+      "title": "DLF Independent Floors Phase 2 & 3 – 3 & 4 BHK in DLF City, Gurugram",
+      "description": "Low-rise luxury independent floors by DLF in DLF City Phases 2 & 3. Stilt + 4, lifts, premium finishes, estate management, near MG Road & Cyber Hub.",
+      "canonical": "https://www.altinalivings.com/projects/dlf-independent-floors-phase-2-3"
+    },
+    "featured": true,
+    "featured_order": 2
+  },
+  {
+    "id": "dlf-sco-67",
+    "slug": "dlf-sco-67",
+    "name": "DLF Central 67 (SCO Plots)",
+    "developer": "DLF Home Developers Limited",
+    "brand": "DLF",
+    "rating": 4.8,
+    "location": "DLF Central 67, Sohna Road, Gurugram",
+    "city": "Gurugram",
+    "state": "Haryana",
+    "sector": "Sector 67",
+    "micro_market": "Sohna Road",
+    "rera": "RC/REP/HARERA/GGM/768/500/2023/112",
+    "status": "launched",
+    "construction_status": "under-construction",
+    "possession": "TBA",
+    "launch": "2025",
+    "price": "₹TBA",
+    "configuration": "SCO Plots (B+G+4)",
+    "typologies": ["Commercial Plots", "SCO"],
+    "sizes": "118 sq.m (~141 sq. yd.) onwards",
+    "land_area": "3.52 hectares (~8.69 acres)",
+    "towers": 0,
+    "floors": "Basement + Ground + 4",
+    "total_units": "75 SCO plots",
+    "bank_approvals": ["HDFC", "ICICI", "SBI", "Axis"],
+    "usp": [
+      "Located on Sohna Road opposite ARIA Mall",
+      "Grand 6,039 sq.m (65,000 sq.ft) internal plaza",
+      "Globally renowned landscape design by MPFP",
+      "Architectural design by Hafeez Contractor"
+    ],
+    "highlights": [
+      "Majestic 60m/80m wide entrances from Sohna Road",
+      "Catchment of 7 lakh+ families in surrounding area",
+      "Pedestrian-friendly arcaded walkways (3m wide)",
+      "Largest central open area: 74m x 51m",
+      "Dedicated periphery & surface parking",
+      "Strategically designed traffic circulation",
+      "Curated plot sizes with corner plots",
+      "FAR of 4.28"
+    ],
+    "amenities": [
+      "Grand Internal Plaza",
+      "Ample Parking",
+      "Curated Landscaping",
+      "Wide Access Roads",
+      "Pedestrian Walkways",
+      "Green Belts",
+      "Estate Management"
+    ],
+    "specs": {
+      "structure": "RCC framed SCO blocks",
+      "floors": "Basement + Ground + 4",
+      "far": "4.28",
+      "plaza": "6,039 sq.m central plaza",
+      "plot_sizes": "From 118 sq.m (~141 sq. yd.)",
+      "landscaping": "MPFP (global landscape designers)"
+    },
+    "about": "DLF Central 67 (SCO) is a landmark commercial plotted development at Sector 67, Gurugram. With 75 premium SCO plots, a 65,000 sq.ft. grand internal plaza, pedestrian-centric arcades, globally recognized landscaping, and unmatched Sohna Road frontage opposite ARIA Mall, Central 67 offers the biggest investment opportunity in Delhi-NCR’s commercial landscape.",
+    "aboutDeveloper": "DLF is India’s leading real estate developer with landmark communities, premium residences and commercial assets across the country. With 75+ years in the industry, DLF is known for quality, delivery, and estate management.",
+    "brochure": "/brochures/dlf-sco-67.pdf",
+    "hero": "/projects/dlf-sco-67/hero.jpg",
+    "gallery": [
+      "/projects/dlf-sco-67/g1.jpg",
+      "/projects/dlf-sco-67/g2.jpg",
+      "/projects/dlf-sco-67/g3.jpg",
+      "/projects/dlf-sco-67/g4.jpg"
+    ],
+    "videoGallery": [],
+    "map": {
+      "embed": "https://www.google.com/maps?q=DLF+Central,+Sector+67,+Gurugram&z=14&output=embed",
+      "lat": 28.404,
+      "lng": 77.067
+    },
+    "nearby": {
+      "schools": ["GD Goenka World School", "DPS International"],
+      "hospitals": ["Artemis Hospital", "Medanta"],
+      "malls": ["ARIA Mall", "Bestech Mall", "Good Earth City Centre"],
+      "connectivity": [
+        { "label": "Golf Course Extension Road", "time": "5–7 min" },
+        { "label": "NH-48 / Rajiv Chowk", "time": "9–15 min" },
+        { "label": "DLF CyberHub", "time": "17 min" },
+        { "label": "IGI Airport", "time": "26–30 min" }
+      ]
+    },
+    "legal": {
+      "disclaimer": "This circulation is not a legal offering. All details, images, drawings and specifications are indicative. Verify latest RERA details, approvals and availability with DLF before booking."
+    },
+    "faqs": [
+      { "q": "What is the price range for DLF Central 67?", "a": "SCO plot pricing varies by plot size/frontage; indicative pricing from ~₹3.5 Cr onwards." },
+      { "q": "What is the possession status of DLF Central 67?", "a": "Under construction; phase-wise handovers expected." },
+      { "q": "How is the connectivity of DLF Central 67?", "a": "Prime Sohna Road access; quick links to Golf Course Extension, NH-48 and CyberHub." }
+    ],
+    "seo": {
+      "title": "DLF Central 67 – SCO Plots on Sohna Road, Gurugram",
+      "description": "DLF Central 67 brings premium SCO plots with a grand plaza, wide entrances, globally renowned landscaping and prime Sohna Road frontage. Biggest commercial investment in Gurugram.",
+      "canonical": "https://www.altinalivings.com/projects/dlf-sco-67"
+    },
+    "featured": true,
+    "featured_order": 3
+  }
+]
