@@ -1,0 +1,255 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Colour palette derived from the provided poster */
+  --gold-1: #D9B64C;
+  --gold-2: #C9A227;
+  --gold-3: #9C7C1F;
+  --silver: #C0C0C0;
+  --ink: #0B0B0C;
+  --blueblack: #0D0F18;
+  --ivory: #F7F7F5;
+  --muted: #8D8E92;
+
+  /* Emerald palette for accents
+   *
+   * Emerald green (#50c878) symbolises renewal, luck and luxury【79689729971108†L129-L155】.
+   * We provide three shades for subtle variation and a matching gradient.  These
+   * can be used in place of gold for alternate call‑to‑action buttons or
+   * decorative elements.  See the `.btn-emerald` class below for example
+   * usage.  If you wish to adjust the mood, tweak the light and dark
+   * variants here.
+   */
+  --emerald-1: #79CEA3;
+  --emerald-2: #50C878;
+  --emerald-3: #3A9B5C;
+  --g-emerald: linear-gradient(135deg, var(--emerald-1) 0%, var(--emerald-2) 45%, var(--emerald-3) 100%);
+
+  /* Base colours */
+  --bg: var(--ink);
+  --fg: var(--ivory);
+  --text: var(--ivory);
+  --text-muted: var(--muted);
+
+  /* Primary gradient for accents */
+  --g-gold: linear-gradient(135deg, var(--gold-1) 0%, var(--gold-2) 45%, var(--gold-3) 100%);
+
+  /* Utility shadows */
+  --shadow-1: 0 2px 12px rgba(0, 0, 0, .25);
+  --shadow-2: 0 12px 40px rgba(0, 0, 0, .45);
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  /* Slightly increase the base font size for better readability.
+   * Tailwind uses a 1rem (16px) default; bumping to 1.05rem (~16.8px)
+   * ensures body copy feels more comfortable without overwhelming the layout.
+   */
+  font-size: 1.05rem;
+}
+
+.altina-container {
+  @apply mx-auto max-w-7xl px-4;
+}
+/* Typography utility classes for headings */
+.h-serif {
+  font-family: var(--font-serif), serif;
+}
+.h-script {
+  font-family: var(--font-script), cursive;
+}
+.h-caps {
+  font-family: var(--font-sans), sans-serif;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+/* Muted text */
+.text-muted {
+  color: var(--text-muted);
+}
+
+/* Buttons */
+.btn {
+  @apply inline-flex items-center justify-center rounded-full px-5 py-3 transition-transform;
+}
+.btn-gold {
+  /*
+   * Gold buttons are used for primary premium flows (e.g. booking,
+   * scheduling visits).  They feature our signature gradient and
+   * deeper shadow.  On hover, the button subtly floats and
+   * enlarges (1.02x) to create a refined micro‑motion effect without
+   * overwhelming the design.  Using gold for longer text or small
+   * body copy can reduce readability on dark backgrounds, so limit
+   * its use to accents and buttons as recommended.
+   */
+  background: var(--g-gold);
+  color: #111;
+  box-shadow: var(--shadow-2);
+}
+.btn-gold:hover {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, .5);
+}
+
+/* Emerald button and pill styles
+ *
+ * Use `.btn-emerald` for primary actions that call upon luck or
+ * freshness. The gradient echoes our emerald palette and the shadow
+ * matches the gold variant for cohesion. For standalone labels, use
+ * `.emerald-pill` similarly to `.gold-pill`.
+ */
+.btn-emerald {
+  /*
+   * Emerald buttons serve as performance or lead‑generation calls
+   * to action (CTAs).  Emerald green is associated with luck and
+   * growth, complementing the gold palette while signalling a
+   * secondary but still important action.  The hover behaviour
+   * mirrors the gold variant: a slight lift and 1.02x scale with
+   * an enhanced shadow.
+   */
+  background: var(--g-emerald);
+  color: #111;
+  box-shadow: var(--shadow-2);
+}
+.btn-emerald:hover {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, .5);
+}
+
+.emerald-pill {
+  background: var(--g-emerald);
+  color: #111;
+  @apply inline-block rounded-md px-4 py-2 font-semibold;
+}
+
+/* Card */
+.card {
+  @apply rounded-2xl border border-white/10 bg-white/5 backdrop-blur;
+}
+
+/* Gold text and pill */
+.gold-text {
+  background: var(--g-gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.gold-pill {
+  background: var(--g-gold);
+  color: #111;
+  @apply inline-block rounded-md px-4 py-2 font-semibold;
+}
+
+/* Horizontal rule */
+.hr {
+  @apply border-t border-white/10;
+}
+
+/* Optional gold rim container */
+.altina-outline {
+  position: relative;
+  border-radius: 1rem;
+  background: linear-gradient(var(--ink), var(--ink)) padding-box, var(--g-gold) border-box;
+  border: 1px solid transparent;
+}
+
+/* Subtle animated gold sheen for text & buttons */
+.gold-sheen {
+  position: relative;
+  background: var(--g-gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.gold-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 60%
+  );
+  transform: translateX(-120%);
+  filter: blur(1px);
+}
+.gold-sheen:hover::after {
+  animation: sheen 0.9s ease;
+}
+@keyframes sheen {
+  to {
+    transform: translateX(120%);
+  }
+}
+
+/* Gold rim card */
+.card-gold {
+  position: relative;
+  border-radius: 1rem;
+  background:
+    linear-gradient(var(--ink), var(--ink)) padding-box,
+    var(--g-gold) border-box;
+  border: 1px solid transparent;
+}
+
+/*
+ * Reveal animation classes
+ *
+ * Elements with the `reveal` class start slightly translated and
+ * transparent. When the `reveal-visible` class is added via
+ * Intersection Observer, they smoothly fade in and slide up. A CSS
+ * custom property `--reveal-delay` can be set on the element
+ * (e.g. via inline style) to stagger animations.
+ */
+.reveal {
+  opacity: 0;
+  transform: translateY(1rem);
+  transition:
+    opacity 0.5s ease-out var(--reveal-delay, 0s),
+    transform 0.5s ease-out var(--reveal-delay, 0s);
+}
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}/* ---- ALTINA theme helpers ---- */
+.text-altina-ivory { color: #F4F2EC; }
+.border-altina-gold\/25 { border-color: rgba(219, 184, 101, 0.25); }
+.border-altina-gold\/30 { border-color: rgba(219, 184, 101, 0.30); }
+.border-altina-gold\/50 { border-color: rgba(219, 184, 101, 0.50); }
+.border-altina-gold\/60 { border-color: rgba(219, 184, 101, 0.60); }
+
+.bg-gold-grad {
+  background-image: linear-gradient(180deg, #EED9A3 0%, #DBB865 100%);
+}
+
+.shadow-altina {
+  box-shadow: 0 8px 24px rgba(219, 184, 101, 0.25);
+}
+
+.golden-frame {
+  border: 1px solid rgba(219, 184, 101, 0.45);
+  background: linear-gradient(180deg, rgba(219, 184, 101, 0.08), rgba(219, 184, 101, 0.02));
+}
+
+.golden-frame.glow {
+  box-shadow: 0 10px 40px rgba(219, 184, 101, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.modal-surface {
+  background: rgba(12, 12, 12, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.golden-divider {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, rgba(219, 184, 101, 0.8), transparent);
+}
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

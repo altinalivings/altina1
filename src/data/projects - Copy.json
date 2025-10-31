@@ -1,0 +1,781 @@
+[
+  {
+  "id": "dlf-one-midtown",
+  "slug": "dlf-one-midtown-moti-nagar",
+  "name": "DLF One Midtown",
+  "developer": "DLF (DLF Urban Pvt. Ltd.)",
+  "brand": "DLF",
+  "rating": 4.7,
+  "location": "Shivaji Marg, Moti Nagar, West Delhi, Delhi",
+  "city": "New Delhi",
+  "state": "Delhi",
+  "sector": "Moti Nagar / Shivaji Marg",
+  "micro_market": "Moti Nagar, West Delhi",
+  "rera": "DLRERA2021P0007",  
+  "status": "ready to move",
+  "construction_status": "complete / near-complete",
+  "possession": "Jul 2024",  
+  "launch": "2021",  
+  "price": "₹4.7 Cr onwards",
+  "configuration": "2, 3 & 4 BHK Residences",
+  "typologies": [
+    "2 BHK",
+    "3 BHK",
+    "4 BHK + SQ"
+  ],
+  "sizes": "1,732 – 3,000 sq.ft.",
+  "land_area": "≈ 5.14 acres",
+  "towers": 4,
+  "floors": "up to 39 floors",  
+  "total_units": "≈ 915 apartments",  
+  "bank_approvals": [
+    "HDFC",
+    "ICICI",
+    "SBI"
+   
+  ],
+  "usp": [
+    "Surrounded by 128 acres of landscaped park",
+    "Luxury finishes & premium design partners",
+    "Excellent connectivity via multiple metro lines, arterial roads",
+    "Resident-exclusive clubhouse and full amenity set"
+  ],
+  "highlights": [
+    "Infinity edge swimming pool",
+    "Lush landscaped greens & gardens",
+    "Expansive balconies with laminated glass railings",
+    "Spacious halls / luxury flooring (marble in living/dining, wooden/laminated in bedrooms)"
+  ],
+  "amenities": [
+    "Clubhouse",
+    "Pool",
+    "Gym",
+    "spa",
+    "kids",
+    "jogging",
+    "Landscaped Gardens",
+    "security",
+    "Public / Retail / Banquets / Dining options"
+  ],
+  "specs": {
+    "structure": "High-rise towers (RCC framed) with premium façade finishes",
+    "air_conditioning": "VRV / VRF systems",
+    "flooring": "Imported marble in living / dining; laminated wooden / similar in bedrooms",
+    "kitchen": "Modular kitchens; premium fittings",
+    "bathrooms": "Glass shower partitions; premium sanitary & CP fittings",
+    "lifts": "High-speed lifts; destination control / smart access (as per luxury standard)"
+  },
+  "about": "DLF One Midtown is an ultra-luxury residential development in Moti Nagar, West Delhi. Spread over ~5 acres, surrounded by large green open spaces, offering 2,3 & 4 BHK residences with premium amenities and excellent connectivity. It is RERA-registered and mostly ready for possession.",
+  "brochure": "/brochures/dlf-one-midtown.pdf",  
+  "hero": "/projects/dlf-one-midtown/hero.jpg",  
+  "gallery": [
+    "/projects/dlf-one-midtown/g1.jpg",
+    "/projects/dlf-one-midtown/g2.jpg",
+    "/projects/dlf-one-midtown/g3.jpg",
+    "/projects/dlf-one-midtown/g4.jpg"
+  ],
+  "map": {
+    "embed": "https://www.google.com/maps?q=28.650,77.135&z=16&output=embed",  
+    "lat": 28.650,  
+    "lng": 77.135  
+  },
+  "nearby": {
+    "schools": [
+      "Some reputed schools in West Delhi / nearby Moti Nagar"  
+   
+    ],
+    "hospitals": [
+      "Nearby hospitals in Moti Nagar / West Delhi"
+    ],
+    "malls": [
+      "Retail centres in and around Moti Nagar / Kirti Nagar / Punjabi Bagh"
+    ],
+    "connectivity": [
+      {
+        "label": "Metro Stations (Moti Nagar / Kirti Nagar etc.)",
+        "time": "within ~5-10 min walk / drive"
+      },
+      {
+        "label": "IGI Airport",
+        "time": "approx 25-40 min depending on traffic"
+      }
+    ]
+  },
+  "legal": {
+    "disclaimer": "All imagery & specifications are for representation. Buyers should verify RERA, possession status, actual unit sizes, pricing, and approvals from official documentation."
+  },
+  "seo": {
+    "title": "DLF One Midtown – Luxury 2, 3 & 4 BHK Residences in Moti Nagar, Delhi",
+    "description": "Luxury residences by DLF in West Delhi with premium amenities, surrounded by greens, excellent connectivity & ready possession.",
+    "canonical": "https://www.dlfhomes.co.in/dlf-midtown-moti-nagar-delhi"
+  },
+  
+   "virtualTourUrl": "https://www.youtube.com/watch?v=t2UzbAW6-D8",
+  "featured": true,
+  "featured_order": 1
+},
+{
+  "id": "dlf-independent-floors-phase-2-3",
+  "slug": "dlf-independent-floors-phase-2-3",
+  "name": "DLF Independent Floors (Phase 2 & 3)",
+  "developer": "DLF",
+  "brand": "DLF",
+  "rating": 4.7,
+  "location": "DLF City Phase 2 & Phase 3, Gurugram",
+  "city": "Gurugram",
+  "state": "Haryana",
+  "sector": "DLF Phase 2 & 3",
+  "micro_market": "DLF City",
+  "rera": "TBA",
+  "status": "launched",
+  "construction_status": "under-construction",
+  "possession": "TBA (phase-wise)",
+  "launch": "2025",
+  "price": "₹TBA",
+  "configuration": "3 & 4 BHK Independent Floors",
+  "typologies": [
+    "3 BHK",
+    "4 BHK"
+  ],
+  "sizes": "1,800 – 3,200 sq.ft.",
+  "land_area": "Low-rise plotted (multiple pockets)",
+  "towers": 0,
+  "floors": "Stilt + 4",
+  "total_units": "TBA",
+  "bank_approvals": [
+    "HDFC",
+    "ICICI",
+    "SBI",
+    "Axis"
+  ],
+  "usp": [
+    "Low-rise independent floors in prime DLF City",
+    "Walkable access to MG Road, Cyber Hub & Rapid Metro",
+    "Gated pockets with DLF estate management"
+  ],
+  "highlights": [
+    "Private low-density living (one floor per level)",
+    "Stilt parking & lift in each block",
+    "Premium modular kitchens & branded fittings",
+    "Multi-tier security, access-controlled lobbies"
+  ],
+  "amenities": [
+    "Security",
+    "Lift (per block)",
+    "Stilt Parking",
+    "Power Backup",
+    "Kids Play",
+    "Green Pockets",
+    "Maintenance by DLF"
+  ],
+  "specs": {
+    "structure": "RCC framed, low-rise",
+    "air_conditioning": "Provisioned; VRV/VRF in select offerings",
+    "flooring": "Imported/vitrified tiles in living; wooden/laminate in bedrooms",
+    "kitchen": "Modular with hob/hood, stone countertop, premium fittings",
+    "bathrooms": "Branded sanitary & CP fittings, shower enclosures",
+    "lifts": "Lift in each low-rise block"
+  },
+  "about": "DLF Independent Floors (Phase 2 & 3) bring low-rise luxury to the heart of DLF City—offering privacy, stilt parking, lifts, premium finishes and estate-managed living with unmatched access to MG Road, Cyber Hub and Rapid Metro.",
+  "brochure": "/brochures/dlf-independent-floors-phase-2-3.pdf",
+  "hero": "/projects/dlf-independent-floors-phase-2-3/hero.jpg",
+  "gallery": [
+    "/projects/dlf-independent-floors-p2p3/g1.jpg",
+    "/projects/dlf-independent-floors-p2p3/g2.jpg",
+    "/projects/dlf-independent-floors-p2p3/g3.jpg",
+    "/projects/dlf-independent-floors-p2p3/g4.jpg"
+  ],
+  "map": {
+    "embed": "https://www.google.com/maps?q=DLF+City+Phase+2,+Gurugram&z=14&output=embed",
+    "lat": 28.476,
+    "lng": 77.096
+  },
+  "nearby": {
+    "schools": [
+      "Shalom Hills",
+      "The Shri Ram School Moulsari"
+    ],
+    "hospitals": [
+      "Artemis Hospital",
+      "Medanta"
+    ],
+    "malls": [
+      "DLF CyberHub",
+      "DLF City Centre",
+      "Ambience Mall"
+    ],
+    "connectivity": [
+      { "label": "Rapid Metro (Phase 2/3)", "time": "5–10 min" },
+      { "label": "NH-48", "time": "10–15 min" },
+      { "label": "IGI Airport", "time": "20–30 min" }
+    ]
+  },
+  "legal": {
+    "disclaimer": "All imagery & details are indicative. Specifications/approvals are subject to change. Verify latest RERA details and availability."
+  },
+  "seo": {
+    "title": "DLF Independent Floors Phase 2 & 3 – 3 & 4 BHK in DLF City, Gurugram",
+    "description": "Low-rise luxury independent floors by DLF in DLF City Phases 2 & 3. Stilt + 4, lifts, premium finishes, estate management, near MG Road & Cyber Hub.",
+    "canonical": "https://www.altinalivings.com/projects/dlf-independent-floors-phase-2-3"
+  },
+  "featured": true,
+  "featured_order": 2
+},
+{
+  "id": "dlf-sco-67",
+  "slug": "dlf-sco-67",
+  "name": "DLF Central 67 (SCO Plots)",
+  "developer": "DLF Home Developers Limited",
+  "brand": "DLF",
+  "rating": 4.8,
+  "location": "DLF Central 67, Sohna Road, Gurugram",
+  "city": "Gurugram",
+  "state": "Haryana",
+  "sector": "Sector 67",
+  "micro_market": "Sohna Road",
+  "rera": "RC/REP/HARERA/GGM/768/500/2023/112",
+  "status": "launched",
+  "construction_status": "under-construction",
+  "possession": "TBA",
+  "launch": "2025",
+  "price": "₹TBA",
+  "configuration": "SCO Plots (B+G+4)",
+  "typologies": [
+    "Commercial Plots",
+    "SCO"
+  ],
+  "sizes": "118 sq.m (~141 sq. yd.) onwards",
+  "land_area": "3.52 hectares (~8.69 acres)",
+  "towers": 0,
+  "floors": "Basement + Ground + 4",
+  "total_units": "75 SCO plots",
+  "bank_approvals": [
+    "HDFC",
+    "ICICI",
+    "SBI",
+    "Axis"
+  ],
+  "usp": [
+    "Located on Sohna Road opposite ARIA Mall",
+    "Grand 6,039 sq.m (65,000 sq.ft) internal plaza",
+    "Globally renowned landscape design by MPFP",
+    "Architectural design by Hafeez Contractor"
+  ],
+  "highlights": [
+    "Majestic 60m/80m wide entrances from Sohna Road",
+    "Catchment of 7 lakh+ families in surrounding area",
+    "Pedestrian-friendly arcaded walkways (3m wide)",
+    "Largest central open area: 74m x 51m",
+    "Dedicated periphery & surface parking",
+    "Strategically designed traffic circulation",
+    "Curated plot sizes with corner plots",
+    "FAR of 4.28"
+  ],
+  "amenities": [
+    "Grand Internal Plaza",
+    "Ample Parking",
+    "Curated Landscaping",
+    "Wide Access Roads",
+    "Pedestrian Walkways",
+    "Green Belts",
+    "Estate Management"
+  ],
+  "specs": {
+    "structure": "RCC framed SCO blocks",
+    "floors": "Basement + Ground + 4",
+    "far": "4.28",
+    "plaza": "6,039 sq.m central plaza",
+    "plot_sizes": "From 118 sq.m (~141 sq. yd.)",
+    "landscaping": "MPFP (global landscape designers)"
+  },
+  "about": "DLF Central 67 (SCO) is a landmark commercial plotted development at Sector 67, Gurugram. With 75 premium SCO plots, a 65,000 sq.ft. grand internal plaza, pedestrian-centric arcades, globally recognized landscaping, and unmatched Sohna Road frontage opposite ARIA Mall, Central 67 offers the biggest investment opportunity in Delhi-NCR’s commercial landscape.",
+  "brochure": "/brochures/dlf-sco-67.pdf",
+  "hero": "/projects/dlf-sco-67/hero.jpg",
+  "gallery": [
+    "/projects/dlf-sco-67/g1.jpg",
+    "/projects/dlf-sco-67/g2.jpg",
+    "/projects/dlf-sco-67/g3.jpg",
+    "/projects/dlf-sco-67/g4.jpg"
+  ],
+  "map": {
+    "embed": "https://www.google.com/maps?q=DLF+Central,+Sector+67,+Gurugram&z=14&output=embed",
+    "lat": 28.404,
+    "lng": 77.067
+  },
+  "nearby": {
+    "schools": [
+      "GD Goenka World School",
+      "DPS International"
+    ],
+    "hospitals": [
+      "Artemis Hospital",
+      "Medanta"
+    ],
+    "malls": [
+      "ARIA Mall",
+      "Bestech Mall",
+      "Good Earth City Centre"
+    ],
+    "connectivity": [
+      { "label": "Golf Course Extension Road", "time": "5–7 min" },
+      { "label": "NH-48 / Rajiv Chowk", "time": "9–15 min" },
+      { "label": "DLF CyberHub", "time": "17 min" },
+      { "label": "IGI Airport", "time": "26–30 min" }
+    ]
+  },
+  "legal": {
+    "disclaimer": "This circulation is not a legal offering. All details, images, drawings and specifications are indicative. Verify latest RERA details, approvals and availability with DLF before booking."
+  },
+  "seo": {
+    "title": "DLF Central 67 – SCO Plots on Sohna Road, Gurugram",
+    "description": "DLF Central 67 brings premium SCO plots with a grand plaza, wide entrances, globally renowned landscaping and prime Sohna Road frontage. Biggest commercial investment in Gurugram.",
+    "canonical": "https://www.altinalivings.com/projects/dlf-sco-67"
+  },
+  "featured": true,
+  "featured_order": 3
+},
+
+
+  {
+    "id": "dlf-privana-south",
+    "slug": "dlf-privana-south",
+    "name": "DLF Privana South",
+    "developer": "DLF",
+    "location": "Sector 77, Gurugram",
+    "city": "Gurugram",
+    "state": "Haryana",
+    "rera": "RC/REP/HARERA/GGM/2023/2145",
+    "status": "launched",
+    "possession": "Mar 2028",
+    "price": "₹2.6 Cr onwards",
+    "configuration": "3 & 4 BHK Residences",
+    "typologies": [
+      "3 BHK",
+      "4 BHK"
+    ],
+    "sizes": "1,950 – 3,000 sq.ft.",
+    "towers": 8,
+    "floors": 38,
+    "total_units": 1600,
+    "usp": [
+      "DLF Privana township advantages",
+      "Resort-style landscaping",
+      "Curated urban amenities"
+    ],
+    "highlights": [
+      "Grand arrival lobby",
+      "Central greens & jogging loop",
+      "Indoor sports lounges",
+      "Convenience retail"
+    ],
+    "amenities": [
+      "Clubhouse",
+      "Swimming",
+      "Gym",
+      "Tennis",
+      "Kids Play",
+      "Security",
+      "Yoga"
+    ],
+    "about": "Part of the larger Privana master plan, South cluster brings modern towers with well-planned homes and community greens in Sector 77.",
+    "brochure": "/brochures/dlf-privana-south.pdf",
+    "hero": "/projects/dlf-privana-south/hero.jpg",
+    "gallery": [
+      "/projects/dlf-privana-south/g1.jpg",
+      "/projects/dlf-privana-south/g2.jpg",
+      "/projects/dlf-privana-south/g3.jpg",
+      "/projects/dlf-privana-south/g4.jpg"
+    ],
+    "map": {
+      "embed": "https://www.google.com/maps?q=28.434,77.022&z=14&output=embed"
+    },
+    "seo": {
+      "title": "DLF Privana South – Sector 77 Gurugram",
+      "description": "Modern towers with resort-style greens and DLF Privana advantages.",
+      "canonical": "https://www.altinalivings.com/projects/dlf-privana-south"
+    },
+    "featured": true,
+    "featured_order": 3
+  },
+  {
+    "id": "dlf-privana-north",
+    "slug": "dlf-privana-north",
+    "name": "DLF Privana North",
+    "developer": "DLF",
+    "location": "Sector 77, Gurugram",
+    "price": "₹2.4 Cr onwards",
+    "configuration": "3 & 4 BHK Residences",
+    "typologies": [
+      "3 BHK",
+      "4 BHK"
+    ],
+    "sizes": "1,900 – 2,900 sq.ft.",
+    "amenities": [
+      "Clubhouse",
+      "Swimming",
+      "Gym",
+      "Kids Play",
+      "Security",
+      "Yoga"
+    ],
+    "usp": [
+      "Community greens",
+      "Township ecosystem"
+    ],
+    "brochure": "/brochures/dlf-privana-north.pdf",
+    "hero": "/projects/dlf-privana-north/hero.jpg",
+    "gallery": [
+      "/projects/dlf-privana-north/g1.jpg",
+      "/projects/dlf-privana-north/g2.jpg",
+      "/projects/dlf-privana-north/g3.jpg",
+      "/projects/dlf-privana-north/g4.jpg"
+    ],
+    "map": {
+      "embed": "https://www.google.com/maps?q=28.437,77.021&z=14&output=embed"
+    }
+  },
+  {
+    "id": "dlf-the-camellias",
+    "slug": "dlf-the-camellias",
+    "name": "DLF The Camellias",
+    "developer": "DLF",
+    "location": "DLF5, Gurugram",
+    "price": "₹30 Cr onwards",
+    "configuration": "Super Luxury Residences",
+    "typologies": [
+      "4 BHK",
+      "5 BHK",
+      "Penthouses"
+    ],
+    "sizes": "7,000 – 16,000+ sq.ft.",
+    "amenities": [
+      "Clubhouse",
+      "Swimming",
+      "Spa",
+      "Gym",
+      "Tennis",
+      "Security"
+    ],
+    "usp": [
+      "Ultra luxury",
+      "Golf links proximity",
+      "World-class concierge"
+    ],
+    "brochure": "/brochures/dlf-the-camellias.pdf",
+    "hero": "/projects/dlf-the-camellias/hero.jpg",
+    "gallery": [
+      "/projects/dlf-the-camellias/g1.jpg",
+      "/projects/dlf-the-camellias/g2.jpg",
+      "/projects/dlf-the-camellias/g3.jpg",
+      "/projects/dlf-the-camellias/g4.jpg"
+    ],
+    "map": {
+      "embed": "https://www.google.com/maps?q=28.452,77.104&z=14&output=embed"
+    },
+    "featured": true,
+    "featured_order": 6
+  },
+  {
+    "id": "m3m-crown",
+    "slug": "m3m-crown",
+    "name": "M3M Crown",
+    "developer": "M3M",
+    "location": "Sector 111, Gurugram",
+    "price": "₹2.2 Cr onwards",
+    "configuration": "3 & 4 BHK Residences",
+    "typologies": [
+      "3 BHK",
+      "4 BHK"
+    ],
+    "sizes": "1,600 – 2,600 sq.ft.",
+    "amenities": [
+      "Clubhouse",
+      "Swimming",
+      "Gym",
+      "Tennis",
+      "Kids Play",
+      "Security"
+    ],
+    "usp": [
+      "IGI proximity",
+      "Retail promenade",
+      "Resort-style pool deck"
+    ],
+    "brochure": "/brochures/m3m-crown.pdf",
+    "hero": "/projects/m3m-crown/hero.jpg",
+    "gallery": [
+      "/projects/m3m-crown/g1.jpg",
+      "/projects/m3m-crown/g2.jpg",
+      "/projects/m3m-crown/g3.jpg",
+      "/projects/m3m-crown/g4.jpg"
+    ],
+    "map": {
+      "embed": "https://www.google.com/maps?q=28.546,77.041&z=13&output=embed"
+    },
+    "featured": true,
+    "featured_order": 3
+  },
+  {
+    "id": "m3m-capital",
+    "slug": "m3m-capital",
+    "name": "M3M Capital",
+    "developer": "M3M",
+    "location": "Sector 113, Gurugram",
+    "price": "₹1.9 Cr onwards",
+    "configuration": "2.5 & 3.5 BHK Residences",
+    "typologies": [
+      "2.5 BHK",
+      "3.5 BHK"
+    ],
+    "sizes": "1,300 – 1,800 sq.ft.",
+    "amenities": [
+      "Clubhouse",
+      "Gym",
+      "Swimming",
+      "Tennis",
+      "Kids Play",
+      "Security"
+    ],
+    "usp": [
+      "Dwarka Expressway",
+      "Urban greens"
+    ],
+    "brochure": "/brochures/m3m-capital.pdf",
+    "hero": "/projects/m3m-capital/hero.jpg",
+    "gallery": [
+      "/projects/m3m-capital/g1.jpg",
+      "/projects/m3m-capital/g2.jpg",
+      "/projects/m3m-capital/g3.jpg",
+      "/projects/m3m-capital/g4.jpg"
+    ],
+    "map": {
+      "embed": "https://www.google.com/maps?q=28.532,77.048&z=13&output=embed"
+    }
+  },
+  {
+    "id": "m3m-golfestate-2",
+    "slug": "m3m-golfestate-2",
+    "name": "M3M Golfestate 2",
+    "developer": "M3M",
+    "location": "Sector 79, Gurugram",
+    "price": "₹1.9 Cr onwards",
+    "configuration": "3 & 4 BHK Residences",
+    "typologies": [
+      "3 BHK",
+      "4 BHK"
+    ],
+    "sizes": "1,900 – 2,800 sq.ft.",
+    "amenities": [
+      "Clubhouse",
+      "Swimming",
+      "Gym",
+      "Tennis",
+      "Kids Play",
+      "Security",
+      "Spa"
+    ],
+    "usp": [
+      "Hillside vistas",
+      "Golf-inspired landscaping"
+    ],
+    "brochure": "/brochures/m3m-golfestate-2.pdf",
+    "hero": "/projects/m3m-golfestate-2/hero.jpg",
+    "gallery": [
+      "/projects/m3m-golfestate-2/g1.jpg",
+      "/projects/m3m-golfestate-2/g2.jpg",
+      "/projects/m3m-golfestate-2/g3.jpg",
+      "/projects/m3m-golfestate-2/g4.jpg"
+    ],
+    "map": {
+      "embed": "https://www.google.com/maps?q=28.365,76.941&z=13&output=embed"
+    }
+  },
+  {
+    "id": "sobha-city",
+    "slug": "sobha-city",
+    "name": "SOBHA City",
+    "developer": "SOBHA",
+    "location": "Sector 108, Gurugram",
+    "price": "₹1.7 Cr onwards",
+    "configuration": "2 & 3 BHK Residences",
+    "typologies": [
+      "2 BHK",
+      "3 BHK"
+    ],
+    "sizes": "1,380 – 2,350 sq.ft.",
+    "amenities": [
+      "Clubhouse",
+      "Swimming",
+      "Tennis",
+      "Gym",
+      "Kids Play",
+      "Security"
+    ],
+    "usp": [
+      "80% open greens",
+      "International sports amenities"
+    ],
+    "brochure": "/brochures/sobha-city.pdf",
+    "hero": "/projects/sobha-city/hero.jpg",
+    "gallery": [
+      "/projects/sobha-city/g1.jpg",
+      "/projects/sobha-city/g2.jpg",
+      "/projects/sobha-city/g3.jpg",
+      "/projects/sobha-city/g4.jpg"
+    ],
+    "map": {
+      "embed": "https://www.google.com/maps?q=28.524,77.034&z=13&output=embed"
+    },
+    "featured": true,
+    "featured_order": 4
+  },
+  {
+    "id": "sobha-international-city",
+    "slug": "sobha-international-city",
+    "name": "SOBHA International City",
+    "developer": "SOBHA",
+    "location": "Sector 109 & 110, Gurugram",
+    "price": "₹6.5 Cr onwards",
+    "configuration": "Luxury Villas & Rowhouses",
+    "typologies": [
+      "4 BHK",
+      "5 BHK"
+    ],
+    "sizes": "3,200 – 6,000 sq.ft.",
+    "amenities": [
+      "Clubhouse",
+      "Gym",
+      "Swimming",
+      "Tennis",
+      "Security",
+      "Spa"
+    ],
+    "usp": [
+      "Villa community",
+      "Proximity to Dwarka Expressway"
+    ],
+    "brochure": "/brochures/sobha-international-city.pdf",
+    "hero": "/projects/sobha-international-city/hero.jpg",
+    "gallery": [
+      "/projects/sobha-international-city/g1.jpg",
+      "/projects/sobha-international-city/g2.jpg",
+      "/projects/sobha-international-city/g3.jpg",
+      "/projects/sobha-international-city/g4.jpg"
+    ],
+    "map": {
+      "embed": "https://www.google.com/maps?q=28.546,77.028&z=13&output=embed"
+    }
+  },
+  {
+    "id": "godrej-aria",
+    "slug": "godrej-aria",
+    "name": "Godrej Aria",
+    "developer": "Godrej",
+    "location": "Sector 79, Gurugram",
+    "price": "₹1.3 Cr onwards",
+    "configuration": "2 & 3 BHK Residences",
+    "typologies": [
+      "2 BHK",
+      "3 BHK"
+    ],
+    "sizes": "1,350 – 2,200 sq.ft.",
+    "amenities": [
+      "Clubhouse",
+      "Swimming",
+      "Gym",
+      "Kids Play",
+      "Security",
+      "Yoga"
+    ],
+    "usp": [
+      "Aravalli views",
+      "Green community living"
+    ],
+    "brochure": "/brochures/godrej-aria.pdf",
+    "hero": "/projects/godrej-aria/hero.jpg",
+    "gallery": [
+      "/projects/godrej-aria/g1.jpg",
+      "/projects/godrej-aria/g2.jpg",
+      "/projects/godrej-aria/g3.jpg",
+      "/projects/godrej-aria/g4.jpg"
+    ],
+    "map": {
+      "embed": "https://www.google.com/maps?q=28.377,76.944&z=13&output=embed"
+    }
+  },
+  {
+    "id": "godrej-meridien",
+    "slug": "godrej-meridien",
+    "name": "Godrej Meridien",
+    "developer": "Godrej",
+    "location": "Sector 106, Gurugram",
+    "price": "₹2.0 Cr onwards",
+    "configuration": "2, 3 & 4 BHK Residences",
+    "typologies": [
+      "2 BHK",
+      "3 BHK",
+      "4 BHK"
+    ],
+    "sizes": "1,450 – 2,800 sq.ft.",
+    "amenities": [
+      "Clubhouse",
+      "Swimming",
+      "Gym",
+      "Spa",
+      "Tennis",
+      "Security"
+    ],
+    "usp": [
+      "Clubhouse by international hospitality partners"
+    ],
+    "brochure": "/brochures/godrej-meridien.pdf",
+    "hero": "/projects/godrej-meridien/hero.jpg",
+    "gallery": [
+      "/projects/godrej-meridien/g1.jpg",
+      "/projects/godrej-meridien/g2.jpg",
+      "/projects/godrej-meridien/g3.jpg",
+      "/projects/godrej-meridien/g4.jpg"
+    ],
+    "map": {
+      "embed": "https://www.google.com/maps?q=28.521,77.022&z=13&output=embed"
+    },
+    "featured": true,
+    "featured_order": 5
+  },
+  {
+    "id": "godrej-habitat",
+    "slug": "godrej-habitat",
+    "name": "Godrej Habitat",
+    "developer": "Godrej",
+    "location": "Sector 3, Gurugram",
+    "price": "₹1.45 Cr onwards",
+    "configuration": "2 & 3 BHK Residences",
+    "typologies": [
+      "2 BHK",
+      "3 BHK"
+    ],
+    "sizes": "1,350 – 1,900 sq.ft.",
+    "amenities": [
+      "Clubhouse",
+      "Swimming",
+      "Gym",
+      "Kids Play",
+      "Security"
+    ],
+    "usp": [
+      "Multi-tier security",
+      "Central greens"
+    ],
+    "brochure": "/brochures/godrej-habitat.pdf",
+    "hero": "/projects/godrej-habitat/hero.jpg",
+    "gallery": [
+      "/projects/godrej-habitat/g1.jpg",
+      "/projects/godrej-habitat/g2.jpg",
+      "/projects/godrej-habitat/g3.jpg",
+      "/projects/godrej-habitat/g4.jpg"
+    ],
+    "map": {
+      "embed": "https://www.google.com/maps?q=28.474,77.031&z=13&output=embed"
+    }
+  }
+]
