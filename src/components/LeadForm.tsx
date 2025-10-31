@@ -58,9 +58,8 @@ export default function LeadForm({ project }: { project?: string }) {
   }, []);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault(); // stop native navigation
+    e.preventDefault();
     if (typeof window === "undefined" || !("fetch" in window)) {
-      // micro-guard if a user somehow clicks pre-hydration
       alert("Please wait a moment while the page loads…");
       return;
     }
@@ -99,7 +98,10 @@ export default function LeadForm({ project }: { project?: string }) {
       first_touch_msclkid: ft.msclkid || "",
       first_landing_page: localStorage.getItem("altina_ft_page") || "",
       first_landing_ts: localStorage.getItem("altina_ft_ts") || "",
-      session_id: (crypto && "randomUUID" in crypto) ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(36).slice(2),
+      session_id:
+        (typeof crypto !== "undefined" && "randomUUID" in crypto)
+          ? crypto.randomUUID()
+          : String(Date.now()) + Math.random().toString(36).slice(2),
       ga_cid: getGaCid(),
       ...getClientHints(),
       time: new Date().toISOString(),
@@ -112,7 +114,7 @@ export default function LeadForm({ project }: { project?: string }) {
     try {
       const res = await fetch("/api/lead", {
         method: "POST",
-        headers: { "Content-Type": "application/json" }, // keep semantics same, just explicit
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
         keepalive: true,
       });
@@ -133,7 +135,7 @@ export default function LeadForm({ project }: { project?: string }) {
 
       setStatus("ok");
       form.reset();
-    } catch (_err) {
+    } catch {
       setStatus("err");
     }
   }
@@ -160,4 +162,52 @@ export default function LeadForm({ project }: { project?: string }) {
         />
       </label>
 
-      <label className="t
+      <label className="text-xs h-caps opacity-80">
+        Email (optional)
+        <input
+          name="email"
+          type="email"
+          placeholder="Email"
+          className="mt-1 px-4 py-3 rounded-xl bg-[var(--ink)] border border-white/10 focus:outline-none focus:ring-2 focus:ring-[var(--gold-2)] w-full"
+        />
+      </label>
+
+      <div className="grid grid-cols-2 gap-3">
+        <select
+          name="budget"
+          className="px-4 py-3 rounded-xl bg-[var(--ink)] border border-white/10 focus:outline-none focus:ring-2 focus:ring-[var(--gold-2)]"
+        >
+          <option value="">Budget range</option>
+          <option>₹1–2 Cr</option>
+          <option>₹2–3 Cr</option>
+          <option>₹3–5 Cr</option>
+          <option>₹5 Cr+</option>
+        </select>
+        <input
+          name="location"
+          placeholder="Preferred location (e.g., DLF 5)"
+          className="px-4 py-3 rounded-xl bg-[var(--ink)] border border-white/10 focus:outline-none focus:ring-2 focus:ring-[var(--gold-2)]"
+        />
+      </div>
+
+      <textarea
+        name="message"
+        rows={3}
+        placeholder="Anything else?"
+        className="px-4 py-3 rounded-xl bg-[var(--ink)] border border-white/10 focus:outline-none focus:ring-2 focus:ring-[var(--gold-2)]"
+      />
+
+      {/* explicit submit to avoid any ambiguity */}
+      <button
+        type="submit"
+        className="btn btn-gold"
+        disabled={status === "loading"}
+      >
+        {status === "loading" ? "Sending…" : "Request a Callback"}
+      </button>
+
+      {status === "ok" && <p className="text-green-400 text-xs">Thanks! We’ll reach out shortly.</p>}
+      {status === "err" && <p className="text-red-400 text-xs">Something went wrong. Please WhatsApp us.</p>}
+    </form>
+  );
+}
