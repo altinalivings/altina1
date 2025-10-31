@@ -1,194 +1,122 @@
-﻿// src/app/blog/[slug]/page.tsx
+﻿// app/blog/[slug]/page.tsx
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import Image from "next/image";
-import Script from "next/script";
+import { notFound } from "next/navigation";
 import posts from "@/data/posts.json";
 
 type Post = {
   slug: string;
   title: string;
   excerpt?: string;
-  coverImage?: string;
-  contentHtml?: string; // if you store pre-rendered html
-  author?: { name: string; url?: string; avatar?: string } | string;
-  datePublished?: string; // ISO or yyyy-mm-dd
-  lastmod?: string;       // ISO or yyyy-mm-dd
+  date?: string;
+  author?: string;
+  coverImage?: string; // e.g. "/blog/altina-intro-hero.jpg"
+  content?: string[];
   tags?: string[];
-  readingTimeMins?: number;
 };
 
-const SITE =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-  "https://www.altinalivings.com";
+const SITE = "https://www.altinalivings.com";
+const DEFAULT_OG = "/blog/altina-blog-default.jpg";
 
-const ALL: Post[] = (posts as any[]).filter(Boolean);
-
-const get = (slug: string) => ALL.find((p) => p.slug === slug);
-
-export function generateStaticParams() {
-  return ALL.map((p) => ({ slug: p.slug }));
+/** make absolute URL for OG/Twitter */
+function abs(path: string) {
+  if (!path) return undefined as unknown as string;
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  return `${SITE}${path}`;
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
-  const post = get(params.slug);
-  if (!post) return { title: "Post not found | ALTINA™ Livings" };
+export async function generateMetadata(
+  { params }: { params: { slug: string } }
+): Promise<Metadata> {
+  const p = (posts as Post[]).find((x) => x.slug === params.slug);
 
-  const url = `${SITE}/blog/${post.slug}`;
-  const title = `${post.title} | ALTINA™ Livings`;
+  const title = p?.title ?? "Insights | ALTINA™ Livings";
   const description =
-    post.excerpt ||
-    "Insights from ALTINA™ Livings on luxury real estate across Delhi NCR.";
-  const image =
-    post.coverImage &&
-    (post.coverImage.startsWith("http")
-      ? post.coverImage
-      : `${SITE}${post.coverImage.startsWith("/") ? post.coverImage : `/${post.coverImage}`}`);
+    p?.excerpt ?? "Luxury real estate insights and guides from ALTINA™ Livings.";
+  const og = abs(p?.coverImage ?? DEFAULT_OG);
 
   return {
     title,
     description,
-    alternates: { canonical: url },
+    alternates: { canonical: `/blog/${params.slug}` },
     openGraph: {
       title,
       description,
-      url,
-      type: "article",
+      url: `${SITE}/blog/${params.slug}`,
       siteName: "ALTINA™ Livings",
-      images: image ? [{ url: image, width: 1200, height: 630, alt: post.title }] : undefined,
+      images: og ? [{ url: og, width: 1200, height: 630, alt: p?.title ?? "Altina™ Insights" }] : undefined,
+      type: "article",
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: image ? [image] : undefined,
+      images: og ? [og] : undefined,
     },
   };
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = get(params.slug);
-  if (!post) return notFound();
-
-  const url = `${SITE}/blog/${post.slug}`;
-  const image =
-    post.coverImage &&
-    (post.coverImage.startsWith("http")
-      ? post.coverImage
-      : `${SITE}${post.coverImage.startsWith("/") ? post.coverImage : `/${post.coverImage}`}`);
-
-  const authorObj =
-    typeof post.author === "string" ? { name: post.author } : post.author;
-
-  const publishedISO = post.datePublished
-    ? new Date(post.datePublished).toISOString()
-    : new Date().toISOString();
-
-  const modifiedISO = post.lastmod
-    ? new Date(post.lastmod).toISOString()
-    : publishedISO;
-
-  // ✅ BlogPosting JSON-LD
-  const blogPosting = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    mainEntityOfPage: { "@type": "WebPage", "@id": url },
-    headline: post.title,
-    description:
-      post.excerpt ||
-      "Insights from ALTINA™ Livings on luxury real estate in Delhi NCR.",
-    image: image ? [image] : undefined,
-    author: authorObj
-      ? { "@type": "Person", name: authorObj.name, url: authorObj.url }
-      : { "@type": "Organization", name: "ALTINA™ Livings" },
-    publisher: {
-      "@type": "Organization",
-      name: "ALTINA™ Livings",
-      logo: {
-        "@type": "ImageObject",
-        url: `${SITE}/logo.png`,
-      },
-    },
-    datePublished: publishedISO,
-    dateModified: modifiedISO,
-    url,
-    articleSection: post.tags && post.tags.length ? post.tags : undefined,
-    wordCount: undefined, // add if you compute words
-  };
-
-  // Optional: Breadcrumbs JSON-LD
-  const breadcrumbs = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Blog", item: `${SITE}/blog` },
-      { "@type": "ListItem", position: 2, name: post.title, item: url },
-    ],
-  };
+export default function BlogPost({ params }: { params: { slug: string } }) {
+  const post = (posts as Post[]).find((x) => x.slug === params.slug);
+  if (!post) notFound();
 
   return (
-    <main className="bg-[#0B0B0C] text-white">
-      <article className="max-w-3xl mx-auto px-4 pt-10 pb-16">
-        <header className="mb-6">
-          <h1 className="text-2xl sm:text-3xl font-semibold text-altina-gold">
-            {post.title}
-          </h1>
-          <p className="mt-2 text-sm text-neutral-300">
-            {authorObj?.name || "ALTINA™ Livings"} ·{" "}
-            <time dateTime={publishedISO}>
-              {new Date(publishedISO).toLocaleDateString("en-IN", {
-                day: "2-digit",
-                month: "short",
-                year: "numeric",
-              })}
-            </time>
-            {post.readingTimeMins ? ` · ${post.readingTimeMins} min read` : ""}
-          </p>
-        </header>
+    <article>
+      {/* HERO — slim height for blog */}
+    
+<section className="relative w-full aspect-[12/5] overflow-hidden rounded-2xl border border-white/10
+                    bg-[radial-gradient(ellipse_at_center,_#FFF6D6,_#c5a657_70%)]">
+  {post.coverImage ? (
+    <Image
+      src={post.coverImage}                 // e.g. /blog/dlf-midtown-hero.jpg (1920x800)
+      alt={post.title}
+      fill
+      priority
+      sizes="100vw"
+      className="object-contain object-center"  // <-- key change: contain (no cropping)
+    />
+  ) : (
+    <Image
+      src="/blog/altina-blog-default.jpg"
+      alt="Altina™ Insights"
+      fill
+      priority
+      sizes="100vw"
+      className="object-contain object-center"
+    />
+  )}
 
-        {image && (
-          <div className="relative mb-6 overflow-hidden rounded-2xl">
-            <Image
-              src={image}
-              alt={post.title}
-              width={1200}
-              height={630}
-              className="w-full h-auto object-cover"
-              priority
-            />
-          </div>
+  {/* Remove the dark gradient overlay for contain, or it will show on the side margins */}
+  <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4 md:p-6">
+    <h1 className="text-lg md:text-2xl font-bold drop-shadow-lg">{post.title}</h1>
+    {(post.date || post.author) && (
+      <p className="mt-1 text-xs md:text-sm opacity-80">
+        {post.date ?? ""} {post.date && post.author ? "•" : ""} {post.author ?? ""}
+      </p>
+    )}
+  </div>
+</section>
+
+
+
+      {/* BODY */}
+      <main className="mx-auto max-w-3xl px-4 py-8">
+        {post.excerpt && (
+          <p className="mb-6 text-base opacity-90">{post.excerpt}</p>
         )}
 
-        {/* If you store HTML in posts.json */}
-        {post.contentHtml ? (
-          <div
-            className="prose prose-invert prose-lg max-w-none prose-a:text-altina-gold"
-            dangerouslySetInnerHTML={{ __html: post.contentHtml }}
-          />
-        ) : (
-          <p className="text-neutral-200">
-            {/* Fallback if content not provided */}
-            {post.excerpt ||
-              "ALTINA™ Livings insights on luxury apartments, independent floors, and commercial investment across Delhi NCR."}
+        {post.content?.map((para, i) => (
+          <p key={i} className="mb-5 leading-7 opacity-90">
+            {para}
           </p>
-        )}
-      </article>
+        ))}
 
-      {/* JSON-LD */}
-      <Script
-        id={`blogposting-${post.slug}`}
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPosting) }}
-      />
-      <Script
-        id={`breadcrumbs-${post.slug}`}
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
-      />
-    </main>
+        {post.tags?.length ? (
+          <p className="text-sm opacity-70 mt-8">
+            <span className="opacity-80">Tags:</span> {post.tags.join(", ")}
+          </p>
+        ) : null}
+      </main>
+    </article>
   );
 }

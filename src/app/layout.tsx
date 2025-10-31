@@ -18,8 +18,6 @@ const inter = Inter({ subsets: ["latin"] });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.altinalivings.com";
 const FB_PIXEL = process.env.NEXT_PUBLIC_FB_PIXEL;
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "";
-const LI_ID = process.env.NEXT_PUBLIC_LI_PARTNER_ID || "";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -52,6 +50,9 @@ const preInteractiveGuard = `;(function(){try{
   try{Object.defineProperty(w,'fbq',{configurable:true,enumerable:true,set:function(v){this.__fbq=guard(v);},get:function(){return this.__fbq;}});}catch(e){}
   try{Object.defineProperty(w,'_fbq',{configurable:true,enumerable:true,set:function(v){this.__fbq=guard(v);},get:function(){return this.__fbq;}});}catch(e){}
   try{Object.defineProperty(w,'gtag',{configurable:true,enumerable:true,set:function(v){this.__gtag=guard(v);},get:function(){return this.__gtag;}});}catch(e){}
+  try{ if('fbq'in w && typeof w.fbq==='function'){ var tmp=w.fbq; w.fbq=tmp; } }catch(e){}
+  try{ if('_fbq'in w && typeof w._fbq==='function'){ var tmp2=w._fbq; w._fbq=tmp2; } }catch(e){}
+  try{ if('gtag'in w && typeof w.gtag==='function'){ var tmp3=w.gtag; w.gtag=tmp3; } }catch(e){}
 }catch(e){} })();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -69,108 +70,38 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     },
     sameAs: [
       "https://www.facebook.com/profile.php?id=61580035583494",
-      "https://www.instagram.com/altinalivings",
-      "https://www.linkedin.com/company/108414321/",
-      "https://www.youtube.com/@Altinalivings",
     ],
   };
 
   return (
     <html lang="en" className="bg-black text-white">
       <head>
-        <Script
-          id="analytics-guards-pre"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{ __html: preInteractiveGuard }}
-        />
+        <Script id="analytics-guards-pre" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: preInteractiveGuard }} />
       </head>
-
       <body className={inter.className + " flex min-h-screen flex-col"}>
-        {/* 🧩 Global safety guards */}
         <AnalyticsGuards />
-
-        {/* 🏠 Header */}
         <Header />
-
-        {/* 🧱 Main Content */}
         <main className="flex-1">{children}</main>
-
-        {/* 🦶 Footer */}
         <SiteFooter />
-
-        {/* 📞 CTAs, Modals, Leads, Analytics */}
         <StickyCTABar />
         <ModalBridge />
         <GlobalLeadModal />
         <LeadBus />
         <Analytics />
         <Notifier />
-        <AutoCallbackPrompt />
-
-        {/* 🧾 Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
-
-        {/* ✅ Analytics Script Loader */}
-        <Script id="altina-analytics" strategy="afterInteractive">
-          {`
-            (function() {
-              // GA4
-              if ('${GA_ID}' && !window.__ga_loaded) {
-                var s=document.createElement('script');
-                s.async=true;
-                s.src='https://www.googletagmanager.com/gtag/js?id=${GA_ID}';
-                document.head.appendChild(s);
-                window.dataLayer=window.dataLayer||[];
-                function gtag(){dataLayer.push(arguments);}
-                window.gtag=gtag;
-                gtag('js', new Date());
-                gtag('config', '${GA_ID}');
-                window.__ga_loaded=true;
-              }
-
-              // FB Pixel
-              if ('${FB_PIXEL}' && !window.__fb_loaded) {
-                !(function(f,b,e,v,n,t,s){
-                  if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-                  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-                  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-                  n.queue=[];t=b.createElement(e);t.async=!0;
-                  t.src=v;s=b.getElementsByTagName(e)[0];
-                  s.parentNode.insertBefore(t,s)
-                })(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
-                fbq('init', '${FB_PIXEL}');
-                fbq('track', 'PageView');
-                window.__fb_loaded=true;
-              }
-
-              // LinkedIn Insight
-              if ('${LI_ID}' && !window.__li_loaded) {
-                var s=document.createElement("script");
-                s.type="text/javascript"; s.async=true;
-                s.src="https://snap.licdn.com/li.lms-analytics/insight.min.js";
-                document.head.appendChild(s);
-                window.lintrk=function(a,b){window.lintrk.q.push([a,b])};
-                window.lintrk.q=[];
-                window.__li_loaded=true;
-              }
-            })();
-          `}
-        </Script>
-
-        {/* 🧠 FB Pixel no-script fallback */}
         {FB_PIXEL ? (
           <noscript>
             <img
-              height="1"
-              width="1"
-              style={{ display: "none" }}
+              height="1" width="1" style={{ display: "none" }}
               src={`https://www.facebook.com/tr?id=${FB_PIXEL}&ev=PageView&noscript=1`}
             />
           </noscript>
         ) : null}
+        <AutoCallbackPrompt />
       </body>
     </html>
   );

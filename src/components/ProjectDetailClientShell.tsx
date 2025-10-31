@@ -54,7 +54,16 @@ export default function ProjectDetailClientShell({ project }: { project: Project
         {ProjectDetailsSections && <ProjectDetailsSections project={project as any} />}
       </section>
 
-     
+      <section className="relative z-0 max-w-6xl mx-auto px-4 pb-10">
+        {RelatedProjects && (
+          <RelatedProjects
+            currentId={project.id}
+            developer={project.developer}
+            city={project.city}
+          />
+        )}
+      </section>
+
       {FloatingCTAs && <FloatingCTAs projectId={project.id} projectName={project.name} />}
     </>
   );

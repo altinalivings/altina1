@@ -1,3 +1,4 @@
+// src/components/SiteFooter.tsx
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -54,16 +55,16 @@ function IconSVG({ name, className }: { name: keyof Socials; className?: string 
         <svg viewBox="0 0 24 24" className={cls} aria-hidden>
           <path
             fill="currentColor"
-            d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 1.9.26 2.35.43.59.23 1.01.5 1.46.95.45.45.72.87.95 1.46.17.45.37 1.14.43 2.35.07 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.26 1.9-.43 2.35a3.6 3.6 0 0 1-.95 1.46 3.6 3.6 0 0 1-1.46.95c-.45.17-1.14.37-2.35.43-1.3.07-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-1.9-.26-2.35-.43a3.6 3.6 0 0 1-1.46-.95 3.6 3.6 0 0 1-.95-1.46c-.17-.45-.37-1.14-.43-2.35C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.26-1.9.43-2.35.23-.59.5-1.01.95-1.46.45-.45.87-.72 1.46-.95.45-.17 1.14-.37 2.35-.43C8.4 2.2 8.8 2.2 12 2.2zm0 5.5a4.3 4.3 0 1 0 0 8.6 4.3 4.3 0 0 0 0-8.6zm6-2a1.24 1.24 0 1 1 0 2.48 1.24 1.24 0 0 1 0-2.48z"
+            d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 1.9.26 2.35.43.59.23 1.01.5 1.46.95.45.45.72.87.95 1.46.17.45.37 1.14.43 2.35.07 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.26 1.9-.43 2.35a3.6 3.6 0 0 1-.95 1.46 3.6 3.6 0 0 1-1.46.95c-.45.17-1.14.37-2.35.43-1.3.07-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-1.9-.26-2.35-.43a3.6 3.6 0 0 1-1.46-.95 3.6 3.6 0 0 1-.95-1.46c-.17-.45-.37-1.14-.43-2.35C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.26-1.9.43-2.35.23-.59.5-1.01.95-1.46.45-.45.87-.72 1.46-.95.45-.17 1.14-.37 2.35-.43C8.4 2.2 8.8 2.2 12 2.2zm0 5.5a4.3 4.3 0 1 0 0 8.6 4.3 4.3 0 0 0 0-8.6zm6-2.0a1.24 1.24 0 1 1 0 2.48 1.24 1.24 0 0 1 0-2.48z"
           />
         </svg>
       );
     case "youtube":
       return (
-        <svg viewBox="0 0 24 24" className={cls} aria-hidden>
+        <svg viewBox="0 0 24 24" className={cls} aria-hidden xmlns="http://www.w3.org/2000/svg">
           <path
             fill="currentColor"
-            d="M23.5 6.2s-.2-1.6-.9-2.3c-.9-.9-1.9-.9-2.3-1C17.5 2.5 12 2.5 12 2.5s-5.5 0-8.3.4c-.4 0-1.4.1-2.3 1-.7.7-.9 2.3-.9 2.3S0 8.1 0 9.9v2.2c0 1.8.2 3.7.2 3.7s.2 1.6.9 2.3c.9.9 2.1.9 2.6 1 1.9.2 8.3.4 8.3.4s5.5 0 8.3-.4c.4 0 1.4-.1 2.3-1 .7-.7.9-2.3.9-2.3s.2-1.8.2-3.7V9.9c0-1.8-.2-3.7-.2-3.7zM9.6 14.6V7.9l6.2 3.3-6.2 3.4z"
+            d="M23.5 6.2s-.2-1.6-.9-2.3c-.9-.9-1.9-.9-2.3-1C17.5 2.5 12 2.5 12 2.5h0s-5.5 0-8.3.4c-.4 0-1.4.1-2.3 1-.7.7-.9 2.3-.9 2.3S0 8.1 0 9.9v2.2c0 1.8.2 3.7.2 3.7s.2 1.6.9 2.3c.9.9 2.1.9 2.6 1 1.9.2 8.3.4 8.3.4s5.5 0 8.3-.4c.4 0 1.4-.1 2.3-1 .7-.7.9-2.3.9-2.3s.2-1.8.2-3.7V9.9c0-1.8-.2-3.7-.2-3.7zM9.6 14.6V7.9l6.2 3.3-6.2 3.4z"
           />
         </svg>
       );
@@ -72,7 +73,7 @@ function IconSVG({ name, className }: { name: keyof Socials; className?: string 
         <svg viewBox="0 0 24 24" className={cls} aria-hidden>
           <path
             fill="currentColor"
-            d="M.5 23.5l1.7-6A10.5 10.5 0 1 1 12 22.5c-1.8 0-3.5-.5-5-1.4L.5 23.5zM12 3.5a8.5 8.5 0 0 0-7.3 12.9l.2.4-1 3.5 3.6-.9.3.2A8.5 8.5 0 1 0 12 3.5z"
+            d="M.5 23.5l1.7-6A10.5 10.5 0 1 1 12 22.5c-1.8 0-3.5-.5-5-1.4L.5 23.5zM12 3.5a8.5 8.5 0 0 0-7.3 12.9l.2.4-1 3.5 3.6-.9.3.2A8.5 8.5 0 1 0 12 3.5zm4.8 10.1c-.2-.1-1.3-.6-1.5-.7-.2-.1-.3-.1-.5.1-.1.2-.6.7-.7.8-.1.1-.3.1-.5 0s-1-.4-1.8-1.1c-.7-.7-1.1-1.5-1.3-1.7-.1-.2 0-.4.1-.5.1-.1.2-.3.3-.4.1-.1.1-.2.2-.3.1-.1.1-.2 0-.4 0-.1-.5-1.2-.7-1.6-.2-.4-.4-.3-.5-.3h-.4c-.1 0-.4.1-.6.3s-.8.8-.8 2c0 1.2.8 2.3.9 2.5.1.2 1.6 2.5 3.9 3.5.5.2.9.3 1.2.4.5.2.9.2 1.3.1.4-.1 1.3-.5 1.5-1 .2-.5.2-.9.1-1 0-.1-.2-.1-.4-.2z"
           />
         </svg>
       );
@@ -81,8 +82,9 @@ function IconSVG({ name, className }: { name: keyof Socials; className?: string 
   }
 }
 
-/* ---------- Social Icon Wrapper ---------- */
+/* ---------- Social icon wrapper ---------- */
 function SocialIcon({ href, name }: { href: string; name: keyof Socials }) {
+  // Brand hover classes (Tailwind arbitrary colors)
   const hoverClass =
     name === "youtube"
       ? "group-hover:text-[#FF0000]"
@@ -94,7 +96,7 @@ function SocialIcon({ href, name }: { href: string; name: keyof Socials }) {
       ? "group-hover:text-[#1877F2]"
       : name === "instagram"
       ? "group-hover:text-[#E1306C]"
-      : "group-hover:text-[#1DA1F2]";
+      : /* x */ "group-hover:text-[#1DA1F2]";
 
   return (
     <a
@@ -104,6 +106,7 @@ function SocialIcon({ href, name }: { href: string; name: keyof Socials }) {
       aria-label={name}
       className="group inline-flex h-10 w-10 items-center justify-center rounded-full transition"
       style={{
+        // white icon by default; golden ring always
         color: "#FFFFFF",
         background: "rgba(13,13,13,0.85)",
         boxShadow: `0 0 0 1px ${GOLD_BORDER} inset, 0 0 12px rgba(0,0,0,0.25)`,
@@ -114,7 +117,7 @@ function SocialIcon({ href, name }: { href: string; name: keyof Socials }) {
   );
 }
 
-/* ---------- Footer ---------- */
+/* ---------- Footer Component ---------- */
 export default function SiteFooter({
   phone = "+91 98912 34195",
   socials = {
@@ -129,8 +132,10 @@ export default function SiteFooter({
   phone?: string;
   socials?: Socials;
 }) {
-  const ref = useRef(false);
-  useEffect(() => {}, []);
+  const fetchPatched = useRef(false);
+  useEffect(() => {
+    /* auto-popup disabled */
+  }, []);
 
   const openCallback = () =>
     window.dispatchEvent(
@@ -140,8 +145,8 @@ export default function SiteFooter({
     );
 
   return (
-    <footer className="w-full mt-20">
-      {/* Golden ivory call strip */}
+    <footer className="w-full mt-30">
+      {/* IVORY PHONE STRIP */}
       <div
         className="w-full"
         style={{
@@ -150,11 +155,11 @@ export default function SiteFooter({
           background: IVORY_BG,
         }}
       >
-        <div className="max-w-6xl mx-auto px-4 py-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div>
+        <div className="max-w-6xl mx-auto px-4 py-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col">
             <a
               href={`tel:${phone}`}
-              className="text-3xl font-bold tracking-wide"
+              className="text-3xl sm:text-3xl font-bold tracking-wide"
               style={{ color: GOLD }}
             >
               Call Us @ {phone}
@@ -166,7 +171,8 @@ export default function SiteFooter({
               deals brought by the best and most trusted builders.
             </p>
           </div>
-          <button type=\"button\"
+
+          <button
             onClick={openCallback}
             className="rounded-full px-8 py-3 text-base font-semibold shadow-md"
             style={{
@@ -175,40 +181,42 @@ export default function SiteFooter({
                 "linear-gradient(180deg, rgba(255,246,214,0.92) 0%, rgba(255,246,214,0.8) 100%)",
               boxShadow: `0 0 0 1px ${IVORY_BORDER} inset`,
             }}
+            aria-label="Request a Call"
           >
             Request Call
           </button>
         </div>
       </div>
 
-      {/* Footer grid */}
+      {/* MAIN GRID */}
       <div className="max-w-6xl mx-auto px-4 py-10 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
         <div>
           <div className="flex items-center gap-2">
-            <img src="/logos/Altina.png" alt="ALTINA" className="h-20 w-auto" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logos/Altina.png" alt="ALTINA" className="h-16 w-auto" />
             <span className="text-lg font-semibold">ALTINA™ Livings</span>
           </div>
           <p className="text-neutral-400 mt-2">
-            Gateway to Luxury Livings — Premium channel partner for luxury real
-            estate across Delhi NCR.
+            Premium channel partner for luxury real estate across Delhi NCR.
           </p>
-          <div className="mt-4 flex items-center gap-3 flex-wrap">
-            {Object.entries(socials).map(
-              ([name, href]) =>
-                href && <SocialIcon key={name} href={href} name={name as keyof Socials} />
-            )}
+          <div className="mt-4 flex items-center gap-3">
+            {socials.x && <SocialIcon href={socials.x} name="x" />}
+            {socials.linkedin && <SocialIcon href={socials.linkedin} name="linkedin" />}
+            {socials.instagram && <SocialIcon href={socials.instagram} name="instagram" />}
+            {socials.facebook && <SocialIcon href={socials.facebook} name="facebook" />}
+            {socials.whatsapp && <SocialIcon href={socials.whatsapp} name="whatsapp" />}
+            {socials.youtube && <SocialIcon href={socials.youtube} name="youtube" />}
           </div>
         </div>
 
         <div>
-          <h4 className="font-semibold mb-2">Useful Links</h4>
-          <ul className="space-y-1 text-neutral-300">
-            <li><Link href="/projects" className="hover:text-[#C9A23F]">Projects</Link></li>
-            <li><Link href="/developers" className="hover:text-[#C9A23F]">Developers</Link></li>
-            <li><Link href="/about" className="hover:text-[#C9A23F]">About</Link></li>
-            <li><Link href="/contact" className="hover:text-[#C9A23F]">Contact</Link></li>
-            <li><Link href="/blog" className="hover:text-[#C9A23F]">Blog</Link></li>
-            <li><Link href="/privacy" className="hover:text-[#C9A23F]">Privacy Policy</Link></li>
+          <h4 className="font-semibold">Useful Links</h4>
+          <ul className="mt-3 space-y-1 text-neutral-300">
+            <li><Link href="/projects" className="hover:underline">Projects</Link></li>
+            <li><Link href="/developers" className="hover:underline">Developers</Link></li>
+            <li><Link href="/about" className="hover:underline">About</Link></li>
+            <li><Link href="/contact" className="hover:underline">Contact</Link></li>
+            <li><Link href="/privacy" className="hover:underline">Privacy Policy</Link></li>
           </ul>
         </div>
 
@@ -217,22 +225,24 @@ export default function SiteFooter({
           <p className="text-neutral-400 mt-2">
             Get new launches, price lists and exclusive invites.
           </p>
+
           <SubscribeForm />
+
           <label className="mt-3 flex items-start gap-2 text-xs text-neutral-400">
             <input type="checkbox" defaultChecked className="mt-0.5" />
-            I authorize company representatives to contact me via Call, SMS, Email
-            or WhatsApp. This consent overrides any DNC/NDNC registration.
+            I authorize company representatives to Call, SMS, Email or WhatsApp me about its
+            products and offers. This consent overrides any registration for DNC/NDNC.
           </label>
         </div>
       </div>
 
       <div className="border-t border-white/10">
         <div className="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-neutral-400">
-          <div>© {new Date().getFullYear()} Altina™ Livings. All rights reserved.</div>
+          <div>© {new Date().getFullYear()} Altina Livings. All rights reserved.</div>
           <div className="flex gap-4">
-            <Link href="/sitemap" className="hover:text-[#C9A23F]">Sitemap</Link>
-            <Link href="/privacy" className="hover:text-[#C9A23F]">Privacy</Link>
-            <Link href="/terms" className="hover:text-[#C9A23F]">Terms</Link>
+            <Link href="/sitemap" className="hover:underline">Sitemap</Link>
+            <Link href="/privacy" className="hover:underline">Privacy</Link>
+            <Link href="/terms" className="hover:underline">Terms</Link>
           </div>
         </div>
       </div>

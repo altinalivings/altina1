@@ -36,7 +36,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-black/90 backdrop-blur border-b border-white/10">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         {/* Brand */}
         <Link href="/" className="flex items-center gap-2" onClick={closeMenu}>
           <Image
@@ -44,7 +44,7 @@ export default function Header() {
             alt="ALTINA™ Livings"
             width={40}
             height={40}
-            className="h-20 w-20 rounded"
+            className="h-10 w-10 rounded"
             priority
           />
           <div className="leading-tight">
@@ -74,7 +74,7 @@ export default function Header() {
         </nav>
 
         {/* Mobile toggle */}
-        <button type=\"button\"
+        <button
           className="md:hidden inline-flex items-center justify-center rounded-lg p-2 text-neutral-200 hover:text-white hover:bg-white/10"
           aria-label={open ? "Close menu" : "Open menu"}
           onClick={() => setOpen((v) => !v)}
