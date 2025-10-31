@@ -104,8 +104,8 @@
     },
     "seo": {
       "title": "DLF One Midtown – Luxury 2, 3 & 4 BHK Residences in Moti Nagar, Delhi",
-      "description": "Explore DLF One Midtown—ready luxury apartments in West Delhi with premium amenities and excellent connectivity. Book a site visit with Altina™ Livings.",
-      "canonical": "https://www.altinalivings.com/projects/dlf-one-midtown-moti-nagar"
+      "description": "Luxury residences by DLF in West Delhi with premium amenities, surrounded by greens, excellent connectivity & ready possession.",
+      "canonical": "https://www.dlfhomes.co.in/dlf-midtown-moti-nagar-delhi"
     },
     "virtualTourUrl": "https://www.youtube.com/watch?v=t2UzbAW6-D8",
     "featured": true,
@@ -130,8 +130,7 @@
         "q": "Is DLF One Midtown RERA registered?",
         "a": "Yes, RERA ID: DLRERA2021P0007."
       }
-    ],
-    "description": "DLF One Midtown in Moti Nagar, West Delhi offers luxury 2/3/4 BHK residences with premium amenities and great metro connectivity—curated by Altina™ Livings."
+    ]
   },
   {
     "id": "dlf-independent-floors-phase-2-3",
@@ -242,8 +241,8 @@
       "disclaimer": "All imagery & details are indicative. Specifications/approvals are subject to change. Verify latest RERA details and availability."
     },
     "seo": {
-      "title": "DLF Independent Floors Phase 2 & 3 – Premium Builder Floors in Gurugram",
-      "description": "Premium low-density living by DLF in prime Gurugram. Discover layouts, amenities, and pricing. Book an exclusive site visit with Altina™ Livings.",
+      "title": "DLF Independent Floors Phase 2 & 3 – 3 & 4 BHK in DLF City, Gurugram",
+      "description": "Low-rise luxury independent floors by DLF in DLF City Phases 2 & 3. Stilt + 4, lifts, premium finishes, estate management, near MG Road & Cyber Hub.",
       "canonical": "https://www.altinalivings.com/projects/dlf-independent-floors-phase-2-3"
     },
     "featured": true,
@@ -268,8 +267,7 @@
         "q": "Is DLF Independent Floors (Phase 2 & 3) RERA registered?",
         "a": "Yes, RERA ID: TBA."
       }
-    ],
-    "description": "DLF Independent Floors (Phase 2 & 3), Gurugram—premium builder floors in a low-density neighborhood with strong connectivity and lifestyle amenities."
+    ]
   },
   {
     "id": "dlf-sco-67",
@@ -389,8 +387,8 @@
       "disclaimer": "This circulation is not a legal offering. All details, images, drawings and specifications are indicative. Verify latest RERA details, approvals and availability with DLF before booking."
     },
     "seo": {
-      "title": "DLF SCO 67 – Premium Shop-Cum-Office Plots in Gurugram",
-      "description": "Own premium SCO plots in a prime Gurugram corridor with strong visibility and growth potential. Get verified details with Altina™ Livings.",
+      "title": "DLF Central 67 – SCO Plots on Sohna Road, Gurugram",
+      "description": "DLF Central 67 brings premium SCO plots with a grand plaza, wide entrances, globally renowned landscaping and prime Sohna Road frontage. Biggest commercial investment in Gurugram.",
       "canonical": "https://www.altinalivings.com/projects/dlf-sco-67"
     },
     "featured": true,
@@ -415,7 +413,6 @@
         "q": "Is DLF Central 67 (SCO Plots) RERA registered?",
         "a": "Yes, RERA ID: RC/REP/HARERA/GGM/768/500/2023/112."
       }
-    ],
-    "description": "DLF SCO 67 offers freehold shop-cum-office plots in Gurugram’s prime corridor—high visibility, strong footfall potential and long-term brand presence."
+    ]
   }
 ]

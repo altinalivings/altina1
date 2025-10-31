@@ -1,4 +1,3 @@
-// src/components/BrochureLeadGate.tsx
 "use client";
 
 import { useState } from "react";
@@ -96,7 +95,12 @@ function BrochureModal({
       setOk(true);
 
       // 🔔 Conversion tracking (manual)
-      trackLead({ mode: "brochure", project: projectName, label: `/brochure/${projectId}`, value: 1 });
+      trackLead({
+        mode: "brochure",
+        project: projectName,
+        label: `/brochure/${projectId}`,
+        value: 1,
+      });
 
       // start download
       setTimeout(() => {
@@ -125,7 +129,9 @@ function BrochureModal({
             <h3 className="text-lg font-semibold">Get Brochure</h3>
             <p className="text-xs text-neutral-400 mt-1">{projectName}</p>
           </div>
-          <button onClick={onClose} className="text-neutral-300 hover:text-white">✕</button>
+          <button onClick={onClose} className="text-neutral-300 hover:text-white">
+            ✕
+          </button>
         </div>
 
         <form onSubmit={onSubmit} className="mt-4 grid gap-3">
@@ -170,3 +176,6 @@ function BrochureModal({
     </div>
   );
 }
+
+/* ✅ Add this at the very end */
+export default GatedDownloadButton;

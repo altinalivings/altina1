@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+//export const dynamic = "force-dynamic";
 // src/app/projects/page.tsx
 import type { Metadata } from "next";
 import ProjectsClient from "./projects-client";
@@ -7,6 +7,7 @@ import ProjectsSchema from "./ProjectsSchema";
 const SITE =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
   "https://www.altinalivings.com";
+export const revalidate = 3600; // rebuild static HTML every hour
 
 export const metadata: Metadata = {
   title: "Projects in Delhi NCR | ALTINA™ Livings",
