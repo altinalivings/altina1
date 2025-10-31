@@ -1,25 +1,32 @@
 // src/components/ModalBridge.tsx
 "use client";
+
+/**
+ * Minimal “bridge” so other code can trigger hidden buttons via querySelector.
+ */
 export default function ModalBridge() {
   return (
     <>
-      <button type=\"button\"
+      {/* Hidden click proxies */}
+      <button
+        type="button"
         id="lead-dialog"
-        onClick={() =>
-          document.querySelector<HTMLButtonElement>("#lead-form-trigger")?.click()
-        }
         className="hidden"
-        aria-hidden
-        tabIndex={-1}
+        onClick={() =>
+          document
+            .querySelector<HTMLButtonElement>("#lead-form-trigger")
+            ?.click()
+        }
       />
-      <button type=\"button\"
-        id="visit-dialog"
-        onClick={() =>
-          document.querySelector<HTMLButtonElement>("#visit-form-trigger")?.click()
-        }
+      <button
+        type="button"
+        id="brochure-dialog"
         className="hidden"
-        aria-hidden
-        tabIndex={-1}
+        onClick={() =>
+          document
+            .querySelector<HTMLButtonElement>("#brochure-form-trigger")
+            ?.click()
+        }
       />
     </>
   );
