@@ -1,22 +1,18 @@
-// src/app/layout.tsx
 import "./globals.css";
 import "../styles/altina-gold.css";
 import type { Metadata } from "next";
-
 import { Inter } from "next/font/google";
 import Header from "@/components/Header";
 import SiteFooter from "@/components/SiteFooter";
 import StickyCTABar from "@/components/StickyCTABar";
-// ⛔ Removed legacy bridges:
-// import ModalBridge from "@/components/ModalBridge";
-// import GlobalLeadModal from "@/components/GlobalLeadModal";
+import ModalBridge from "@/components/ModalBridge";
+import GlobalLeadModal from "@/components/GlobalLeadModal";
 import LeadBus from "@/components/LeadBus";
 import Analytics from "@/components/Analytics";
 import Notifier from "@/components/Notifier";
 import AutoCallbackPrompt from "@/components/AutoCallbackPrompt";
 import AnalyticsGuards from "@/components/AnalyticsGuards";
 import Script from "next/script";
-import HydrationFlag from "@/components/HydrationFlag"; // ✅ new
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -79,106 +75,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     ],
   };
 
-  // ✅ Enhanced LocalBusiness / RealEstateAgent JSON-LD
-  const businessJsonLd = {
-    "@context": "https://schema.org",
-    "@type": ["RealEstateAgent", "LocalBusiness"],
-    name: "ALTINA™ Livings",
-    image: "https://www.altinalivings.com/logo.png",
-    url: "https://www.altinalivings.com",
-    telephone: "+91-9891234195",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress:
-        "Suite C, 704, 7th Floor, Palm Court, Mehrauli-Gurgaon Road, Sector 16",
-      addressLocality: "Gurugram",
-      addressRegion: "Haryana",
-      postalCode: "122007",
-      addressCountry: "IN",
-    },
-    areaServed: ["Delhi NCR", "Gurgaon", "Noida"],
-    sameAs: [
-      "https://www.facebook.com/profile.php?id=61580035583494",
-      "https://www.instagram.com/altinalivings",
-      "https://www.linkedin.com/company/108414321/",
-      "https://www.youtube.com/@Altinalivings",
-    ],
-  };
-
   return (
     <html lang="en" className="bg-black text-white">
       <head>
-        <meta
-          name="google-site-verification"
-          content="_1iZhV_tnYBQBc5MU2VMF9YObRDPkiFdNlGpxmsYIOU"
-        />
-        {/* Existing analytics guards */}
         <Script
           id="analytics-guards-pre"
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: preInteractiveGuard }}
-        />
-        {/* NEW: hard block native submits / .css navigations before hydration */}
-        <Script
-          id="block-pre-hydration-submits"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function () {
-                try {
-                  // Block ANY form submit until hydration flag flips
-                  document.addEventListener('submit', function(e) {
-                    try {
-                      if (!window.__ALTINA_HYDRATED__) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        console.warn('[Guard] Blocked native form submit before hydration.', e.target);
-                        alert('Please wait a moment while the page loads…');
-                      } else {
-                        var form = e.target;
-                        var action = (form && form.getAttribute('action') || '').trim().toLowerCase();
-                        if (action.endsWith('.css')) {
-                          e.preventDefault(); e.stopPropagation();
-                          console.error('[Guard] Prevented submit to a .css URL:', action);
-                          alert('Submit target misconfigured (points to .css). Please report.');
-                        }
-                      }
-                    } catch(_) {}
-                  }, true);
-
-                  // Block clicks that would navigate to .css or pre-hydration submits
-                  document.addEventListener('click', function(e){
-                    try {
-                      var el = e.target && e.target.closest && e.target.closest('a,button');
-                      if (!el) return;
-                      if (el.tagName === 'BUTTON') {
-                        var fa = (el.getAttribute('formAction') || '').toLowerCase();
-                        if (fa.endsWith('.css')) {
-                          e.preventDefault(); e.stopPropagation();
-                          console.error('[Guard] Blocked button formAction to .css:', fa);
-                          alert('Button formAction misconfigured (.css).');
-                        }
-                        var type = (el.getAttribute('type') || 'submit').toLowerCase();
-                        if (type === 'submit' && !window.__ALTINA_HYDRATED__) {
-                          e.preventDefault(); e.stopPropagation();
-                          console.warn('[Guard] Blocked pre-hydration submit button click.');
-                          alert('Please wait a moment while the page loads…');
-                        }
-                      }
-                      if (el.tagName === 'A') {
-                        var href = (el.getAttribute('href') || '').toLowerCase();
-                        if (href.endsWith('.css')) {
-                          e.preventDefault(); e.stopPropagation();
-                          console.error('[Guard] Blocked anchor to .css:', href);
-                          alert('Link points to a stylesheet (.css).');
-                        }
-                      }
-                    } catch(_) {}
-                  }, true);
-                } catch(_) {}
-              })();
-            `,
-          }}
         />
       </head>
 
@@ -189,9 +92,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* 🏠 Header */}
         <Header />
 
-        {/* ⚑ Flip hydration flag ASAP */}
-        <HydrationFlag />
-
         {/* 🧱 Main Content */}
         <main className="flex-1">{children}</main>
 
@@ -200,8 +100,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         {/* 📞 CTAs, Modals, Leads, Analytics */}
         <StickyCTABar />
-        {/* ⛔ Removed <ModalBridge /> and <GlobalLeadModal /> */}
-        <LeadBus />        {/* ← Global listener for `lead:open` */}
+        <ModalBridge />
+        <GlobalLeadModal />
+        <LeadBus />
         <Analytics />
         <Notifier />
         <AutoCallbackPrompt />
@@ -210,10 +111,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(businessJsonLd) }}
         />
 
         {/* ✅ Analytics Script Loader */}
@@ -259,26 +156,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 window.lintrk.q=[];
                 window.__li_loaded=true;
               }
-
-              // 🟢 WhatsApp click tracking (GA4)
-              document.addEventListener('click', function(e){
-                try {
-                  var a = e.target.closest && e.target.closest('a');
-                  if(!a) return;
-                  var href = (a.getAttribute('href') || '').toLowerCase();
-                  if(href.includes('wa.me/') || href.includes('api.whatsapp.com/send') || href.startsWith('whatsapp://')){
-                    if(typeof window.gtag === 'function'){
-                      window.gtag('event', 'whatsapp_click', {
-                        event_category: 'engagement',
-                        event_label: href
-                      });
-                    }
-                    if(window.dataLayer){
-                      window.dataLayer.push({ event: 'whatsapp_click', wa_href: href });
-                    }
-                  }
-                } catch(err){}
-              }, true);
             })();
           `}
         </Script>
