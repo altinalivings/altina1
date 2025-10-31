@@ -1,22 +1,38 @@
 // src/components/ProjectPicker.tsx
 "use client";
-import React from "react";
 
-type Project = { id: string; name: string };
-type Props = {
-  open: boolean;
-  projects?: Project[];
-  onClose: () => void;
-  onSelect: (p: Project) => void;
+import { useMemo } from "react";
+import projectsData from "@/data/projects.json";
+
+type Project = {
+  id: string;
+  name: string;
+  location?: string;
+  brochure?: string;
 };
 
-export default function ProjectPicker({
-  open,
-  projects = [],
-  onClose,
-  onSelect,
-}: Props) {
+type Props = {
+  open: boolean;
+  onClose: () => void;
+  /** Called when a user picks a project */
+  onPick?: (p: Project) => void;
+};
+
+export default function ProjectPicker({ open, onClose, onPick }: Props) {
+  const projects: Project[] = useMemo(
+    () => (Array.isArray(projectsData) ? (projectsData as Project[]) : []),
+    []
+  );
+
   if (!open) return null;
+
+  const choose = (p: Project) => {
+    try {
+      onPick?.(p); // notify parent (LeadBus sets selected project)
+    } finally {
+      onClose();   // close the picker either way
+    }
+  };
 
   return (
     <div className="fixed inset-0 z-[70] bg-black/60 backdrop-blur-sm">
@@ -26,28 +42,36 @@ export default function ProjectPicker({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-md border border-white/15 px-2 py-1 text-sm"
+            className="rounded-md px-2 py-1 text-sm text-white/70 hover:text-white"
+            aria-label="Close"
           >
-            Close
+            ✕
           </button>
         </div>
 
-        <ul className="mt-4 space-y-2">
+        <div className="mt-4 grid gap-2">
           {projects.map((p) => (
-            <li key={p.id}>
-              <button
-                type="button"
-                className="w-full rounded-lg border border-white/10 px-3 py-2 text-left hover:bg-white/5"
-                onClick={() => onSelect(p)}
-              >
-                {p.name}
-              </button>
-            </li>
+            <button
+              key={p.id}
+              type="button"
+              onClick={() => choose(p)}
+              className="flex items-center justify-between rounded-lg border border-white/10 px-3 py-2 text-left hover:bg-white/5"
+            >
+              <div>
+                <div className="font-medium">{p.name}</div>
+                {p.location ? (
+                  <div className="text-xs text-white/60">{p.location}</div>
+                ) : null}
+              </div>
+              <span className="text-xs text-white/60">Choose</span>
+            </button>
           ))}
-          {!projects.length && (
-            <li className="opacity-70 text-sm">No projects available.</li>
+          {projects.length === 0 && (
+            <div className="rounded-lg border border-white/10 px-3 py-4 text-sm text-white/70">
+              No projects found.
+            </div>
           )}
-        </ul>
+        </div>
       </div>
     </div>
   );
