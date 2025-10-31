@@ -47,26 +47,30 @@ export default function BrochureLeadGate({
 
 /**
  * Named export expected by /app/brochure/[id]/page.tsx
- * Renders a button that opens the unified lead flow in "brochure" mode.
+ * Accepts both `href` and `brochureUrl` (alias) to be backwards compatible.
  */
 export function GatedDownloadButton({
   href,
+  brochureUrl,
   children = 'Download Brochure',
   projectId,
   projectName,
   className,
 }: {
   href?: string
+  brochureUrl?: string
   children?: React.ReactNode
   projectId?: string
   projectName?: string
   className?: string
 }) {
+  const finalHref = href || brochureUrl
+
   const onClick = () => {
     if (typeof window !== 'undefined') {
       window.dispatchEvent(
         new CustomEvent('lead:open', {
-          detail: { mode: 'brochure', projectId, projectName, href },
+          detail: { mode: 'brochure', projectId, projectName, href: finalHref },
         }),
       )
     }
