@@ -1,0 +1,1 @@
+// SpecTable component code here
