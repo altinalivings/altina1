@@ -80,7 +80,7 @@ export default function DebugAnalyticsPage() {
         </label>
       </div>
 
-      <button
+      <button type=\"button\"
         onClick={sendTestEvent}
         style={{
           padding: "0.75rem 1rem",

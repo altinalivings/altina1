@@ -94,7 +94,7 @@ export default function HomePage() {
       </section>
 
       <FeaturedProjects items={featuredProjects} />
-      {/* <FeaturedDevelopers items={(developers as any[])} /> */}
+      {{/* <FeaturedDevelopers items={(developers as any[])} /> */}}
       <ServicesWeOffer />
       <ValueProposition />
       <MiniCTA />

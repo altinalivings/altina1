@@ -33,7 +33,7 @@ export default function ProjectCTARail({ project }: { project: any }) {
       </button>
 
       {/* 📞 Request a Call */}
-      {/* <button onClick={() => openLead('callback')} className="btn btn-emerald">Request a Call</button> */}
+      {/* <button type=\"button\" onClick={() => openLead('callback')} className="btn btn-emerald">Request a Call</button> */}
       <button
         type="button"
         onClick={() => openLead("callback")}

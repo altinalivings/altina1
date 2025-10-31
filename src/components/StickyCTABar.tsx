@@ -19,7 +19,7 @@ export default function StickyCTABar() {
     <div className="fixed inset-x-0 bottom-0 z-40 sm:hidden border-t border-white/10 bg-black/80 backdrop-blur px-3 py-2">
       <div className="mx-auto flex max-w-6xl gap-2">
         {/* Example of old button kept for reference:
-            <button className={btn} onClick={() => open("callback")}>Callback</button>
+            <button type=\"button\" className={btn} onClick={() => open("callback")}>Callback</button>
         */}
 
         <button

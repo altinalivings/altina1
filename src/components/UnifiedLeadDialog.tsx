@@ -172,7 +172,7 @@ export default function UnifiedLeadDialog({
             <h3 className="text-lg font-semibold">{heading}</h3>
             {projectName ? <p className="text-xs text-neutral-400 mt-1">{projectName}</p> : null}
           </div>
-          <button onClick={onClose} className="text-neutral-300 hover:text-white">✕</button>
+          <button type=\"button\" onClick={onClose} className="text-neutral-300 hover:text-white">✕</button>
         </div>
 
         <form onSubmit={onSubmit} className="mt-4 grid gap-3">

@@ -62,7 +62,7 @@ export default function Notifier() {
     <div className="pointer-events-none fixed inset-0 z-[100] flex items-start justify-end p-4 sm:p-6">
       <div className="flex w-full max-w-sm flex-col gap-2">
         {toasts.map((t) => (
-          <button
+          <button type=\"button\"
             key={t.id}
             onClick={() =>
               setToasts((prev) => prev.filter((x) => x.id !== t.id))
