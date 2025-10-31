@@ -40,7 +40,7 @@ export default function SideCTA() {
         Call Now
       </a>
       {/* Organize a Visit triggers the floating drawer */}
-      <button
+      <button type=\"button\"
         onClick={openVisit}
         className="btn btn-gold"
         style={{ whiteSpace: 'nowrap' }}

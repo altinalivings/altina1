@@ -74,7 +74,7 @@ export default function Header() {
         </nav>
 
         {/* Mobile toggle */}
-        <button
+        <button type=\"button\"
           className="md:hidden inline-flex items-center justify-center rounded-lg p-2 text-neutral-200 hover:text-white hover:bg-white/10"
           aria-label={open ? "Close menu" : "Open menu"}
           onClick={() => setOpen((v) => !v)}

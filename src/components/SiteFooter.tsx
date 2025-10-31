@@ -166,7 +166,7 @@ export default function SiteFooter({
               deals brought by the best and most trusted builders.
             </p>
           </div>
-          <button
+          <button type=\"button\"
             onClick={openCallback}
             className="rounded-full px-8 py-3 text-base font-semibold shadow-md"
             style={{

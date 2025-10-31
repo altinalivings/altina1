@@ -81,7 +81,7 @@ export default function ProjectGallery({ slug, images: imagesProp, caption = "Cl
       {/* First row: 4‑tile grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {top.map((src, i) => (
-          <button
+          <button type=\"button\"
             key={src + i}
             onClick={() => openAt(i)}
             className="group relative aspect-[4/3] overflow-hidden rounded-xl ring-1 ring-white/10 focus:outline-none focus-visible:ring-2"
@@ -140,7 +140,7 @@ function RowSwiper({
         className="flex gap-3 overflow-x-auto scroll-smooth no-scrollbar py-1"
       >
         {images.map((src, idx) => (
-          <button
+          <button type=\"button\"
             key={src + idx}
             onClick={() => onOpen(startIndex + idx)}
             className="group shrink-0 relative h-44 w-[20rem] overflow-hidden rounded-xl ring-1 ring-white/10"
@@ -156,14 +156,14 @@ function RowSwiper({
       </div>
       <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-black/70 to-transparent rounded-l-xl" />
       <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-black/70 to-transparent rounded-r-xl" />
-      <button
+      <button type=\"button\"
         aria-label="Previous"
         onClick={() => scrollBy(-300)}
         className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/10 backdrop-blur px-3 py-2 hover:bg-white/20 focus:outline-none"
       >
         ‹
       </button>
-      <button
+      <button type=\"button\"
         aria-label="Next"
         onClick={() => scrollBy(300)}
         className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/10 backdrop-blur px-3 py-2 hover:bg-white/20 focus:outline-none"
@@ -191,21 +191,21 @@ function Lightbox({
 }) {
   return (
     <div className="fixed inset-0 z-[100] bg-black/90">
-      <button
+      <button type=\"button\"
         onClick={onClose}
         aria-label="Close"
         className="absolute right-4 top-4 rounded-full bg-white/10 px-3 py-2 hover:bg-white/20"
       >
         ✕
       </button>
-      <button
+      <button type=\"button\"
         onClick={onPrev}
         aria-label="Prev"
         className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/10 px-3 py-2 hover:bg-white/20"
       >
         ‹
       </button>
-      <button
+      <button type=\"button\"
         onClick={onNext}
         aria-label="Next"
         className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/10 px-3 py-2 hover:bg-white/20"
@@ -222,7 +222,7 @@ function Lightbox({
       <div className="absolute bottom-0 left-0 right-0 bg-black/60 p-3">
         <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto no-scrollbar">
           {images.map((src, i) => (
-            <button
+            <button type=\"button\"
               key={src + i}
               onClick={() => onSelect(i)}
               className={

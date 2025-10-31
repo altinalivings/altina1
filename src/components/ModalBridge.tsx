@@ -3,7 +3,7 @@
 export default function ModalBridge() {
   return (
     <>
-      <button
+      <button type=\"button\"
         id="lead-dialog"
         onClick={() =>
           document.querySelector<HTMLButtonElement>("#lead-form-trigger")?.click()
@@ -12,7 +12,7 @@ export default function ModalBridge() {
         aria-hidden
         tabIndex={-1}
       />
-      <button
+      <button type=\"button\"
         id="visit-dialog"
         onClick={() =>
           document.querySelector<HTMLButtonElement>("#visit-form-trigger")?.click()

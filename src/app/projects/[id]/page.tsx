@@ -1,3 +1,4 @@
+// src/app/projects/[id]/page.tsx
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Script from "next/script";
@@ -5,6 +6,7 @@ import projectsData from "@/data/projects.json";
 import ProjectDetailClientShell from "@/components/ProjectDetailClientShell";
 import RelatedProjects from "@/components/RelatedProjects";
 
+export const revalidate = 3600;
 
 type Project = {
   id: string;
@@ -19,10 +21,9 @@ type Project = {
   gallery?: string[];
   about?: string;
   possession?: string;
-  connectivity?: { label: string; time: string }[];
-  virtualTourUrl?: string;
   highlights?: string[];
   amenities?: string[];
+  virtualTourUrl?: string;
 };
 
 const SITE =
@@ -32,6 +33,7 @@ const SITE =
 const list: Project[] = Array.isArray(projectsData)
   ? (projectsData as Project[])
   : [];
+
 const findProject = (id: string) => list.find((p) => p.id === id);
 
 const abs = (u?: string) =>
@@ -43,8 +45,20 @@ const abs = (u?: string) =>
 
 function priceNumber(p?: string) {
   if (!p) return undefined;
-  const v = p.replace(/[^\d.]/g, "");
-  return v || undefined;
+  const str = p.toLowerCase().replace(/[₹,\s]/g, "").trim();
+
+  const cr = str.match(/^([\d.]+)(cr|crore)$/);
+  if (cr) return String(Math.round(parseFloat(cr[1]) * 10000000));
+
+  const lk = str.match(/^([\d.]+)(l|lakh)$/);
+  if (lk) return String(Math.round(parseFloat(lk[1]) * 100000));
+
+  const n = parseFloat(str);
+  if (!isNaN(n)) {
+    if (n < 1000) return String(Math.round(n * 10000000));
+    return String(Math.round(n));
+  }
+  return undefined;
 }
 
 export function generateStaticParams() {
@@ -61,15 +75,16 @@ export async function generateMetadata({
 
   const title = `${p.name}${p.city ? ` in ${p.city}` : ""} | ALTINA™ Livings`;
   const description =
-    [
-      p.about,
-      p.configuration,
-      p.location ? `Location: ${p.location}` : "",
-      p.price ? `Price: ${p.price}` : "",
-    ]
-      .filter(Boolean)
-      .join(" • ")
-      .slice(0, 300) ||
+    (
+      [
+        p.about,
+        p.configuration,
+        p.location ? `Location: ${p.location}` : "",
+        p.price ? `Price: ${p.price}` : "",
+      ]
+        .filter(Boolean)
+        .join(" • ")
+    ).slice(0, 300) ||
     `Explore ${p.name}${p.city ? ` in ${p.city}` : ""}.`;
 
   return {
@@ -96,6 +111,9 @@ export async function generateMetadata({
 }
 
 function ProjectSchema({ p }: { p: Project }) {
+  const priceValue = priceNumber(p.price);
+  if (!priceValue) return null;
+
   const schema = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -103,18 +121,29 @@ function ProjectSchema({ p }: { p: Project }) {
     sku: p.id,
     brand: p.developer
       ? { "@type": "Brand", name: p.developer }
-      : { "@type": "Brand", name: "ALTINA" },
-    description: [p.configuration, p.location, p.city].filter(Boolean).join(" • "),
+      : { "@type": "Brand", name: "ALTINA™ Livings" },
+    description: [p.configuration, p.location, p.city, p.about]
+      .filter(Boolean)
+      .join(" • "),
     image: p.hero ? [abs(p.hero)] : undefined,
     category: "Real Estate",
     url: `${SITE}/projects/${p.id}`,
     offers: {
       "@type": "Offer",
-      price: priceNumber(p.price),
+      price: priceValue,
       priceCurrency: "INR",
       url: `${SITE}/projects/${p.id}`,
       itemCondition: "https://schema.org/NewCondition",
       availability: "https://schema.org/InStock",
+      priceValidUntil: new Date(Date.now() + 1000 * 60 * 60 * 24 * 90)
+        .toISOString()
+        .slice(0, 10),
+      seller: {
+        "@type": "Organization",
+        name: "ALTINA™ Livings",
+        url: SITE,
+        telephone: "+91-9891234195",
+      },
     },
   };
 
@@ -150,45 +179,23 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
   const p = findProject(params.id);
   if (!p) return notFound();
 
-  // 🟡 Default FAQs (dynamic)
   const faqs = [
-    {
-      q: `What is the price of ${p.name}?`,
-      a: `The price for ${p.name} starts at ${p.price || "market-linked rates"}.`,
-    },
-    {
-      q: `When is possession for ${p.name}?`,
-      a: p.possession
-        ? `${p.name} is expected to be ready by ${p.possession}.`
-        : `Possession timelines are subject to developer updates.`,
-    },
-    {
-      q: `Where is ${p.name} located?`,
-      a: p.location
-        ? `${p.name} is located at ${p.location}.`
-        : `Located in a prime micro-market in Delhi NCR.`,
-    },
-    {
-      q: `How can I get the brochure for ${p.name}?`,
-      a: p.brochure
-        ? `You can download the official brochure by clicking on “Download Brochure” on this page.`
-        : `Brochure details are available upon request.`,
-    },
+    { q: `What is the price of ${p.name}?`, a: `The price for ${p.name} starts at ${p.price || "market-linked rates"}.` },
+    { q: `When is possession for ${p.name}?`, a: p.possession ? `${p.name} is expected to be ready by ${p.possession}.` : `Possession timelines are subject to developer updates.` },
+    { q: `Where is ${p.name} located?`, a: p.location ? `${p.name} is located at ${p.location}.` : `Located in a prime micro-market in Delhi NCR.` },
+    { q: `How can I get the brochure for ${p.name}?`, a: p.brochure ? `You can download the official brochure by clicking on “Download Brochure” on this page.` : `Brochure details are available upon request.` },
   ];
 
   return (
     <main className="bg-[#0B0B0C] text-white">
       <ProjectDetailClientShell project={p} />
 
-     
-
-      
-
-      {/* 🟡 FAQ Section */}
-      <section className="max-w-6xl mx-auto px-4 py-10 border-t border-altina-gold/20">
-        <h2 className="text-2xl font-semibold text-altina-gold mb-6">
-          Frequently Asked Questions
-        </h2>
+      {/* FAQ */}
+      <section
+        className="max-w-6xl mx-auto px-4 pt-10 pb-6 border-t border-altina-gold/20"
+        aria-label="Frequently Asked Questions"
+      >
+        <h2 className="text-2xl font-semibold text-altina-gold mb-6">Frequently Asked Questions</h2>
         <div className="space-y-4">
           {faqs.map((faq, i) => (
             <details
@@ -204,10 +211,26 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
         </div>
       </section>
 
-      {/* 🟡 JSON-LD Schemas */}
+      {/* JSON-LD Schemas */}
       <ProjectSchema p={p} />
       <ProjectBreadcrumbs p={p} />
-	  <RelatedProjects currentId={project.id} projects={projects} />
+
+      {/* Related Projects - centered, with divider + heading */}
+      <section
+        className="max-w-6xl mx-auto px-4 mt-8 pb-10"
+        aria-label="Related Projects"
+      >
+        <div className="border-t border-altina-gold/20 pt-6">
+          <h2 className="text-xl sm:text-2xl font-semibold text-altina-gold mb-4">
+            More like this
+          </h2>
+          <RelatedProjects
+            currentId={p.id}
+            developer={p.developer}
+            city={p.city}
+          />
+        </div>
+      </section>
     </main>
   );
 }

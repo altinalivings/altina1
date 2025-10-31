@@ -129,7 +129,7 @@ function BrochureModal({
             <h3 className="text-lg font-semibold">Get Brochure</h3>
             <p className="text-xs text-neutral-400 mt-1">{projectName}</p>
           </div>
-          <button onClick={onClose} className="text-neutral-300 hover:text-white">
+          <button type=\"button\" onClick={onClose} className="text-neutral-300 hover:text-white">
             ✕
           </button>
         </div>

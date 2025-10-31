@@ -54,7 +54,7 @@ export default function ProjectPickerDialog({
         <div className="golden-frame glow modal-surface p-5">
           <div className="flex items-center justify-between gap-4">
             <h3 className="text-lg font-semibold">{heading}</h3>
-            <button onClick={onClose} className="rounded-md border border-white/15 px-3 py-1 text-sm">
+            <button type=\"button\" onClick={onClose} className="rounded-md border border-white/15 px-3 py-1 text-sm">
               Close
             </button>
           </div>
@@ -70,7 +70,7 @@ export default function ProjectPickerDialog({
 
           <div className="mt-4 max-h-80 overflow-auto divide-y divide-white/10">
             {filtered.map((p) => (
-              <button
+              <button type=\"button\"
                 key={p.id}
                 onClick={() => onSelect(p)}
                 className="w-full text-left py-3 hover:bg-white/5 transition flex items-center gap-3"

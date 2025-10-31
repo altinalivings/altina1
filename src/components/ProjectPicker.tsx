@@ -37,7 +37,7 @@ export default function ProjectPicker({
       <div className="absolute inset-x-0 top-16 mx-auto max-w-xl rounded-2xl border border-white/15 bg-neutral-900 p-4">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-semibold">Select a project</h3>
-          <button onClick={onClose} className="text-sm opacity-80 hover:opacity-100">Close</button>
+          <button type=\"button\" onClick={onClose} className="text-sm opacity-80 hover:opacity-100">Close</button>
         </div>
 
         <input
@@ -49,7 +49,7 @@ export default function ProjectPicker({
 
         <div className="mt-3 max-h-80 overflow-auto space-y-2">
           {list.map((p: any) => (
-            <button
+            <button type=\"button\"
               key={p.id}
               onClick={() => onPick({ id: p.id, name: p.name })}
               className="w-full text-left rounded-xl border border-white/10 px-3 py-2 hover:border-white/30"

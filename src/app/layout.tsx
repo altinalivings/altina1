@@ -1,4 +1,3 @@
-// src/app/layout.tsx
 import "./globals.css";
 import "../styles/altina-gold.css";
 import type { Metadata } from "next";
@@ -14,13 +13,11 @@ import Notifier from "@/components/Notifier";
 import AutoCallbackPrompt from "@/components/AutoCallbackPrompt";
 import AnalyticsGuards from "@/components/AnalyticsGuards";
 import Script from "next/script";
-import React from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://www.altinalivings.com";
-const FB_PIXEL = process.env.NEXT_PUBLIC_FB_PIXEL || "";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.altinalivings.com";
+const FB_PIXEL = process.env.NEXT_PUBLIC_FB_PIXEL;
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "";
 const LI_ID = process.env.NEXT_PUBLIC_LI_PARTNER_ID || "";
 
@@ -38,7 +35,6 @@ export const metadata: Metadata = {
   alternates: { canonical: SITE_URL },
 };
 
-// 🔒 wrap analytics globals before interactive
 const preInteractiveGuard = `;(function(){try{
   var w=window;
   function guard(fn){
@@ -58,11 +54,7 @@ const preInteractiveGuard = `;(function(){try{
   try{Object.defineProperty(w,'gtag',{configurable:true,enumerable:true,set:function(v){this.__gtag=guard(v);},get:function(){return this.__gtag;}});}catch(e){}
 }catch(e){} })();`;
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   const orgJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -86,10 +78,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-black text-white">
       <head>
-        <meta
-          name="google-site-verification"
-          content="_1iZhV_tnYBQBc5MU2VMF9YObRDPkiFdNlGpxmsYIOU"
-        />
         <Script
           id="analytics-guards-pre"
           strategy="beforeInteractive"
@@ -136,7 +124,7 @@ export default function RootLayout({
                 s.src='https://www.googletagmanager.com/gtag/js?id=${GA_ID}';
                 document.head.appendChild(s);
                 window.dataLayer=window.dataLayer||[];
-                function gtag(){window.dataLayer.push(arguments);}
+                function gtag(){dataLayer.push(arguments);}
                 window.gtag=gtag;
                 gtag('js', new Date());
                 gtag('config', '${GA_ID}');
@@ -165,32 +153,9 @@ export default function RootLayout({
                 s.src="https://snap.licdn.com/li.lms-analytics/insight.min.js";
                 document.head.appendChild(s);
                 window.lintrk=function(a,b){window.lintrk.q.push([a,b])};
-                (window as any).lintrk.q=[];
+                window.lintrk.q=[];
                 window.__li_loaded=true;
               }
-
-              // 🟢 Site-wide WhatsApp click tracking (GA4)
-              document.addEventListener('click', function(e){
-                try {
-                  var a = (e.target && (e.target as HTMLElement).closest) ? (e.target as HTMLElement).closest('a') : null;
-                  if(!a) return;
-                  var href = (a.getAttribute('href') || '').toLowerCase();
-                  if(href.includes('wa.me/') || href.includes('api.whatsapp.com/send') || href.startsWith('whatsapp://')){
-                    if(typeof window.gtag === 'function'){
-                      window.gtag('event', 'whatsapp_click', {
-                        event_category: 'engagement',
-                        event_label: href
-                      });
-                    }
-                    if(window.dataLayer){
-                      window.dataLayer.push({
-                        event: 'whatsapp_click',
-                        wa_href: href
-                      });
-                    }
-                  }
-                } catch(err){}
-              }, true);
             })();
           `}
         </Script>
@@ -203,7 +168,6 @@ export default function RootLayout({
               width="1"
               style={{ display: "none" }}
               src={`https://www.facebook.com/tr?id=${FB_PIXEL}&ev=PageView&noscript=1`}
-              alt=""
             />
           </noscript>
         ) : null}

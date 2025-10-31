@@ -17,7 +17,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
           <pre style={{whiteSpace: "pre-wrap"}}>{error.stack}</pre>
         </details>
       ) : null}
-      <button onClick={() => reset()} style={{marginTop: 12, padding: "8px 12px", borderRadius: 8, background: "#10b981", color: "white"}}>
+      <button type=\"button\" onClick={() => reset()} style={{marginTop: 12, padding: "8px 12px", borderRadius: 8, background: "#10b981", color: "white"}}>
         Try again
       </button>
     </div>
