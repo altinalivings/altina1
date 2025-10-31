@@ -1,20 +1,20 @@
 // src/components/BrochureLeadGate.tsx
-"use client";
+'use client'
 
-type Props = {
-  open: boolean;
-  onClose: () => void;
-  projectId?: string;
-  projectName?: string;
-};
+type GateProps = {
+  open: boolean
+  onClose: () => void
+  projectId?: string
+  projectName?: string
+}
 
 export default function BrochureLeadGate({
   open,
   onClose,
   projectId,
   projectName,
-}: Props) {
-  if (!open) return null;
+}: GateProps) {
+  if (!open) return null
 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 p-4">
@@ -42,5 +42,39 @@ export default function BrochureLeadGate({
         </div>
       </div>
     </div>
-  );
+  )
+}
+
+/**
+ * Named export expected by /app/brochure/[id]/page.tsx
+ * Renders a button that opens the unified lead flow in "brochure" mode.
+ */
+export function GatedDownloadButton({
+  href,
+  children = 'Download Brochure',
+  projectId,
+  projectName,
+  className,
+}: {
+  href?: string
+  children?: React.ReactNode
+  projectId?: string
+  projectName?: string
+  className?: string
+}) {
+  const onClick = () => {
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(
+        new CustomEvent('lead:open', {
+          detail: { mode: 'brochure', projectId, projectName, href },
+        }),
+      )
+    }
+  }
+
+  return (
+    <button type="button" onClick={onClick} className={className || 'btn btn-gold'}>
+      {children}
+    </button>
+  )
 }
