@@ -1,9 +1,9 @@
-// src/app/error.tsx
+// src/app/projects/[id]/error.tsx
 "use client";
 
 import { useEffect } from "react";
 
-export default function GlobalError({
+export default function ProjectError({
   error,
   reset,
 }: {
@@ -11,18 +11,16 @@ export default function GlobalError({
   reset: () => void;
 }) {
   useEffect(() => {
-    // optional: log to analytics
-    // console.error(error);
+    // optional: console.error("[projects/[id]/error.tsx]", error);
   }, [error]);
 
   return (
-    <div style={{ maxWidth: 840, margin: "40px auto", padding: 24, borderRadius: 16,
+    <div style={{maxWidth: 840, margin: "40px auto", padding: 24, borderRadius: 16,
       background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)",
-      fontFamily: "ui-sans-serif, system-ui" }}>
-      <h2 style={{ fontSize: 20, marginBottom: 8 }}>Something went wrong</h2>
-      {error?.message && (
-        <p style={{ opacity: 0.8, marginBottom: 16 }}>{String(error.message)}</p>
-      )}
+      fontFamily: "ui-sans-serif, system-ui"}}>
+      <h2 style={{fontSize: 20, marginBottom: 8}}>Project page error</h2>
+      {error?.message && <pre style={{whiteSpace: "pre-wrap"}}>{String(error.message)}</pre>}
+      <div style={{height: 12}} />
       <button
         type="button"
         onClick={() => reset()}
