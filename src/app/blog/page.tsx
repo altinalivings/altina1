@@ -1,4 +1,4 @@
-ï»¿// src/app/blog/page.tsx
+// src/app/blog/page.tsx
 import type { Metadata } from "next";
 import Script from "next/script";
 import Link from "next/link";
@@ -10,16 +10,16 @@ const SITE =
   "https://www.altinalivings.com";
 
 export const metadata: Metadata = {
-  title: "ALTINAâ„¢ Livings Blog | Insights on Luxury Real Estate in Delhi NCR",
+  title: "ALTINA™ Livings Blog | Insights on Luxury Real Estate in Delhi NCR",
   description:
-    "Expert insights, guides and news on luxury apartments, independent floors and commercial real estate across Delhi NCR from ALTINAâ„¢ Livings.",
+    "Expert insights, guides and news on luxury apartments, independent floors and commercial real estate across Delhi NCR from ALTINA™ Livings.",
   alternates: { canonical: "/blog" },
   openGraph: {
-    title: "ALTINAâ„¢ Livings Blog | Luxury Real Estate Insights",
+    title: "ALTINA™ Livings Blog | Luxury Real Estate Insights",
     description:
-      "Stay updated with premium property news, investment trends, and expert articles by ALTINAâ„¢ Livings.",
+      "Stay updated with premium property news, investment trends, and expert articles by ALTINA™ Livings.",
     url: `${SITE}/blog`,
-    siteName: "ALTINAâ„¢ Livings",
+    siteName: "ALTINA™ Livings",
     type: "website",
   },
 };
@@ -31,13 +31,13 @@ export default function BlogIndexPage() {
   const blogSchema = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    name: "ALTINAâ„¢ Livings Blog",
+    name: "ALTINA™ Livings Blog",
     description:
-      "ALTINAâ„¢ Livings shares insights and market trends about luxury real estate in Delhi NCR.",
+      "ALTINA™ Livings shares insights and market trends about luxury real estate in Delhi NCR.",
     url: `${SITE}/blog`,
     publisher: {
       "@type": "Organization",
-      name: "ALTINAâ„¢ Livings",
+      name: "ALTINA™ Livings",
       logo: {
         "@type": "ImageObject",
         url: `${SITE}/logo.png`,
@@ -105,7 +105,7 @@ export default function BlogIndexPage() {
               </p>
 
               <span className="mt-4 text-xs uppercase tracking-wider text-altina-gold/60">
-                Read More â†’
+                Read More ?
               </span>
             </Link>
           ))}

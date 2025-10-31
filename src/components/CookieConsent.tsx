@@ -27,8 +27,8 @@ export default function CookieConsent(){
           <a href="/privacy" className="underline text-[#C9A23F]">Privacy Policy</a>.
         </p>
         <div className="flex gap-2">
-          <button type="button\" onClick={accept} className="px-4 py-1 rounded-md bg-[#C9A23F] text-white text-sm">Accept</button>
-          <button type="button\" onClick={decline} className="px-4 py-1 rounded-md bg-gray-200 text-black text-sm">Decline</button>
+          <button type="button" onClick={accept} className="px-4 py-1 rounded-md bg-[#C9A23F] text-white text-sm">Accept</button>
+          <button type="button" onClick={decline} className="px-4 py-1 rounded-md bg-gray-200 text-black text-sm">Decline</button>
         </div>
       </div>
     </div>
