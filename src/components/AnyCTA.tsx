@@ -20,7 +20,7 @@ export default function AnyCTA({
     );
   }
   return (
-    <button type=\"button\" className={style} onClick={fire}>
+    <button type="button\" className={style} onClick={fire}>
       {label}
     </button>
   );

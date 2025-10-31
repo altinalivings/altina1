@@ -19,7 +19,7 @@ export default function StickyCTA() {
         Organize Visit
       </a>
 
-      <button type=\"button\"
+      <button type="button\"
         onClick={() => {
           const el = document.getElementById('brochure-popup')
           if (el) el.classList.remove('hidden')

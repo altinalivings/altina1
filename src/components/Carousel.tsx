@@ -138,14 +138,14 @@ export default function Carousel({
       </div>
       {showArrows && length > 1 && (
         <>
-          <button type=\"button\"
+          <button type="button\"
             aria-label="Previous slide"
             onClick={prev}
             className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/40 hover:bg-black/60 text-white w-9 h-9 md:w-10 md:h-10 grid place-items-center"
           >
             ‹
           </button>
-          <button type=\"button\"
+          <button type="button\"
             aria-label="Next slide"
             onClick={next}
             className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/40 hover:bg-black/60 text-white w-9 h-9 md:w-10 md:h-10 grid place-items-center"
@@ -157,7 +157,7 @@ export default function Carousel({
       {showDots && length > 1 && (
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
           {slides.map((_, d) => (
-            <button type=\"button\"
+            <button type="button\"
               key={d}
               onClick={() => goto(d)}
               aria-label={`Go to slide ${d + 1}`}
