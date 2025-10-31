@@ -1,0 +1,100 @@
+[
+  {
+    "slug": "dlf",
+    "name": "DLF",
+    "logo": "/developers/dlf/logo.png",
+    "hero": "/developers/dlf/hero.jpg",
+    "tagline": "India’s most trusted luxury developer",
+    "about": "DLF has created landmark townships and luxury communities across Delhi NCR for over seven decades. Their portfolio spans premium residences, mixed-use districts and marquee retail.",
+    "usps": [
+      "Iconic communities in prime NCR",
+      "Consistent luxury build quality",
+      "Strong township infrastructure",
+      "Robust post-handover services"
+    ],
+    "stats": [
+      ["Founded", "1946"],
+      ["NCR Projects", "50+"],
+      ["Townships", "10+"]
+    ],
+    "projects": [
+      "dlf-the-arbour",
+      "dlf-privana-south",
+      "dlf-privana-north",
+      "dlf-the-camellias"
+    ],
+    "map": {
+      "embed": "https://www.google.com/maps?q=dlf+cyberhub+gurgaon&z=14&output=embed",
+      "title": "DLF Offices"
+    }
+  },
+  {
+    "slug": "m3m",
+    "name": "M3M",
+    "logo": "/developers/m3m/logo.png",
+    "hero": "/developers/m3m/hero.jpg",
+    "tagline": "Changing the skyline of Gurugram",
+    "about": "M3M has emerged as one of NCR’s most dynamic developers with bold architecture, luxury retail-led mixed use and international collaborations.",
+    "usps": [
+      "Retail-led mixed-use hubs",
+      "Bold architecture & design",
+      "Proximity to Dwarka Expressway"
+    ],
+    "stats": [
+      ["Founded", "2007"],
+      ["Delivered Projects", "30+"],
+      ["In NCR", "15+"]
+    ],
+    "projects": ["m3m-crown", "m3m-capital", "m3m-golfestate-2"],
+    "map": {
+      "embed": "https://www.google.com/maps?q=m3m+india+gurgaon&z=14&output=embed",
+      "title": "M3M HQ"
+    }
+  },
+  {
+    "slug": "sobha",
+    "name": "SOBHA",
+    "logo": "/developers/sobha/logo.png",
+    "hero": "/developers/sobha/hero.jpg",
+    "tagline": "Passion at Work",
+    "about": "SOBHA is a renowned national developer known for international-quality construction and attention to detail. Their communities emphasize green living and premium finishes.",
+    "usps": [
+      "Backward integrated quality",
+      "Sustainability focus",
+      "Luxury villas & residences"
+    ],
+    "stats": [
+      ["Founded", "1995"],
+      ["Cities", "27+"],
+      ["Delivered Homes", "1,50,000+"]
+    ],
+    "projects": ["sobha-city", "sobha-international-city"],
+    "map": {
+      "embed": "https://www.google.com/maps?q=sobha+city+gurgaon&z=14&output=embed",
+      "title": "SOBHA City"
+    }
+  },
+  {
+    "slug": "godrej",
+    "name": "Godrej Properties",
+    "logo": "/developers/godrej/logo.png",
+    "hero": "/developers/godrej/hero.jpg",
+    "tagline": "Designing sustainable luxury",
+    "about": "Godrej Properties brings the Godrej Group philosophy of innovation, sustainability, and excellence to the real estate industry with a legacy of trust.",
+    "usps": [
+      "Sustainable luxury communities",
+      "Godrej brand trust",
+      "Strong pan-India presence"
+    ],
+    "stats": [
+      ["Founded", "1990"],
+      ["Cities", "12+"],
+      ["Ongoing Projects", "80+"]
+    ],
+    "projects": ["godrej-aria", "godrej-meridien", "godrej-habitat"],
+    "map": {
+      "embed": "https://www.google.com/maps?q=godrej+properties+gurgaon&z=14&output=embed",
+      "title": "Godrej NCR Office"
+    }
+  }
+]
