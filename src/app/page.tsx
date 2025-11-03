@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 
-import projects from "@/data/projects.json";
+import projects from "@/data/projects";
 import developers from "@/data/developers.json";
 
 import PageHero from "@/components/PageHero";

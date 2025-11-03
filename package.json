@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev -p 3000",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p 3000",
+    "lint": "next lint",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "clsx": "2.1.1",
@@ -32,9 +34,6 @@
   },
   "engines": {
     "node": "18.x || 20.x || 22.x"
-  },
-  "scripts": {
-  "postbuild": "next-sitemap"
+  }
 }
 
-}

@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import ProjectsClient from "./projects-client";
 import ProjectsSchema from "./ProjectsSchema";
 
+
 const SITE =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
   "https://www.altinalivings.com";
@@ -28,24 +29,20 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <main>
-      {/* Container + gold divider + heading (matches detail pages) */}
-      <section className="max-w-6xl mx-auto px-4 pt-8 pb-12">
-        <div className="border-t border-altina-gold/20 pt-6">
-          <h1 className="text-2xl sm:text-3xl font-semibold text-altina-gold mb-6">
-            All Projects
-          </h1>
+      {/* Full-bleed hero to match other pages */}
+      
 
-          {/* Grid rendered by the client component */}
-          <Suspense
-            fallback={
-              <div className="py-20 text-center text-neutral-400">
-                Loading projects…
-              </div>
-            }
-          >
-            <ProjectsClient />
-          </Suspense>
-        </div>
+      {/* Listing grid */}
+      <section >
+        <Suspense
+          fallback={
+            <div className="py-20 text-center text-neutral-400">
+              Loading projects…
+            </div>
+          }
+        >
+          <ProjectsClient />
+        </Suspense>
       </section>
 
       {/* JSON-LD for listing/breadcrumbs etc. */}

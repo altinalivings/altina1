@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
-import projects from "@/data/projects.json";
+import projects from "@/data/projects";
 
 export default function ProjectPicker({
   open,

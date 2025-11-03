@@ -2,7 +2,7 @@
 
 
 import type { Metadata } from "next";
-import projectsData from "@/data/projects.json";
+import projectsData from "@/data/projects";
 import { GatedDownloadButton } from "@/components/BrochureLeadGate";
 
 type Project = { id: string; name: string; location?: string; brochure?: string };

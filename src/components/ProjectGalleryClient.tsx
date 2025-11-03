@@ -43,7 +43,10 @@ export default function ProjectGalleryClient({ images = [], slug, caption }: Pro
             key={src + i}
             type="button"
             className="relative aspect-[4/3] overflow-hidden rounded-xl border border-white/10 focus:outline-none focus:ring-2 focus:ring-altina-gold/60"
-            onClick={() => { setIndex(i); setOpen(true); }}
+            onClick={() => {
+              setIndex(i);
+              setOpen(true);
+            }}
             aria-label={`Open image ${i + 1} ${slug ? "for " + slug : ""}`}
           >
             <Image

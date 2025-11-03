@@ -2,7 +2,7 @@
 import type { MetadataRoute } from "next";
 import fs from "fs";
 import path from "path";
-import projects from "@/data/projects.json";
+import projects from "@/data/projects";
 import posts from "@/data/posts.json";
 
 const SITE =

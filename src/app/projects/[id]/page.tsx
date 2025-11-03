@@ -2,11 +2,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Script from "next/script";
-import projectsData from "@/data/projects.json";
+import projectsData from "@/data/projects";
 import ProjectDetailClientShell from "@/components/ProjectDetailClientShell";
 import RelatedProjects from "@/components/RelatedProjects";
+import PageHero from "@/components/PageHero";
 
 export const revalidate = 3600;
+
+type FAQItem = { q: string; a: string };
 
 type Project = {
   id: string;
@@ -18,30 +21,24 @@ type Project = {
   price?: string;
   hero?: string;
   brochure?: string;
-  gallery?: string[];
+  gallery?: string[];        // optional, used by your client shell if needed
   about?: string;
   possession?: string;
   highlights?: string[];
   amenities?: string[];
   virtualTourUrl?: string;
+  faq?: FAQItem[];
 };
 
 const SITE =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
   "https://www.altinalivings.com";
 
-const list: Project[] = Array.isArray(projectsData)
-  ? (projectsData as Project[])
-  : [];
-
+const list: Project[] = Array.isArray(projectsData) ? (projectsData as Project[]) : [];
 const findProject = (id: string) => list.find((p) => p.id === id);
 
 const abs = (u?: string) =>
-  !u
-    ? undefined
-    : /^https?:\/\//i.test(u)
-    ? u
-    : `${SITE}${u.startsWith("/") ? u : `/${u}`}`;
+  !u ? undefined : /^https?:\/\//i.test(u) ? u : `${SITE}${u.startsWith("/") ? u : `/${u}`}`;
 
 function priceNumber(p?: string) {
   if (!p) return undefined;
@@ -179,15 +176,39 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
   const p = findProject(params.id);
   if (!p) return notFound();
 
-  const faqs = [
-    { q: `What is the price of ${p.name}?`, a: `The price for ${p.name} starts at ${p.price || "market-linked rates"}.` },
-    { q: `When is possession for ${p.name}?`, a: p.possession ? `${p.name} is expected to be ready by ${p.possession}.` : `Possession timelines are subject to developer updates.` },
-    { q: `Where is ${p.name} located?`, a: p.location ? `${p.name} is located at ${p.location}.` : `Located in a prime micro-market in Delhi NCR.` },
-    { q: `How can I get the brochure for ${p.name}?`, a: p.brochure ? `You can download the official brochure by clicking on “Download Brochure” on this page.` : `Brochure details are available upon request.` },
-  ];
+  const faqs =
+    Array.isArray(p.faq) && p.faq.length > 0
+      ? p.faq
+      : [
+          {
+            q: `What is the price of ${p.name}?`,
+            a: `The price for ${p.name} starts at ${p.price || "market-linked rates"}.`,
+          },
+          {
+            q: `When is possession for ${p.name}?`,
+            a: p.possession
+              ? `${p.name} is expected to be ready by ${p.possession}.`
+              : `Possession timelines are subject to developer updates.`,
+          },
+          {
+            q: `Where is ${p.name} located?`,
+            a: p.location
+              ? `${p.name} is located at ${p.location}.`
+              : `Located in a prime micro-market in Delhi NCR.`,
+          },
+          {
+            q: `How can I get the brochure for ${p.name}?`,
+            a: p.brochure
+              ? `You can download the official brochure by clicking on “Download Brochure” on this page.`
+              : `Brochure details are available upon request.`,
+          },
+        ];
 
   return (
     <main className="bg-[#0B0B0C] text-white">
+     
+
+      {/* Your original details shell drives the rest (specs/amenities/gallery block if it uses p.gallery) */}
       <ProjectDetailClientShell project={p} />
 
       {/* FAQ */}
@@ -195,7 +216,9 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
         className="max-w-6xl mx-auto px-4 pt-10 pb-6 border-t border-altina-gold/20"
         aria-label="Frequently Asked Questions"
       >
-        <h2 className="text-2xl font-semibold text-altina-gold mb-6">Frequently Asked Questions</h2>
+        <h2 className="text-2xl font-semibold text-altina-gold mb-6">
+          Frequently Asked Questions
+        </h2>
         <div className="space-y-4">
           {faqs.map((faq, i) => (
             <details
@@ -211,24 +234,17 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
         </div>
       </section>
 
-      {/* JSON-LD Schemas */}
+      {/* Schema & Breadcrumbs */}
       <ProjectSchema p={p} />
       <ProjectBreadcrumbs p={p} />
 
-      {/* Related Projects - centered, with divider + heading */}
-      <section
-        className="max-w-6xl mx-auto px-4 mt-8 pb-10"
-        aria-label="Related Projects"
-      >
+      {/* Related */}
+      <section className="max-w-6xl mx-auto px-4 mt-8 pb-10" aria-label="Related Projects">
         <div className="border-t border-altina-gold/20 pt-6">
           <h2 className="text-xl sm:text-2xl font-semibold text-altina-gold mb-4">
             More like this
           </h2>
-          <RelatedProjects
-            currentId={p.id}
-            developer={p.developer}
-            city={p.city}
-          />
+          <RelatedProjects currentId={p.id} developer={p.developer} city={p.city} />
         </div>
       </section>
     </main>

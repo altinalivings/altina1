@@ -1,7 +1,7 @@
 "use client";
 
 import devs from "@/data/developers.json";
-import allProjects from "@/data/projects.json";
+import allProjects from "@/data/projects";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import FloatingCTAs from "@/components/FloatingCTAs";

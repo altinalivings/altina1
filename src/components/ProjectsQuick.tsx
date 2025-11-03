@@ -6,7 +6,7 @@
  * to adjust the fields to suit your dataset (price, type, etc.).
  */
 import Link from 'next/link'
-import projects from '@/data/projects.json'
+import projects from "@/data/projects"
 
 export default function ProjectsQuick() {
   const featured = (projects as any[]).slice(0, 6)

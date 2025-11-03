@@ -35,8 +35,8 @@ export default function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 bg-black/90 backdrop-blur border-b border-white/10">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+    <header className="sticky top-0 z-60 bg-black/90 backdrop-blur border-b border-white/10">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
         {/* Brand */}
         <Link href="/" className="flex items-center gap-2" onClick={closeMenu}>
           <Image
@@ -48,7 +48,7 @@ export default function Header() {
             priority
           />
           <div className="leading-tight">
-            <div className="font-semibold text-white">ALTINA<span className="align-top text-[10px] ml-0.5">™</span> <span className="opacity-80">Livings</span></div>
+            <div className="font-semibold text-white">ALTINA<span className="align-top text-[12px] ml-0.8">™</span> <span className="opacity-80">Livings</span></div>
           </div>
         </Link>
 
@@ -63,14 +63,9 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
-          <a
-            href="https://wa.me/919891234195"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ml-2 rounded-xl bg-gradient-to-b from-amber-300 to-amber-500 text-black text-sm font-medium px-4 py-2 shadow-[0_1px_0_rgba(255,255,255,0.25)_inset,0_8px_20px_rgba(0,0,0,0.35)] hover:opacity-95 transition"
-          >
-            WhatsApp
-          </a>
+         
+            
+         
         </nav>
 
         {/* Mobile toggle */}

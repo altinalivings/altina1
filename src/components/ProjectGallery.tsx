@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 type Props = {
   /** URL slug for the project. Used for optional auto-discovery via /api/gallery/[slug] */
@@ -13,10 +14,14 @@ type Props = {
 };
 
 /**
- * Gallery that shows a 4‑tile grid first, then a horizontal row ("swiper") for the rest.
+ * Gallery that shows a 4-tile grid first, then a horizontal row ("swiper") for the rest.
  * Clicking any image opens a built-in lightbox with a thumbnail strip.
  */
-export default function ProjectGallery({ slug, images: imagesProp, caption = "Click any image to zoom" }: Props) {
+export default function ProjectGallery({
+  slug,
+  images: imagesProp,
+  caption = "Click any image to zoom",
+}: Props) {
   const [images, setImages] = useState<string[]>(imagesProp ?? []);
 
   // If parent changes the prop, reflect that.
@@ -78,7 +83,7 @@ export default function ProjectGallery({ slug, images: imagesProp, caption = "Cl
       <h3 className="text-xl font-semibold">Gallery</h3>
       {caption && <p className="text-sm text-white/70">{caption}</p>}
 
-      {/* First row: 4‑tile grid */}
+      {/* First row: 4-tile grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {top.map((src, i) => (
           <button
@@ -174,6 +179,7 @@ function RowSwiper({
   );
 }
 
+/** Lightbox rendered via a portal so it is NOT clipped by parent rounded cards/overflow. */
 function Lightbox({
   images,
   index,
@@ -189,8 +195,14 @@ function Lightbox({
   onNext: () => void;
   onSelect: (i: number) => void;
 }) {
-  return (
-    <div className="fixed inset-0 z-[100] bg-black/90">
+  // Render only on client after DOM is ready
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+
+  return createPortal(
+    <div className="fixed inset-0 z-[1000] bg-black/90 backdrop-blur-sm">
+      {/* Close / nav buttons */}
       <button
         onClick={onClose}
         aria-label="Close"
@@ -212,29 +224,48 @@ function Lightbox({
       >
         ›
       </button>
+
+      {/* Main image viewer (consistent size) */}
       <div className="flex h-full flex-col items-center justify-center gap-4 px-4 pb-24">
         <img
           src={images[index]}
           alt=""
-          className="max-h-[80vh] max-w-[95vw] object-contain rounded-xl"
+          className="
+            max-h-[80vh]
+            max-w-[90vw]
+            object-contain
+            rounded-2xl
+            border border-altina-gold/30
+            shadow-[0_0_30px_rgba(255,215,0,0.20)]
+            transition-all duration-300 ease-in-out
+          "
         />
       </div>
+
+      {/* Thumbnail bar */}
       <div className="absolute bottom-0 left-0 right-0 bg-black/60 p-3">
         <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto no-scrollbar">
           {images.map((src, i) => (
             <button
               key={src + i}
               onClick={() => onSelect(i)}
-              className={
-                "shrink-0 rounded-md overflow-hidden ring-2 " +
-                (i === index ? "ring-yellow-400" : "ring-white/10")
-              }
+              className={`shrink-0 rounded-md overflow-hidden ring-2 transition-all duration-200 ${
+                i === index
+                  ? "ring-altina-gold scale-[1.05]"
+                  : "ring-white/10 hover:ring-altina-gold/40"
+              }`}
             >
-              <img src={src} alt={`thumb ${i + 1}`} className="h-16 w-24 object-cover" />
+              <img
+                src={src}
+                alt={`thumb ${i + 1}`}
+                className="h-16 w-24 object-cover"
+                loading="lazy"
+              />
             </button>
           ))}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

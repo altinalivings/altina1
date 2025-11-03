@@ -1,10 +1,13 @@
+// src/app/projects/projects-client.tsx
 "use client";
 
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import projects from "@/data/projects.json";
+import projects from "@/data/projects";
 import FloatingCTAs from "@/components/FloatingCTAs";
 import ProjectsExplorer from "@/components/ProjectsExplorer";
+// ⬇️ use the same hero component as detail pages
+import ProjectHeroWithInfo from "@/components/ProjectHeroWithInfo";
 
 type Project = {
   id: string;
@@ -17,8 +20,8 @@ type Project = {
   hero?: string;
 };
 
-const COMMERCIAL_KEYS = ["commercial", "office", "retail", "shop", "sco", "cowork", "co-work", "business", "showroom"];
-const RESIDENTIAL_KEYS = ["residential", "apartment", "residence", "residences", "flat", "villa", "villas", "plot", "plots", "bungalow", "row", "condo", "homes", "housing"];
+const COMMERCIAL_KEYS = ["commercial","office","retail","shop","sco","cowork","co-work","business","showroom"];
+const RESIDENTIAL_KEYS = ["residential","apartment","residence","residences","flat","villa","villas","plot","plots","bungalow","row","condo","homes","housing"];
 
 function isCommercial(conf: string) {
   const c = conf.toLowerCase();
@@ -65,24 +68,20 @@ export default function ProjectsClient() {
     <>
       <FloatingCTAs projectId={null} projectName={null} />
 
-      {/* Hero */}
-      <section className="relative h-[44vh] min-h-[360px] overflow-hidden">
-        <img
-          src="/hero/projects.jpg"
-          alt="Projects"
-          className="absolute inset-0 h-full w-full object-cover"
+      {/* Full-bleed wrapper so hero spans extreme left → right, even inside containers */}
+      <div className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen">
+        <ProjectHeroWithInfo
+          id="projects-index"
+          name="Projects"
+          configuration="Search across launches in Delhi-NCR"
+          // You can provide a banner here; if omitted, component falls back to /fallbacks/hero-fallback.jpg
+          hero="/hero/projects.jpg"   // or /hero/projects.webp
+		  
+          // images={["/hero/projects.webp"]} // (optional) this takes precedence over `hero`
         />
-        <div className="absolute inset-0 bg-black/45" />
-        <div className="relative z-10 mx-auto flex h-full max-w-6xl items-end px-4 pb-10">
-          <div className="golden-frame modal-surface rounded-2xl p-5">
-            <h1 className="text-3xl font-semibold">Projects</h1>
-            <div className="golden-divider my-2" />
-            <p className="mt-1 text-neutral-300">Search across launches in Delhi NCR</p>
-          </div>
-        </div>
-      </section>
+      </div>
 
-      {/* Filters */}
+      {/* Filters card pulled up over hero */}
       <div className="mx-auto max-w-6xl px-4 -mt-8 relative z-10">
         <div className="golden-frame glow modal-surface rounded-2xl p-4">
           <form action="/projects" method="get" className="grid gap-3 sm:grid-cols-5 items-center">

@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import projectsData from "@/data/projects.json";
+import projectsData from "@/data/projects";
 
 type Project = {
   id: string;

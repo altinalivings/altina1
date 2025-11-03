@@ -1,7 +1,7 @@
 // src/components/ProjectPickerDialog.tsx
 "use client";
 import { useEffect, useMemo, useState } from "react";
-import projectsData from "@/data/projects.json";
+import projectsData from "@/data/projects";
 
 export type Project = {
   id: string;

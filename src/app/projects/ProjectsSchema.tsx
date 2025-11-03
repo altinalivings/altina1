@@ -2,7 +2,7 @@
 "use client";
 
 import Script from "next/script";
-import projects from "@/data/projects.json";
+import projects from "@/data/projects";
 
 const SITE =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
