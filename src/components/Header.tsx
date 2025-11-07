@@ -1,45 +1,108 @@
 // src/components/Header.tsx
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
-
-const NAV = [
-  { href: "/", label: "Home" },
-  { href: "/projects", label: "Projects" },
-  { href: "/services", label: "Services We Offer" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-];
+import { useEffect, useState, useCallback } from "react";
 
 export default function Header() {
+  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  // lock body scroll when menu is open (mobile)
+  // toast state
+  const [toast, setToast] = useState<{ msg: string; type: "ok" | "err" } | null>(null);
+  const showToast = (msg: string, type: "ok" | "err" = "ok") => {
+    setToast({ msg, type });
+    setTimeout(() => setToast(null), 2500);
+  };
+
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-  // close drawer on route change (when user taps a link)
-  function closeMenu() {
-    setOpen(false);
+  // Close on Esc
+  const onKey = useCallback((e: KeyboardEvent) => {
+    if (e.key === "Escape") setOpen(false);
+  }, []);
+  useEffect(() => {
+    if (!open) return;
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open, onKey]);
+
+  // local field states for validation
+  const [phone, setPhone] = useState("");
+  const [phoneErr, setPhoneErr] = useState<string | null>(null);
+
+  function handlePhoneChange(v: string) {
+    // allow digits only, clamp to 10
+    const next = v.replace(/\D/g, "").slice(0, 10);
+    setPhone(next);
+    if (next.length !== 10) setPhoneErr("Enter a 10-digit number");
+    else setPhoneErr(null);
+  }
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+
+    const name = String(fd.get("name") ?? "").trim();
+    const project = String(fd.get("project") ?? "").trim();
+    const message = String(fd.get("message") ?? "").trim();
+
+    // Validate phone and message
+    if (phone.length !== 10) {
+      setPhoneErr("Enter a 10-digit number");
+      showToast("Please enter a valid 10-digit phone number.", "err");
+      return;
+    }
+    if (!message) {
+      showToast("Message is required.", "err");
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          phone,
+          project,
+          message,
+          source: "header_enquiry",
+          page: typeof window !== "undefined" ? window.location.href : undefined,
+        }),
+      });
+
+      form.reset();
+      setPhone("");
+      
+      showToast("Thanks! We’ll get in touch shortly.", "ok");
+	  setOpen(false);
+    } catch {
+      showToast("Something went wrong. Please try again.", "err");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
-    <header className="sticky top-0 z-60 bg-black/90 backdrop-blur border-b border-white/10">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
-        {/* Brand */}
-        <Link href="/" className="flex items-center gap-2" onClick={closeMenu}>
-          <Image
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled ? "bg-black/90 backdrop-blur-md shadow-lg" : "bg-[#0b0b0b]"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 md:px-8">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2">
+            <Image
             src="/logos/Altina.png"
             alt="ALTINA™ Livings"
             width={40}
@@ -47,68 +110,176 @@ export default function Header() {
             className="h-20 w-20 rounded"
             priority
           />
-          <div className="leading-tight">
+          
+		  <div className="leading-tight">
             <div className="font-semibold text-white">ALTINA<span className="align-top text-[12px] ml-0.8">™</span> <span className="opacity-80">Livings</span></div>
           </div>
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-6">
-          {NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-sm text-neutral-200 hover:text-amber-300 whitespace-nowrap"
-            >
-              {item.label}
-            </Link>
-          ))}
-         
-            
-         
-        </nav>
+          {/* Navigation */}
+          <nav className="hidden md:flex gap-8 text-sm font-medium tracking-wide text-white">
+            <Link href="/" className="hover:text-altina-gold">Home</Link>
+            <Link href="/projects" className="hover:text-altina-gold">Projects</Link>
+            <Link href="/services" className="hover:text-altina-gold">Services We Offer</Link>
+            <Link href="/about" className="hover:text-altina-gold">About</Link>
+            <Link href="/contact" className="hover:text-altina-gold">Contact</Link>
+          </nav>
 
-        {/* Mobile toggle */}
-        <button
-          className="md:hidden inline-flex items-center justify-center rounded-lg p-2 text-neutral-200 hover:text-white hover:bg-white/10"
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen((v) => !v)}
+         {/* CTA Zone */}
+<div className="flex items-center gap-3 whitespace-nowrap">
+  {/* WhatsApp */}
+  <a
+    href="https://wa.me/919891234195"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="rounded-lg border border-[#C5A657] text-[#C5A657] px-3 py-1.5 text-sm font-semibold hover:bg-[#C5A657] hover:text-black transition"
+  >
+    WhatsApp
+  </a>
+
+  {/* Call Number */}
+  <a
+    href="tel:+919891234195"
+    className="text-[#C5A657] font-semibold text-sm hover:text-white transition"
+  >
+    +91&nbsp;98912&nbsp;34195
+  </a>
+
+  {/* Enquiry – styled same as WhatsApp */}
+  <button
+    onClick={() => setOpen(true)}
+    className="rounded-lg border border-[#C5A657] text-[#C5A657] px-3 py-1.5 text-sm font-semibold hover:bg-[#C5A657] hover:text-black transition"
+    aria-expanded={open}
+    aria-controls="altina-contact-form"
+  >
+    Enquire
+  </button>
+</div>
+        </div>
+      </header>
+
+      {/* Enquiry Modal */}
+      {open && (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="altina-enquiry-title"
+          onClick={() => setOpen(false)}
         >
-          {open ? <X size={22} /> : <Menu size={22} />}
-        </button>
-      </div>
+          <div
+            className="w-full max-w-md rounded-2xl bg-[#0d0d0d] shadow-[0_0_32px_rgba(197,166,87,0.20)] border border-[#C5A657]/60 relative overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-[#C5A657]/40" />
 
-      {/* Mobile drawer */}
-      <div
-        className={`md:hidden overflow-hidden transition-[max-height] duration-300 border-t border-white/10 ${open ? "max-h-[70vh]" : "max-h-0"}`}
-      >
-        <nav className="bg-neutral-900/95">
-          <ul className="flex flex-col p-4 gap-2">
-            {NAV.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  onClick={closeMenu}
-                  className="block rounded-lg px-3 py-3 text-base text-neutral-200 hover:text-white hover:bg-white/10 whitespace-nowrap"
+            <div className="flex items-center justify-between px-5 py-4 border-b border-[#C5A657]/30">
+              <h2 id="altina-enquiry-title" className="text-[15px] font-semibold text-[#f6eac9]">
+                Quick Enquiry
+              </h2>
+              <button onClick={() => setOpen(false)} aria-label="Close" className="text-white/80 hover:text-white">
+                ✕
+              </button>
+            </div>
+
+            <form id="altina-contact-form" onSubmit={onSubmit} className="px-5 pt-5 pb-4">
+              <div className="space-y-3">
+                <Input name="name" placeholder="Your name" autoFocus required />
+
+                {/* Phone (digits only, max 10) */}
+                <Input
+                  name="phone"
+                  placeholder="Phone number (10 digits)"
+                  value={phone}
+                  onChange={(e) => handlePhoneChange(e.target.value)}
+                  inputMode="numeric"
+                  maxLength={10}
+                  required
+                  aria-invalid={!!phoneErr}
+                  aria-describedby={phoneErr ? "phone-err" : undefined}
+                />
+                {phoneErr && (
+                  <p id="phone-err" className="text-[11px] text-red-400 -mt-2">
+                    {phoneErr}
+                  </p>
+                )}
+
+                <Input name="project" placeholder="Project (optional)" />
+                <Textarea name="message" placeholder="Message" rows={4} required />
+
+                <label className="flex items-start gap-2 text-xs text-white/80">
+                  <input type="checkbox" defaultChecked className="mt-0.5 accent-[#C5A657]" />
+                  <span>
+                    I authorize company representatives to Call, SMS, Email or WhatsApp me about its products and
+                    offers. This consent overrides any registration for DNC/NDNC.
+                  </span>
+                </label>
+              </div>
+
+              <div className="mt-4 mb-4 flex items-center justify-between gap-3">
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold text-[#0D0D0D] bg-gradient-to-r from-[#C5A657] to-[#e2cb7a] border border-[#C5A657]/60 shadow-[0_0_18px_rgba(197,166,87,0.25)] disabled:opacity-60"
                 >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-            <li className="pt-1">
-              <a
-                href="https://wa.me/919891234195"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={closeMenu}
-                className="block text-center rounded-xl bg-gradient-to-b from-amber-300 to-amber-500 text-black font-medium px-4 py-3 shadow-[0_1px_0_rgba(255,255,255,0.25)_inset,0_8px_20px_rgba(0,0,0,0.35)] hover:opacity-95 transition"
-              >
-                WhatsApp
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+                  {submitting ? "Submitting…" : "Submit"}
+                </button>
+
+                <a
+                  href="https://wa.me/919891234195?text=Hi%20Altina%20Livings%2C%20I%27d%20like%20to%20know%20more%20about%20your%20projects."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#C5A657] text-sm hover:underline"
+                >
+                  or chat on WhatsApp →
+                </a>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      )}
+
+      {/* Toast */}
+      {toast && (
+        <div
+          className={`fixed bottom-40 right-30 z-[70] rounded-xl px-4 py-2 text-sm shadow-lg ${
+            toast.type === "ok"
+              ? "bg-[#0f0f0f] border border-[#29c759]/30 text-[#d4ffd6]"
+              : "bg-[#1a0f0f] border border-[#ff5e5e]/30 text-[#ffdada]"
+          }`}
+          role="status"
+        >
+          {toast.msg}
+        </div>
+      )}
+
+      {/* Spacer */}
+      <div className="h-16 md:h-[72px]" aria-hidden />
+    </>
+  );
+}
+
+/* ---------- Small styled inputs ---------- */
+
+function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
+  const { className, ...rest } = props;
+  return (
+    <input
+      {...rest}
+      className={`w-full rounded-xl border border-[#C5A657]/45 bg-[#0f0f0f] px-3 py-2.5 text-[13.5px] text-white placeholder-white/45 outline-none
+      focus:border-[#C5A657] focus:ring-2 focus:ring-[#C5A657]/30 ${className ?? ""}`}
+    />
+  );
+}
+
+function Textarea(props: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
+  const { className, ...rest } = props;
+  return (
+    <textarea
+      {...rest}
+      className={`w-full rounded-xl border border-[#C5A657]/45 bg-[#0f0f0f] px-3 py-2.5 text-[13.5px] text-white placeholder-white/45 outline-none
+      focus:border-[#C5A657] focus:ring-2 focus:ring-[#C5A657]/30 ${className ?? ""}`}
+    />
   );
 }

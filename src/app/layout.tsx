@@ -12,7 +12,6 @@ import Analytics from "@/components/Analytics";
 import Notifier from "@/components/Notifier";
 import AutoCallbackPrompt from "@/components/AutoCallbackPrompt";
 import AnalyticsGuards from "@/components/AnalyticsGuards";
-import StickyContactFab from "@/components/StickyContactFab";
 import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -137,11 +136,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Analytics />
         <Notifier />
         <AutoCallbackPrompt />
-		 <StickyContactFab
-          phone="+91 98912 34195"
-          // Use your Apps Script URL if you want to post directly:
-          // submitUrl="https://script.google.com/macros/s/XXXXXXXX/exec"
-          submitUrl="/api/lead"
         />
 
         {/* 🧾 Structured Data */}

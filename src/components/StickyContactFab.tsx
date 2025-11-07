@@ -79,27 +79,7 @@ export default function StickyContactFab({
         className={`fixed top-8 right-12 ${zIndexClass} flex gap-2 items-end`}
         aria-live="polite"
       >
-        {/* WhatsApp */}
-        <a
-          href={wa}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="rounded-full px-4 py-3 text-sm font-semibold shadow-altina border border-altina-gold/60 bg-gold-grad text-[#0D0D0D] hover:opacity-95"
-          aria-label="Chat on WhatsApp"
-          title="Chat on WhatsApp"
-        >
-          WhatsApp
-        </a>
-
-        {/* Call */}
-        <a
-          href={`tel:${phone.replace(/\s/g, "")}`}
-          className="rounded-full px-4 py-3 text-sm font-semibold border border-altina-gold/40 text-altina-ivory/90 bg-black/40 backdrop-blur hover:bg-black/55"
-          aria-label={`Call ${phone}`}
-          title={`Call ${phone}`}
-        >
-          {phone}
-        </a>
+      
 
         {/* Open form */}
         <button
