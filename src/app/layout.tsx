@@ -136,7 +136,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Analytics />
         <Notifier />
         <AutoCallbackPrompt />
-        />
+       
 
         {/* 🧾 Structured Data */}
         <script
