@@ -334,7 +334,7 @@ const projects: Project[] = [
     description: "SOBHA Aranya combines eco-luxury living, golf-course ambience and SOBHA craftsmanship at Karma Lakelands.",
   },
   {
-    id: "m3m-jacob-co-residences",
+    id: "m3m-jacob",
     slug: "m3m-jacob-and-co-sector-97-noida",
     name: "M3M Jacob & Co. Residences",
     developer: "M3M",
@@ -501,13 +501,13 @@ const projects: Project[] = [
       "3-level Basement Parking",
       "24x7 Security & Surveillance",
     ],
-    hero: "/projects/SobhaSector1GNW/hero.jpg",
+    hero: "/projects/sobha-sector-1-gnw/hero.jpg",
     heroAlt: "SOBHA Sector 1 ultra-luxury towers in Greater Noida West",
     gallery: [
-      "/projects/SobhaSector1GNW/g1.jpg",
-      "/projects/SobhaSector1GNW/g2.jpg",
-      "/projects/SobhaSector1GNW/g3.jpg",
-      "/projects/SobhaSector1GNW/g4.jpg"
+      "/projects/sobha-sector-1-gnw/g1.jpg",
+      "/projects/sobha-sector-1-gnw/g2.jpg",
+      "/projects/sobha-sector-1-gnw/g3.jpg",
+      "/projects/sobha-sector-1-gnw/g4.jpg"
     ],
     map: {
       embed: "https://www.google.com/maps?q=28.603,77.420&z=15&output=embed",
@@ -517,7 +517,7 @@ const projects: Project[] = [
     seo: {
       title: "SOBHA Sector 1 Greater Noida West – Ultra-Luxury 2, 3 & 4 BR",
       description: "New launch SOBHA Sector 1 Greater Noida West offers ultra-luxury 2, 3 & 4 BR premium apartments starting @ ₹2.25 Cr* across 12 acres with G+45 towers and large clubhouse.",
-      canonical: "https://altinalivings.com/projects/sobha-sector-1-greater-noida-west",
+      canonical: "https://altina1-5rmamfuwb-altina-livings-projects.vercel.app/projects/sobha-sector-1-gnw",
     },
     featured: true,
     featured_order: 4,
