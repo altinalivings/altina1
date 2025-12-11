@@ -335,8 +335,8 @@ const projects: Project[] = [
   },
   {
     id: "m3m-jacob",
-    slug: "m3m-jacob-and-co-sector-97-noida",
-    name: "M3M Jacob & Co. Residences",
+    slug: "m3m-jacob",
+    name: "M3M Jacob",
     developer: "M3M",
     brand: "Jacob & Co.",
     rating: 4.7,
@@ -362,7 +362,7 @@ const projects: Project[] = [
       "Gymnasium",
       "Spa / Wellness",
     ],
-    hero: "/projects/m3m-jacob/hero.jpg",
+    hero: "projects\m3m-jacob\hero.jpg",
     heroAlt: "M3M Jacob & Co. branded luxury residence towers in Noida",
     gallery: [
       "/projects/m3m-jacob/g1.jpg",
