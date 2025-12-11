@@ -5,7 +5,7 @@ import Script from "next/script";
 import projectsData from "@/data/projects";
 import ProjectDetailClientShell from "@/components/ProjectDetailClientShell";
 import RelatedProjects from "@/components/RelatedProjects";
-import PageHero from "@/components/PageHero";
+import ProjectHeroWithInfo from "@/components/ProjectHeroWithInfo";
 
 export const revalidate = 3600;
 
@@ -21,7 +21,7 @@ type Project = {
   price?: string;
   hero?: string;
   brochure?: string;
-  gallery?: string[];        // optional, used by your client shell if needed
+  gallery?: string[]; // optional, used by your client shell & hero
   about?: string;
   possession?: string;
   highlights?: string[];
@@ -34,11 +34,17 @@ const SITE =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
   "https://www.altinalivings.com";
 
-const list: Project[] = Array.isArray(projectsData) ? (projectsData as Project[]) : [];
+const list: Project[] = Array.isArray(projectsData)
+  ? (projectsData as Project[])
+  : [];
 const findProject = (id: string) => list.find((p) => p.id === id);
 
 const abs = (u?: string) =>
-  !u ? undefined : /^https?:\/\//i.test(u) ? u : `${SITE}${u.startsWith("/") ? u : `/${u}`}`;
+  !u
+    ? undefined
+    : /^https?:\/\//i.test(u)
+    ? u
+    : `${SITE}${u.startsWith("/") ? u : `/${u}`}`;
 
 function priceNumber(p?: string) {
   if (!p) return undefined;
@@ -132,7 +138,9 @@ function ProjectSchema({ p }: { p: Project }) {
       url: `${SITE}/projects/${p.id}`,
       itemCondition: "https://schema.org/NewCondition",
       availability: "https://schema.org/InStock",
-      priceValidUntil: new Date(Date.now() + 1000 * 60 * 60 * 24 * 90)
+      priceValidUntil: new Date(
+        Date.now() + 1000 * 60 * 60 * 24 * 90
+      )
         .toISOString()
         .slice(0, 10),
       seller: {
@@ -158,8 +166,18 @@ function ProjectBreadcrumbs({ p }: { p: Project }) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Projects", item: `${SITE}/projects` },
-      { "@type": "ListItem", position: 2, name: p.name, item: `${SITE}/projects/${p.id}` },
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Projects",
+        item: `${SITE}/projects`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: p.name,
+        item: `${SITE}/projects/${p.id}`,
+      },
     ],
   };
 
@@ -182,7 +200,9 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
       : [
           {
             q: `What is the price of ${p.name}?`,
-            a: `The price for ${p.name} starts at ${p.price || "market-linked rates"}.`,
+            a: `The price for ${p.name} starts at ${
+              p.price || "market-linked rates"
+            }.`,
           },
           {
             q: `When is possession for ${p.name}?`,
@@ -206,9 +226,19 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
 
   return (
     <main className="bg-[#0B0B0C] text-white">
-     
+      {/* Hero banner with project info */}
+      <ProjectHeroWithInfo
+        id={p.id}
+        name={p.name}
+        city={p.city}
+        location={p.location}
+        hero={p.hero}
+        configuration={p.configuration}
+        price={p.price}
+        images={p.gallery}
+      />
 
-      {/* Your original details shell drives the rest (specs/amenities/gallery block if it uses p.gallery) */}
+      {/* Main project details (specs, amenities, gallery, etc.) */}
       <ProjectDetailClientShell project={p} />
 
       {/* FAQ */}
@@ -238,13 +268,20 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
       <ProjectSchema p={p} />
       <ProjectBreadcrumbs p={p} />
 
-      {/* Related */}
-      <section className="max-w-6xl mx-auto px-4 mt-8 pb-10" aria-label="Related Projects">
+      {/* Related projects */}
+      <section
+        className="max-w-6xl mx-auto px-4 mt-8 pb-10"
+        aria-label="Related Projects"
+      >
         <div className="border-t border-altina-gold/20 pt-6">
           <h2 className="text-xl sm:text-2xl font-semibold text-altina-gold mb-4">
             More like this
           </h2>
-          <RelatedProjects currentId={p.id} developer={p.developer} city={p.city} />
+          <RelatedProjects
+            currentId={p.id}
+            developer={p.developer}
+            city={p.city}
+          />
         </div>
       </section>
     </main>
