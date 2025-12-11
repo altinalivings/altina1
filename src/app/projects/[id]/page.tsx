@@ -226,18 +226,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
 
   return (
     <main className="bg-[#0B0B0C] text-white">
-      {/* Hero banner with project info */}
-      <ProjectHeroWithInfo
-        id={p.id}
-        name={p.name}
-        city={p.city}
-        location={p.location}
-        hero={p.hero}
-        configuration={p.configuration}
-        price={p.price}
-        images={p.gallery}
-      />
-
+      
       {/* Main project details (specs, amenities, gallery, etc.) */}
       <ProjectDetailClientShell project={p} />
 
