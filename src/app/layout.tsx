@@ -231,6 +231,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             />
           </noscript>
         ) : null}
+		<script src="https://app.getgabs.com/getredtowp/iframe/H1yCwYczqbmQFCuvW1yDPYo2kO9dI64Lea7eJWCCJ2HWaR6QgfRL9L0nAipaiUJhoih2me7zL4egleu6XwiKQbalAgpgJwTEHgMN" async></script>
+		
       </body>
     </html>
   );
