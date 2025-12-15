@@ -513,34 +513,7 @@ const projects: Project[] = [
     "/projects/smartworld-gic/gallery/06.jpg"
   ],
 
-  faqs: [
-    {
-      q: "Where is Smartworld GIC located?",
-      a: "Smartworld GIC is located in Sector M9, Manesar, Gurugram, near NH-8 and the Gurgaon–Rewari Expressway with connectivity to Dwarka Expressway and major business hubs."
-    },
-    {
-      q: "What configurations are available?",
-      a: "2.5 BHK (approx. 1250–1400 sq.ft) and 3 BHK (approx. 1850–1900 sq.ft)."
-    },
-    {
-      q: "What is the tower structure?",
-      a: "G+25 (approx.) high-rise premium towers."
-    },
-    {
-      q: "What payment plans are available?",
-      a: "Indicative plans include 15:85 and 25%×4 installment plan (confirm latest with sales team)."
-    },
-    {
-      q: "Is Smartworld GIC RERA approved?",
-      a: "The project is listed as pre-launch / upcoming and the RERA number is expected soon (confirm latest status before booking)."
-    },
-    {
-      q: "Why is it considered a strong investment opportunity?",
-      a: "It is positioned in a developing growth corridor around IMT Manesar with infrastructure expansion and demand drivers supporting appreciation and rental prospects."
-    }
-  ]
-},
-
+  
   {
     id: "sobha-sector-1-gnw",
     slug: "sobha-sector-1-greater-noida-west",
