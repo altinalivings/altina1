@@ -445,6 +445,103 @@ const projects: Project[] = [
     description: "GYGY Mentis is a 5-acre commercial development on Noida Expressway offering retail shops and office spaces with strong residential and corporate catchment.",
   },
   {
+  id: "smartworld-gic",
+  slug: "smartworld-gic",
+  name: "Smartworld GIC (Gurgaon International City)",
+  developer: "Smartworld Developers",
+  brand: "Smartworld",
+  rating: 4.6,
+
+  location: "Sector M9, Manesar, Gurugram",
+  city: "Gurugram",
+  state: "Haryana",
+  sector: "Sector M9",
+  micro_market: "Manesar • Gurgaon International City (GIC)",
+
+  // RERA info is shown as "expected soon" on the source page
+  rera: "RERA awaited / expected soon",
+  status: "Pre-launch / New Launch",
+  construction_status: "New Launch (High-rise)",
+
+  // verify with developer / channel partner updates
+  possession: "TBD",
+  launch: "New Launch",
+
+  price: "2.5 BHK from ₹1.75 Cr* | 3 BHK Price on Request",
+  configuration: "2.5 & 3 BHK High-rise Apartments",
+  typologies: ["2.5 BHK", "3 BHK"],
+  sizes: "2.5 BHK: 1250–1400 sq.ft | 3 BHK: 1850–1900 sq.ft",
+
+  land_area: "150 Acres (Township)",
+  towers: undefined,
+  floors: "G+25 (Approx.)",
+  total_units: undefined,
+
+  usp: [
+    "Part of 150-acre Gurgaon International City (GIC) township",
+    "High-rise premium towers with skyline & green views",
+    "Strong investment corridor near IMT Manesar",
+    "Flexible payment plans: 15:85 and 25%×4 (as per launch communication)"
+  ],
+
+  highlights: [
+    "Located at Sector M9, Manesar with connectivity to NH-8 / Gurgaon–Rewari Expressway",
+    "2.5 BHK (1250–1400 sq.ft) and 3 BHK (1850–1900 sq.ft) configurations",
+    "G+25 (approx.) premium high-rise towers",
+    "Clubhouse and lifestyle amenities positioned for premium living"
+  ],
+
+  amenities: [
+    "Grand clubhouse",
+    "Sports & wellness zones",
+    "Outdoor recreation areas",
+    "Landscaped greens",
+    "Community spaces"
+  ],
+
+  // IMPORTANT: put these files in /public/projects/smartworld-gic/
+  hero: "/projects/smartworld-gic/hero.jpg",
+  heroAlt: "Smartworld GIC Manesar – premium high-rise residences in Gurgaon International City",
+
+  // IMPORTANT: put these files in /public/projects/smartworld-gic/gallery/
+  gallery: [
+    "/projects/smartworld-gic/gallery/01.jpg",
+    "/projects/smartworld-gic/gallery/02.jpg",
+    "/projects/smartworld-gic/gallery/03.jpg",
+    "/projects/smartworld-gic/gallery/04.jpg",
+    "/projects/smartworld-gic/gallery/05.jpg",
+    "/projects/smartworld-gic/gallery/06.jpg"
+  ],
+
+  faqs: [
+    {
+      q: "Where is Smartworld GIC located?",
+      a: "Smartworld GIC is located in Sector M9, Manesar, Gurugram, near NH-8 and the Gurgaon–Rewari Expressway with connectivity to Dwarka Expressway and major business hubs."
+    },
+    {
+      q: "What configurations are available?",
+      a: "2.5 BHK (approx. 1250–1400 sq.ft) and 3 BHK (approx. 1850–1900 sq.ft)."
+    },
+    {
+      q: "What is the tower structure?",
+      a: "G+25 (approx.) high-rise premium towers."
+    },
+    {
+      q: "What payment plans are available?",
+      a: "Indicative plans include 15:85 and 25%×4 installment plan (confirm latest with sales team)."
+    },
+    {
+      q: "Is Smartworld GIC RERA approved?",
+      a: "The project is listed as pre-launch / upcoming and the RERA number is expected soon (confirm latest status before booking)."
+    },
+    {
+      q: "Why is it considered a strong investment opportunity?",
+      a: "It is positioned in a developing growth corridor around IMT Manesar with infrastructure expansion and demand drivers supporting appreciation and rental prospects."
+    }
+  ]
+},
+
+  {
     id: "sobha-sector-1-gnw",
     slug: "sobha-sector-1-greater-noida-west",
     name: "SOBHA Sector 1 – Greater Noida West",
