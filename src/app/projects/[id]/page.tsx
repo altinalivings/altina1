@@ -5,7 +5,7 @@ import Script from "next/script";
 import projectsData from "@/data/projects";
 import ProjectDetailClientShell from "@/components/ProjectDetailClientShell";
 import RelatedProjects from "@/components/RelatedProjects";
-import ProjectHeroWithInfo from "@/components/ProjectHeroWithInfo";
+#import ProjectHeroWithInfo from "@/components/ProjectHeroWithInfo";
 import PageHero from "@/components/PageHero";
 
 
