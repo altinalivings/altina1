@@ -13,6 +13,7 @@ type FAQItem = { q: string; a: string };
 
 type Project = {
   id: string;
+  slug?: string;
   name: string;
   developer?: string;
   city?: string;
@@ -21,7 +22,7 @@ type Project = {
   price?: string;
   hero?: string;
   brochure?: string;
-  gallery?: string[]; // optional, used by your client shell & hero
+  gallery?: string[];
   about?: string;
   possession?: string;
   highlights?: string[];
@@ -29,6 +30,7 @@ type Project = {
   virtualTourUrl?: string;
   faq?: FAQItem[];
 };
+
 
 const SITE =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
@@ -226,7 +228,13 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
 
   return (
     <main className="bg-[#0B0B0C] text-white">
-      
+      <PageHero
+  title={p.name}
+  subtitle={[p.location, p.configuration, p.price].filter(Boolean).join(" • ")}
+  image={p.hero}
+  projectId={p.slug ?? p.id}
+/>
+
       {/* Main project details (specs, amenities, gallery, etc.) */}
       <ProjectDetailClientShell project={p} />
 
