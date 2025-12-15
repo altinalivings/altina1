@@ -66,8 +66,10 @@ export default function ProjectDetailClientShell({ project }: { project: Project
         project.hero,
         `/projects/${project.id}/hero.webp`,
         `/projects/${project.id}/hero.jpg`,
+        `/projects/${project.id}/hero.png`,
         project.slug ? `/projects/${project.slug}/hero.webp` : undefined,
         project.slug ? `/projects/${project.slug}/hero.jpg` : undefined,
+		project.slug ? `/projects/${project.slug}/hero.png` : undefined,
       ].filter(Boolean) as string[];
 
       let hero: string | null = null;
