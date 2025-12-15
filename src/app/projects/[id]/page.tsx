@@ -6,6 +6,8 @@ import projectsData from "@/data/projects";
 import ProjectDetailClientShell from "@/components/ProjectDetailClientShell";
 import RelatedProjects from "@/components/RelatedProjects";
 import ProjectHeroWithInfo from "@/components/ProjectHeroWithInfo";
+import PageHero from "@/components/PageHero";
+
 
 export const revalidate = 3600;
 
