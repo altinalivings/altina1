@@ -513,7 +513,7 @@ const projects: Project[] = [
     "/projects/smartworld-gic/gallery/06.jpg"
   ],
 
-  
+  }
   {
     id: "sobha-sector-1-gnw",
     slug: "sobha-sector-1-greater-noida-west",
