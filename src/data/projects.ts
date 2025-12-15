@@ -500,7 +500,7 @@ const projects: Project[] = [
   ],
 
   // IMPORTANT: put these files in /public/projects/smartworld-gic/
-  hero: "/projects/smartworld-gic/hero.jpg",
+  hero: "/projects/smartworld-gic/hero.png",
   heroAlt: "Smartworld GIC Manesar – premium high-rise residences in Gurgaon International City",
 
   // IMPORTANT: put these files in /public/projects/smartworld-gic/gallery/
