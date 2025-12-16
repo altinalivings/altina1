@@ -5,8 +5,8 @@ import Script from "next/script";
 import projectsData from "@/data/projects";
 import ProjectDetailClientShell from "@/components/ProjectDetailClientShell";
 import RelatedProjects from "@/components/RelatedProjects";
-#import ProjectHeroWithInfo from "@/components/ProjectHeroWithInfo";
-import PageHero from "@/components/PageHero";
+import ProjectHeroWithInfo from "@/components/ProjectHeroWithInfo";
+#import PageHero from "@/components/PageHero";
 
 
 export const revalidate = 3600;
@@ -230,12 +230,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
 
   return (
     <main className="bg-[#0B0B0C] text-white">
-      <PageHero
-  title={p.name}
-  subtitle={[p.location, p.configuration, p.price].filter(Boolean).join(" • ")}
-  image={p.hero}
-  projectId={p.slug ?? p.id}
-/>
+      
 
       {/* Main project details (specs, amenities, gallery, etc.) */}
       <ProjectDetailClientShell project={p} />
