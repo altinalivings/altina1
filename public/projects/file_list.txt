@@ -1,0 +1,525 @@
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-arbour
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-camellias
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-central-67-sco
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-north
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-south
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-west
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-sco-67
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-the-arbour
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-the-camellias
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\elan-the-presidential
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\file.bat
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\file_list.txt
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\godrej-aria
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\godrej-habitat
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\godrej-meridien
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-fiveo
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-mentis
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-capital
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-crown
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-golfestate
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-jacob
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\mahindra-luminare
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\paras-quartier
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\smartworld-gic
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-city
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-international-city
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-strada
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\SobhaSector1GNW
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-arbour\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-arbour\gallery\1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-arbour\gallery\2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-arbour\gallery\3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-camellias\cover.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-camellias\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-camellias\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-camellias\master-plan.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-camellias\updates
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-camellias\gallery\1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-camellias\gallery\2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-camellias\gallery\3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-camellias\updates\2025-06.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-central-67-sco\Central 67 Opp Doc_20240402_V2_Preview.pdf
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-central-67-sco\g1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-central-67-sco\g1.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-central-67-sco\g2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-central-67-sco\g2.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-central-67-sco\g3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-central-67-sco\g3.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-central-67-sco\g4.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-central-67-sco\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-central-67-sco\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-central-67-sco\WhatsApp Image 2025-09-20 at 20.01.57 (1).jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-central-67-sco\WhatsApp Unknown 2025-09-22 at 03.17.41.zip
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-central-67-sco\gallery\1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-central-67-sco\gallery\2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-central-67-sco\gallery\3.jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-central-67-sco\gallery\4.jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-central-67-sco\gallery\5.jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-central-67-sco\gallery\6.jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-central-67-sco\gallery\7.jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-central-67-sco\gallery\g1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\g1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\g2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\g3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\g4.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\hero1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\hero2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\gallery\1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\gallery\2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\gallery\3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\gallery\4.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\gallery\5.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\gallery\dining.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\gallery\g1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\gallery\living.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\gallery\living2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\gallery\living3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\gallery\living4.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\gallery\room.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\gallery\toilets.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\gallery\WhatsApp Image 2025-09-20 at 19.58.38.jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\gallery\WhatsApp Image 2025-09-20 at 19.58.40.jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\gallery\WhatsApp Image 2025-09-20 at 19.58.41.jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-independent-floors-phase-2-3\gallery\WhatsApp Video 2025-09-20 at 19.57.36.mp4
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\hero2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\One Midtown brochure-Digital.pdf
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\rename.bat
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\gallery\g1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\gallery\g10.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\gallery\g11.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\gallery\g12.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\gallery\g13.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\gallery\g14.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\gallery\g15.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\gallery\g16.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\gallery\g17.jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\gallery\g2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\gallery\g3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\gallery\g4.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\gallery\g5.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\gallery\g6.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\gallery\g7.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\gallery\g8.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\gallery\g9.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\gallery\WhatsApp Image 2025-09-20 at 19.21.27 (1).jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\gallery\WhatsApp Image 2025-09-20 at 19.21.27.jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-one-midtown\gallery\WhatsApp Image 2025-09-20 at 19.21.28.jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-north\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-north\gallery\1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-north\gallery\2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-south\1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-south\2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-south\3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-south\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-south\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-south\gallery\1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-south\gallery\2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-south\gallery\3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-west\cover.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-west\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-west\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-west\hero1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-west\hero2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-west\master-plan.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-west\slider1.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-west\updates
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-west\gallery\WhatsApp Image 2025-09-20 at 20.06.18.jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-west\gallery\WhatsApp Image 2025-09-20 at 20.06.19 (1).jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-west\gallery\WhatsApp Image 2025-09-20 at 20.06.19 (2).jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-west\gallery\WhatsApp Image 2025-09-20 at 20.06.19.jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-west\gallery\WhatsApp Image 2025-09-20 at 20.06.20 (1).jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-west\gallery\WhatsApp Image 2025-09-20 at 20.06.20 (2).jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-west\gallery\WhatsApp Image 2025-09-20 at 20.06.20.jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-west\gallery\WhatsApp Image 2025-09-20 at 20.06.21 (1).jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-west\gallery\WhatsApp Image 2025-09-20 at 20.06.21 (2).jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-west\gallery\WhatsApp Image 2025-09-20 at 20.06.21.jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-west\gallery\WhatsApp Unknown 2025-09-22 at 03.37.53
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-west\gallery\WhatsApp Unknown 2025-09-22 at 03.37.53.zip
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-west\gallery\WhatsApp Unknown 2025-09-22 at 03.37.53\WhatsApp Image 2025-09-20 at 20.05.34.jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-west\gallery\WhatsApp Unknown 2025-09-22 at 03.37.53\WhatsApp Video 2025-09-20 at 20.06.18.mp4
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-privana-west\updates\2025-06.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-sco-67\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-sco-67\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-sco-67\WhatsApp Image 2025-09-20 at 20.01.57 (1).jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-sco-67\gallery\1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-sco-67\gallery\2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-sco-67\gallery\3.jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-sco-67\gallery\4.jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-sco-67\gallery\5.jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-sco-67\gallery\6.jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-sco-67\gallery\7.jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-sco-67\gallery\g1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-the-arbour\1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-the-arbour\2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-the-arbour\3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-the-arbour\cover.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-the-arbour\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-the-arbour\hero (2).jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-the-arbour\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-the-arbour\master-plan.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-the-arbour\updates
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-the-arbour\gallery\1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-the-arbour\gallery\2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-the-arbour\gallery\3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-the-arbour\updates\2025-06.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-the-camellias\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-the-camellias\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-the-camellias\gallery\1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-the-camellias\gallery\2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\dlf-the-camellias\gallery\3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\elan-the-presidential\cover.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\elan-the-presidential\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\elan-the-presidential\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\elan-the-presidential\master-plan.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\elan-the-presidential\updates
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\elan-the-presidential\gallery\1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\elan-the-presidential\gallery\2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\elan-the-presidential\gallery\3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\elan-the-presidential\updates\2025-06.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\godrej-aria\cover.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\godrej-aria\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\godrej-aria\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\godrej-aria\master-plan.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\godrej-aria\updates
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\godrej-aria\gallery\1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\godrej-aria\gallery\2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\godrej-aria\gallery\3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\godrej-aria\updates\2025-06.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\godrej-habitat\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\godrej-habitat\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\godrej-habitat\gallery\1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\godrej-habitat\gallery\2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\godrej-habitat\gallery\3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\godrej-meridien\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\godrej-meridien\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\godrej-meridien\gallery\1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\godrej-meridien\gallery\2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\godrej-meridien\gallery\3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-fiveo\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-fiveo\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-fiveo\gallery\b3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-fiveo\gallery\b4.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-fiveo\gallery\bb1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-fiveo\gallery\bb2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-fiveo\gallery\bb3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-fiveo\gallery\bb4.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-fiveo\gallery\bb5.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-fiveo\gallery\g1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-fiveo\gallery\g2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-fiveo\gallery\g3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-fiveo\gallery\g4.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-fiveo\gallery\g6.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-fiveo\gallery\g7.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-fiveo\gallery\g8.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-fiveo\gallery\g9.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-mentis\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-mentis\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-mentis\gallery\Balcony-to-outer-cam-with-people-scaled-2-960x604.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-mentis\gallery\Double-Height-Entrance-Lobby-scaled-1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-mentis\gallery\Dropoff-scaled-1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-mentis\gallery\g1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-mentis\gallery\grand-arrival-scaled-1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-mentis\gallery\mentis-1-960x604.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-mentis\gallery\mentis-2-960x604.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-mentis\gallery\mentis-3-960x604.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-mentis\gallery\mentis-4-960x604.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-mentis\gallery\mentis-5-960x604.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-mentis\gallery\mentis-6-960x604.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-mentis\gallery\mentis-7-960x604.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-mentis\gallery\restro-cam-scaled-1-960x604.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-mentis\gallery\road-cam-scaled-1-960x604.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-mentis\gallery\satge2.png
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-mentis\gallery\stage1-960x604.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-mentis\gallery\stage3-1024x613.png
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-mentis\gallery\stage4-1024x613.png
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\gygy-mentis\gallery\yoga-1024x613.png
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-capital\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-capital\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-capital\gallery\1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-capital\gallery\2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-capital\gallery\3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-crown\cover.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-crown\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-crown\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-crown\master-plan.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-crown\updates
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-crown\gallery\1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-crown\gallery\2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-crown\gallery\3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-crown\gallery\4
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-crown\updates\2025-06.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-golfestate\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-golfestate\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-golfestate\gallery\1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-golfestate\gallery\2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-golfestate\gallery\3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-jacob\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-jacob\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-jacob\gallery\page01_img01.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-jacob\gallery\page01_img02.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-jacob\gallery\page01_img03.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-jacob\gallery\page02_img02.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-jacob\gallery\page03_img02.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-jacob\gallery\page03_img03.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-jacob\gallery\page03_img05.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-jacob\gallery\page04_img02.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-jacob\gallery\page04_img03.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-jacob\gallery\page04_img04.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-jacob\gallery\page04_img05.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-jacob\gallery\page05_img02.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-jacob\gallery\page05_img03.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-jacob\gallery\page05_img04.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-jacob\gallery\page05_img05.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\mahindra-luminare\cover.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\mahindra-luminare\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\mahindra-luminare\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\mahindra-luminare\master-plan.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\mahindra-luminare\updates
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\mahindra-luminare\gallery\1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\mahindra-luminare\gallery\2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\mahindra-luminare\gallery\3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\mahindra-luminare\updates\2025-06.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\paras-quartier\cover.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\paras-quartier\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\paras-quartier\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\paras-quartier\master-plan.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\paras-quartier\updates
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\paras-quartier\gallery\1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\paras-quartier\gallery\2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\paras-quartier\gallery\3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\paras-quartier\updates\2025-06.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\smartworld-gic\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\smartworld-gic\hero.png
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\smartworld-gic\gallery\1.png
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\smartworld-gic\gallery\basket-ball.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\smartworld-gic\gallery\bg-back-1.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\smartworld-gic\gallery\bg-back-2.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\smartworld-gic\gallery\gallery-2.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\smartworld-gic\gallery\gallery-3.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\smartworld-gic\gallery\gallery-4.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\smartworld-gic\gallery\gym.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\smartworld-gic\gallery\highlight-2.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\smartworld-gic\gallery\kids-play-area.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\smartworld-gic\gallery\master-plan.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\smartworld-gic\gallery\smartworld-gic-banner.png
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\smartworld-gic\gallery\swimming-pool.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\smartworld-gic\gallery\World_Class_Amenities.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus\gallery\Altus-3.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus\gallery\g1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus\gallery\SOBHA-Altus-Day-Elevation.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus\gallery\SOBHA-Altus-Drop-off-point.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus\gallery\SOBHA-Altus-Elevation-Exteriors.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus\gallery\SOBHA-Altus-Jogging-Track.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus\gallery\SOBHA-Altus-Kids-Play-Area.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus\gallery\SOBHA-Altus-Kitchen.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus\gallery\SOBHA-Altus-L-shaped-Dining-Room-and-Family-Lounge.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus\gallery\SOBHA-Altus-L-shaped-living-and-dining-room.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus\gallery\SOBHA-Altus-Main-Elevation-e1717220292422.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus\gallery\SOBHA-Altus-Master-Bedroom.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus\gallery\SOBHA-Altus-Night-Elevation.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus\gallery\SOBHA-Altus-Swimming-Pool.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus\gallery\SOBHA-Altus-The-Waverly-Club-and-Plaza.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus\gallery\SOBHA-Altus-Wraparound-Balcony.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus\gallery\SOBHA-Altus-Zen-Garden.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\g1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\g2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\g3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\g4.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\updates
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\gallery\Altus-3.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\gallery\g1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\gallery\SOBHA-Altus-Day-Elevation.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\gallery\SOBHA-Altus-Drop-off-point.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\gallery\SOBHA-Altus-Elevation-Exteriors.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\gallery\SOBHA-Altus-Jogging-Track.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\gallery\SOBHA-Altus-Kids-Play-Area.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\gallery\SOBHA-Altus-Kitchen.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\gallery\SOBHA-Altus-L-shaped-Dining-Room-and-Family-Lounge.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\gallery\SOBHA-Altus-L-shaped-living-and-dining-room.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\gallery\SOBHA-Altus-Main-Elevation-e1717220292422.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\gallery\SOBHA-Altus-Master-Bedroom.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\gallery\SOBHA-Altus-Night-Elevation.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\gallery\SOBHA-Altus-Swimming-Pool.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\gallery\SOBHA-Altus-The-Waverly-Club-and-Plaza.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\gallery\SOBHA-Altus-Wraparound-Balcony.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\gallery\SOBHA-Altus-Zen-Garden.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-altus-tower-2\updates\2025-06.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\g1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\g1.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\g2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\g2.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\g3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\g3.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\g4.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\New folder
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\gallery\ARANYA-1.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\gallery\ARANYA-3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\gallery\ARANYA-4.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\gallery\aranya-bathroom.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\gallery\aranya-camping.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\gallery\aranya-dining.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\gallery\aranya-living-2.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\gallery\aranya-master-bedroom.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\gallery\aranya-playarea.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\gallery\aranya-pool.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\gallery\Clubhouse.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\gallery\Elevation.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\gallery\g1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\gallery\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\gallery\SOBHA-Aranya-NCR-featured_v2.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\New folder\Alfresco-Deck.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\New folder\Amphitheatre.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\New folder\Bathroom.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\New folder\Canopy-Grove.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\New folder\Elevation-Evening-View.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\New folder\entrance-lobby.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\New folder\Kids-Play-Area.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\New folder\Kids-Pool.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\New folder\Kitchen.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\New folder\Lap-Leisure-Pool.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\New folder\Living-and-dining.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\New folder\Living-Room.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\New folder\Master-Bed-Room.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\New folder\Multi-sport-Court.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\New folder\Party-Plaza.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\New folder\Reflexology-Walk.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\New folder\Tennis-Court.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aranya\New folder\The-Club.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\Alfresco-Deck.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\Amphitheatre.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\Bathroom.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\Canopy-Grove.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\Elevation-Evening-View.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\entrance-lobby.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\g1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\g1.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\g2.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\g3.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\g4.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\hero.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\Kids-Play-Area.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\Kids-Pool.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\Kitchen.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\Lap-Leisure-Pool.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\Living-and-dining.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\Living-Room.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\Master-Bed-Room.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\Multi-sport-Court.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\New folder
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\Party-Plaza.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\Reflexology-Walk.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\Tennis-Court.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\The-Club.jpeg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\gallery\Alfresco-Deck.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\gallery\Amphitheatre.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\gallery\Bathroom.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\gallery\Canopy-Grove.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\gallery\Elevation-Evening-View.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\gallery\entrance-lobby.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\gallery\g1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\gallery\Kids-Play-Area.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\gallery\Kids-Pool.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\gallery\Kitchen.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\gallery\Lap-Leisure-Pool.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\gallery\Living-and-dining.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\gallery\Living-Room.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\gallery\Master-Bed-Room.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\gallery\Multi-sport-Court.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\gallery\Party-Plaza.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\gallery\Reflexology-Walk.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\gallery\Tennis-Court.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\gallery\The-Club.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\New folder\Alfresco-Deck.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\New folder\Amphitheatre.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\New folder\Bathroom.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\New folder\Canopy-Grove.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\New folder\Elevation-Evening-View.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\New folder\entrance-lobby.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\New folder\Kids-Play-Area.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\New folder\Kids-Pool.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\New folder\Kitchen.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\New folder\Lap-Leisure-Pool.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\New folder\Living-and-dining.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\New folder\Living-Room.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\New folder\Master-Bed-Room.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\New folder\Multi-sport-Court.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\New folder\Party-Plaza.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\New folder\Reflexology-Walk.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\New folder\Tennis-Court.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-aurum\New folder\The-Club.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-city\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-city\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-city\gallery\1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-city\gallery\2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-city\gallery\3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-international-city\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-international-city\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-international-city\gallery\1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-international-city\gallery\2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-international-city\gallery\3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\hero-fallback.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\hero.png
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\amenities_1.png
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\amenities_2.png
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\amenities_3.png
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\amenities_4.png
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\amenities_5.png
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\amenities_6.png
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\page01_img01.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\page01_img02.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\page02_img02.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\page03_img02.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\page03_img03.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\page03_img05.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\page04_img02.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\page04_img03.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\page04_img04.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\page04_img05.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\page05_img02.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\page05_img03.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\page05_img04.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\page05_img05.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\sobha2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\sobha3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\sobha4.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\sobhag_sector11.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\sobhag_sector111.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-sector-1-gnw\gallery\sobhag_sector_1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-strada\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-strada\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-strada\gallery\g1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-strada\gallery\perfection-inevitably-yours-web.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-strada\gallery\Strada-Bathroom.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-strada\gallery\Strada-Bedroom.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-strada\gallery\Strada-Business-Lounge.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-strada\gallery\Strada-Elevation-_-Night-View.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-strada\gallery\Strada-Kitchenette-Dining-Area.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-strada\gallery\Strada-Lap-Pool.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-strada\gallery\Strada-Living-Area-Balcony.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\sobha-strada\gallery\Strada-Triple-_-height-Entrance-Lobby.webp
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\SobhaSector1GNW\g1.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\SobhaSector1GNW\g2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\SobhaSector1GNW\g3.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\SobhaSector1GNW\g4.jpg

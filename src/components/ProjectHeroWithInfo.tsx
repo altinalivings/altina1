@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import Image from "next/image";
 
 type Props = {
@@ -14,8 +15,9 @@ type Props = {
   images?: string[];
 };
 
+const FALLBACK = "/fallbacks/hero-fallback.jpg";
+
 export default function ProjectHeroWithInfo({
-  id,
   name,
   city,
   location,
@@ -24,27 +26,29 @@ export default function ProjectHeroWithInfo({
   price,
   images,
 }: Props) {
-  // Safely pick a hero image: images[0] → hero → fallback
-  const heroSrc =
-    (Array.isArray(images) && images.length > 0 ? images[0] : hero) ||
-    "/fallbacks/hero-fallback.jpg"; // ensure this exists in /public/fallbacks/
+  // Prefer explicit hero first, then gallery first image, then fallback.
+  const initialSrc = useMemo(() => {
+    const fromHero = hero?.trim();
+    const fromGallery =
+      Array.isArray(images) && images.length > 0 ? images[0]?.trim() : undefined;
+    return fromHero || fromGallery || FALLBACK;
+  }, [hero, images]);
+
+  const [src, setSrc] = useState<string>(initialSrc);
+
+  // Reset when route/props change
+  if (src !== initialSrc) setSrc(initialSrc);
 
   return (
     <section className="relative h-[56vh] min-h-[360px] overflow-hidden w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
       <Image
-        src={heroSrc}
+        src={src}
         alt={name}
         fill
-  priority
-  unoptimized 
-        quality={100}
+        priority
         sizes="100vw"
-        className="absolute inset-0 object-cover object-center will-change-transform"
-        style={{ imageRendering: "auto" }}
-        onError={(e) => {
-          const el = e.currentTarget as HTMLImageElement;
-          el.src = "/fallbacks/hero-fallback.jpg";
-        }}
+        className="absolute inset-0 object-cover object-center"
+        onError={() => setSrc(FALLBACK)}
       />
 
       <div className="absolute inset-0 bg-black/15" />

@@ -6,8 +6,6 @@ import projectsData from "@/data/projects";
 import ProjectDetailClientShell from "@/components/ProjectDetailClientShell";
 import RelatedProjects from "@/components/RelatedProjects";
 import ProjectHeroWithInfo from "@/components/ProjectHeroWithInfo";
-//import PageHero from "@/components/PageHero";
-
 
 export const revalidate = 3600;
 
@@ -33,14 +31,11 @@ type Project = {
   faq?: FAQItem[];
 };
 
-
 const SITE =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
   "https://www.altinalivings.com";
 
-const list: Project[] = Array.isArray(projectsData)
-  ? (projectsData as Project[])
-  : [];
+const list: Project[] = Array.isArray(projectsData) ? (projectsData as Project[]) : [];
 const findProject = (id: string) => list.find((p) => p.id === id);
 
 const abs = (u?: string) =>
@@ -91,8 +86,7 @@ export async function generateMetadata({
       ]
         .filter(Boolean)
         .join(" • ")
-    ).slice(0, 300) ||
-    `Explore ${p.name}${p.city ? ` in ${p.city}` : ""}.`;
+    ).slice(0, 300) || `Explore ${p.name}${p.city ? ` in ${p.city}` : ""}.`;
 
   return {
     title,
@@ -142,9 +136,7 @@ function ProjectSchema({ p }: { p: Project }) {
       url: `${SITE}/projects/${p.id}`,
       itemCondition: "https://schema.org/NewCondition",
       availability: "https://schema.org/InStock",
-      priceValidUntil: new Date(
-        Date.now() + 1000 * 60 * 60 * 24 * 90
-      )
+      priceValidUntil: new Date(Date.now() + 1000 * 60 * 60 * 24 * 90)
         .toISOString()
         .slice(0, 10),
       seller: {
@@ -198,15 +190,13 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
   const p = findProject(params.id);
   if (!p) return notFound();
 
-  const faqs =
+  const faqs: FAQItem[] =
     Array.isArray(p.faq) && p.faq.length > 0
       ? p.faq
       : [
           {
             q: `What is the price of ${p.name}?`,
-            a: `The price for ${p.name} starts at ${
-              p.price || "market-linked rates"
-            }.`,
+            a: `The price for ${p.name} starts at ${p.price || "market-linked rates"}.`,
           },
           {
             q: `When is possession for ${p.name}?`,
@@ -230,17 +220,18 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
 
   return (
     <main className="bg-[#0B0B0C] text-white">
+      {/* HERO (render once here only) */}
       <ProjectHeroWithInfo
-  id={p.id}
-  name={p.name}
-  city={p.city}
-  location={p.location}
-  hero={p.hero}
-  configuration={p.configuration}
-  price={p.price}
-  images={p.gallery}
-/>
-
+        id={p.id}
+        name={p.name}
+        city={p.city}
+        location={p.location}
+        hero={p.hero}
+        configuration={p.configuration}
+        price={p.price}
+        brochure={p.brochure}
+        images={p.gallery}
+      />
 
       {/* Main project details (specs, amenities, gallery, etc.) */}
       <ProjectDetailClientShell project={p} />
@@ -273,19 +264,12 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
       <ProjectBreadcrumbs p={p} />
 
       {/* Related projects */}
-      <section
-        className="max-w-6xl mx-auto px-4 mt-8 pb-10"
-        aria-label="Related Projects"
-      >
+      <section className="max-w-6xl mx-auto px-4 mt-8 pb-10" aria-label="Related Projects">
         <div className="border-t border-altina-gold/20 pt-6">
           <h2 className="text-xl sm:text-2xl font-semibold text-altina-gold mb-4">
             More like this
           </h2>
-          <RelatedProjects
-            currentId={p.id}
-            developer={p.developer}
-            city={p.city}
-          />
+          <RelatedProjects currentId={p.id} developer={p.developer} city={p.city} />
         </div>
       </section>
     </main>
