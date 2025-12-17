@@ -1,6 +1,8 @@
 // src/data/projects.ts
 // Auto-generated projects configuration for Altina Livings
 
+export type PropertyType = "Residential" | "Commercial" | "Mixed";
+
 export type Project = {
   id: string;
   slug: string;
@@ -37,80 +39,241 @@ export type Project = {
   featured?: boolean;
   featured_order?: number;
   description?: string;
-   propertyType?: "Residential" | "Commercial" | "Mixed";
+
+  // ✅ Explicit classification for filters
+  propertyType?: PropertyType;
+
+  // ✅ Deeper detail blocks (safe additions; use in ProjectDetailsSections later)
+  overview?: string;
+  key_points?: string[];
+  location_points?: string[];
+  specifications?: string[];
+  payment_plan?: string;
+  inventory_note?: string;
+  tags?: string[];
+  brochure_pdf?: string; // place brochure in /public/brochures/...
+  video_url?: string; // youtube walkthrough / reel
+  whatsapp_prefill?: string; // prefilled WA text (optional)
 };
 
 const projects: Project[] = [
   {
-  id: "dlf-one-midtown",
-  slug: "dlf-one-midtown-moti-nagar",
-  name: "DLF One Midtown",
-  developer: "DLF",
-  brand: "DLF",
-  rating: 4.7,
-  location: "Shivaji Marg, Moti Nagar, West Delhi",
-  city: "New Delhi",
-  state: "Delhi",
-  sector: "Moti Nagar",
-  micro_market: "Central-West Delhi",
-  rera: "DLRERA2021P0007",
-  status: "Ready to Move",
-  construction_status: "Completed",
-  possession: "2024",
-  launch: "2021",
-  price: "₹4.7 Cr onwards",
-  propertyType: "Residential",
-  configuration: "2, 3 & 4 BHK Residences",
-  typologies: ["2 BHK", "3 BHK", "4 BHK + SQ"],
-  sizes: "1,732 – 3,000 sq.ft.",
-  land_area: "≈ 5.1 acres",
-  towers: 4,
-  floors: "G+39",
-  total_units: "≈ 915 apartments",
+    id: "dlf-one-midtown",
+    slug: "dlf-one-midtown-moti-nagar",
+    name: "DLF One Midtown",
+    developer: "DLF",
+    brand: "DLF",
+    rating: 4.7,
+    location: "Shivaji Marg, Moti Nagar, West Delhi",
+    city: "New Delhi",
+    state: "Delhi",
+    sector: "Moti Nagar",
+    micro_market: "Central-West Delhi",
+    rera: "DLRERA2021P0007",
+    status: "Ready to Move",
+    construction_status: "Completed",
+    possession: "2024",
+    launch: "2021",
+    price: "₹4.7 Cr onwards",
+    propertyType: "Residential",
+    configuration: "2, 3 & 4 BHK Residences",
+    typologies: ["2 BHK", "3 BHK", "4 BHK + SQ"],
+    sizes: "1,732 – 3,000 sq.ft.",
+    land_area: "≈ 5.1 acres",
+    towers: 4,
+    floors: "G+39",
+    total_units: "≈ 915 apartments",
+    usp: [
+      "Central Delhi–adjacent luxury address on Shivaji Marg",
+      "Surrounded by large landscaped greens (DLF Capital Greens belt)",
+      "International quality clubhouse & amenities",
+    ],
+    highlights: [
+      "Multiple metro connectivity – Moti Nagar & Kirti Nagar",
+      "Low-density luxury community with high-rise views",
+    ],
+    amenities: [
+      "Clubhouse",
+      "Swimming Pool",
+      "Gymnasium",
+      "Kids’ Play Area",
+      "Jogging Track",
+      "Landscaped Gardens",
+      "24x7 Security",
+    ],
 
-  overview:
-    "DLF One Midtown is a premium high-rise community on Shivaji Marg, Moti Nagar, positioned for buyers seeking a Central-Delhi adjacent address with a full lifestyle ecosystem.",
-  key_points: [
-    "Central-West Delhi location with strong connectivity",
-    "High-rise lifestyle with clubhouse and curated amenities",
-    "Suitable for end-use and long-term holding",
-  ],
-  location_points: [
-    "Metro connectivity via Moti Nagar / Kirti Nagar vicinity (verify exact gate distances)",
-    "Connected corridors via Shivaji Marg and surrounding arterial roads",
-  ],
-  specifications: [
-    "High-rise towers with premium common areas (specs vary by tower/phase)",
-    "Lifestyle clubhouse and sports amenities within the community",
-  ],
-  inventory_note:
-    "Availability and pricing are subject to change; share your requirement (unit size, budget, floor preference) for current options.",
-  tags: ["Central Delhi", "Ready to Move", "Luxury High-Rise"],
+    overview:
+      "A premium high-rise community positioned for buyers seeking a Central-Delhi adjacent address with a complete lifestyle ecosystem.",
+    key_points: [
+      "End-use friendly (ready / near-ready inventory depending on availability)",
+      "Strong connectivity across West & Central Delhi corridors",
+      "Suitable for long-term holding and lifestyle upgrade",
+    ],
+    location_points: [
+      "Connectivity via Shivaji Marg and key arterial roads",
+      "Metro access in the wider Moti Nagar / Kirti Nagar belt (verify exact approach)",
+    ],
+    specifications: [
+      "High-rise tower living with premium common areas (spec varies by tower)",
+      "Clubhouse and lifestyle amenities within the community",
+    ],
+    inventory_note:
+      "Availability and pricing change frequently; share unit size, budget and floor preference for current options.",
+    tags: ["Central Delhi", "Ready to Move", "Luxury High-Rise"],
 
-  hero: "/projects/dlf-one-midtown/hero.jpg",
-  heroAlt: "DLF One Midtown towers with landscaped greens in Moti Nagar",
-  gallery: [
-    "/projects/dlf-one-midtown/g1.webp",
-    "/projects/dlf-one-midtown/g2.webp",
-    "/projects/dlf-one-midtown/g3.webp",
-    "/projects/dlf-one-midtown/g4.webp",
-  ],
-  map: {
-    embed: "https://www.google.com/maps?q=28.6657,77.1543&z=16&output=embed",
-    lat: 28.6657,
-    lng: 77.1543,
-  },
-  seo: {
-    title: "DLF One Midtown – Luxury 2, 3 & 4 BHK in Moti Nagar, Central Delhi",
+    hero: "/projects/dlf-one-midtown/hero.jpg",
+    heroAlt: "DLF One Midtown towers with landscaped greens in Moti Nagar",
+    gallery: [
+      "/projects/dlf-one-midtown/g1.webp",
+      "/projects/dlf-one-midtown/g2.webp",
+      "/projects/dlf-one-midtown/g3.webp",
+      "/projects/dlf-one-midtown/g4.webp",
+    ],
+    map: {
+      embed: "https://www.google.com/maps?q=28.6657,77.1543&z=16&output=embed",
+      lat: 28.6657,
+      lng: 77.1543,
+    },
+    seo: {
+      title: "DLF One Midtown – Luxury 2, 3 & 4 BHK in Moti Nagar, Central Delhi",
+      description:
+        "DLF One Midtown offers ready-to-move luxury 2, 3 & 4 BHK residences at Shivaji Marg, Moti Nagar with clubhouse, greens and strong connectivity.",
+      canonical: "https://altinalivings.com/projects/dlf-one-midtown-moti-nagar",
+    },
+    featured: true,
+    featured_order: 1,
     description:
-      "DLF One Midtown offers ready-to-move luxury 2, 3 & 4 BHK residences at Shivaji Marg, Moti Nagar with clubhouse amenities and excellent connectivity.",
-    canonical: "https://altinalivings.com/projects/dlf-one-midtown-moti-nagar",
+      "DLF One Midtown is a landmark luxury high-rise community in Moti Nagar with premium specifications and proximity to Central Delhi.",
   },
-  featured: true,
-  featured_order: 1,
-  description:
-    "DLF One Midtown is a landmark luxury high-rise community in Moti Nagar with premium specifications, ready clubhouse and proximity to Central Delhi.",
-},
+
+  {
+    id: "dlf-independent-floors-phase-2-3",
+    slug: "dlf-independent-floors-phase-2-3",
+    name: "DLF Independent Floors (Phase 2 & 3)",
+    developer: "DLF",
+    brand: "DLF",
+    rating: 4.6,
+    location: "DLF Garden City, Gurugram",
+    city: "Gurugram",
+    state: "Haryana",
+    micro_market: "New Gurugram",
+    status: "Under Construction",
+    construction_status: "Ongoing",
+    propertyType: "Residential",
+    price: "₹2.5 Cr onwards",
+    configuration: "3 & 4 BHK Low-rise Independent Floors",
+    typologies: ["3 BHK + Store", "4 BHK + Store + Utility"],
+    usp: [
+      "Low-rise independent floors with private lifestyle feel",
+      "Located inside DLF Garden City ecosystem",
+    ],
+    highlights: [
+      "Better privacy vs. typical high-rise group housing",
+      "Access to planned parks, retail and social infra",
+    ],
+    amenities: ["Community Greens", "Gated Complex Pockets"],
+
+    overview:
+      "Low-rise, fewer-neighbour living inside a planned DLF township ecosystem—positioned for families seeking privacy with gated security.",
+    key_points: [
+      "Low-rise format: privacy and independent-floor feel",
+      "Township ecosystem with planned infra",
+      "Good fit for end-use and rental demand (depending on micro-market)",
+    ],
+    location_points: [
+      "New Gurugram township corridor",
+      "Connectivity dependent on sector approach and nearest expressways (verify per pocket)",
+    ],
+    specifications: [
+      "Low-rise floors (spec varies by phase and inventory)",
+      "Gated pockets with community greens",
+    ],
+    inventory_note:
+      "Floor inventory varies by phase; confirm current availability, sizes and exact pocket details.",
+    tags: ["Gurugram", "Low-Rise Floors", "DLF Township"],
+
+    hero: "/projects/dlf-independent-floors-phase-2-3/hero.jpg",
+    heroAlt: "DLF Independent low-rise floors in DLF Garden City, Gurugram",
+    gallery: [
+      "/projects/dlf-independent-floors-phase-2-3/g1.webp",
+      "/projects/dlf-independent-floors-phase-2-3/g2.webp",
+      "/projects/dlf-independent-floors-phase-2-3/g3.webp",
+    ],
+    seo: {
+      title: "DLF Independent Floors – Phase 2 & 3 | DLF Garden City, Gurugram",
+      description:
+        "DLF Independent Floors (Phase 2 & 3) offer premium low-rise 3 & 4 BHK homes inside DLF Garden City—ideal for buyers preferring fewer neighbours and open surroundings.",
+      canonical: "https://altinalivings.com/projects/dlf-independent-floors-phase-2-3",
+    },
+    featured: false,
+    description:
+      "DLF Independent Floors combine independent living with gated security and township planning in New Gurugram.",
+  },
+
+  {
+    id: "dlf-central-67-sco",
+    slug: "dlf-central-67-sco-sector-67-gurgaon",
+    name: "DLF Central 67 SCO",
+    developer: "DLF",
+    brand: "DLF",
+    rating: 4.5,
+    location: "Sector 67, Golf Course Extension Road, Gurugram",
+    city: "Gurugram",
+    state: "Haryana",
+    sector: "Sector 67",
+    micro_market: "Golf Course Extension Road",
+    status: "Under Construction",
+    construction_status: "Ongoing",
+    configuration: "Shop-cum-Office (SCO) Plots",
+    propertyType: "Commercial",
+    price: "Price on Request",
+    usp: [
+      "Freehold SCO plots on Golf Course Extension Road",
+      "Ideal for retail, F&B, offices and boutique brands",
+    ],
+    highlights: [
+      "High visibility frontage on sector road",
+      "Strong residential catchment along GCX and SPR",
+    ],
+    amenities: ["High Street Retail Environment", "Parking"],
+
+    overview:
+      "A freehold SCO opportunity positioned for investor and end-user commercial needs—retail, F&B and office formats in a strong catchment corridor.",
+    key_points: [
+      "SCO format suitable for multiple business categories",
+      "Catchment-driven commercial opportunity (verify footfall assumptions)",
+      "Investor-friendly in corridors with established residential density",
+    ],
+    location_points: [
+      "Golf Course Extension Road corridor",
+      "Surrounding catchment from GCX / SPR belt",
+    ],
+    specifications: [
+      "SCO plot-based format (specs depend on plot size and norms)",
+      "Parking and high-street positioning (subject to layout)",
+    ],
+    inventory_note:
+      "Plot sizes, pricing and allotment terms vary; request the latest inventory sheet and payment schedule.",
+    tags: ["Commercial", "SCO", "GCX Road"],
+
+    hero: "/projects/dlf-central-67-sco/hero.jpg",
+    heroAlt: "DLF Central 67 SCO site on Golf Course Extension Road",
+    gallery: [
+      "/projects/dlf-central-67-sco/g1.webp",
+      "/projects/dlf-central-67-sco/g2.webp",
+      "/projects/dlf-central-67-sco/g3.webp",
+    ],
+    seo: {
+      title: "DLF Central 67 – SCO Plots in Sector 67 Gurugram",
+      description:
+        "DLF Central 67 offers freehold SCO plots in Sector 67 on Golf Course Extension Road, suitable for retail, F&B and office use in a high-visibility corridor.",
+      canonical:
+        "https://altinalivings.com/projects/dlf-central-67-sco-sector-67-gurgaon",
+    },
+    featured: false,
+    description:
+      "DLF Central 67 SCO is a freehold commercial opportunity for investors and business owners on Golf Course Extension Road.",
+  },
 
   {
     id: "sobha-altus",
@@ -131,8 +294,7 @@ const projects: Project[] = [
     typologies: ["3 BHK", "4 BHK"],
     sizes: "≈ 2,000 – 3,500 sq.ft*",
     land_area: "≈ 8.5 acres*",
-	propertyType: "Residential",
-
+    propertyType: "Residential",
     usp: [
       "Signature SOBHA high-rise on Dwarka Expressway",
       "Low-density luxury with expansive views",
@@ -148,13 +310,33 @@ const projects: Project[] = [
       "Landscaped Gardens",
       "Kids’ Play Area",
     ],
+
+    overview:
+      "A premium high-rise offering in Sector 106, positioned for buyers looking for SOBHA craftsmanship and Dwarka Expressway connectivity.",
+    key_points: [
+      "Premium 3 & 4 BHK positioning",
+      "Expressway corridor growth and airport connectivity theme",
+      "High-spec living and amenities (verify tower-wise deliverables)",
+    ],
+    location_points: [
+      "Dwarka Expressway corridor",
+      "Connectivity towards Delhi border and IGI/Aerocity routes (time varies by traffic)",
+    ],
+    specifications: [
+      "High-rise community with SOBHA-style build detailing",
+      "Lifestyle clubhouse and curated amenities",
+    ],
+    inventory_note:
+      "Sizes and pricing are indicative; confirm current rate card, PLCs and inventory availability.",
+    tags: ["Dwarka Expressway", "Luxury", "SOBHA"],
+
     hero: "/projects/sobha-altus/hero.jpg",
     heroAlt: "SOBHA Altus towers on Dwarka Expressway at dusk",
     gallery: [
       "/projects/sobha-altus/g1.webp",
       "/projects/sobha-altus/g2.webp",
       "/projects/sobha-altus/g3.webp",
-      "/projects/sobha-altus/g4.webp"
+      "/projects/sobha-altus/g4.webp",
     ],
     map: {
       embed: "https://www.google.com/maps?q=28.5324,77.0463&z=16&output=embed",
@@ -163,13 +345,16 @@ const projects: Project[] = [
     },
     seo: {
       title: "SOBHA Altus – Luxury 3 & 4 BHK on Dwarka Expressway",
-      description: "SOBHA Altus in Sector 106 offers luxury 3 & 4 BHK residences along Dwarka Expressway with a premium clubhouse, curated amenities and signature SOBHA quality.",
+      description:
+        "SOBHA Altus in Sector 106 offers luxury 3 & 4 BHK residences along Dwarka Expressway with premium amenities and signature SOBHA quality.",
       canonical: "https://altinalivings.com/projects/sobha-altus-sector-106-gurgaon",
     },
     featured: true,
     featured_order: 2,
-    description: "SOBHA Altus is a landmark luxury high-rise development with expansive residences and SOBHA’s meticulous build quality.",
+    description:
+      "SOBHA Altus is a landmark luxury high-rise development with expansive residences and SOBHA’s meticulous build quality.",
   },
+
   {
     id: "sobha-aurum",
     slug: "sobha-aurum-sector-36-greater-noida",
@@ -183,7 +368,7 @@ const projects: Project[] = [
     sector: "Sector 36",
     micro_market: "Noida–Greater Noida Expressway",
     status: "Under Construction",
-	propertyType: "Residential",
+    propertyType: "Residential",
     construction_status: "Ongoing",
     configuration: "1, 2, 3 & 4 BHK Residences",
     price: "₹21,500 / sq.ft* (indicative)",
@@ -202,22 +387,45 @@ const projects: Project[] = [
       "Jogging Track",
       "Kids’ Play Area",
     ],
+
+    overview:
+      "A residential community positioned for buyers seeking SOBHA build standards in the Noida–Greater Noida belt with a lifestyle amenity focus.",
+    key_points: [
+      "Multiple configuration range (1–4 BHK as indicated)",
+      "Expressway-belt connectivity theme",
+      "Amenities targeted for family lifestyle",
+    ],
+    location_points: [
+      "Noida–Greater Noida Expressway belt",
+      "Connectivity depends on sector approach and daily traffic patterns",
+    ],
+    specifications: [
+      "Lifestyle clubhouse and community amenities",
+      "Tower specifications vary by phase/inventory",
+    ],
+    inventory_note:
+      "Indicative pricing shown; confirm latest rate card, size matrix and unit availability.",
+    tags: ["Greater Noida", "Residential", "SOBHA"],
+
     hero: "/projects/sobha-aurum/hero.jpg",
     heroAlt: "SOBHA Aurum residential towers in Greater Noida",
     gallery: [
       "/projects/sobha-aurum/g1.webp",
       "/projects/sobha-aurum/g2.webp",
-      "/projects/sobha-aurum/g3.webp"
+      "/projects/sobha-aurum/g3.webp",
     ],
     seo: {
       title: "SOBHA Aurum – Luxury Apartments in Sector 36 Greater Noida",
-      description: "SOBHA Aurum is an upcoming eco-luxury residential project in Sector 36, Greater Noida offering 1–4 BHK homes with SOBHA’s quality and full lifestyle amenities.",
+      description:
+        "SOBHA Aurum is an upcoming eco-luxury residential project in Sector 36, Greater Noida offering 1–4 BHK homes with lifestyle amenities.",
       canonical: "https://altinalivings.com/projects/sobha-aurum-sector-36-greater-noida",
     },
     featured: true,
     featured_order: 3,
-    description: "SOBHA Aurum brings SOBHA’s eco-luxury philosophy to Greater Noida with a carefully planned residential community.",
+    description:
+      "SOBHA Aurum brings SOBHA’s eco-luxury philosophy to Greater Noida with a carefully planned residential community.",
   },
+
   {
     id: "sobha-aranya",
     slug: "sobha-aranya-delhi-ncr",
@@ -231,8 +439,7 @@ const projects: Project[] = [
     micro_market: "NH-48 Eco Corridor",
     status: "Pre-launch",
     construction_status: "Planned",
-	propertyType: "Residential", 
-
+    propertyType: "Residential",
     configuration: "3 & 4 BHK Eco-luxury Residences",
     usp: [
       "Eco-luxury residences with golf and resort-style ambience",
@@ -249,22 +456,45 @@ const projects: Project[] = [
       "Jogging & Cycling Tracks",
       "Kids’ Play Areas",
     ],
+
+    overview:
+      "A resort-style, eco-luxury positioning in a green, low-density environment, oriented towards lifestyle buyers and long-horizon owners.",
+    key_points: [
+      "Resort-style living theme",
+      "Low-density / green ambience positioning",
+      "Ideal for lifestyle-first buyers (verify launch terms and RERA updates)",
+    ],
+    location_points: [
+      "NH-48 corridor access theme",
+      "Inside/near the Karma Lakelands environment (verify approach and entry)",
+    ],
+    specifications: [
+      "Eco-luxury positioning with curated amenities",
+      "Specifications depend on final launch inventory",
+    ],
+    inventory_note:
+      "Pre-launch details may change; confirm final configuration, sizes, RERA and payment terms at launch.",
+    tags: ["Eco-Luxury", "NH-48", "Resort Lifestyle"],
+
     hero: "/projects/sobha-aranya/hero.jpg",
     heroAlt: "SOBHA Aranya eco-luxury homes amidst greens at Karma Lakelands",
     gallery: [
       "/projects/sobha-aranya/g1.webp",
       "/projects/sobha-aranya/g2.webp",
-      "/projects/sobha-aranya/g3.webp"
+      "/projects/sobha-aranya/g3.webp",
     ],
     seo: {
       title: "SOBHA Aranya – Eco-Luxury Residences at Karma Lakelands",
-      description: "SOBHA Aranya is an eco-luxury residential development inside Karma Lakelands along NH-48, offering resort-style living with SOBHA’s quality.",
+      description:
+        "SOBHA Aranya is an eco-luxury residential development inside the Karma Lakelands environment along NH-48, offering resort-style living with lifestyle amenities.",
       canonical: "https://altinalivings.com/projects/sobha-aranya-delhi-ncr",
     },
     featured: true,
     featured_order: 5,
-    description: "SOBHA Aranya combines eco-luxury living, golf-course ambience and SOBHA craftsmanship at Karma Lakelands.",
+    description:
+      "SOBHA Aranya combines eco-luxury living, golf-course ambience and SOBHA craftsmanship at Karma Lakelands.",
   },
+
   {
     id: "m3m-jacob",
     slug: "m3m-jacob",
@@ -277,17 +507,16 @@ const projects: Project[] = [
     state: "Uttar Pradesh",
     sector: "Sector 97",
     status: "Pre-launch",
-	propertyType: "Mixed",
-
+    propertyType: "Mixed",
     construction_status: "Planned",
     configuration: "3, 4 & 5 BHK Branded Residences",
     usp: [
-      "First Jacob & Co. branded residential address in India",
+      "Branded residences positioning (Jacob & Co.)",
       "Ultra-luxury segment targeting UHNI / HNI buyers",
     ],
     highlights: [
-      "High-fashion inspired interiors and curated amenities",
-      "Planned sky lounges and experiential amenities",
+      "Design-led interiors and curated amenities (to be confirmed at launch)",
+      "Planned sky lounges and experiential amenities (indicative)",
     ],
     amenities: [
       "Branded Clubhouse",
@@ -296,22 +525,45 @@ const projects: Project[] = [
       "Gymnasium",
       "Spa / Wellness",
     ],
-    hero: "projects/m3m-jacob/hero.jpg",
+
+    overview:
+      "A branded-residences positioning aimed at the luxury segment; final inventory, specs and brand collaboration details should be validated from the official release.",
+    key_points: [
+      "Branded-residences positioning (premium segment)",
+      "Pre-launch: details may be updated by the developer",
+      "Best suited for luxury end-use and collector-style inventory (depending on final offering)",
+    ],
+    location_points: [
+      "Noida Sector 97 belt (verify micro-location and access roads)",
+      "Connectivity depends on approach roads and planned infra",
+    ],
+    specifications: [
+      "Branded clubhouse / lifestyle amenities (final specs to be confirmed)",
+      "Inventory specs may vary by tower and unit series",
+    ],
+    inventory_note:
+      "Pre-launch inventory and pricing may change; confirm official configuration, sizes and brand deliverables once announced.",
+    tags: ["Noida", "Branded Residences", "Luxury"],
+
+    hero: "/projects/m3m-jacob/hero.jpg",
     heroAlt: "M3M Jacob & Co. branded luxury residence towers in Noida",
     gallery: [
       "/projects/m3m-jacob/g1.jpg",
       "/projects/m3m-jacob/g2.jpg",
-      "/projects/m3m-jacob/g3.jpg"
+      "/projects/m3m-jacob/g3.jpg",
     ],
     seo: {
       title: "M3M Jacob & Co. Residences – Branded Luxury in Noida",
-      description: "M3M Jacob & Co. Residences bring Jacob & Co.’s design sensibilities to ultra-luxury homes in Noida with limited residences and couture-inspired amenities.",
+      description:
+        "M3M Jacob & Co. Residences bring a branded luxury positioning to Noida with curated lifestyle amenities; confirm final inventory and specifications at launch.",
       canonical: "https://altinalivings.com/projects/m3m-jacob",
     },
     featured: true,
     featured_order: 7,
-    description: "M3M Jacob & Co. Residences are ultra-luxury branded homes designed in collaboration with Jacob & Co.",
+    description:
+      "M3M Jacob & Co. Residences are positioned as ultra-luxury branded homes with design-led amenities (subject to official launch updates).",
   },
+
   {
     id: "gygy-mentis",
     slug: "gygy-mentis-sector-140-noida",
@@ -331,11 +583,10 @@ const projects: Project[] = [
     launch: "2024",
     price: "Retail @ ₹35,000/sq.ft • Offices @ ₹8,999/sq.ft",
     configuration: "Retail Shops & IT/ITeS Office Spaces",
-	propertyType: "Commercial", 
-
+    propertyType: "Commercial",
     typologies: [
       "Ground Floor Retail Shops – 102.09 sq.ft onwards",
-      "Office Spaces – 475 sq.ft onwards"
+      "Office Spaces – 475 sq.ft onwards",
     ],
     sizes: "Retail from 102.09 sq.ft • Offices from 475 sq.ft",
     land_area: "≈ 5 acres (fully paid-up land)",
@@ -358,13 +609,33 @@ const projects: Project[] = [
       "Basement Parking",
       "24x7 Security & CCTV",
     ],
+
+    overview:
+      "A commercial development on the Noida Expressway corridor featuring retail and office formats; confirm inventory-wise yields/assurance terms from official documents.",
+    key_points: [
+      "Retail + office mix for investor and business use",
+      "Expressway corridor with established residential catchment",
+      "Assured return / scheme terms must be validated from official allotment documents",
+    ],
+    location_points: [
+      "Noida Expressway corridor (Sector 140)",
+      "Metro connectivity in the broader Sector 137/142 belt (verify exact approach)",
+    ],
+    specifications: [
+      "Retail high-street + office tower format (inventory-dependent)",
+      "Parking and common areas subject to final layout",
+    ],
+    inventory_note:
+      "Pricing and schemes are inventory-based; request the latest official rate card and scheme sheet before committing.",
+    tags: ["Noida Expressway", "Commercial", "Retail + Office"],
+
     hero: "/projects/gygy-mentis/hero.jpg",
     heroAlt: "GYGY Mentis commercial towers and retail plaza in Sector 140 Noida",
     gallery: [
       "/projects/gygy-mentis/g1.jpg",
       "/projects/gygy-mentis/g2.jpg",
       "/projects/gygy-mentis/g3.jpg",
-      "/projects/gygy-mentis/g4.jpg"
+      "/projects/gygy-mentis/g4.jpg",
     ],
     map: {
       embed: "https://www.google.com/maps?q=28.5115,77.4130&z=16&output=embed",
@@ -373,85 +644,94 @@ const projects: Project[] = [
     },
     seo: {
       title: "GYGY Mentis Sector 140 Noida – Retail & Office Spaces",
-      description: "GYGY Mentis in Sector 140 offers ground-floor retail shops from 102.09 sq.ft with 12% assured return and office spaces from 475 sq.ft on Noida Expressway.",
+      description:
+        "GYGY Mentis in Sector 140 offers ground-floor retail and office spaces on Noida Expressway with strong catchment and connectivity.",
       canonical: "https://altinalivings.com/projects/gygy-mentis-sector-140-noida",
     },
     featured: true,
     featured_order: 6,
-    description: "GYGY Mentis is a 5-acre commercial development on Noida Expressway offering retail shops and office spaces with strong residential and corporate catchment.",
+    description:
+      "GYGY Mentis is a commercial development offering retail shops and office spaces with strong residential and corporate catchment.",
   },
+
   {
-  id: "smartworld-gic",
-  slug: "smartworld-gic",
-  name: "Smartworld GIC (Gurgaon International City)",
-  developer: "Smartworld Developers",
-  brand: "Smartworld",
-  rating: 4.6,
+    id: "smartworld-gic",
+    slug: "smartworld-gic",
+    name: "Smartworld GIC (Gurgaon International City)",
+    developer: "Smartworld Developers",
+    brand: "Smartworld",
+    rating: 4.6,
+    location: "Sector M9, Manesar, Gurugram",
+    city: "Gurugram",
+    state: "Haryana",
+    sector: "Sector M9",
+    micro_market: "Manesar • Gurgaon International City (GIC)",
+    propertyType: "Residential",
+    rera: "RERA awaited / expected soon",
+    status: "Pre-launch / New Launch",
+    construction_status: "New Launch (High-rise)",
+    possession: "TBD",
+    launch: "New Launch",
+    price: "2.5 BHK from ₹1.75 Cr* | 3 BHK Price on Request",
+    configuration: "2.5 & 3 BHK High-rise Apartments",
+    typologies: ["2.5 BHK", "3 BHK"],
+    sizes: "2.5 BHK: 1250–1400 sq.ft | 3 BHK: 1850–1900 sq.ft",
+    land_area: "150 Acres (Township)",
+    floors: "G+25 (Approx.)",
+    usp: [
+      "Part of 150-acre Gurgaon International City (GIC) township",
+      "High-rise premium towers with skyline & green views",
+      "Strong investment corridor near IMT Manesar",
+      "Flexible payment plans (verify official plan slabs)",
+    ],
+    highlights: [
+      "Located at Sector M9, Manesar with connectivity to NH-8 / Gurgaon–Rewari Expressway",
+      "2.5 BHK (1250–1400 sq.ft) and 3 BHK (1850–1900 sq.ft) configurations",
+      "G+25 (approx.) premium high-rise towers",
+      "Clubhouse and lifestyle amenities positioned for premium living",
+    ],
+    amenities: [
+      "Grand clubhouse",
+      "Sports & wellness zones",
+      "Outdoor recreation areas",
+      "Landscaped greens",
+      "Community spaces",
+    ],
 
-  location: "Sector M9, Manesar, Gurugram",
-  city: "Gurugram",
-  state: "Haryana",
-  sector: "Sector M9",
-  micro_market: "Manesar • Gurgaon International City (GIC)",
-  propertyType: "Residential",
+    overview:
+      "A township-led residential positioning near Manesar, aimed at buyers looking for a new-launch opportunity in an industrial + infrastructure growth belt.",
+    key_points: [
+      "Township scale positioning",
+      "New launch: verify RERA, tower details and phase plan",
+      "Investor + end-use suitability depends on launch pricing and handover timeline",
+    ],
+    location_points: [
+      "Manesar / NH-8 influence zone (verify exact approach)",
+      "Connectivity to industrial and employment catchments in the wider belt",
+    ],
+    specifications: [
+      "High-rise towers (final tower count/specs to be confirmed)",
+      "Clubhouse and lifestyle amenities (as per launch communication)",
+    ],
+    payment_plan:
+      "Payment plan slabs to be confirmed from official launch note / allotment terms.",
+    inventory_note:
+      "RERA and final tower details are awaited; confirm official documentation before booking.",
+    tags: ["Gurugram", "Manesar", "New Launch"],
 
-
-  // RERA info is shown as "expected soon" on the source page
-  rera: "RERA awaited / expected soon",
-  status: "Pre-launch / New Launch",
-  construction_status: "New Launch (High-rise)",
-
-  // verify with developer / channel partner updates
-  possession: "TBD",
-  launch: "New Launch",
-
-  price: "2.5 BHK from ₹1.75 Cr* | 3 BHK Price on Request",
-  configuration: "2.5 & 3 BHK High-rise Apartments",
-  typologies: ["2.5 BHK", "3 BHK"],
-  sizes: "2.5 BHK: 1250–1400 sq.ft | 3 BHK: 1850–1900 sq.ft",
-
-  land_area: "150 Acres (Township)",
-  towers: undefined,
-  floors: "G+25 (Approx.)",
-  total_units: undefined,
-
-  usp: [
-    "Part of 150-acre Gurgaon International City (GIC) township",
-    "High-rise premium towers with skyline & green views",
-    "Strong investment corridor near IMT Manesar",
-    "Flexible payment plans: 15:85 and 25%×4 (as per launch communication)"
-  ],
-
-  highlights: [
-    "Located at Sector M9, Manesar with connectivity to NH-8 / Gurgaon–Rewari Expressway",
-    "2.5 BHK (1250–1400 sq.ft) and 3 BHK (1850–1900 sq.ft) configurations",
-    "G+25 (approx.) premium high-rise towers",
-    "Clubhouse and lifestyle amenities positioned for premium living"
-  ],
-
-  amenities: [
-    "Grand clubhouse",
-    "Sports & wellness zones",
-    "Outdoor recreation areas",
-    "Landscaped greens",
-    "Community spaces"
-  ],
-
-  // IMPORTANT: put these files in /public/projects/smartworld-gic/
-  hero: "/projects/smartworld-gic/hero.png",
-  heroAlt: "Smartworld GIC Manesar – premium high-rise residences in Gurgaon International City",
-
-  // IMPORTANT: put these files in /public/projects/smartworld-gic/gallery/
-  gallery: [
-    "/projects/smartworld-gic/gallery/01.jpg",
-    "/projects/smartworld-gic/gallery/02.jpg",
-    "/projects/smartworld-gic/gallery/03.jpg",
-    "/projects/smartworld-gic/gallery/04.jpg",
-    "/projects/smartworld-gic/gallery/05.jpg",
-    "/projects/smartworld-gic/gallery/06.jpg"
-  ],
-
+    hero: "/projects/smartworld-gic/hero.png",
+    heroAlt:
+      "Smartworld GIC Manesar – premium high-rise residences in Gurgaon International City",
+    gallery: [
+      "/projects/smartworld-gic/gallery/01.jpg",
+      "/projects/smartworld-gic/gallery/02.jpg",
+      "/projects/smartworld-gic/gallery/03.jpg",
+      "/projects/smartworld-gic/gallery/04.jpg",
+      "/projects/smartworld-gic/gallery/05.jpg",
+      "/projects/smartworld-gic/gallery/06.jpg",
+    ],
   },
+
   {
     id: "sobha-sector-1-gnw",
     slug: "sobha-sector-1-greater-noida-west",
@@ -466,8 +746,7 @@ const projects: Project[] = [
     micro_market: "Noida Extension / GNW",
     rera: "TBA",
     status: "Pre-launch / New Launch",
-	propertyType: "Residential",
-
+    propertyType: "Residential",
     construction_status: "Planned",
     possession: "Approx. 5 years from launch (as per developer)",
     launch: "Launching this December (EOI phase)",
@@ -477,7 +756,7 @@ const projects: Project[] = [
       "2 BR + 2T – 1,300 sq.ft (approx.)",
       "3 BR + 2T – 1,600 sq.ft (approx.)",
       "3 BR + 3T – 1,850 sq.ft (approx.)",
-      "4 BR + 4T – 2,200–2,500 sq.ft (approx.)"
+      "4 BR + 4T – 2,200–2,500 sq.ft (approx.)",
     ],
     sizes: "1,300 – 2,500 sq.ft* (approx.)",
     land_area: "≈ 12 acres",
@@ -492,11 +771,9 @@ const projects: Project[] = [
       "Iconic architecture with limited edition homes",
     ],
     highlights: [
-      "Excellent connectivity to FNG (~2 km), NH 24 (~10 km) and Pari Chowk (~18 km)",
-      "Approx. 45 mins to Noida International Airport & ~8 km to nearest metro",
-      "Yatharth Hospital & D-Mart ~500 m; Gaur City Mall ~4.4 km; Fortis ~10 km; Kailash ~12 km",
-      "Noida Golf Course ~12 km; F1 Track ~30 km",
-      "GD Goenka International ~4.5 km; Lotus Valley ~3 km",
+      "Connectivity to FNG / NH24 / Pari Chowk (verify current travel times)",
+      "Proposed airport connectivity theme (time varies by route and traffic)",
+      "Nearby daily-needs and healthcare catchments (verify exact distances)",
     ],
     amenities: [
       "Ultra-luxury Clubhouse",
@@ -511,13 +788,33 @@ const projects: Project[] = [
       "3-level Basement Parking",
       "24x7 Security & Surveillance",
     ],
+
+    overview:
+      "A premium high-rise launch in GNW positioned for buyers seeking a luxury upgrade and long-horizon holding in a large-format community plan.",
+    key_points: [
+      "EOI / pre-launch stage: confirm final RERA, rate card, PLCs",
+      "Large-format development with clubhouse-led amenities",
+      "Strong family-oriented configuration mix",
+    ],
+    location_points: [
+      "GNW / Noida Extension belt",
+      "Connectivity improves based on sector approach and corridor upgrades",
+    ],
+    specifications: [
+      "High-rise community with limited apartments per floor positioning",
+      "Basement parking and amenity clubhouse plan (subject to final documents)",
+    ],
+    inventory_note:
+      "Pre-launch details may change; confirm official launch brochure, RERA and payment plan before issuing EOI.",
+    tags: ["GNW", "New Launch", "Ultra-Luxury"],
+
     hero: "/projects/sobha-sector-1-gnw/hero.jpg",
     heroAlt: "SOBHA Sector 1 ultra-luxury towers in Greater Noida West",
     gallery: [
       "/projects/sobha-sector-1-gnw/g1.jpg",
       "/projects/sobha-sector-1-gnw/g2.jpg",
       "/projects/sobha-sector-1-gnw/g3.jpg",
-      "/projects/sobha-sector-1-gnw/g4.jpg"
+      "/projects/sobha-sector-1-gnw/g4.jpg",
     ],
     map: {
       embed: "https://www.google.com/maps?q=28.603,77.420&z=15&output=embed",
@@ -526,13 +823,17 @@ const projects: Project[] = [
     },
     seo: {
       title: "SOBHA Sector 1 Greater Noida West – Ultra-Luxury 2, 3 & 4 BR",
-      description: "New launch SOBHA Sector 1 Greater Noida West offers ultra-luxury 2, 3 & 4 BR premium apartments starting @ ₹2.25 Cr* across 12 acres with G+45 towers and large clubhouse.",
-      canonical: "https://altina1-5rmamfuwb-altina-livings-projects.vercel.app/projects/sobha-sector-1-gnw",
+      description:
+        "New launch SOBHA Sector 1 Greater Noida West offers ultra-luxury 2, 3 & 4 BR premium apartments starting @ ₹2.25 Cr* across a large-format community plan.",
+      canonical:
+        "https://altina1-5rmamfuwb-altina-livings-projects.vercel.app/projects/sobha-sector-1-gnw",
     },
     featured: true,
     featured_order: 4,
-    description: "SOBHA Sector 1 GNW is an ultra-luxury high-rise community with 2, 3 & 4 BR residences, iconic architecture and strong connectivity in the Noida Extension belt.",
+    description:
+      "SOBHA Sector 1 GNW is positioned as an ultra-luxury high-rise community with strong connectivity in the Noida Extension belt.",
   },
+
   {
     id: "sobha-strada",
     slug: "sobha-strada-sector-106-gurgaon",
@@ -547,56 +848,67 @@ const projects: Project[] = [
     micro_market: "Dwarka Expressway",
     rera: "TBA",
     status: "New Launch",
-	propertyType: "Mixed",
-
+    propertyType: "Mixed",
     construction_status: "Planned",
     possession: "To be announced",
     launch: "2025",
     price: "Under ₹2.5 Cr* all-inclusive (select units) with 4+ year easy payment plan",
     configuration: "1 Bed Serviced Residences + Premium Retail",
-    typologies: [
-      "1 Bed Serviced Residences",
-      "High-Street Retail & F&B Spaces"
-    ],
+    typologies: ["1 Bed Serviced Residences", "High-Street Retail & F&B Spaces"],
     sizes: "Serviced Residences: 856 sq.ft* onwards; Retail: 257 sq.ft* onwards",
     land_area: "≈ 2.03 acres (commercial)",
     towers: 1,
     floors: "4 Basements + Ground + 31 Floors",
     total_units: "≈ 251 serviced residence keys + multiple retail units",
     usp: [
-      "SOBHA’s 1st commercial project in Delhi NCR at SOBHA Downtown",
-      "Iconic glass façade tower inspired by global/Dubai-style skyline",
-      "Smartly planned 1 Bed serviced residences + premium retail on Dwarka Expressway",
-      "Low ticket size under ₹2.5 Cr* with long, easy payment plan",
+      "Mixed-format tower: serviced residences + premium retail",
+      "Iconic façade / branded downtown positioning (verify official naming)",
+      "Investor-friendly unit size theme (verify final inventory)",
     ],
     highlights: [
-      "Corner plot on 84 m main sector road – less than 1 minute from Dwarka Expressway (NH 248BB)",
-      "Part of SOBHA Downtown (Sectors 106, 108 & 109) with SOBHA City, International City, SOBHA Altus and upcoming launches",
-      "Approx. 15 min* drive to IGI Airport & Aerocity with excellent Delhi connectivity",
-      "High-demand, low-supply 1 Bed format in Delhi NCR – easily tradable, investor-friendly size",
-      "Proximity to Yashobhoomi (India International Convention Centre), Udyog Vihar, Sheetla Mata Medical College, upcoming Global City and marquee developments",
+      "Dwarka Expressway corridor positioning",
+      "Delhi / IGI connectivity theme (travel time varies by traffic)",
+      "Surrounding ecosystem development in the wider sector belt",
     ],
     amenities: [
       "Triple height entrance lobby",
       "Club amenities over two levels",
       "Infinity edge swimming pool",
       "State-of-the-art gymnasium",
-      "Fine-dining / renowned F&B options",
       "Business lounge & meeting spaces",
-      "Alfresco dining decks",
-      "Outdoor gym & recreation zones",
       "EV charging points",
       "100% power backup",
-      "Professional hospitality operator (proposed)",
       "24x7 security & surveillance",
     ],
+
+    overview:
+      "A mixed-format tower combining serviced residence keys and retail. Use official scheme sheets to validate rental/assurance or hospitality operator details.",
+    key_points: [
+      "Mixed: serviced keys + retail (classification is intentional)",
+      "Investor-led format; verify hospitality/operator structure if applicable",
+      "Payment plan and inventory mix should be confirmed from official documents",
+    ],
+    location_points: [
+      "Sector 106, Dwarka Expressway corridor",
+      "Connectivity towards Delhi/IGI depends on route and traffic",
+    ],
+    specifications: [
+      "Mixed-use building program (residential keys + retail)",
+      "Amenities and operator details subject to final official release",
+    ],
+    payment_plan:
+      "Payment plan to be confirmed from official scheme sheet / allotment terms.",
+    inventory_note:
+      "Mixed-use inventory: confirm exact unit series, retail sizes, and scheme applicability before committing.",
+    tags: ["Dwarka Expressway", "Mixed Use", "Serviced + Retail"],
+
     hero: "/projects/sobha-strada/hero.jpg",
     heroAlt: "SOBHA STRADA iconic glass façade tower at SOBHA Downtown Gurugram",
     gallery: [
       "/projects/sobha-strada/g1.jpg",
       "/projects/sobha-strada/g2.jpg",
       "/projects/sobha-strada/g3.jpg",
-      "/projects/sobha-strada/g4.jpg"
+      "/projects/sobha-strada/g4.jpg",
     ],
     map: {
       embed: "https://www.google.com/maps?q=28.5324,77.0463&z=16&output=embed",
@@ -605,12 +917,15 @@ const projects: Project[] = [
     },
     seo: {
       title: "SOBHA STRADA – Serviced Residences & Retail at SOBHA Downtown",
-      description: "SOBHA STRADA at SOBHA Downtown, Sector 106 Gurugram is SOBHA’s first commercial project in Delhi NCR with 1 Bed serviced residences and premium retail just off Dwarka Expressway.",
+      description:
+        "SOBHA STRADA at SOBHA Downtown, Sector 106 Gurugram combines 1 Bed serviced residences and premium retail near Dwarka Expressway (details subject to official launch documents).",
       canonical: "https://altinalivings.com/projects/sobha-strada",
     },
     featured: true,
-    description: "SOBHA STRADA is a never-before investment opportunity at SOBHA Downtown, combining an iconic glass façade commercial tower with 1 Bed serviced residences and high-street retail.",
+    description:
+      "SOBHA STRADA is positioned as a mixed-format opportunity combining serviced residence keys and retail in the Dwarka Expressway belt.",
   },
+
   {
     id: "gygy-fiveo",
     slug: "gygy-fiveo-sector-50-noida",
@@ -624,8 +939,7 @@ const projects: Project[] = [
     sector: "Sector 50",
     micro_market: "Central Noida",
     status: "New Launch",
-	propertyType: "Commercial",
-
+    propertyType: "Commercial",
     construction_status: "Under Construction",
     configuration: "High-Street Retail, F&B & Entertainment",
     usp: [
@@ -633,8 +947,8 @@ const projects: Project[] = [
       "Designed as a lifestyle, shopping and dining hub",
     ],
     highlights: [
-      "Serves 12,000+ families in nearby residential societies (approx.)",
-      "Focus on experience-led retail instead of bare shell shops",
+      "Serves dense nearby residential societies (verify current catchment numbers)",
+      "Experience-led retail positioning",
     ],
     amenities: [
       "High-Street Retail Boulevard",
@@ -644,13 +958,33 @@ const projects: Project[] = [
       "24x7 Security",
       "Ample Parking",
     ],
+
+    overview:
+      "A high-street retail concept positioned for a dense residential catchment. Confirm inventory size matrix and frontage/visibility from the official plan.",
+    key_points: [
+      "High-street retail + F&B positioning",
+      "Catchment-led footfall opportunity (verify assumptions)",
+      "Investor and end-user shop formats (inventory-dependent)",
+    ],
+    location_points: [
+      "Central Noida (Sector 50) catchment influence",
+      "Connectivity depends on approach roads and nearby arterial routes",
+    ],
+    specifications: [
+      "Retail boulevard format with common areas (subject to plan)",
+      "Parking and circulation subject to final layout",
+    ],
+    inventory_note:
+      "Shop sizing, PLCs and scheme details vary; request the latest official rate card and layout.",
+    tags: ["Noida", "High-Street Retail", "Commercial"],
+
     hero: "/projects/gygy-fiveo/hero.jpg",
     heroAlt: "GYGY FIVEO high-street retail and lifestyle hub in Sector 50 Noida",
     gallery: [
       "/projects/gygy-fiveo/g1.jpg",
       "/projects/gygy-fiveo/g2.jpg",
       "/projects/gygy-fiveo/g3.jpg",
-      "/projects/gygy-fiveo/g4.jpg"
+      "/projects/gygy-fiveo/g4.jpg",
     ],
     map: {
       embed: "https://www.google.com/maps?q=28.580,77.365&z=16&output=embed",
@@ -659,12 +993,14 @@ const projects: Project[] = [
     },
     seo: {
       title: "GYGY FIVEO Sector 50 Noida – High-Street Retail & Lifestyle",
-      description: "GYGY FIVEO in Sector 50, Noida is a high-street commercial hub offering retail, F&B and lifestyle spaces in a dense, upscale residential catchment.",
+      description:
+        "GYGY FIVEO in Sector 50, Noida is a high-street commercial hub offering retail and F&B spaces in a dense, upscale catchment.",
       canonical: "https://altinalivings.com/projects/gygy-fiveo-sector-50-noida",
     },
     featured: false,
-    description: "GYGY FIVEO is a high-street retail and lifestyle destination in Sector 50 Noida catering to an upscale catchment.",
-  }
+    description:
+      "GYGY FIVEO is a high-street retail and lifestyle destination in Sector 50 Noida catering to an upscale catchment.",
+  },
 ];
 
 export default projects;
