@@ -37,6 +37,7 @@ export type Project = {
   featured?: boolean;
   featured_order?: number;
   description?: string;
+   propertyType?: "Residential" | "Commercial" | "Mixed";
 };
 
 const projects: Project[] = [
