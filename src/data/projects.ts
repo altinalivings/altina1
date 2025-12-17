@@ -130,12 +130,12 @@ const projects: Project[] = [
       "Access to planned parks, retail and social infra",
     ],
     amenities: ["Community Greens", "Gated Complex Pockets"],
-    hero: "/projects/dlf-independent-floors/hero.jpg",
+    hero: "/projects/dlf-independent-floors-phase-2-3/hero.jpg",
     heroAlt: "DLF Independent low-rise floors in DLF Garden City, Gurugram",
     gallery: [
-      "/projects/dlf-independent-floors/g1.webp",
-      "/projects/dlf-independent-floors/g2.webp",
-      "/projects/dlf-independent-floors/g3.webp"
+      "/projects/dlf-independent-floors-phase-2-3/g1.webp",
+      "/projects/dlf-independent-floors-phase-2-3/g2.webp",
+      "/projects/dlf-independent-floors-phase-2-3/g3.webp"
     ],
     seo: {
       title: "DLF Independent Floors – Phase 2 & 3 | DLF Garden City, Gurugram",
@@ -372,7 +372,7 @@ const projects: Project[] = [
     seo: {
       title: "M3M Jacob & Co. Residences – Branded Luxury in Noida",
       description: "M3M Jacob & Co. Residences bring Jacob & Co.’s design sensibilities to ultra-luxury homes in Noida with limited residences and couture-inspired amenities.",
-      canonical: "https://altinalivings.com/projects/m3m-jacob-and-co-sector-97-noida",
+      canonical: "https://altinalivings.com/projects/m3m-jacob",
     },
     featured: true,
     featured_order: 7,
