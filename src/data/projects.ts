@@ -538,7 +538,7 @@ const projects: Project[] = [
     brand: "SOBHA",
     rating: 4.8,
     location: "Sector 1, Greater Noida West",
-    city: "Greater Noida West",
+    city: "Greater Noida",
     state: "Uttar Pradesh",
     sector: "Sector 1",
     micro_market: "Noida Extension / GNW",
