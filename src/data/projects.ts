@@ -58,7 +58,7 @@ const projects: Project[] = [
     possession: "2024",
     launch: "2021",
     price: "₹4.7 Cr onwards",
-	propertyType: "Residential"
+	propertyType: "Residential",
     configuration: "2, 3 & 4 BHK Residences",
     typologies: ["2 BHK", "3 BHK", "4 BHK + SQ"],
     sizes: "1,732 – 3,000 sq.ft.",
@@ -119,7 +119,7 @@ const projects: Project[] = [
     micro_market: "New Gurugram",
     status: "Under Construction",
     construction_status: "Ongoing",
-	propertyType: "Residential"
+	propertyType: "Residential",
     price: "₹2.5 Cr onwards",
     configuration: "3 & 4 BHK Low-rise Independent Floors",
     typologies: ["3 BHK + Store", "4 BHK + Store + Utility"],
@@ -162,7 +162,7 @@ const projects: Project[] = [
     status: "Under Construction",
     construction_status: "Ongoing",
     configuration: "Shop-cum-Office (SCO) Plots",
-	propertyType: "Commercial" 
+	propertyType: "Commercial", 
 
     price: "Price on Request",
     usp: [
@@ -208,7 +208,7 @@ const projects: Project[] = [
     typologies: ["3 BHK", "4 BHK"],
     sizes: "≈ 2,000 – 3,500 sq.ft*",
     land_area: "≈ 8.5 acres*",
-	propertyType: "Residential"
+	propertyType: "Residential",
 
     usp: [
       "Signature SOBHA high-rise on Dwarka Expressway",
@@ -260,7 +260,7 @@ const projects: Project[] = [
     sector: "Sector 36",
     micro_market: "Noida–Greater Noida Expressway",
     status: "Under Construction",
-	propertyType: "Residential"
+	propertyType: "Residential",
     construction_status: "Ongoing",
     configuration: "1, 2, 3 & 4 BHK Residences",
     price: "₹21,500 / sq.ft* (indicative)",
@@ -308,7 +308,7 @@ const projects: Project[] = [
     micro_market: "NH-48 Eco Corridor",
     status: "Pre-launch",
     construction_status: "Planned",
-	propertyType: "Residential" 
+	propertyType: "Residential", 
 
     configuration: "3 & 4 BHK Eco-luxury Residences",
     usp: [
@@ -354,7 +354,7 @@ const projects: Project[] = [
     state: "Uttar Pradesh",
     sector: "Sector 97",
     status: "Pre-launch",
-	propertyType: "Mixed"
+	propertyType: "Mixed",
 
     construction_status: "Planned",
     configuration: "3, 4 & 5 BHK Branded Residences",
@@ -408,7 +408,7 @@ const projects: Project[] = [
     launch: "2024",
     price: "Retail @ ₹35,000/sq.ft • Offices @ ₹8,999/sq.ft",
     configuration: "Retail Shops & IT/ITeS Office Spaces",
-	propertyType: "Commercial" 
+	propertyType: "Commercial", 
 
     typologies: [
       "Ground Floor Retail Shops – 102.09 sq.ft onwards",
@@ -470,7 +470,7 @@ const projects: Project[] = [
   state: "Haryana",
   sector: "Sector M9",
   micro_market: "Manesar • Gurgaon International City (GIC)",
-  propertyType: "Residential"
+  propertyType: "Residential",
 
 
   // RERA info is shown as "expected soon" on the source page
@@ -543,7 +543,7 @@ const projects: Project[] = [
     micro_market: "Noida Extension / GNW",
     rera: "TBA",
     status: "Pre-launch / New Launch",
-	propertyType: "Residential"
+	propertyType: "Residential",
 
     construction_status: "Planned",
     possession: "Approx. 5 years from launch (as per developer)",
@@ -624,7 +624,7 @@ const projects: Project[] = [
     micro_market: "Dwarka Expressway",
     rera: "TBA",
     status: "New Launch",
-	propertyType: "Mixed"
+	propertyType: "Mixed",
 
     construction_status: "Planned",
     possession: "To be announced",
@@ -701,7 +701,7 @@ const projects: Project[] = [
     sector: "Sector 50",
     micro_market: "Central Noida",
     status: "New Launch",
-	propertyType: "Commercial"
+	propertyType: "Commercial",
 
     construction_status: "Under Construction",
     configuration: "High-Street Retail, F&B & Entertainment",
