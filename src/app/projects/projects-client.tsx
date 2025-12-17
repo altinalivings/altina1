@@ -28,9 +28,6 @@ export default function ProjectsClient() {
 
   const list = (projects as Project[]) || [];
 
-  /* --------------------------------------------
-   * URL → STATE (single source of truth)
-   * ------------------------------------------ */
   const urlQ = (params.get("q") || "").trim();
   const urlCity = (params.get("city") || "").trim();
   const urlType = (params.get("type") || "").trim() as PropertyType | "";
@@ -39,7 +36,6 @@ export default function ProjectsClient() {
   const [city, setCity] = useState(urlCity);
   const [ptype, setPtype] = useState<PropertyType | "">(urlType);
 
-  // Sync state if URL changes (back/forward, shared links)
   useEffect(() => {
     setQ(urlQ);
     setCity(urlCity);
@@ -47,28 +43,17 @@ export default function ProjectsClient() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [urlQ, urlCity, urlType]);
 
-  /* --------------------------------------------
-   * CITY OPTIONS
-   * ------------------------------------------ */
   const cityOptions = useMemo(() => {
     return Array.from(
       new Set(list.map((p) => (p.city || "").trim()).filter(Boolean))
     ).sort();
   }, [list]);
 
-  /* --------------------------------------------
-   * FILTERED RESULTS (CORRECT LOGIC)
-   * ------------------------------------------ */
   const filtered = useMemo(() => {
     const term = q.toLowerCase();
 
     return list.filter((p) => {
-      const searchableText = [
-        p.name,
-        p.developer,
-        p.location,
-        p.configuration,
-      ]
+      const searchableText = [p.name, p.developer, p.location, p.configuration]
         .filter(Boolean)
         .join(" ")
         .toLowerCase();
@@ -92,9 +77,6 @@ export default function ProjectsClient() {
     });
   }, [list, q, city, ptype]);
 
-  /* --------------------------------------------
-   * URL UPDATE (NO PAGE RELOAD)
-   * ------------------------------------------ */
   function applyToUrl() {
     const qs = new URLSearchParams();
 
@@ -103,9 +85,7 @@ export default function ProjectsClient() {
     if (ptype) qs.set("type", ptype);
 
     const query = qs.toString();
-    router.replace(query ? `/projects?${query}` : "/projects", {
-      scroll: false,
-    });
+    router.replace(query ? `/projects?${query}` : "/projects", { scroll: false });
   }
 
   function clearAll() {
@@ -115,9 +95,14 @@ export default function ProjectsClient() {
     router.replace("/projects", { scroll: false });
   }
 
-  /* --------------------------------------------
-   * RENDER
-   * ------------------------------------------ */
+  // Shared classes
+  const inputClass =
+    "sm:col-span-2 rounded-xl border border-altina-gold/30 bg-transparent px-3 py-2 text-sm text-altina-ivory placeholder:text-altina-ivory/40 focus:outline-none focus:ring-2 focus:ring-altina-gold/40";
+
+  // IMPORTANT: use a real dark background on selects (not transparent)
+  const selectClass =
+    "rounded-xl border border-altina-gold/30 bg-[#0B0B0C] px-3 py-2 text-sm text-altina-ivory focus:outline-none focus:ring-2 focus:ring-altina-gold/40 focus:border-altina-gold/60";
+
   return (
     <>
       <FloatingCTAs projectId={null} projectName={null} />
@@ -146,17 +131,19 @@ export default function ProjectsClient() {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search projects, developers, locations…"
-              className="sm:col-span-2 rounded-xl border border-altina-gold/30 bg-transparent px-3 py-2 text-sm text-altina-ivory placeholder:text-altina-ivory/40 focus:outline-none focus:ring-2 focus:ring-altina-gold/40"
+              className={inputClass}
             />
 
             <select
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              className="rounded-xl border border-altina-gold/30 bg-transparent px-3 py-2 text-sm text-altina-ivory"
+              className={selectClass}
+              style={{ colorScheme: "dark" }}
+              aria-label="City"
             >
               <option value="">City</option>
               {cityOptions.map((c) => (
-                <option key={c} value={c} className="bg-[#0B0B0C]">
+                <option key={c} value={c}>
                   {c}
                 </option>
               ))}
@@ -165,7 +152,9 @@ export default function ProjectsClient() {
             <select
               value={ptype}
               onChange={(e) => setPtype(e.target.value as PropertyType | "")}
-              className="rounded-xl border border-altina-gold/30 bg-transparent px-3 py-2 text-sm text-altina-ivory"
+              className={selectClass}
+              style={{ colorScheme: "dark" }}
+              aria-label="Property Type"
             >
               <option value="">Property Type</option>
               <option value="Residential">Residential</option>
@@ -182,7 +171,7 @@ export default function ProjectsClient() {
             <button
               type="button"
               onClick={clearAll}
-              className="rounded-xl px-5 py-2 text-sm font-semibold border border-altina-gold/40 text-altina-ivory"
+              className="rounded-xl px-5 py-2 text-sm font-semibold border border-altina-gold/40 text-altina-ivory hover:border-altina-gold/70"
             >
               Clear
             </button>
