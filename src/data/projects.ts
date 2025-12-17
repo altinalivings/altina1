@@ -362,7 +362,7 @@ const projects: Project[] = [
       "Gymnasium",
       "Spa / Wellness",
     ],
-    hero: "projects\m3m-jacob\hero.jpg",
+    hero: "projects/m3m-jacob/hero.jpg",
     heroAlt: "M3M Jacob & Co. branded luxury residence towers in Noida",
     gallery: [
       "/projects/m3m-jacob/g1.jpg",
