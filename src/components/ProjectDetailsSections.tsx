@@ -14,7 +14,7 @@ const ProjectGallery = dynamic(() => import("@/components/ProjectGallery"), { ss
 const AMENITY_ICONS: Record<string, string> = {
   clubhouse: "/icons/clubhouse.png",
   gym: "/icons/gym.svg",
-  pool: "/icons/swimming.svg",
+  pool: "/icons/pool.svg",
   swimming: "/icons/swimming.svg",
   tennis: "/icons/tennis.png",
   kids: "/icons/kids.png",
