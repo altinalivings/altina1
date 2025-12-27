@@ -11,15 +11,40 @@ import VirtualTour from "@/components/VirtualTour";
 // Server island (auto-scans /public/projects/<id>/gallery)
 const ProjectGallery = dynamic(() => import("@/components/ProjectGallery"), { ssr: true });
 
+/**
+ * IMPORTANT:
+ * Icon mapping keys must match *normalized* amenity labels.
+ * Your data typically contains labels like "Swimming Pool", "Gymnasium", "Kids’ Play Area", "24x7 Security" etc.
+ * The helpers below normalize those strings so icons resolve reliably.
+ */
 const AMENITY_ICONS: Record<string, string> = {
+  // Clubhouse
   clubhouse: "/icons/clubhouse.png",
-  gym: "/icons/gym.png",
+
+  // Swimming / Pool
   pool: "/icons/swimming.png",
   swimming: "/icons/swimming.png",
-  tennis: "/icons/tennis.png",
+  "swimming pool": "/icons/swimming.png",
+
+  // Gym / Fitness
+  gym: "/icons/gym.png",
+  gymnasium: "/icons/gym.png",
+  "fitness center": "/icons/gym.png",
+  fitness: "/icons/gym.png",
+
+  // Kids
   kids: "/icons/kids.png",
   "kids play": "/icons/kids.png",
+  "kids play area": "/icons/kids.png",
+  "children play area": "/icons/kids.png",
+
+  // Security
   security: "/icons/security.png",
+  "24x7": "/icons/security.png",
+  "24x7 security": "/icons/security.png",
+
+  // Sports / Wellness
+  tennis: "/icons/tennis.png",
   spa: "/icons/spa.png",
   yoga: "/icons/yoga.png",
 };
@@ -46,6 +71,37 @@ const toTitle = (s: string) =>
     .map((w) => w[0].toUpperCase() + w.slice(1))
     .join(" ");
 
+/** Normalize label into a stable key for icon lookup + de-duplication. */
+function amenityKey(label: string) {
+  return String(label || "")
+    .toLowerCase()
+    .replace(/[’‘]/g, "'")               // smart quotes -> normal quote
+    .replace(/24\s*x\s*7/g, "24x7")      // "24 x 7" -> "24x7"
+    .replace(/[^a-z0-9\s']/g, " ")       // drop punctuation/symbols
+    .replace(/\s+/g, " ")                // collapse whitespace
+    .trim();
+}
+
+/** Resolve icon with both direct matches and sensible contains-based fallbacks. */
+function iconForAmenity(label: string): string | undefined {
+  const k = amenityKey(label);
+
+  // direct match
+  if (AMENITY_ICONS[k]) return AMENITY_ICONS[k];
+
+  // contains-based fallbacks
+  if (k.includes("pool") || k.includes("swim")) return AMENITY_ICONS["swimming pool"];
+  if (k.includes("gym") || k.includes("fitness")) return AMENITY_ICONS.gym;
+  if (k.includes("kid") || k.includes("play")) return AMENITY_ICONS["kids play area"];
+  if (k.includes("security") || k.includes("cctv") || k.includes("guard")) return AMENITY_ICONS.security;
+
+  // court wording cleanup (e.g., "tennis court")
+  const noCourt = k.replace(/\s*court\b/g, "").trim();
+  if (AMENITY_ICONS[noCourt]) return AMENITY_ICONS[noCourt];
+
+  return undefined;
+}
+
 function normalizeAmenities(project: any): { label: string; icon?: string }[] {
   const raw: AmenityInput[] =
     (Array.isArray(project?.amenityIds) && project.amenityIds) ||
@@ -54,9 +110,11 @@ function normalizeAmenities(project: any): { label: string; icon?: string }[] {
   const flat = (raw as any[])?.flat?.(Infinity) ?? raw;
 
   const seen = new Set<string>();
+
   return (flat as AmenityInput[])
     .map((item) => {
       if (item == null) return null;
+
       const label =
         typeof item === "string" || typeof item === "number"
           ? String(item).trim()
@@ -68,17 +126,16 @@ function normalizeAmenities(project: any): { label: string; icon?: string }[] {
                 (item as any).key ??
                 ""
             ).trim();
+
       if (!label) return null;
-      const key = label.toLowerCase();
-      if (seen.has(key)) return null;
-      seen.add(key);
 
-      const icon =
-        AMENITY_ICONS[key] ||
-        AMENITY_ICONS[key.replace(/\s*court/, "")] ||
-        undefined;
+      const k = amenityKey(label);
+      if (!k) return null;
 
-      return { label: toTitle(label), icon };
+      if (seen.has(k)) return null;
+      seen.add(k);
+
+      return { label: toTitle(label), icon: iconForAmenity(label) };
     })
     .filter(Boolean) as { label: string; icon?: string }[];
 }
