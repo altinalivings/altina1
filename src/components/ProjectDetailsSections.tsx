@@ -2,14 +2,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Image from "next/image";
 import dynamic from "next/dynamic";
 import ClientImage from "@/components/ClientImage";
 import developers from "@/data/developers.json";
 import VirtualTour from "@/components/VirtualTour";
-
-// ✅ Auto-generated icon map (created by tools\generate_icons.bat)
-import AMENITY_ICONS from "@/data/amenityIcons.generated";
 
 // Server island (auto-scans /public/projects/<id>/gallery)
 const ProjectGallery = dynamic(() => import("@/components/ProjectGallery"), { ssr: true });
@@ -36,87 +32,40 @@ const toTitle = (s: string) =>
     .map((w) => w[0].toUpperCase() + w.slice(1))
     .join(" ");
 
-/** Normalize label into a stable key for icon lookup + de-duplication. */
 function amenityKey(label: string) {
   return String(label || "")
     .toLowerCase()
-    .replace(/[’‘]/g, "'") // smart quotes -> normal quote
-    .replace(/24\s*x\s*7/g, "24x7") // "24 x 7" -> "24x7"
-    .replace(/[^a-z0-9\s']/g, " ") // drop punctuation/symbols
-    .replace(/\s+/g, " ") // collapse whitespace
+    .replace(/[’‘]/g, "'")
+    .replace(/24\s*x\s*7/g, "24x7")
+    .replace(/[^a-z0-9\s']/g, " ")
+    .replace(/\s+/g, " ")
     .trim();
 }
 
-/**
- * Generate likely lookup keys for a given label.
- * This lets your generated icons file use keys like:
- * - "swimming_pool" (from filename swimming_pool.png)
- * while your data label could be "Swimming Pool".
- */
-function amenityKeyVariants(label: string): string[] {
-  const k = amenityKey(label);
-  const snake = k.replace(/\s+/g, "_");
-  const noUnderscore = snake.replace(/_/g, "");
-  const noCourt = k.replace(/\s*court\b/g, "").trim();
-  const noCourtSnake = noCourt.replace(/\s+/g, "_");
-
-  const variants = [k, snake, noUnderscore, noCourt, noCourtSnake];
-  // unique
-  return Array.from(new Set(variants.filter(Boolean)));
+function toSnake(label: string) {
+  return amenityKey(label).replace(/\s+/g, "_");
 }
 
-/** Resolve icon with direct matches + contains-based fallbacks. */
+/**
+ * Dynamic icon resolution:
+ * Uses keyword icons in /public/icons/ and a filename-based fallback.
+ * (No generated import, so Vercel build will not fail.)
+ */
 function iconForAmenity(label: string): string | undefined {
-  const variants = amenityKeyVariants(label);
-
-  // 1) direct key matches (label-based and filename-based keys)
-  for (const v of variants) {
-    const hit = (AMENITY_ICONS as Record<string, string>)[v];
-    if (hit) return hit;
-  }
-
   const k = amenityKey(label);
 
-  // 2) contains-based fallbacks (works even if key names differ)
-  if (k.includes("pool") || k.includes("swim")) {
-    return (
-      (AMENITY_ICONS as any)["swimming_pool"] ||
-      (AMENITY_ICONS as any)["swimmingpool"] ||
-      (AMENITY_ICONS as any)["pool"] ||
-      (AMENITY_ICONS as any)["swimming"]
-    );
-  }
+  if (k.includes("clubhouse")) return "/icons/clubhouse.png";
+  if (k.includes("pool") || k.includes("swim")) return "/icons/swimming.png";
+  if (k.includes("gym") || k.includes("gymnasium") || k.includes("fitness")) return "/icons/gym.png";
+  if (k.includes("kid") || k.includes("children") || k.includes("play")) return "/icons/kids.png";
+  if (k.includes("security") || k.includes("cctv") || k.includes("guard") || k.includes("24x7")) return "/icons/security.png";
+  if (k.includes("tennis")) return "/icons/tennis.png";
+  if (k.includes("spa")) return "/icons/spa.png";
+  if (k.includes("yoga")) return "/icons/yoga.png";
 
-  if (k.includes("gym") || k.includes("fitness")) {
-    return (
-      (AMENITY_ICONS as any)["gymnasium"] ||
-      (AMENITY_ICONS as any)["gym"] ||
-      (AMENITY_ICONS as any)["fitness_center"] ||
-      (AMENITY_ICONS as any)["fitnesscenter"] ||
-      (AMENITY_ICONS as any)["fitness"]
-    );
-  }
-
-  if (k.includes("kid") || k.includes("play") || k.includes("children")) {
-    return (
-      (AMENITY_ICONS as any)["kids_play_area"] ||
-      (AMENITY_ICONS as any)["kidsplayarea"] ||
-      (AMENITY_ICONS as any)["kids_play"] ||
-      (AMENITY_ICONS as any)["kids"] ||
-      (AMENITY_ICONS as any)["children_play_area"]
-    );
-  }
-
-  if (k.includes("security") || k.includes("cctv") || k.includes("guard") || k.includes("24x7")) {
-    return (
-      (AMENITY_ICONS as any)["security"] ||
-      (AMENITY_ICONS as any)["24x7_security"] ||
-      (AMENITY_ICONS as any)["24x7security"] ||
-      (AMENITY_ICONS as any)["cctv"]
-    );
-  }
-
-  return undefined;
+  // Filename-based fallback (only if you add matching icon files)
+  const snake = toSnake(label);
+  return `/icons/${snake}.png`;
 }
 
 function normalizeAmenities(project: any): { label: string; icon?: string }[] {
@@ -157,6 +106,23 @@ function normalizeAmenities(project: any): { label: string; icon?: string }[] {
     .filter(Boolean) as { label: string; icon?: string }[];
 }
 
+function AmenityIcon({ src, alt }: { src: string; alt: string }) {
+  const [hide, setHide] = useState(false);
+  if (hide) return null;
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      width={24}
+      height={24}
+      className="h-6 w-6 opacity-90"
+      onError={() => setHide(true)}
+      loading="lazy"
+    />
+  );
+}
+
 type Dev = {
   slug: string;
   name: string;
@@ -181,13 +147,7 @@ function findDeveloper(devNameOrSlug?: string): Dev | undefined {
   );
 }
 
-function Section({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section>
       <h2 className="text-xl font-semibold text-left">{title}</h2>
@@ -238,40 +198,30 @@ function uniqStrings(arr: string[]) {
 }
 
 export default function ProjectDetailsSections({ project }: { project: any }) {
-  // --- Inputs from your JSON schema ---
   const usp: string[] = project?.usp || [];
   const highlights: string[] = project?.highlights || [];
   const keyPoints: string[] = project?.key_points || [];
   const specifications: string[] = project?.specifications || [];
 
   const locAdv: LocationAdvantage | undefined = project?.location_advantage;
-  // Fallback if you haven't migrated to grouped buckets yet
   const locationPointsFallback: string[] = project?.location_points || [];
 
-  // YouTube URL: section should disappear if not provided
   const videoUrl: string | undefined = project?.video_url;
 
-  // Optional: keep amenities if present
   const amenities = useMemo(() => normalizeAmenities(project), [project]);
-
-  // Optional: developer card
   const devProfile = findDeveloper(project?.developer);
 
-  // ✅ Only ONE section: "Highlights"
   const mergedHighlights = useMemo(
     () => uniqStrings([...(highlights || []), ...(keyPoints || [])]),
     [highlights, keyPoints]
   );
 
-  // ✅ Concise bullets by default; expand only when needed
   const [expanded, setExpanded] = useState<Record<number, boolean>>({});
   const MAX_CHARS = 120;
-
   const toggle = (i: number) => setExpanded((prev) => ({ ...prev, [i]: !prev[i] }));
 
   return (
     <div className="space-y-14">
-      {/* 1) USP */}
       {usp.length ? (
         <Section title="USP">
           <ul className="grid gap-2 sm:grid-cols-2">
@@ -285,7 +235,6 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
         </Section>
       ) : null}
 
-      {/* 2) Location Advantage (Connectivity / Schools / Healthcare / Markets) */}
       {hasAnyLocationAdvantage(locAdv) ? (
         <Section title="Location Advantage">
           <div className="grid gap-4 sm:grid-cols-2">
@@ -308,7 +257,6 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
         </Section>
       ) : null}
 
-      {/* 3) Location Map */}
       {(project?.map?.embed || project?.map?.lat) ? (
         <Section title="Location Map">
           <div className="overflow-hidden rounded-xl border border-white/10">
@@ -331,7 +279,6 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
         </Section>
       ) : null}
 
-      {/* 4) Highlights (ONLY) — concise by default; expandable for long lines */}
       {mergedHighlights.length ? (
         <Section title="Highlights">
           <ul className="grid gap-2 sm:grid-cols-2">
@@ -363,7 +310,6 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
         </Section>
       ) : null}
 
-      {/* Optional: Amenities */}
       {amenities.length ? (
         <Section title="Amenities">
           <div className="flex flex-wrap gap-3">
@@ -373,11 +319,7 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
                 className="flex items-center gap-2 rounded-xl border border-white/10 px-3 py-2"
                 title={a.label}
               >
-                {a.icon ? (
-                  <Image src={a.icon} alt="" width={48} height={48} className="opacity-90" />
-                ) : (
-                  <span className="text-amber-300">•</span>
-                )}
+                {a.icon ? <AmenityIcon src={a.icon} alt="" /> : <span className="text-amber-300">•</span>}
                 <span className="text-neutral-200 text-sm">{a.label}</span>
               </div>
             ))}
@@ -385,7 +327,6 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
         </Section>
       ) : null}
 
-      {/* 5) Specifications */}
       {specifications.length ? (
         <Section title="Specifications">
           <ul className="grid gap-2 sm:grid-cols-2">
@@ -399,7 +340,6 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
         </Section>
       ) : null}
 
-      {/* 6) YouTube URL (remove section if not provided) */}
       {videoUrl ? (
         <Section title="Walkthrough (YouTube)">
           <div className="flex flex-wrap items-center gap-3">
@@ -419,14 +359,12 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
         </Section>
       ) : null}
 
-      {/* Gallery (optional; auto from /public/projects/<id>/gallery) */}
       {project?.id ? (
         <Section title="Gallery">
           <ProjectGallery slug={project.id} caption="Click any image to zoom" />
         </Section>
       ) : null}
 
-      {/* About the Developer (optional) */}
       {devProfile && (
         <Section title="About the Developer">
           <div className="flex items-start gap-4">
