@@ -1,7 +1,7 @@
 // src/components/ProjectDetailsSections.tsx
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import ClientImage from "@/components/ClientImage";
@@ -123,26 +123,18 @@ function Section({
   );
 }
 
-function Bullets({ items }: { items: string[] }) {
-  return (
-    <ul className="grid gap-2 sm:grid-cols-2">
-      {items.map((h) => (
-        <li key={h} className="flex items-start gap-2">
-          <span className="text-amber-300 mt-0.5">•</span>
-          <span className="text-neutral-300">{h}</span>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
 function CardList({ title, items }: { title: string; items: string[] }) {
   return (
     <div className="rounded-xl border border-white/10 p-4">
       <div className="text-xs uppercase tracking-wide text-neutral-400">{title}</div>
-      <div className="mt-2">
-        <Bullets items={items} />
-      </div>
+      <ul className="mt-2 grid gap-2">
+        {items.map((h) => (
+          <li key={h} className="flex items-start gap-2">
+            <span className="text-amber-300 mt-0.5">•</span>
+            <span className="text-neutral-300">{h}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
@@ -155,6 +147,20 @@ function hasAnyLocationAdvantage(loc?: LocationAdvantage) {
         (Array.isArray(loc.healthcare) && loc.healthcare.length) ||
         (Array.isArray(loc.markets) && loc.markets.length))
   );
+}
+
+function uniqStrings(arr: string[]) {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const s of arr) {
+    const v = String(s || "").trim();
+    if (!v) continue;
+    const k = v.toLowerCase();
+    if (seen.has(k)) continue;
+    seen.add(k);
+    out.push(v);
+  }
+  return out;
 }
 
 export default function ProjectDetailsSections({ project }: { project: any }) {
@@ -177,12 +183,33 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
   // Optional: developer card
   const devProfile = findDeveloper(project?.developer);
 
+  // ✅ Only ONE section: "Highlights"
+  // We merge both arrays so you can keep using key_points in JSON without showing a separate section title.
+  const mergedHighlights = useMemo(
+    () => uniqStrings([...(highlights || []), ...(keyPoints || [])]),
+    [highlights, keyPoints]
+  );
+
+  // ✅ Concise bullets by default; expand only when needed
+  const [expanded, setExpanded] = useState<Record<number, boolean>>({});
+  const MAX_CHARS = 120;
+
+  const toggle = (i: number) =>
+    setExpanded((prev) => ({ ...prev, [i]: !prev[i] }));
+
   return (
     <div className="space-y-14">
       {/* 1) USP */}
       {usp.length ? (
         <Section title="USP">
-          <Bullets items={usp} />
+          <ul className="grid gap-2 sm:grid-cols-2">
+            {usp.map((h) => (
+              <li key={h} className="flex items-start gap-2">
+                <span className="text-amber-300 mt-0.5">•</span>
+                <span className="text-neutral-300">{h}</span>
+              </li>
+            ))}
+          </ul>
         </Section>
       ) : null}
 
@@ -206,7 +233,14 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
         </Section>
       ) : locationPointsFallback.length ? (
         <Section title="Location Advantage">
-          <Bullets items={locationPointsFallback} />
+          <ul className="grid gap-2 sm:grid-cols-2">
+            {locationPointsFallback.map((h) => (
+              <li key={h} className="flex items-start gap-2">
+                <span className="text-amber-300 mt-0.5">•</span>
+                <span className="text-neutral-300">{h}</span>
+              </li>
+            ))}
+          </ul>
         </Section>
       ) : null}
 
@@ -233,27 +267,39 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
         </Section>
       ) : null}
 
-      {/* 4) Highlights / Key Points */}
-      {(highlights.length || keyPoints.length) ? (
-        <Section title="Highlights & Key Points">
-          {highlights.length ? (
-            <>
-              <h3 className="font-medium mb-2 text-left">Highlights</h3>
-              <Bullets items={highlights} />
-            </>
-          ) : null}
+      {/* 4) Highlights (ONLY) — concise by default; expandable for long lines */}
+      {mergedHighlights.length ? (
+        <Section title="Highlights">
+          <ul className="grid gap-2 sm:grid-cols-2">
+            {mergedHighlights.map((text, i) => {
+              const t = String(text || "").trim();
+              const isLong = t.length > MAX_CHARS;
+              const isOpen = Boolean(expanded[i]);
+              const shown = isLong && !isOpen ? `${t.slice(0, MAX_CHARS).trim()}…` : t;
 
-          {keyPoints.length ? (
-            <>
-              {highlights.length ? <div className="h-5" /> : null}
-              <h3 className="font-medium mb-2 text-left">Key Points</h3>
-              <Bullets items={keyPoints} />
-            </>
-          ) : null}
+              return (
+                <li key={`${t}-${i}`} className="flex items-start gap-2">
+                  <span className="text-amber-300 mt-0.5">•</span>
+                  <span className="text-neutral-300">
+                    {shown}{" "}
+                    {isLong ? (
+                      <button
+                        type="button"
+                        onClick={() => toggle(i)}
+                        className="text-amber-300 underline underline-offset-2 hover:opacity-90 ml-1"
+                      >
+                        {isOpen ? "Less" : "More"}
+                      </button>
+                    ) : null}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
         </Section>
       ) : null}
 
-      {/* Optional: Amenities (kept; delete this block if you don't want it) */}
+      {/* Optional: Amenities */}
       {amenities.length ? (
         <Section title="Amenities">
           <div className="flex flex-wrap gap-3">
@@ -278,7 +324,14 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
       {/* 5) Specifications */}
       {specifications.length ? (
         <Section title="Specifications">
-          <Bullets items={specifications} />
+          <ul className="grid gap-2 sm:grid-cols-2">
+            {specifications.map((h) => (
+              <li key={h} className="flex items-start gap-2">
+                <span className="text-amber-300 mt-0.5">•</span>
+                <span className="text-neutral-300">{h}</span>
+              </li>
+            ))}
+          </ul>
         </Section>
       ) : null}
 
@@ -296,7 +349,6 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
             </a>
           </div>
 
-          {/* Optional inline embed/player via your existing VirtualTour component */}
           <div className="mt-5">
             <VirtualTour videoUrl={videoUrl} />
           </div>
