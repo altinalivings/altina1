@@ -8,46 +8,11 @@ import ClientImage from "@/components/ClientImage";
 import developers from "@/data/developers.json";
 import VirtualTour from "@/components/VirtualTour";
 
+// ✅ Auto-generated icon map (created by tools\generate_icons.bat)
+import AMENITY_ICONS from "@/data/amenityIcons.generated";
+
 // Server island (auto-scans /public/projects/<id>/gallery)
 const ProjectGallery = dynamic(() => import("@/components/ProjectGallery"), { ssr: true });
-
-/**
- * IMPORTANT:
- * Icon mapping keys must match *normalized* amenity labels.
- * Your data typically contains labels like "Swimming Pool", "Gymnasium", "Kids’ Play Area", "24x7 Security" etc.
- * The helpers below normalize those strings so icons resolve reliably.
- */
-const AMENITY_ICONS: Record<string, string> = {
-  // Clubhouse
-  clubhouse: "/icons/clubhouse.png",
-
-  // Swimming / Pool
-  pool: "/icons/swimming.png",
-  swimming: "/icons/swimming.png",
-  "swimming pool": "/icons/swimming.png",
-
-  // Gym / Fitness
-  gym: "/icons/gym.png",
-  gymnasium: "/icons/gym.png",
-  "fitness center": "/icons/gym.png",
-  fitness: "/icons/gym.png",
-
-  // Kids
-  kids: "/icons/kids.png",
-  "kids play": "/icons/kids.png",
-  "kids play area": "/icons/kids.png",
-  "children play area": "/icons/kids.png",
-
-  // Security
-  security: "/icons/security.png",
-  "24x7": "/icons/security.png",
-  "24x7 security": "/icons/security.png",
-
-  // Sports / Wellness
-  tennis: "/icons/tennis.png",
-  spa: "/icons/spa.png",
-  yoga: "/icons/yoga.png",
-};
 
 type AmenityInput =
   | string
@@ -75,29 +40,81 @@ const toTitle = (s: string) =>
 function amenityKey(label: string) {
   return String(label || "")
     .toLowerCase()
-    .replace(/[’‘]/g, "'")               // smart quotes -> normal quote
-    .replace(/24\s*x\s*7/g, "24x7")      // "24 x 7" -> "24x7"
-    .replace(/[^a-z0-9\s']/g, " ")       // drop punctuation/symbols
-    .replace(/\s+/g, " ")                // collapse whitespace
+    .replace(/[’‘]/g, "'") // smart quotes -> normal quote
+    .replace(/24\s*x\s*7/g, "24x7") // "24 x 7" -> "24x7"
+    .replace(/[^a-z0-9\s']/g, " ") // drop punctuation/symbols
+    .replace(/\s+/g, " ") // collapse whitespace
     .trim();
 }
 
-/** Resolve icon with both direct matches and sensible contains-based fallbacks. */
+/**
+ * Generate likely lookup keys for a given label.
+ * This lets your generated icons file use keys like:
+ * - "swimming_pool" (from filename swimming_pool.png)
+ * while your data label could be "Swimming Pool".
+ */
+function amenityKeyVariants(label: string): string[] {
+  const k = amenityKey(label);
+  const snake = k.replace(/\s+/g, "_");
+  const noUnderscore = snake.replace(/_/g, "");
+  const noCourt = k.replace(/\s*court\b/g, "").trim();
+  const noCourtSnake = noCourt.replace(/\s+/g, "_");
+
+  const variants = [k, snake, noUnderscore, noCourt, noCourtSnake];
+  // unique
+  return Array.from(new Set(variants.filter(Boolean)));
+}
+
+/** Resolve icon with direct matches + contains-based fallbacks. */
 function iconForAmenity(label: string): string | undefined {
+  const variants = amenityKeyVariants(label);
+
+  // 1) direct key matches (label-based and filename-based keys)
+  for (const v of variants) {
+    const hit = (AMENITY_ICONS as Record<string, string>)[v];
+    if (hit) return hit;
+  }
+
   const k = amenityKey(label);
 
-  // direct match
-  if (AMENITY_ICONS[k]) return AMENITY_ICONS[k];
+  // 2) contains-based fallbacks (works even if key names differ)
+  if (k.includes("pool") || k.includes("swim")) {
+    return (
+      (AMENITY_ICONS as any)["swimming_pool"] ||
+      (AMENITY_ICONS as any)["swimmingpool"] ||
+      (AMENITY_ICONS as any)["pool"] ||
+      (AMENITY_ICONS as any)["swimming"]
+    );
+  }
 
-  // contains-based fallbacks
-  if (k.includes("pool") || k.includes("swim")) return AMENITY_ICONS["swimming pool"];
-  if (k.includes("gym") || k.includes("fitness")) return AMENITY_ICONS.gym;
-  if (k.includes("kid") || k.includes("play")) return AMENITY_ICONS["kids play area"];
-  if (k.includes("security") || k.includes("cctv") || k.includes("guard")) return AMENITY_ICONS.security;
+  if (k.includes("gym") || k.includes("fitness")) {
+    return (
+      (AMENITY_ICONS as any)["gymnasium"] ||
+      (AMENITY_ICONS as any)["gym"] ||
+      (AMENITY_ICONS as any)["fitness_center"] ||
+      (AMENITY_ICONS as any)["fitnesscenter"] ||
+      (AMENITY_ICONS as any)["fitness"]
+    );
+  }
 
-  // court wording cleanup (e.g., "tennis court")
-  const noCourt = k.replace(/\s*court\b/g, "").trim();
-  if (AMENITY_ICONS[noCourt]) return AMENITY_ICONS[noCourt];
+  if (k.includes("kid") || k.includes("play") || k.includes("children")) {
+    return (
+      (AMENITY_ICONS as any)["kids_play_area"] ||
+      (AMENITY_ICONS as any)["kidsplayarea"] ||
+      (AMENITY_ICONS as any)["kids_play"] ||
+      (AMENITY_ICONS as any)["kids"] ||
+      (AMENITY_ICONS as any)["children_play_area"]
+    );
+  }
+
+  if (k.includes("security") || k.includes("cctv") || k.includes("guard") || k.includes("24x7")) {
+    return (
+      (AMENITY_ICONS as any)["security"] ||
+      (AMENITY_ICONS as any)["24x7_security"] ||
+      (AMENITY_ICONS as any)["24x7security"] ||
+      (AMENITY_ICONS as any)["cctv"]
+    );
+  }
 
   return undefined;
 }
@@ -241,7 +258,6 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
   const devProfile = findDeveloper(project?.developer);
 
   // ✅ Only ONE section: "Highlights"
-  // We merge both arrays so you can keep using key_points in JSON without showing a separate section title.
   const mergedHighlights = useMemo(
     () => uniqStrings([...(highlights || []), ...(keyPoints || [])]),
     [highlights, keyPoints]
@@ -251,8 +267,7 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
   const [expanded, setExpanded] = useState<Record<number, boolean>>({});
   const MAX_CHARS = 120;
 
-  const toggle = (i: number) =>
-    setExpanded((prev) => ({ ...prev, [i]: !prev[i] }));
+  const toggle = (i: number) => setExpanded((prev) => ({ ...prev, [i]: !prev[i] }));
 
   return (
     <div className="space-y-14">
@@ -274,18 +289,10 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
       {hasAnyLocationAdvantage(locAdv) ? (
         <Section title="Location Advantage">
           <div className="grid gap-4 sm:grid-cols-2">
-            {locAdv?.connectivity?.length ? (
-              <CardList title="Connectivity" items={locAdv.connectivity} />
-            ) : null}
-            {locAdv?.schools?.length ? (
-              <CardList title="Schools" items={locAdv.schools} />
-            ) : null}
-            {locAdv?.healthcare?.length ? (
-              <CardList title="Healthcare" items={locAdv.healthcare} />
-            ) : null}
-            {locAdv?.markets?.length ? (
-              <CardList title="Markets" items={locAdv.markets} />
-            ) : null}
+            {locAdv?.connectivity?.length ? <CardList title="Connectivity" items={locAdv.connectivity} /> : null}
+            {locAdv?.schools?.length ? <CardList title="Schools" items={locAdv.schools} /> : null}
+            {locAdv?.healthcare?.length ? <CardList title="Healthcare" items={locAdv.healthcare} /> : null}
+            {locAdv?.markets?.length ? <CardList title="Markets" items={locAdv.markets} /> : null}
           </div>
         </Section>
       ) : locationPointsFallback.length ? (
@@ -425,25 +432,17 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
           <div className="flex items-start gap-4">
             {devProfile.logo ? (
               <div className="shrink-0">
-                <ClientImage
-                  src={devProfile.logo}
-                  alt={`${devProfile.name} logo`}
-                  className="h-12 w-auto"
-                />
+                <ClientImage src={devProfile.logo} alt={`${devProfile.name} logo`} className="h-12 w-auto" />
               </div>
             ) : null}
 
             <div>
               <h3 className="text-lg font-semibold">{devProfile.name}</h3>
-              {devProfile.tagline ? (
-                <p className="text-sm text-neutral-400">{devProfile.tagline}</p>
-              ) : null}
+              {devProfile.tagline ? <p className="text-sm text-neutral-400">{devProfile.tagline}</p> : null}
             </div>
           </div>
 
-          {devProfile.about ? (
-            <p className="mt-4 text-neutral-300 leading-relaxed">{devProfile.about}</p>
-          ) : null}
+          {devProfile.about ? <p className="mt-4 text-neutral-300 leading-relaxed">{devProfile.about}</p> : null}
 
           {Array.isArray(devProfile.stats) && devProfile.stats.length ? (
             <div className="mt-4 grid gap-3 sm:grid-cols-3">
