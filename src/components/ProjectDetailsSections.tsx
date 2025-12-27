@@ -13,9 +13,9 @@ const ProjectGallery = dynamic(() => import("@/components/ProjectGallery"), { ss
 
 const AMENITY_ICONS: Record<string, string> = {
   clubhouse: "/icons/clubhouse.png",
-  gym: "/icons/gym.svg",
-  pool: "/icons/pool.svg",
-  swimming: "/icons/swimming.svg",
+  gym: "/icons/gym.png",
+  pool: "/icons/swimming.png",
+  swimming: "/icons/swimming.png",
   tennis: "/icons/tennis.png",
   kids: "/icons/kids.png",
   "kids play": "/icons/kids.png",
@@ -30,6 +30,13 @@ type AmenityInput =
   | null
   | undefined
   | { id?: string; key?: string; name?: string; label?: string; title?: string };
+
+type LocationAdvantage = {
+  connectivity?: string[];
+  schools?: string[];
+  healthcare?: string[];
+  markets?: string[];
+};
 
 const toTitle = (s: string) =>
   s
@@ -129,142 +136,124 @@ function Bullets({ items }: { items: string[] }) {
   );
 }
 
+function CardList({ title, items }: { title: string; items: string[] }) {
+  return (
+    <div className="rounded-xl border border-white/10 p-4">
+      <div className="text-xs uppercase tracking-wide text-neutral-400">{title}</div>
+      <div className="mt-2">
+        <Bullets items={items} />
+      </div>
+    </div>
+  );
+}
+
+function hasAnyLocationAdvantage(loc?: LocationAdvantage) {
+  return Boolean(
+    loc &&
+      ((Array.isArray(loc.connectivity) && loc.connectivity.length) ||
+        (Array.isArray(loc.schools) && loc.schools.length) ||
+        (Array.isArray(loc.healthcare) && loc.healthcare.length) ||
+        (Array.isArray(loc.markets) && loc.markets.length))
+  );
+}
+
 export default function ProjectDetailsSections({ project }: { project: any }) {
-  const highlights: string[] = project?.highlights || project?.usp || project?.usps || [];
-  const specs = project?.specs || {};
-  const amenities = useMemo(() => normalizeAmenities(project), [project]);
-
-  // ✅ Use your schema fields (overview/description), fallback to legacy about
-  const longAbout: string = project?.overview || project?.description || project?.about || "";
-
+  // --- Inputs from your JSON schema ---
+  const usp: string[] = project?.usp || [];
+  const highlights: string[] = project?.highlights || [];
   const keyPoints: string[] = project?.key_points || [];
-  const locationPoints: string[] = project?.location_points || [];
   const specifications: string[] = project?.specifications || [];
-  const paymentPlan: string = project?.payment_plan || "";
-  const inventoryNote: string = project?.inventory_note || "";
-  const tags: string[] = project?.tags || [];
 
-  const brochurePdf: string | undefined = project?.brochure_pdf || project?.brochure;
+  const locAdv: LocationAdvantage | undefined = project?.location_advantage;
+  // Fallback if you haven't migrated to grouped buckets yet
+  const locationPointsFallback: string[] = project?.location_points || [];
+
+  // YouTube URL: section should disappear if not provided
   const videoUrl: string | undefined = project?.video_url;
 
-  // virtualTourUrl legacy OR video_url
-  const virtualTour = project?.virtualTourUrl || videoUrl;
+  // Optional: keep amenities if present
+  const amenities = useMemo(() => normalizeAmenities(project), [project]);
 
-  const specPairs = [
-    ["Developer", project?.developer],
-    ["Property Type", project?.propertyType],
-    ["Configuration", project?.configuration || project?.typologies],
-    ["Sizes", specs?.sizes || project?.sizes],
-    ["Price", project?.price || specs?.price],
-    ["RERA", project?.rera],
-    ["Possession", project?.possession || specs?.possession],
-    ["Land Area", project?.land_area],
-    ["Towers", project?.towers ?? specs?.towers],
-    ["Floors", project?.floors ?? specs?.floors],
-    ["Units", project?.total_units ?? specs?.total_units ?? specs?.units],
-    ["Status", project?.status],
-    ["Construction", project?.construction_status],
-  ].filter(([, v]) => Boolean(v));
-
-  const metaBadges = [
-    project?.city && { k: "City", v: project.city },
-    project?.location && { k: "Location", v: project.location },
-    (project?.configuration || project?.type) && {
-      k: "Type",
-      v: project.configuration || project.type,
-    },
-  ].filter(Boolean) as { k: string; v: string }[];
-
+  // Optional: developer card
   const devProfile = findDeveloper(project?.developer);
 
   return (
     <div className="space-y-14">
-      {metaBadges.length > 0 && (
-        <div className="flex flex-wrap gap-2">
-          {metaBadges.map((m) => (
-            <span
-              key={m.k}
-              className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-neutral-200"
-            >
-              <span className="text-neutral-400">{m.k}: </span>
-              <span className="font-medium">{m.v}</span>
-            </span>
-          ))}
-        </div>
-      )}
-
-      {/* About / Overview + Highlights */}
-      {(longAbout || highlights.length) && (
-        <Section title="About the Project">
-          {longAbout ? (
-            <p className="text-neutral-300 leading-relaxed whitespace-pre-line">{longAbout}</p>
-          ) : null}
-
-          {highlights.length ? (
-            <>
-              {longAbout ? <div className="h-3" /> : null}
-              <h3 className="font-medium mb-2 text-left">Highlights</h3>
-              <Bullets items={highlights} />
-            </>
-          ) : null}
+      {/* 1) USP */}
+      {usp.length ? (
+        <Section title="USP">
+          <Bullets items={usp} />
         </Section>
-      )}
+      ) : null}
 
-      {/* Key Information */}
-      {specPairs.length ? (
-        <Section title="Key Information">
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {specPairs.map(([k, v]) => (
-              <div key={k} className="rounded-xl border border-white/10 p-4">
-                <div className="text-xs uppercase tracking-wide text-neutral-400">{k}</div>
-                <div className="mt-1 text-neutral-100">
-                  {Array.isArray(v) ? v.join(", ") : String(v)}
-                </div>
-              </div>
-            ))}
+      {/* 2) Location Advantage (Connectivity / Schools / Healthcare / Markets) */}
+      {hasAnyLocationAdvantage(locAdv) ? (
+        <Section title="Location Advantage">
+          <div className="grid gap-4 sm:grid-cols-2">
+            {locAdv?.connectivity?.length ? (
+              <CardList title="Connectivity" items={locAdv.connectivity} />
+            ) : null}
+            {locAdv?.schools?.length ? (
+              <CardList title="Schools" items={locAdv.schools} />
+            ) : null}
+            {locAdv?.healthcare?.length ? (
+              <CardList title="Healthcare" items={locAdv.healthcare} />
+            ) : null}
+            {locAdv?.markets?.length ? (
+              <CardList title="Markets" items={locAdv.markets} />
+            ) : null}
+          </div>
+        </Section>
+      ) : locationPointsFallback.length ? (
+        <Section title="Location Advantage">
+          <Bullets items={locationPointsFallback} />
+        </Section>
+      ) : null}
+
+      {/* 3) Location Map */}
+      {(project?.map?.embed || project?.map?.lat) ? (
+        <Section title="Location Map">
+          <div className="overflow-hidden rounded-xl border border-white/10">
+            {project?.map?.embed ? (
+              <iframe
+                src={project.map.embed}
+                className="h-[360px] w-full"
+                loading="lazy"
+                title={project?.name ? `${project.name} map` : "Project map"}
+              />
+            ) : (
+              <iframe
+                className="h-[360px] w-full"
+                loading="lazy"
+                src={`https://www.google.com/maps?q=${project?.map?.lat},${project?.map?.lng}&z=14&output=embed`}
+                title={project?.name ? `${project.name} map` : "Project map"}
+              />
+            )}
           </div>
         </Section>
       ) : null}
 
-      {/* Why Consider */}
-      {keyPoints.length ? (
-        <Section title="Why Consider This Project">
-          <Bullets items={keyPoints} />
+      {/* 4) Highlights / Key Points */}
+      {(highlights.length || keyPoints.length) ? (
+        <Section title="Highlights & Key Points">
+          {highlights.length ? (
+            <>
+              <h3 className="font-medium mb-2 text-left">Highlights</h3>
+              <Bullets items={highlights} />
+            </>
+          ) : null}
+
+          {keyPoints.length ? (
+            <>
+              {highlights.length ? <div className="h-5" /> : null}
+              <h3 className="font-medium mb-2 text-left">Key Points</h3>
+              <Bullets items={keyPoints} />
+            </>
+          ) : null}
         </Section>
       ) : null}
 
-      {/* Location Advantages */}
-      {locationPoints.length ? (
-        <Section title="Location Advantages">
-          <Bullets items={locationPoints} />
-        </Section>
-      ) : null}
-
-      {/* Specifications (array) */}
-      {specifications.length ? (
-        <Section title="Specifications">
-          <Bullets items={specifications} />
-        </Section>
-      ) : null}
-
-      {/* Payment Plan */}
-      {paymentPlan ? (
-        <Section title="Payment Plan (Indicative)">
-          <p className="text-neutral-300 leading-relaxed whitespace-pre-line">{paymentPlan}</p>
-          <p className="mt-3 text-xs text-neutral-400">
-            Note: Payment plan may vary by inventory and developer revisions.
-          </p>
-        </Section>
-      ) : null}
-
-      {/* Inventory Note */}
-      {inventoryNote ? (
-        <Section title="Inventory Note">
-          <p className="text-neutral-300 leading-relaxed">{inventoryNote}</p>
-        </Section>
-      ) : null}
-
-      {/* Amenities */}
+      {/* Optional: Amenities (kept; delete this block if you don't want it) */}
       {amenities.length ? (
         <Section title="Amenities">
           <div className="flex flex-wrap gap-3">
@@ -286,89 +275,42 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
         </Section>
       ) : null}
 
-      {/* Auto-Gallery */}
+      {/* 5) Specifications */}
+      {specifications.length ? (
+        <Section title="Specifications">
+          <Bullets items={specifications} />
+        </Section>
+      ) : null}
+
+      {/* 6) YouTube URL (remove section if not provided) */}
+      {videoUrl ? (
+        <Section title="Walkthrough (YouTube)">
+          <div className="flex flex-wrap items-center gap-3">
+            <a
+              href={videoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-amber-300 underline underline-offset-2 hover:opacity-90"
+            >
+              Watch on YouTube →
+            </a>
+          </div>
+
+          {/* Optional inline embed/player via your existing VirtualTour component */}
+          <div className="mt-5">
+            <VirtualTour videoUrl={videoUrl} />
+          </div>
+        </Section>
+      ) : null}
+
+      {/* Gallery (optional; auto from /public/projects/<id>/gallery) */}
       {project?.id ? (
         <Section title="Gallery">
           <ProjectGallery slug={project.id} caption="Click any image to zoom" />
         </Section>
       ) : null}
 
-      {/* Map */}
-      {(project?.map?.embed || project?.map?.lat) ? (
-        <Section title="Location">
-          <div className="overflow-hidden rounded-xl border border-white/10">
-            {project?.map?.embed ? (
-              <iframe
-                src={project.map.embed}
-                className="h-[360px] w-full"
-                loading="lazy"
-                title={project?.name ? `${project.name} map` : "Project map"}
-              />
-            ) : (
-              <iframe
-                className="h-[360px] w-full"
-                loading="lazy"
-                src={`https://www.google.com/maps?q=${project?.map?.lat},${project?.map?.lng}&z=14&output=embed`}
-                title={project?.name ? `${project.name} map` : "Project map"}
-              />
-            )}
-          </div>
-        </Section>
-      ) : null}
-
-      {/* Brochure & Walkthrough */}
-      {(brochurePdf || videoUrl) ? (
-        <Section title="Brochure & Walkthrough">
-          <div className="flex flex-wrap gap-3">
-            {brochurePdf ? (
-              <a
-                href={brochurePdf}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-xl border border-[#C5A657]/60 px-4 py-2 text-sm font-semibold text-[#C5A657] hover:bg-[#C5A657] hover:text-black transition"
-              >
-                Download Brochure
-              </a>
-            ) : null}
-
-            {videoUrl ? (
-              <a
-                href={videoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-xl border border-white/10 px-4 py-2 text-sm font-semibold text-neutral-100 hover:bg-white/5 transition"
-              >
-                Watch Walkthrough
-              </a>
-            ) : null}
-          </div>
-        </Section>
-      ) : null}
-
-      {/* Virtual Tour (inline player) */}
-      {virtualTour ? (
-        <Section title="Virtual Tour">
-          <VirtualTour videoUrl={virtualTour} />
-        </Section>
-      ) : null}
-
-      {/* Tags */}
-      {tags.length ? (
-        <Section title="Tags">
-          <div className="flex flex-wrap gap-2">
-            {tags.map((t: string) => (
-              <span
-                key={t}
-                className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-neutral-200"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-        </Section>
-      ) : null}
-
-      {/* About the Developer */}
+      {/* About the Developer (optional) */}
       {devProfile && (
         <Section title="About the Developer">
           <div className="flex items-start gap-4">

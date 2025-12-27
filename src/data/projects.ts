@@ -84,9 +84,14 @@ const projects: Project[] = [
     floors: "G+39",
     total_units: "≈ 915 apartments",
     usp: [
-      "Central Delhi–adjacent luxury address on Shivaji Marg",
-      "Surrounded by large landscaped greens (DLF Capital Greens belt)",
-      "International quality clubhouse & amenities",
+      "Central-Delhi adjacent address with strong long-term livability and demand resilience",
+  "Ready-to-move positioning improves clarity on handover timelines and planning",
+  "High-rise community format with clubhouse-led amenities and organized maintenance",
+  "Tower/floor/view-based pricing allows choice between value floors and premium aspects",
+  "Suitable for lifestyle upgrade buyers prioritizing connectivity, community and security",
+  "Works for end-use today and can also fit long-hold strategies depending on unit selection",
+  "Well-suited for families seeking a modern gated environment versus older independent pockets",
+  "Best results come from shortlisting by: tower + facing + size + budget (not just headline price)",
     ],
     highlights: [
       "Multiple metro connectivity – Moti Nagar & Kirti Nagar",
@@ -103,23 +108,50 @@ const projects: Project[] = [
     ],
 
     overview:
-      "A premium high-rise community positioned for buyers seeking a Central-Delhi adjacent address with a complete lifestyle ecosystem.",
-    key_points: [
-      "End-use friendly (ready / near-ready inventory depending on availability)",
-      "Strong connectivity across West & Central Delhi corridors",
-      "Suitable for long-term holding and lifestyle upgrade",
-    ],
+  "DLF One Midtown is a premium high-rise residential community in the Moti Nagar belt, positioned for buyers who want a Central-Delhi adjacent address with a complete lifestyle ecosystem.\n\nThe project is particularly relevant for end-use families looking for a gated, amenity-led community with strong city connectivity. The location works well for professionals who commute across West/Central Delhi corridors and prefer a modern high-rise product over older central pockets.\n\nInventory, views and pricing can vary significantly by tower, floor and facing—so the best way to shortlist is to align budget, size preference and view requirements first, then filter live options.",
+
+    key_points: [ "Central-Delhi adjacent address with strong long-term livability and demand resilience",
+  "Ready-to-move positioning improves clarity on handover timelines and planning",
+  "High-rise community format with clubhouse-led amenities and organized maintenance",
+  "Tower/floor/view-based pricing allows choice between value floors and premium aspects",
+  "Suitable for lifestyle upgrade buyers prioritizing connectivity, community and security",
+  "Works for end-use today and can also fit long-hold strategies depending on unit selection",
+  "Well-suited for families seeking a modern gated environment versus older independent pockets",
+  "Best results come from shortlisting by: tower + facing + size + budget (not just headline price)",
+],
     location_points: [
-      "Connectivity via Shivaji Marg and key arterial roads",
-      "Metro access in the wider Moti Nagar / Kirti Nagar belt (verify exact approach)",
-    ],
+  "Shivaji Marg corridor provides strong access towards West Delhi and Central Delhi routes",
+  "Metro access in the broader Moti Nagar / Kirti Nagar belt (verify exact gate-to-station approach and exits)",
+  "Established neighbourhood ecosystem: daily convenience, healthcare, schools and markets within the wider catchment",
+  "Good connectivity to key employment and commercial nodes across the city via main arterial roads",
+  "Practical for multi-point commuting: home, school, and workplace movement across West/Central corridors",
+],
     specifications: [
-      "High-rise tower living with premium common areas (spec varies by tower)",
-      "Clubhouse and lifestyle amenities within the community",
-    ],
+  "High-rise towers with premium common areas; specifications can vary by tower and inventory",
+  "Amenity-led clubhouse ecosystem designed for daily fitness, recreation and social use",
+  "Gated community with planned circulation, security protocols and managed upkeep",
+  "Landscaped greens and internal community spaces supporting family-friendly living",
+  "Apartment planning and premium features are inventory-dependent; verify exact unit specs before finalization",
+],
+
     inventory_note:
       "Availability and pricing change frequently; share unit size, budget and floor preference for current options.",
-    tags: ["Central Delhi", "Ready to Move", "Luxury High-Rise"],
+    tags: [
+  "DLF One Midtown",
+  "Moti Nagar",
+  "Shivaji Marg",
+  "West Delhi luxury apartments",
+  "Central Delhi adjacent",
+  "Ready to move",
+  "2 BHK in Moti Nagar",
+  "3 BHK in Moti Nagar",
+  "4 BHK in Moti Nagar",
+  "Luxury high-rise Delhi",
+  "Gated community Delhi",
+  "Clubhouse amenities",
+  "Premium residences Delhi",
+  "Altina Livings",
+],
 
     hero: "/projects/dlf-one-midtown/hero.jpg",
     heroAlt: "DLF One Midtown towers with landscaped greens in Moti Nagar",
@@ -135,11 +167,11 @@ const projects: Project[] = [
       lng: 77.1543,
     },
     seo: {
-      title: "DLF One Midtown – Luxury 2, 3 & 4 BHK in Moti Nagar, Central Delhi",
-      description:
-        "DLF One Midtown offers ready-to-move luxury 2, 3 & 4 BHK residences at Shivaji Marg, Moti Nagar with clubhouse, greens and strong connectivity.",
-      canonical: "https://altinalivings.com/projects/dlf-one-midtown-moti-nagar",
-    },
+  title: "DLF One Midtown, Moti Nagar – Luxury 2, 3 & 4 BHK | Altina Livings",
+  description:
+    "Explore DLF One Midtown in Moti Nagar: ready-to-move luxury 2/3/4 BHK high-rise residences with clubhouse amenities and strong West–Central Delhi connectivity.",
+  canonical: "https://altinalivings.com/projects/dlf-one-midtown-moti-nagar",
+},
     featured: true,
     featured_order: 1,
     description:
