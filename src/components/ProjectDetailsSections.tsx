@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import ClientImage from "@/components/ClientImage";
 import developers from "@/data/developers.json";
 import VirtualTour from "@/components/VirtualTour";
+import AMENITY_ICONS from "@/data/amenityIcons.generated";
 
 // Server island (auto-scans /public/projects/<id>/gallery)
 const ProjectGallery = dynamic(() => import("@/components/ProjectGallery"), { ssr: true });
@@ -46,29 +47,49 @@ function toSnake(label: string) {
   return amenityKey(label).replace(/\s+/g, "_");
 }
 
-/**
- * Dynamic icon resolution:
- * Uses keyword icons in /public/icons/ and a filename-based fallback.
- * (No generated import, so Vercel build will not fail.)
- */
-function iconForAmenity(label: string): string | undefined {
+/** Keyword fallback mapping (works even if icon filenames are generic). */
+function keywordIcon(label: string): string | undefined {
   const k = amenityKey(label);
 
   if (k.includes("clubhouse")) return "/icons/clubhouse.png";
   if (k.includes("pool") || k.includes("swim")) return "/icons/swimming.png";
   if (k.includes("gym") || k.includes("gymnasium") || k.includes("fitness")) return "/icons/gym.png";
   if (k.includes("kid") || k.includes("children") || k.includes("play")) return "/icons/kids.png";
-  if (k.includes("security") || k.includes("cctv") || k.includes("guard") || k.includes("24x7")) return "/icons/security.png";
+  if (k.includes("security") || k.includes("cctv") || k.includes("guard") || k.includes("24x7"))
+    return "/icons/security.png";
   if (k.includes("tennis")) return "/icons/tennis.png";
   if (k.includes("spa")) return "/icons/spa.png";
   if (k.includes("yoga")) return "/icons/yoga.png";
 
-  // Filename-based fallback (only if you add matching icon files)
-  const snake = toSnake(label);
-  return `/icons/${snake}.png`;
+  return undefined;
 }
 
-function normalizeAmenities(project: any): { label: string; icon?: string }[] {
+/**
+ * Icon resolution order:
+ * 1) Generated map from /public/icons (best when filenames are descriptive)
+ * 2) Keyword fallback (covers generic icons)
+ * 3) Snake-case filename fallback (/icons/<snake>.png)
+ * 4) Final fallback icon (always show something)
+ *
+ * NOTE: Add a fallback icon at /public/icons/default.svg (provided in the zip)
+ *       or change the path below to default.png if you prefer PNG.
+ */
+function iconForAmenity(label: string): string {
+  const k = amenityKey(label);
+
+  const gen = (AMENITY_ICONS as Record<string, string>)[k];
+  if (gen) return gen;
+
+  const kw = keywordIcon(label);
+  if (kw) return kw;
+
+  const snake = toSnake(label);
+  if (snake) return `/icons/${snake}.png`;
+
+  return "/icons/default.svg";
+}
+
+function normalizeAmenities(project: any): { label: string; icon: string }[] {
   const raw: AmenityInput[] =
     (Array.isArray(project?.amenityIds) && project.amenityIds) ||
     (Array.isArray(project?.amenities) && project.amenities) ||
@@ -76,7 +97,6 @@ function normalizeAmenities(project: any): { label: string; icon?: string }[] {
   const flat = (raw as any[])?.flat?.(Infinity) ?? raw;
 
   const seen = new Set<string>();
-
   return (flat as AmenityInput[])
     .map((item) => {
       if (item == null) return null;
@@ -103,21 +123,22 @@ function normalizeAmenities(project: any): { label: string; icon?: string }[] {
 
       return { label: toTitle(label), icon: iconForAmenity(label) };
     })
-    .filter(Boolean) as { label: string; icon?: string }[];
+    .filter(Boolean) as { label: string; icon: string }[];
 }
 
 function AmenityIcon({ src, alt }: { src: string; alt: string }) {
-  const [hide, setHide] = useState(false);
-  if (hide) return null;
+  const [current, setCurrent] = useState(src);
 
   return (
     <img
-      src={src}
+      src={current}
       alt={alt}
       width={24}
       height={24}
       className="h-6 w-6 opacity-90"
-      onError={() => setHide(true)}
+      onError={() => {
+        if (current !== "/icons/default.svg") setCurrent("/icons/default.svg");
+      }}
       loading="lazy"
     />
   );
@@ -319,7 +340,7 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
                 className="flex items-center gap-2 rounded-xl border border-white/10 px-3 py-2"
                 title={a.label}
               >
-                {a.icon ? <AmenityIcon src={a.icon} alt="" /> : <span className="text-amber-300">•</span>}
+                <AmenityIcon src={a.icon} alt="" />
                 <span className="text-neutral-200 text-sm">{a.label}</span>
               </div>
             ))}
@@ -365,7 +386,7 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
         </Section>
       ) : null}
 
-      {devProfile && (
+      {devProfile ? (
         <Section title="About the Developer">
           <div className="flex items-start gap-4">
             {devProfile.logo ? (
@@ -404,7 +425,7 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
             </div>
           ) : null}
         </Section>
-      )}
+      ) : null}
     </div>
   );
 }

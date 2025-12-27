@@ -1,0 +1,7 @@
+// package.json (add under scripts)
+{
+  "scripts": {
+    "prebuild": "node scripts/generateAmenityIcons.mjs",
+    "check:amenities": "node scripts/checkAmenityIcons.mjs"
+  }
+}

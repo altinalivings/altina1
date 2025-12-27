@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <style>
+      .s{fill:none;stroke:#C5A657;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+      .f{fill:#C5A657}
+    </style>
+  </defs>
+  <rect class="s" x="10" y="10" width="44" height="44" rx="10"/>
+  <path class="s" d="M22 34h20"/>
+  <path class="s" d="M22 28h20"/>
+  <circle class="f" cx="24" cy="40" r="2.4"/>
+  <circle class="f" cx="32" cy="40" r="2.4"/>
+  <circle class="f" cx="40" cy="40" r="2.4"/>
+</svg>
