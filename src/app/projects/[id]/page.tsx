@@ -22,13 +22,21 @@ type Project = {
   price?: string;
   hero?: string;
   brochure?: string;
+  brochure_pdf?: string;
   gallery?: string[];
   about?: string;
+
+  // ✅ richer fields (from your schema)
+  overview?: string;
+  description?: string;
   possession?: string;
   highlights?: string[];
   amenities?: string[];
   virtualTourUrl?: string;
+  video_url?: string;
   faq?: FAQItem[];
+  rera?: string;
+  propertyType?: "Residential" | "Commercial" | "Mixed";
 };
 
 const SITE =
@@ -76,13 +84,16 @@ export async function generateMetadata({
   if (!p) return { title: "Project not found | ALTINA™ Livings" };
 
   const title = `${p.name}${p.city ? ` in ${p.city}` : ""} | ALTINA™ Livings`;
+  const about = p.overview || p.description || p.about || "";
+
   const description =
     (
       [
-        p.about,
+        about,
         p.configuration,
         p.location ? `Location: ${p.location}` : "",
         p.price ? `Price: ${p.price}` : "",
+        p.rera ? `RERA: ${p.rera}` : "",
       ]
         .filter(Boolean)
         .join(" • ")
@@ -115,6 +126,7 @@ function ProjectSchema({ p }: { p: Project }) {
   const priceValue = priceNumber(p.price);
   if (!priceValue) return null;
 
+  const about = p.overview || p.description || p.about || "";
   const schema = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -123,7 +135,7 @@ function ProjectSchema({ p }: { p: Project }) {
     brand: p.developer
       ? { "@type": "Brand", name: p.developer }
       : { "@type": "Brand", name: "ALTINA™ Livings" },
-    description: [p.configuration, p.location, p.city, p.about]
+    description: [about, p.configuration, p.location, p.city]
       .filter(Boolean)
       .join(" • "),
     image: p.hero ? [abs(p.hero)] : undefined,
@@ -190,6 +202,8 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
   const p = findProject(params.id);
   if (!p) return notFound();
 
+  const brochure = p.brochure || p.brochure_pdf;
+
   const faqs: FAQItem[] =
     Array.isArray(p.faq) && p.faq.length > 0
       ? p.faq
@@ -212,10 +226,18 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
           },
           {
             q: `How can I get the brochure for ${p.name}?`,
-            a: p.brochure
-              ? `You can download the official brochure by clicking on “Download Brochure” on this page.`
+            a: brochure
+              ? `You can download the brochure by clicking on “Download Brochure” on this page.`
               : `Brochure details are available upon request.`,
           },
+          ...(p.rera
+            ? [
+                {
+                  q: `What is the RERA number for ${p.name}?`,
+                  a: `${p.name} is listed with RERA number ${p.rera}.`,
+                },
+              ]
+            : []),
         ];
 
   return (
@@ -229,7 +251,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
         hero={p.hero}
         configuration={p.configuration}
         price={p.price}
-        brochure={p.brochure}
+        brochure={brochure}
         images={p.gallery}
       />
 

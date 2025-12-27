@@ -36,15 +36,34 @@ type Project = {
   typologies?: string[];
   sizes?: string;
   land_area?: string;
-  towers?: number;
-  floors?: number;
-  total_units?: number;
+  towers?: string | number;
+  floors?: string | number;
+  total_units?: string | number;
+
+  propertyType?: "Residential" | "Commercial" | "Mixed";
+
   bank_approvals?: string[];
   usp?: string[];
   highlights?: string[];
   amenities?: string[];
+
+  // legacy or alternate blocks
   specs?: Record<string, string>;
   about?: string;
+
+  // ✅ your richer schema fields
+  overview?: string;
+  description?: string;
+  key_points?: string[];
+  location_points?: string[];
+  specifications?: string[];
+  payment_plan?: string;
+  inventory_note?: string;
+  tags?: string[];
+  brochure_pdf?: string;
+  video_url?: string;
+  whatsapp_prefill?: string;
+
   brochure?: string;
   hero?: string;
   gallery?: string[];
@@ -53,11 +72,28 @@ type Project = {
 
 export default function ProjectDetailClient({ project }: { project: Project }) {
   const amenityCards = useMemo(() => {
-    const ids = (project.amenities || []).map((s) => s.toLowerCase());
+    const ids = (project.amenities || []).map((s) => String(s).toLowerCase());
     return AMENITIES.filter((a) =>
       ids.some((id) => a.id.toLowerCase().includes(id.replace(/\s/g, "")))
     );
   }, [project.amenities]);
+
+  const longAbout =
+    project.overview || project.description || project.about || "";
+
+  const keyPoints = Array.isArray(project.key_points) ? project.key_points : [];
+  const locationPoints = Array.isArray(project.location_points) ? project.location_points : [];
+  const specificationsArr = Array.isArray(project.specifications) ? project.specifications : [];
+  const paymentPlan = project.payment_plan || "";
+  const inventoryNote = project.inventory_note || "";
+  const tags = Array.isArray(project.tags) ? project.tags : [];
+
+  const brochureUrl =
+    project.brochure_pdf || project.brochure || `/brochures/${project.id}.pdf`;
+
+  const videoUrl = project.video_url;
+  const waText =
+    project.whatsapp_prefill || `Hi Altina, please share details for ${project.name}.`;
 
   return (
     <main>
@@ -97,15 +133,16 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
         <ProjectCTARail projectId={project.id} projectName={project.name} />
       </div>
 
-      {/* OVERVIEW */}
+      {/* CONTENT */}
       <section className="mx-auto max-w-6xl px-4 py-10 grid gap-8">
-        {project.about && (
+        {/* OVERVIEW */}
+        {longAbout ? (
           <div className="golden-frame modal-surface p-6">
             <h2 className="text-xl font-semibold">Overview</h2>
             <div className="golden-divider my-3" />
-            <p className="text-neutral-300">{project.about}</p>
+            <p className="text-neutral-300 whitespace-pre-line">{longAbout}</p>
           </div>
-        )}
+        ) : null}
 
         {/* QUICK FACTS */}
         <div className="golden-frame modal-surface p-6">
@@ -113,6 +150,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
           <div className="golden-divider my-3" />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 text-sm">
             {project.developer && <Fact label="Developer" value={project.developer} />}
+            {project.propertyType && <Fact label="Property Type" value={project.propertyType} />}
             {project.status && <Fact label="Status" value={project.status} />}
             {project.construction_status && (
               <Fact label="Construction" value={project.construction_status} />
@@ -125,9 +163,9 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
             ) : null}
             {project.sizes && <Fact label="Sizes" value={project.sizes} />}
             {project.land_area && <Fact label="Land Area" value={project.land_area} />}
-            {typeof project.towers === "number" && <Fact label="Towers" value={String(project.towers)} />}
-            {typeof project.floors === "number" && <Fact label="Floors" value={String(project.floors)} />}
-            {typeof project.total_units === "number" && <Fact label="Units" value={String(project.total_units)} />}
+            {project.towers != null && <Fact label="Towers" value={String(project.towers)} />}
+            {project.floors != null && <Fact label="Floors" value={String(project.floors)} />}
+            {project.total_units != null && <Fact label="Units" value={String(project.total_units)} />}
             {project.micro_market && <Fact label="Micro-market" value={project.micro_market} />}
           </div>
         </div>
@@ -143,6 +181,28 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
             </ul>
           </div>
         )}
+
+        {/* WHY CONSIDER */}
+        {keyPoints.length ? (
+          <div className="golden-frame modal-surface p-6">
+            <h3 className="text-lg font-semibold">Why Consider This Project</h3>
+            <div className="golden-divider my-3" />
+            <ul className="list-disc list-inside space-y-2 text-neutral-300">
+              {keyPoints.map((k, i) => <li key={`kp-${i}`}>{k}</li>)}
+            </ul>
+          </div>
+        ) : null}
+
+        {/* LOCATION ADVANTAGES */}
+        {locationPoints.length ? (
+          <div className="golden-frame modal-surface p-6">
+            <h3 className="text-lg font-semibold">Location Advantages</h3>
+            <div className="golden-divider my-3" />
+            <ul className="list-disc list-inside space-y-2 text-neutral-300">
+              {locationPoints.map((k, i) => <li key={`lp-${i}`}>{k}</li>)}
+            </ul>
+          </div>
+        ) : null}
 
         {/* AMENITIES */}
         {amenityCards.length ? (
@@ -173,19 +233,49 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
           </div>
         ) : null}
 
-        {/* SPECIFICATIONS */}
-        {project.specs && Object.keys(project.specs).length ? (
+        {/* SPECIFICATIONS (prefer array; fallback to specs map) */}
+        {(specificationsArr.length || (project.specs && Object.keys(project.specs).length)) ? (
           <div className="golden-frame modal-surface p-6">
             <h3 className="text-lg font-semibold">Specifications</h3>
             <div className="golden-divider my-3" />
-            <dl className="grid gap-3 sm:grid-cols-2">
-              {Object.entries(project.specs).map(([k, v]) => (
-                <div key={k} className="rounded-xl border border-white/10 p-3">
-                  <dt className="text-neutral-400 text-xs uppercase tracking-wide">{labelize(k)}</dt>
-                  <dd className="text-neutral-200 text-sm mt-1">{v}</dd>
-                </div>
-              ))}
-            </dl>
+
+            {specificationsArr.length ? (
+              <ul className="list-disc list-inside space-y-2 text-neutral-300">
+                {specificationsArr.map((s, i) => <li key={`sp-${i}`}>{s}</li>)}
+              </ul>
+            ) : null}
+
+            {project.specs && Object.keys(project.specs).length ? (
+              <dl className="mt-4 grid gap-3 sm:grid-cols-2">
+                {Object.entries(project.specs).map(([k, v]) => (
+                  <div key={k} className="rounded-xl border border-white/10 p-3">
+                    <dt className="text-neutral-400 text-xs uppercase tracking-wide">{labelize(k)}</dt>
+                    <dd className="text-neutral-200 text-sm mt-1">{v}</dd>
+                  </div>
+                ))}
+              </dl>
+            ) : null}
+          </div>
+        ) : null}
+
+        {/* PAYMENT PLAN */}
+        {paymentPlan ? (
+          <div className="golden-frame modal-surface p-6">
+            <h3 className="text-lg font-semibold">Payment Plan (Indicative)</h3>
+            <div className="golden-divider my-3" />
+            <p className="text-neutral-300 whitespace-pre-line">{paymentPlan}</p>
+            <p className="mt-2 text-xs text-neutral-400">
+              Note: Payment plan may vary by inventory and developer revisions.
+            </p>
+          </div>
+        ) : null}
+
+        {/* INVENTORY NOTE */}
+        {inventoryNote ? (
+          <div className="golden-frame modal-surface p-6">
+            <h3 className="text-lg font-semibold">Inventory Note</h3>
+            <div className="golden-divider my-3" />
+            <p className="text-neutral-300">{inventoryNote}</p>
           </div>
         ) : null}
 
@@ -212,10 +302,19 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
           <div className="golden-frame modal-surface p-6 lg:col-span-2">
             <h3 className="text-lg font-semibold">Download Brochure</h3>
             <div className="golden-divider my-3" />
-            <GatedDownloadButton
-              projectId={project.id}
-              brochureUrl={project.brochure || `/brochures/${project.id}.pdf`}
-            />
+            <GatedDownloadButton projectId={project.id} brochureUrl={brochureUrl} />
+            <p className="mt-3 text-xs text-neutral-400">
+              Prefer WhatsApp?{" "}
+              <a
+                className="underline text-altina-gold"
+                href={`https://wa.me/919891234195?text=${encodeURIComponent(waText)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Message us
+              </a>
+              .
+            </p>
           </div>
 
           <div className="golden-frame modal-surface p-6">
@@ -241,6 +340,42 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
             ) : null}
           </div>
         </div>
+
+        {/* WALKTHROUGH */}
+        {videoUrl ? (
+          <div className="golden-frame modal-surface p-6">
+            <h3 className="text-lg font-semibold">Walkthrough / Video</h3>
+            <div className="golden-divider my-3" />
+            <p className="text-neutral-300 text-sm">
+              <a
+                href={videoUrl}
+                className="underline text-altina-gold"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open video
+              </a>
+            </p>
+          </div>
+        ) : null}
+
+        {/* TAGS */}
+        {tags.length ? (
+          <div className="golden-frame modal-surface p-6">
+            <h3 className="text-lg font-semibold">Tags</h3>
+            <div className="golden-divider my-3" />
+            <div className="flex flex-wrap gap-2">
+              {tags.map((t) => (
+                <span
+                  key={t}
+                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-neutral-200"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
+        ) : null}
 
         {/* GALLERY (auto from /public/projects/<id>/gallery) */}
         {project.id ? (
