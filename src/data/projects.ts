@@ -10,6 +10,8 @@ export type LocationAdvantage = {
   markets?: string[];
 };
 
+export type FAQItem = { q: string; a: string };
+
 export type Project = {
   id: string;
   slug: string;
@@ -41,6 +43,9 @@ export type Project = {
   location_advantage?: LocationAdvantage;
   highlights?: string[];
   specifications?: string[];
+  faqs?: FAQItem[];
+  // Backward compatibility (optional)
+  faq?: FAQItem[];
 
   // Optional blocks (keep for future expansion)
   amenities?: string[];
@@ -168,7 +173,6 @@ const projects: Project[] = [
       "3 BHK",
       "4 BHK",
     ],
-	video_url: "https://www.youtube.com/watch?v=t2UzbAW6-D8",
     seo: {
       title: "DLF One Midtown, Moti Nagar – Luxury 2, 3 & 4 BHK | Altina Livings",
       description:

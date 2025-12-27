@@ -25,6 +25,8 @@ type LocationAdvantage = {
   markets?: string[];
 };
 
+type FAQItem = { q: string; a: string };
+
 const toTitle = (s: string) =>
   s
     .toLowerCase()
@@ -66,13 +68,10 @@ function keywordIcon(label: string): string | undefined {
 
 /**
  * Icon resolution order:
- * 1) Generated map from /public/icons (best when filenames are descriptive)
- * 2) Keyword fallback (covers generic icons)
+ * 1) Generated map from /public/icons
+ * 2) Keyword fallback
  * 3) Snake-case filename fallback (/icons/<snake>.png)
  * 4) Final fallback icon (always show something)
- *
- * NOTE: Add a fallback icon at /public/icons/default.svg (provided in the zip)
- *       or change the path below to default.png if you prefer PNG.
  */
 function iconForAmenity(label: string): string {
   const k = amenityKey(label);
@@ -218,88 +217,71 @@ function uniqStrings(arr: string[]) {
   return out;
 }
 
+function bullets(items: string[]) {
+  return (
+    <ul className="grid gap-2 sm:grid-cols-2">
+      {items.map((h, i) => (
+        <li key={`${h}-${i}`} className="flex items-start gap-2">
+          <span className="text-amber-300 mt-0.5">•</span>
+          <span className="text-neutral-300">{h}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export default function ProjectDetailsSections({ project }: { project: any }) {
+  // JSON inputs (projects.ts)
   const usp: string[] = project?.usp || [];
   const highlights: string[] = project?.highlights || [];
-  const keyPoints: string[] = project?.key_points || [];
-  const specifications: string[] = project?.specifications || [];
+  const keyPoints: string[] = project?.key_points || []; // backward compatibility
+  const specificationsBullets: string[] = project?.specifications || [];
 
   const locAdv: LocationAdvantage | undefined = project?.location_advantage;
-  const locationPointsFallback: string[] = project?.location_points || [];
+  const locationPointsFallback: string[] = project?.location_points || []; // backward compatibility
 
   const videoUrl: string | undefined = project?.video_url;
 
   const amenities = useMemo(() => normalizeAmenities(project), [project]);
   const devProfile = findDeveloper(project?.developer);
 
+  // Merge USP + Highlights (+ key_points for backward compatibility)
   const mergedHighlights = useMemo(
-    () => uniqStrings([...(highlights || []), ...(keyPoints || [])]),
-    [highlights, keyPoints]
+    () => uniqStrings([...(usp || []), ...(highlights || []), ...(keyPoints || [])]),
+    [usp, highlights, keyPoints]
   );
 
+  // Specs (cards) built from core fields so they're always correct
+  const specPairs = useMemo(() => {
+    const pairs: Array<[string, any]> = [
+      ["Configuration", project?.configuration],
+      ["Sizes", project?.sizes],
+      ["Price", project?.price],
+      ["Status", project?.status],
+      ["Construction", project?.construction_status],
+      ["Possession", project?.possession],
+      ["Launch", project?.launch],
+      ["RERA", project?.rera],
+      ["Land Area", project?.land_area],
+      ["Towers", project?.towers],
+      ["Floors", project?.floors],
+      ["Units", project?.total_units],
+    ];
+
+    return pairs.filter(([, v]) => v != null && String(v).trim() !== "");
+  }, [project]);
+
+  // FAQs (support both keys)
+  const faqs: FAQItem[] = (project?.faqs || project?.faq || []) as FAQItem[];
+
+  // Concise bullets by default; expandable for long lines (in Highlights only)
   const [expanded, setExpanded] = useState<Record<number, boolean>>({});
   const MAX_CHARS = 120;
   const toggle = (i: number) => setExpanded((prev) => ({ ...prev, [i]: !prev[i] }));
 
   return (
     <div className="space-y-14">
-      {usp.length ? (
-        <Section title="USP">
-          <ul className="grid gap-2 sm:grid-cols-2">
-            {usp.map((h) => (
-              <li key={h} className="flex items-start gap-2">
-                <span className="text-amber-300 mt-0.5">•</span>
-                <span className="text-neutral-300">{h}</span>
-              </li>
-            ))}
-          </ul>
-        </Section>
-      ) : null}
-
-      {hasAnyLocationAdvantage(locAdv) ? (
-        <Section title="Location Advantage">
-          <div className="grid gap-4 sm:grid-cols-2">
-            {locAdv?.connectivity?.length ? <CardList title="Connectivity" items={locAdv.connectivity} /> : null}
-            {locAdv?.schools?.length ? <CardList title="Schools" items={locAdv.schools} /> : null}
-            {locAdv?.healthcare?.length ? <CardList title="Healthcare" items={locAdv.healthcare} /> : null}
-            {locAdv?.markets?.length ? <CardList title="Markets" items={locAdv.markets} /> : null}
-          </div>
-        </Section>
-      ) : locationPointsFallback.length ? (
-        <Section title="Location Advantage">
-          <ul className="grid gap-2 sm:grid-cols-2">
-            {locationPointsFallback.map((h) => (
-              <li key={h} className="flex items-start gap-2">
-                <span className="text-amber-300 mt-0.5">•</span>
-                <span className="text-neutral-300">{h}</span>
-              </li>
-            ))}
-          </ul>
-        </Section>
-      ) : null}
-
-      {(project?.map?.embed || project?.map?.lat) ? (
-        <Section title="Location Map">
-          <div className="overflow-hidden rounded-xl border border-white/10">
-            {project?.map?.embed ? (
-              <iframe
-                src={project.map.embed}
-                className="h-[360px] w-full"
-                loading="lazy"
-                title={project?.name ? `${project.name} map` : "Project map"}
-              />
-            ) : (
-              <iframe
-                className="h-[360px] w-full"
-                loading="lazy"
-                src={`https://www.google.com/maps?q=${project?.map?.lat},${project?.map?.lng}&z=14&output=embed`}
-                title={project?.name ? `${project.name} map` : "Project map"}
-              />
-            )}
-          </div>
-        </Section>
-      ) : null}
-
+      {/* 1) Merged: USP + Highlights */}
       {mergedHighlights.length ? (
         <Section title="Highlights">
           <ul className="grid gap-2 sm:grid-cols-2">
@@ -331,6 +313,27 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
         </Section>
       ) : null}
 
+      {/* 2) Specifications (cards + optional bullets) */}
+      {specPairs.length || specificationsBullets.length ? (
+        <Section title="Specifications">
+          {specPairs.length ? (
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {specPairs.map(([k, v]) => (
+                <div key={k} className="rounded-xl border border-white/10 p-4">
+                  <div className="text-xs uppercase tracking-wide text-neutral-400">{k}</div>
+                  <div className="mt-1 text-neutral-100">{String(v)}</div>
+                </div>
+              ))}
+            </div>
+          ) : null}
+
+          {specificationsBullets.length ? (
+            <div className={specPairs.length ? "mt-5" : ""}>{bullets(specificationsBullets)}</div>
+          ) : null}
+        </Section>
+      ) : null}
+
+      {/* 3) Amenities */}
       {amenities.length ? (
         <Section title="Amenities">
           <div className="flex flex-wrap gap-3">
@@ -348,19 +351,51 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
         </Section>
       ) : null}
 
-      {specifications.length ? (
-        <Section title="Specifications">
-          <ul className="grid gap-2 sm:grid-cols-2">
-            {specifications.map((h) => (
-              <li key={h} className="flex items-start gap-2">
-                <span className="text-amber-300 mt-0.5">•</span>
-                <span className="text-neutral-300">{h}</span>
-              </li>
-            ))}
-          </ul>
+      {/* 4) Location Advantage */}
+      {hasAnyLocationAdvantage(locAdv) ? (
+        <Section title="Location Advantage">
+          <div className="grid gap-4 sm:grid-cols-2">
+            {locAdv?.connectivity?.length ? <CardList title="Connectivity" items={locAdv.connectivity} /> : null}
+            {locAdv?.schools?.length ? <CardList title="Schools" items={locAdv.schools} /> : null}
+            {locAdv?.healthcare?.length ? <CardList title="Healthcare" items={locAdv.healthcare} /> : null}
+            {locAdv?.markets?.length ? <CardList title="Markets" items={locAdv.markets} /> : null}
+          </div>
+        </Section>
+      ) : locationPointsFallback.length ? (
+        <Section title="Location Advantage">{bullets(locationPointsFallback)}</Section>
+      ) : null}
+
+      {/* 5) Location Map */}
+      {(project?.map?.embed || project?.map?.lat) ? (
+        <Section title="Location Map">
+          <div className="overflow-hidden rounded-xl border border-white/10">
+            {project?.map?.embed ? (
+              <iframe
+                src={project.map.embed}
+                className="h-[360px] w-full"
+                loading="lazy"
+                title={project?.name ? `${project.name} map` : "Project map"}
+              />
+            ) : (
+              <iframe
+                className="h-[360px] w-full"
+                loading="lazy"
+                src={`https://www.google.com/maps?q=${project?.map?.lat},${project?.map?.lng}&z=14&output=embed`}
+                title={project?.name ? `${project.name} map` : "Project map"}
+              />
+            )}
+          </div>
         </Section>
       ) : null}
 
+      {/* 6) Gallery */}
+      {project?.id ? (
+        <Section title="Gallery">
+          <ProjectGallery slug={project.id} caption="Click any image to zoom" />
+        </Section>
+      ) : null}
+
+      {/* 7) Video */}
       {videoUrl ? (
         <Section title="Walkthrough (YouTube)">
           <div className="flex flex-wrap items-center gap-3">
@@ -373,19 +408,32 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
               Watch on YouTube →
             </a>
           </div>
-
           <div className="mt-5">
             <VirtualTour videoUrl={videoUrl} />
           </div>
         </Section>
       ) : null}
 
-      {project?.id ? (
-        <Section title="Gallery">
-          <ProjectGallery slug={project.id} caption="Click any image to zoom" />
+      {/* 8) FAQs */}
+      {Array.isArray(faqs) && faqs.length ? (
+        <Section title="FAQs">
+          <div className="space-y-3">
+            {faqs.map((f, idx) => (
+              <details
+                key={`${f.q}-${idx}`}
+                className="rounded-xl border border-white/10 px-4 py-3"
+              >
+                <summary className="cursor-pointer select-none text-neutral-100 font-medium">
+                  {f.q}
+                </summary>
+                <div className="mt-2 text-neutral-300 leading-relaxed">{f.a}</div>
+              </details>
+            ))}
+          </div>
         </Section>
       ) : null}
 
+      {/* 9) About Developer */}
       {devProfile ? (
         <Section title="About the Developer">
           <div className="flex items-start gap-4">
