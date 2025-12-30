@@ -357,11 +357,16 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
 
 
       {/* 8) Virtual Tour (FIXED prop name: videoUrl) */}
-      {project?.virtualTourUrl ? (
-        <Section title="Virtual Tour">
-          <VirtualTour videoUrl={project.virtualTourUrl} />
-        </Section>
-      ) : null}
+     {project?.virtualTourUrl ? (
+  <Section title="Virtual Tour">
+    <VirtualTour
+      videoUrl={project.virtualTourUrl}
+      projectId={project?.id}
+      projectName={project?.name}
+    />
+  </Section>
+) : null}
+
 
       {/* 9) Video Walkthrough */}
    {/* 9) Video Walkthrough (GATED) */}
