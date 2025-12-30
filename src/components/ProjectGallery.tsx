@@ -1,48 +1,35 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 type Props = {
-  /** Project identifier – matches /public/projects/<id>/gallery */
-  id?: string;
-  /** Optional slug fallback */
-  slug?: string;
-  /** Optional explicit image list */
-  images?: string[];
+  /** Project ID → maps to /public/projects/<id>/gallery */
+  projectId: string;
   caption?: string;
 };
 
 export default function ProjectGallery({
-  id,
-  slug,
-  images: imagesProp,
+  projectId,
   caption = "Click any image to zoom",
 }: Props) {
-  const projectKey = id || slug; // ← single source of truth
+  const [images, setImages] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const [images, setImages] = useState<string[]>(imagesProp ?? []);
-  const [loading, setLoading] = useState(false);
-
-  // Sync if parent passes images explicitly
+  /* ---------------- Fetch from API ---------------- */
   useEffect(() => {
-    if (imagesProp?.length) setImages(imagesProp);
-  }, [imagesProp]);
-
-  // Auto-discovery via API (preferred)
-  useEffect(() => {
-    if (imagesProp?.length || !projectKey) return;
-
     let alive = true;
-    setLoading(true);
 
-    fetch(`/api/gallery/${encodeURIComponent(projectKey)}`, {
+    setLoading(true);
+    fetch(`/api/gallery/${encodeURIComponent(projectId)}`, {
       cache: "force-cache",
     })
       .then((r) => (r.ok ? r.json() : Promise.reject()))
       .then((d) => {
         if (!alive) return;
-        if (Array.isArray(d?.images)) setImages(d.images);
+        if (Array.isArray(d?.images)) {
+          setImages(d.images);
+        }
       })
       .catch(() => {})
       .finally(() => alive && setLoading(false));
@@ -50,13 +37,13 @@ export default function ProjectGallery({
     return () => {
       alive = false;
     };
-  }, [projectKey, imagesProp]);
+  }, [projectId]);
 
-  /* ---------------- Lightbox state ---------------- */
+  /* ---------------- Lightbox ---------------- */
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
 
-  if (!images.length && !loading) return null;
+  if (!loading && images.length === 0) return null;
 
   const top = images.slice(0, 4);
   const rest = images.slice(4);
@@ -67,7 +54,7 @@ export default function ProjectGallery({
       {caption && <p className="text-sm text-neutral-400">{caption}</p>}
 
       {/* Skeleton */}
-      {loading && !images.length && (
+      {loading && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {Array.from({ length: 4 }).map((_, i) => (
             <div
@@ -79,32 +66,34 @@ export default function ProjectGallery({
       )}
 
       {/* Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {top.map((src, i) => (
-          <button
-            key={src + i}
-            onClick={() => {
-              setIndex(i);
-              setOpen(true);
-            }}
-            className="relative aspect-[4/3] overflow-hidden rounded-xl ring-1 ring-white/10"
-          >
-            <img
-              src={src}
-              alt={`Gallery image ${i + 1}`}
-              className="h-full w-full object-cover"
-              loading={i < 2 ? "eager" : "lazy"}
-            />
-          </button>
-        ))}
-      </div>
+      {!loading && (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {top.map((src, i) => (
+            <button
+              key={src}
+              onClick={() => {
+                setIndex(i);
+                setOpen(true);
+              }}
+              className="relative aspect-[4/3] overflow-hidden rounded-xl ring-1 ring-white/10"
+            >
+              <img
+                src={src}
+                alt={`Gallery image ${i + 1}`}
+                className="h-full w-full object-cover"
+                loading={i < 2 ? "eager" : "lazy"}
+              />
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Horizontal strip */}
       {rest.length > 0 && (
         <div className="flex gap-3 overflow-x-auto no-scrollbar py-1">
           {rest.map((src, i) => (
             <button
-              key={src + i}
+              key={src}
               onClick={() => {
                 setIndex(i + 4);
                 setOpen(true);
@@ -113,7 +102,6 @@ export default function ProjectGallery({
             >
               <img
                 src={src}
-                alt=""
                 className="h-full w-full object-cover"
                 loading="lazy"
               />
@@ -171,7 +159,7 @@ function Lightbox({
         <div className="flex gap-2 overflow-x-auto no-scrollbar">
           {images.map((src, i) => (
             <button
-              key={src + i}
+              key={src}
               onClick={() => onSelect(i)}
               className={`h-16 w-24 overflow-hidden rounded-md border ${
                 i === index

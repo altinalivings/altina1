@@ -346,12 +346,13 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
       ) : null}
 
       {/* 7) Gallery (FIXED: slug is REQUIRED by ProjectGallery) */}
-      <Section title="Gallery">
-        <ProjectGallery
-          slug={project?.id || project?.id}
-          images={project?.images || project?.gallery || []}
-        />
-      </Section>
+     <Section title="Gallery">
+  <ProjectGallery
+    projectId={project?.id}
+    caption="Click any image to zoom"
+  />
+</Section>
+
 
       {/* 8) Virtual Tour (FIXED prop name: videoUrl) */}
       {project?.virtualTourUrl ? (
