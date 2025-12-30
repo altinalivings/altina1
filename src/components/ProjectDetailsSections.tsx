@@ -8,6 +8,8 @@ import developers from "@/data/developers.json";
 import VirtualTour from "@/components/VirtualTour";
 import AMENITY_ICONS from "@/data/amenityIcons.generated";
 import HomeLoanCalculator, { parseINRFromPriceText } from "@/components/HomeLoanCalculator";
+import GatedVideo from "@/components/GatedVideo";
+
 
 // Gallery (client component)
 const ProjectGallery = dynamic(() => import("@/components/ProjectGallery"), {
@@ -362,11 +364,18 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
       ) : null}
 
       {/* 9) Video Walkthrough */}
-   {videoUrl ? (
+   {/* 9) Video Walkthrough (GATED) */}
+{videoUrl ? (
   <Section title="Video Walkthrough">
-    <VirtualTour videoUrl={videoUrl} title={`${project?.name || "Project"} video`} />
+    <GatedVideo
+      projectId={project?.id}
+      projectName={project?.name}
+      videoUrl={videoUrl}
+      // leadEndpoint="/api/lead" // OPTIONAL if you have it
+    />
   </Section>
 ) : null}
+
 
       {/* 10) About */}
       {project?.about ? (
