@@ -362,20 +362,11 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
       ) : null}
 
       {/* 9) Video Walkthrough */}
-      {videoUrl ? (
-        <Section title="Video Walkthrough">
-          <div className="overflow-hidden rounded-xl border border-white/10">
-            <iframe
-              className="h-[360px] w-full"
-              src={videoUrl}
-              title={project?.name ? `${project.name} video` : "Project video"}
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          </div>
-        </Section>
-      ) : null}
+   {videoUrl ? (
+  <Section title="Video Walkthrough">
+    <VirtualTour videoUrl={videoUrl} title={`${project?.name || "Project"} video`} />
+  </Section>
+) : null}
 
       {/* 10) About */}
       {project?.about ? (
