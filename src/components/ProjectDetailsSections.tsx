@@ -146,13 +146,17 @@ function Section({ title, children }: { title: string; children: any }) {
 function AmenityIcon({ src, alt }: { src?: string; alt: string }) {
   if (!src) return null;
 
-  // If the icon is an absolute path or URL, use ClientImage
   return (
     <span className="relative h-5 w-5 shrink-0 opacity-90">
-      <ClientImage src={src} alt={alt} fill className="object-contain" />
+      <ClientImage
+        src={src}
+        alt={alt}
+        className="h-full w-full object-contain"
+      />
     </span>
   );
 }
+
 
 function CardList({ title, items }: { title: string; items: string[] }) {
   if (!items?.length) return null;
