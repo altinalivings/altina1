@@ -5,9 +5,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 type Props = {
-  /** Project id: folder = /public/projects/<id>/gallery */
-  id: string;
-  /** Optional explicit list. If provided, no API fetch. */
+  /** Preferred: Project id => /public/projects/<id>/gallery */
+  id?: string;
+  /** Backward compatibility: allow old callers to pass slug */
+  slug?: string;
   images?: string[];
   caption?: string;
 };
@@ -20,29 +21,39 @@ function normalizeSrc(src: string) {
   return s.startsWith("/") ? s : `/${s}`;
 }
 
-export default function ProjectGallery({ id, images: imagesProp, caption = "Click any image to zoom" }: Props) {
+function naturalSort(a: string, b: string) {
+  return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
+}
+
+export default function ProjectGallery({
+  id,
+  slug,
+  images: imagesProp,
+  caption = "Click any image to zoom",
+}: Props) {
+  const projectKey = (id || slug || "").trim();
+
   const [images, setImages] = useState<string[]>(
     Array.isArray(imagesProp) ? imagesProp.map(normalizeSrc).filter(Boolean) : []
   );
 
-  // Keep in sync if parent passes images
   useEffect(() => {
     if (imagesProp?.length) setImages(imagesProp.map(normalizeSrc).filter(Boolean));
   }, [imagesProp]);
 
-  // Auto-fetch from server folder listing (ONE request)
+  // Single fetch to server directory listing
   useEffect(() => {
-    if (!id) return;
+    if (!projectKey) return;
     if (imagesProp?.length) return;
 
     let alive = true;
 
-    fetch(`/api/gallery/${encodeURIComponent(id)}`, { cache: "force-cache" })
+    fetch(`/api/gallery/${encodeURIComponent(projectKey)}`, { cache: "force-cache" })
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => {
         if (!alive) return;
         const arr = Array.isArray(d?.images) ? d.images : [];
-        setImages(arr.map(normalizeSrc).filter(Boolean));
+        setImages(arr.map(normalizeSrc).filter(Boolean).sort(naturalSort));
       })
       .catch(() => {
         /* ignore */
@@ -51,7 +62,7 @@ export default function ProjectGallery({ id, images: imagesProp, caption = "Clic
     return () => {
       alive = false;
     };
-  }, [id, imagesProp]);
+  }, [projectKey, imagesProp]);
 
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
@@ -89,7 +100,6 @@ export default function ProjectGallery({ id, images: imagesProp, caption = "Clic
       <h3 className="text-xl font-semibold">Gallery</h3>
       {caption && <p className="text-sm text-white/70">{caption}</p>}
 
-      {/* First row: 4 tiles */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {top.map((src, i) => (
           <button
@@ -103,20 +113,14 @@ export default function ProjectGallery({ id, images: imagesProp, caption = "Clic
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
               loading="eager"
               decoding="async"
-              fetchPriority="high"
             />
             <span className="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/10" />
           </button>
         ))}
       </div>
 
-      {/* Rest */}
       {rest.length > 0 && (
-        <RowSwiper
-          images={rest}
-          startIndex={4}
-          onOpen={(absoluteIndex) => openAt(absoluteIndex)}
-        />
+        <RowSwiper images={rest} startIndex={4} onOpen={(absoluteIndex) => openAt(absoluteIndex)} />
       )}
 
       {open && (
