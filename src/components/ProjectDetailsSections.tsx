@@ -11,6 +11,7 @@ import HomeLoanCalculator, { parseINRFromPriceText } from "@/components/HomeLoan
 import GatedVideo from "@/components/GatedVideo";
 
 
+
 // Gallery (client component)
 const ProjectGallery = dynamic(() => import("@/components/ProjectGallery"), {
   ssr: false,
@@ -376,7 +377,7 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
       projectId={project?.id}
       projectName={project?.name}
       videoUrl={videoUrl}
-      // leadEndpoint="/api/lead" // OPTIONAL if you have it
+      // leadEndpoint="/api/lead"
     />
   </Section>
 ) : null}
