@@ -246,12 +246,7 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
         </Section>
       )}
 
-      <Section title="Home Loan Calculator (Illustrative)">
-        <HomeLoanCalculator
-          projectName={project?.name}
-          defaultPropertyValue={defaultPropertyValue}
-        />
-      </Section>
+      
 
       {hasAnyLocationAdvantage(locAdv) ? (
         <Section title="Location Advantage">
@@ -317,7 +312,6 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
           ))}
         </Section>
       )}
-
       {devProfile && (
         <Section title="Developer">
           <div className="grid gap-6 md:grid-cols-[120px_1fr]">

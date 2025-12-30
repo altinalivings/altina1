@@ -169,12 +169,7 @@ export default function ProjectDetailClientShell({
       */}
 
       {/* EMI Calculator (Illustrative) */}
-      <section className="mx-auto max-w-6xl px-4 pt-6">
-        <HomeLoanCalculator
-          projectName={project.name}
-          defaultPropertyValue={defaultPropertyValue}
-        />
-      </section>
+      
 
       {/* Details + gallery + sections */}
       <section className="relative z-0 mx-auto max-w-6xl px-4 pt-8 pb-10">
@@ -183,6 +178,12 @@ export default function ProjectDetailClientShell({
             project={{ ...project, images: galleryImages } as any}
           />
         )}
+      </section>
+	  <section className="mx-auto max-w-6xl px-4 pt-6">
+        <HomeLoanCalculator
+          projectName={project.name}
+          defaultPropertyValue={defaultPropertyValue}
+        />
       </section>
 
       {FloatingCTAs && (
