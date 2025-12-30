@@ -293,12 +293,7 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
   />
 </Section>
 
-    {project?.virtualTourUrl && (
-  <Section title="Virtual Tour">
-    <VirtualTour videoUrl={project.virtualTourUrl} />
-  </Section>
-)}
-
+   
 
       {videoUrl && (
         <Section title="Video Walkthrough">
