@@ -285,9 +285,13 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
         </Section>
       )}
 
-      <Section title="Gallery">
-        <ProjectGallery images={project?.images || project?.gallery || []} />
-      </Section>
+      {/* 7) Gallery */}
+<Section title="Gallery">
+  <ProjectGallery
+    slug={project?.slug || project?.id}
+    images={project?.images || project?.gallery || []}
+  />
+</Section>
 
       {project?.virtualTourUrl && (
         <Section title="Virtual Tour">
@@ -342,3 +346,4 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
     </div>
   );
 }
+	
