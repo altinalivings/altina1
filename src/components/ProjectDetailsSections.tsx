@@ -348,7 +348,7 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
       {/* 7) Gallery (FIXED: slug is REQUIRED by ProjectGallery) */}
       <Section title="Gallery">
         <ProjectGallery
-          slug={project?.slug || project?.id}
+          slug={project?.id || project?.id}
           images={project?.images || project?.gallery || []}
         />
       </Section>
