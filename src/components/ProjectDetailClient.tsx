@@ -383,7 +383,11 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
             <h3 className="text-lg font-semibold">Gallery</h3>
             <div className="golden-divider my-3" />
             {/* Server island renders inside this client page */}
-            <ProjectGallery slug={project.id} caption="Click any image to zoom" />
+           <ProjectGallery
+  projectId={project?.id}
+  caption="Click any image to zoom"
+/>
+
           </div>
         ) : null}
 
