@@ -5,64 +5,47 @@ import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 type Props = {
-  /** Preferred: Project id => /public/projects/<id>/gallery */
-  id?: string;
-  /** Backward compatibility: allow old callers to pass slug */
-  slug?: string;
+  /** URL slug for the project. Used for optional auto-discovery via /api/gallery/[slug] */
+  slug: string;
+  /** Optional explicit list of image URLs (relative to /public). If omitted, auto-fetch kicks in. */
   images?: string[];
+  /** Small helper caption above the gallery. */
   caption?: string;
 };
 
-function normalizeSrc(src: string) {
-  const s = String(src || "").trim();
-  if (!s) return "";
-  if (/^(https?:)?\/\//i.test(s)) return s;
-  if (/^(data:|blob:)/i.test(s)) return s;
-  return s.startsWith("/") ? s : `/${s}`;
-}
-
-function naturalSort(a: string, b: string) {
-  return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
-}
-
+/**
+ * Gallery that shows a 4-tile grid first, then a horizontal row ("swiper") for the rest.
+ * Clicking any image opens a built-in lightbox with a thumbnail strip.
+ */
 export default function ProjectGallery({
-  id,
   slug,
   images: imagesProp,
   caption = "Click any image to zoom",
 }: Props) {
-  const projectKey = (id || slug || "").trim();
+  const [images, setImages] = useState<string[]>(imagesProp ?? []);
 
-  const [images, setImages] = useState<string[]>(
-    Array.isArray(imagesProp) ? imagesProp.map(normalizeSrc).filter(Boolean) : []
-  );
-
+  // If parent changes the prop, reflect that.
   useEffect(() => {
-    if (imagesProp?.length) setImages(imagesProp.map(normalizeSrc).filter(Boolean));
+    if (imagesProp && imagesProp.length) setImages(imagesProp);
   }, [imagesProp]);
 
-  // Single fetch to server directory listing
+  // Optional auto-discovery from server endpoint
   useEffect(() => {
-    if (!projectKey) return;
-    if (imagesProp?.length) return;
-
+    if (imagesProp?.length || !slug) return;
     let alive = true;
-
-    fetch(`/api/gallery/${encodeURIComponent(projectKey)}`, { cache: "force-cache" })
-      .then((r) => (r.ok ? r.json() : null))
+    fetch(`/api/gallery/${encodeURIComponent(slug)}`, { cache: "force-cache" })
+      .then((r) => (r.ok ? r.json() : Promise.reject(r.statusText)))
       .then((d) => {
         if (!alive) return;
-        const arr = Array.isArray(d?.images) ? d.images : [];
-        setImages(arr.map(normalizeSrc).filter(Boolean).sort(naturalSort));
+        if (Array.isArray(d?.images)) setImages(d.images);
       })
       .catch(() => {
         /* ignore */
       });
-
     return () => {
       alive = false;
     };
-  }, [projectKey, imagesProp]);
+  }, [slug, imagesProp]);
 
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
@@ -77,6 +60,7 @@ export default function ProjectGallery({
   const next = () => setIndex((i) => (i + 1) % images.length);
   const prev = () => setIndex((i) => (i - 1 + images.length) % images.length);
 
+  // Escape to close + lock scroll while open
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -90,7 +74,6 @@ export default function ProjectGallery({
       window.removeEventListener("keydown", onKey);
       document.documentElement.classList.remove("overflow-hidden");
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, images.length]);
 
   if (!images.length) return null;
@@ -100,6 +83,7 @@ export default function ProjectGallery({
       <h3 className="text-xl font-semibold">Gallery</h3>
       {caption && <p className="text-sm text-white/70">{caption}</p>}
 
+      {/* First row: 4-tile grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {top.map((src, i) => (
           <button
@@ -111,16 +95,20 @@ export default function ProjectGallery({
               src={src}
               alt={`Gallery image ${i + 1}`}
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-              loading="eager"
-              decoding="async"
+              loading={i < 4 ? "eager" : "lazy"}
             />
             <span className="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/10" />
           </button>
         ))}
       </div>
 
+      {/* Rest: horizontal row with arrows */}
       {rest.length > 0 && (
-        <RowSwiper images={rest} startIndex={4} onOpen={(absoluteIndex) => openAt(absoluteIndex)} />
+        <RowSwiper
+          images={rest}
+          startIndex={4}
+          onOpen={(absoluteIndex) => openAt(absoluteIndex)}
+        />
       )}
 
       {open && (
@@ -147,11 +135,15 @@ function RowSwiper({
   onOpen: (absoluteIndex: number) => void;
 }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
-  const scrollBy = (dx: number) => scrollerRef.current?.scrollBy({ left: dx, behavior: "smooth" });
-
+  const scrollBy = (dx: number) => {
+    scrollerRef.current?.scrollBy({ left: dx, behavior: "smooth" });
+  };
   return (
     <div className="relative">
-      <div ref={scrollerRef} className="flex gap-3 overflow-x-auto scroll-smooth no-scrollbar py-1">
+      <div
+        ref={scrollerRef}
+        className="flex gap-3 overflow-x-auto scroll-smooth no-scrollbar py-1"
+      >
         {images.map((src, idx) => (
           <button
             key={src + idx}
@@ -163,25 +155,22 @@ function RowSwiper({
               alt={`Gallery image ${startIndex + idx + 1}`}
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
               loading="lazy"
-              decoding="async"
             />
           </button>
         ))}
       </div>
-
       <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-black/70 to-transparent rounded-l-xl" />
       <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-black/70 to-transparent rounded-r-xl" />
-
       <button
         aria-label="Previous"
-        onClick={() => scrollBy(-320)}
+        onClick={() => scrollBy(-300)}
         className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/10 backdrop-blur px-3 py-2 hover:bg-white/20 focus:outline-none"
       >
         ‹
       </button>
       <button
         aria-label="Next"
-        onClick={() => scrollBy(320)}
+        onClick={() => scrollBy(300)}
         className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/10 backdrop-blur px-3 py-2 hover:bg-white/20 focus:outline-none"
       >
         ›
@@ -190,6 +179,7 @@ function RowSwiper({
   );
 }
 
+/** Lightbox rendered via a portal so it is NOT clipped by parent rounded cards/overflow. */
 function Lightbox({
   images,
   index,
@@ -205,31 +195,54 @@ function Lightbox({
   onNext: () => void;
   onSelect: (i: number) => void;
 }) {
+  // Render only on client after DOM is ready
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
   return createPortal(
     <div className="fixed inset-0 z-[1000] bg-black/90 backdrop-blur-sm">
-      <button onClick={onClose} aria-label="Close" className="absolute right-4 top-4 rounded-full bg-white/10 px-3 py-2 hover:bg-white/20">
+      {/* Close / nav buttons */}
+      <button
+        onClick={onClose}
+        aria-label="Close"
+        className="absolute right-4 top-4 rounded-full bg-white/10 px-3 py-2 hover:bg-white/20"
+      >
         ✕
       </button>
-      <button onClick={onPrev} aria-label="Prev" className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/10 px-3 py-2 hover:bg-white/20">
+      <button
+        onClick={onPrev}
+        aria-label="Prev"
+        className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/10 px-3 py-2 hover:bg-white/20"
+      >
         ‹
       </button>
-      <button onClick={onNext} aria-label="Next" className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/10 px-3 py-2 hover:bg-white/20">
+      <button
+        onClick={onNext}
+        aria-label="Next"
+        className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/10 px-3 py-2 hover:bg-white/20"
+      >
         ›
       </button>
 
+      {/* Main image viewer (consistent size) */}
       <div className="flex h-full flex-col items-center justify-center gap-4 px-4 pb-24">
         <img
           src={images[index]}
           alt=""
-          className="max-h-[80vh] max-w-[90vw] object-contain rounded-2xl border border-altina-gold/30 shadow-[0_0_30px_rgba(255,215,0,0.20)]"
-          decoding="async"
+          className="
+            max-h-[80vh]
+            max-w-[90vw]
+            object-contain
+            rounded-2xl
+            border border-altina-gold/30
+            shadow-[0_0_30px_rgba(255,215,0,0.20)]
+            transition-all duration-300 ease-in-out
+          "
         />
       </div>
 
+      {/* Thumbnail bar */}
       <div className="absolute bottom-0 left-0 right-0 bg-black/60 p-3">
         <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto no-scrollbar">
           {images.map((src, i) => (
@@ -237,10 +250,17 @@ function Lightbox({
               key={src + i}
               onClick={() => onSelect(i)}
               className={`shrink-0 rounded-md overflow-hidden ring-2 transition-all duration-200 ${
-                i === index ? "ring-altina-gold scale-[1.05]" : "ring-white/10 hover:ring-altina-gold/40"
+                i === index
+                  ? "ring-altina-gold scale-[1.05]"
+                  : "ring-white/10 hover:ring-altina-gold/40"
               }`}
             >
-              <img src={src} alt={`thumb ${i + 1}`} className="h-16 w-24 object-cover" loading="lazy" decoding="async" />
+              <img
+                src={src}
+                alt={`thumb ${i + 1}`}
+                className="h-16 w-24 object-cover"
+                loading="lazy"
+              />
             </button>
           ))}
         </div>
