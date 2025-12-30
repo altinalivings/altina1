@@ -13,6 +13,23 @@ type Props = {
   caption?: string;
 };
 
+function normalizeSrc(src: string) {
+  const s = String(src || "").trim();
+  if (!s) return "";
+  // keep absolute urls and data/blob
+  if (/^(https?:)?\/\//i.test(s)) return s;
+  if (/^(data:|blob:)/i.test(s)) return s;
+  // ensure root-relative
+  return s.startsWith("/") ? s : `/${s}`;
+}
+
+function normalizeList(list: any) {
+  if (!Array.isArray(list)) return [];
+  return list
+    .map((x) => normalizeSrc(String(x || "")))
+    .filter(Boolean);
+}
+
 /**
  * Gallery that shows a 4-tile grid first, then a horizontal row ("swiper") for the rest.
  * Clicking any image opens a built-in lightbox with a thumbnail strip.
@@ -22,26 +39,28 @@ export default function ProjectGallery({
   images: imagesProp,
   caption = "Click any image to zoom",
 }: Props) {
-  const [images, setImages] = useState<string[]>(imagesProp ?? []);
+  const [images, setImages] = useState<string[]>(normalizeList(imagesProp));
 
   // If parent changes the prop, reflect that.
   useEffect(() => {
-    if (imagesProp && imagesProp.length) setImages(imagesProp);
+    if (imagesProp && imagesProp.length) setImages(normalizeList(imagesProp));
   }, [imagesProp]);
 
   // Optional auto-discovery from server endpoint
   useEffect(() => {
     if (imagesProp?.length || !slug) return;
+
     let alive = true;
-    fetch(`/api/gallery/${encodeURIComponent(slug)}`, { cache: "force-cache" })
+    fetch(`/api/gallery/${encodeURIComponent(slug)}`, { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : Promise.reject(r.statusText)))
       .then((d) => {
         if (!alive) return;
-        if (Array.isArray(d?.images)) setImages(d.images);
+        if (Array.isArray(d?.images)) setImages(normalizeList(d.images));
       })
       .catch(() => {
         /* ignore */
       });
+
     return () => {
       alive = false;
     };
@@ -74,6 +93,7 @@ export default function ProjectGallery({
       window.removeEventListener("keydown", onKey);
       document.documentElement.classList.remove("overflow-hidden");
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, images.length]);
 
   if (!images.length) return null;
@@ -96,6 +116,10 @@ export default function ProjectGallery({
               alt={`Gallery image ${i + 1}`}
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
               loading={i < 4 ? "eager" : "lazy"}
+              onError={(e) => {
+                // Optional: keep the tile but remove broken image
+                (e.currentTarget as HTMLImageElement).style.opacity = "0";
+              }}
             />
             <span className="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/10" />
           </button>
@@ -104,11 +128,7 @@ export default function ProjectGallery({
 
       {/* Rest: horizontal row with arrows */}
       {rest.length > 0 && (
-        <RowSwiper
-          images={rest}
-          startIndex={4}
-          onOpen={(absoluteIndex) => openAt(absoluteIndex)}
-        />
+        <RowSwiper images={rest} startIndex={4} onOpen={(absoluteIndex) => openAt(absoluteIndex)} />
       )}
 
       {open && (
@@ -135,15 +155,11 @@ function RowSwiper({
   onOpen: (absoluteIndex: number) => void;
 }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
-  const scrollBy = (dx: number) => {
-    scrollerRef.current?.scrollBy({ left: dx, behavior: "smooth" });
-  };
+  const scrollBy = (dx: number) => scrollerRef.current?.scrollBy({ left: dx, behavior: "smooth" });
+
   return (
     <div className="relative">
-      <div
-        ref={scrollerRef}
-        className="flex gap-3 overflow-x-auto scroll-smooth no-scrollbar py-1"
-      >
+      <div ref={scrollerRef} className="flex gap-3 overflow-x-auto scroll-smooth no-scrollbar py-1">
         {images.map((src, idx) => (
           <button
             key={src + idx}
@@ -155,12 +171,17 @@ function RowSwiper({
               alt={`Gallery image ${startIndex + idx + 1}`}
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
               loading="lazy"
+              onError={(e) => {
+                (e.currentTarget as HTMLImageElement).style.opacity = "0";
+              }}
             />
           </button>
         ))}
       </div>
+
       <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-black/70 to-transparent rounded-l-xl" />
       <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-black/70 to-transparent rounded-r-xl" />
+
       <button
         aria-label="Previous"
         onClick={() => scrollBy(-300)}
@@ -195,14 +216,12 @@ function Lightbox({
   onNext: () => void;
   onSelect: (i: number) => void;
 }) {
-  // Render only on client after DOM is ready
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
   return createPortal(
     <div className="fixed inset-0 z-[1000] bg-black/90 backdrop-blur-sm">
-      {/* Close / nav buttons */}
       <button
         onClick={onClose}
         aria-label="Close"
@@ -225,24 +244,14 @@ function Lightbox({
         ›
       </button>
 
-      {/* Main image viewer (consistent size) */}
       <div className="flex h-full flex-col items-center justify-center gap-4 px-4 pb-24">
         <img
           src={images[index]}
           alt=""
-          className="
-            max-h-[80vh]
-            max-w-[90vw]
-            object-contain
-            rounded-2xl
-            border border-altina-gold/30
-            shadow-[0_0_30px_rgba(255,215,0,0.20)]
-            transition-all duration-300 ease-in-out
-          "
+          className="max-h-[80vh] max-w-[90vw] object-contain rounded-2xl border border-altina-gold/30 shadow-[0_0_30px_rgba(255,215,0,0.20)] transition-all duration-300 ease-in-out"
         />
       </div>
 
-      {/* Thumbnail bar */}
       <div className="absolute bottom-0 left-0 right-0 bg-black/60 p-3">
         <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto no-scrollbar">
           {images.map((src, i) => (
@@ -250,17 +259,10 @@ function Lightbox({
               key={src + i}
               onClick={() => onSelect(i)}
               className={`shrink-0 rounded-md overflow-hidden ring-2 transition-all duration-200 ${
-                i === index
-                  ? "ring-altina-gold scale-[1.05]"
-                  : "ring-white/10 hover:ring-altina-gold/40"
+                i === index ? "ring-altina-gold scale-[1.05]" : "ring-white/10 hover:ring-altina-gold/40"
               }`}
             >
-              <img
-                src={src}
-                alt={`thumb ${i + 1}`}
-                className="h-16 w-24 object-cover"
-                loading="lazy"
-              />
+              <img src={src} alt={`thumb ${i + 1}`} className="h-16 w-24 object-cover" loading="lazy" />
             </button>
           ))}
         </div>
