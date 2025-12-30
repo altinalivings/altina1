@@ -5,6 +5,9 @@ import { useEffect, useMemo, useState } from "react";
 import * as DetailsMod from "@/components/ProjectDetailsSections";
 import * as RelatedMod from "@/components/RelatedProjects";
 import * as FloatMod from "@/components/FloatingCTAs";
+import HomeLoanCalculator, {
+  parseINRFromPriceText,
+} from "@/components/HomeLoanCalculator";
 
 type Project = {
   id: string;
@@ -28,8 +31,19 @@ const ProjectDetailsSections = pick(DetailsMod, "ProjectDetailsSections");
 const RelatedProjects = pick(RelatedMod, "RelatedProjects");
 const FloatingCTAs = pick(FloatMod, "FloatingCTAs");
 
-export default function ProjectDetailClientShell({ project }: { project: Project }) {
-  const [galleryImages, setGalleryImages] = useState<string[]>(project.gallery ?? []);
+export default function ProjectDetailClientShell({
+  project,
+}: {
+  project: Project;
+}) {
+  const [galleryImages, setGalleryImages] = useState<string[]>(
+    project.gallery ?? []
+  );
+
+  // Prefill calculator with price (if parseable)
+  const defaultPropertyValue = useMemo(() => {
+    return parseINRFromPriceText(project.price);
+  }, [project.price]);
 
   const bases = useMemo(() => {
     const set = new Set<string>();
@@ -60,8 +74,10 @@ export default function ProjectDetailClientShell({ project }: { project: Project
 
     async function loadGallery() {
       // Hints for your API
-      const heroFolderHint =
-        project.hero?.startsWith("/projects/") ? project.hero.split("/")[2] : "";
+      const heroFolderHint = project.hero?.startsWith("/projects/")
+        ? project.hero.split("/")[2]
+        : "";
+
       const nameHint = (project.name || "")
         .toLowerCase()
         .replace(/&/g, "and")
@@ -75,9 +91,12 @@ export default function ProjectDetailClientShell({ project }: { project: Project
           alt: project.slug ?? "",
           hint: heroFolderHint || nameHint || "",
         });
-        const res = await fetch(`/api/gallery/${project.id}?` + params.toString(), {
-          cache: "no-store",
-        });
+
+        const res = await fetch(
+          `/api/gallery/${project.id}?` + params.toString(),
+          { cache: "no-store" }
+        );
+
         if (res.ok) {
           const data = await res.json();
           apiImages = Array.isArray(data?.images) ? data.images : [];
@@ -94,8 +113,12 @@ export default function ProjectDetailClientShell({ project }: { project: Project
       for (const base of bases) {
         for (let i = 1; i <= 25; i++) {
           let found = false;
+
           for (const ext of exts) {
-            const candidates = [`${base}/g${i}.${ext}`, `${base}/gallery/g${i}.${ext}`];
+            const candidates = [
+              `${base}/g${i}.${ext}`,
+              `${base}/gallery/g${i}.${ext}`,
+            ];
 
             for (const url of candidates) {
               if (seen.has(url)) continue;
@@ -129,22 +152,42 @@ export default function ProjectDetailClientShell({ project }: { project: Project
     return () => {
       aborted = true;
     };
-  }, [project.id, project.slug, project.hero, project.name, project.gallery, bases]);
+  }, [
+    project.id,
+    project.slug,
+    project.hero,
+    project.name,
+    project.gallery,
+    bases,
+  ]);
 
   return (
     <>
       {/* IMPORTANT:
-          Hero must be rendered ONLY in src/app/projects/[id]/page.tsx
-          Do NOT render ProjectHeroWithInfo in this client shell.
+        Hero must be rendered ONLY in src/app/projects/[id]/page.tsx
+        Do NOT render ProjectHeroWithInfo in this client shell.
       */}
 
+      {/* EMI Calculator (Illustrative) */}
+      <section className="mx-auto max-w-6xl px-4 pt-6">
+        <HomeLoanCalculator
+          projectName={project.name}
+          defaultPropertyValue={defaultPropertyValue}
+        />
+      </section>
+
+      {/* Details + gallery + sections */}
       <section className="relative z-0 mx-auto max-w-6xl px-4 pt-8 pb-10">
         {ProjectDetailsSections && (
-          <ProjectDetailsSections project={{ ...project, images: galleryImages } as any} />
+          <ProjectDetailsSections
+            project={{ ...project, images: galleryImages } as any}
+          />
         )}
       </section>
 
-      {FloatingCTAs && <FloatingCTAs projectId={project.id} projectName={project.name} />}
+      {FloatingCTAs && (
+        <FloatingCTAs projectId={project.id} projectName={project.name} />
+      )}
 
       {/* Keep RelatedProjects below the fold if you use it */}
       {RelatedProjects && null}
