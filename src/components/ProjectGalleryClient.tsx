@@ -14,52 +14,134 @@ type Props = {
   images?: string[];
   slug?: string;
   caption?: string;
+
+  /**
+   * Controls how the main image fits.
+   * - "cover": premium look, may crop edges
+   * - "contain": no crop, may show letterboxing
+   */
+  fit?: "cover" | "contain";
+
+  /**
+   * Main frame aspect ratio for consistent sizing across mixed images.
+   * Use "16/9" for wide hero-like visuals; "4/3" for more balanced framing.
+   */
+  aspect?: "16/9" | "4/3";
 };
 
 /**
- * Client gallery: grid of thumbs -> lightbox with swipe, zoom, and thumbnail strip
+ * Client gallery:
+ * - Inline carousel (left/right swap) + thumbnail strip
+ * - Click to open lightbox with swipe + zoom + thumbnails
  */
-export default function ProjectGalleryClient({ images = [], slug, caption }: Props) {
+export default function ProjectGalleryClient({
+  images = [],
+  slug,
+  caption,
+  fit = "cover",
+  aspect = "16/9",
+}: Props) {
+  const safeImages = useMemo(() => (Array.isArray(images) ? images.filter(Boolean) : []), [images]);
+
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
 
-  const slides = useMemo(
-    () => images.map((src) => ({ src })),
-    [images]
-  );
+  const slides = useMemo(() => safeImages.map((src) => ({ src })), [safeImages]);
 
-  if (!images?.length) {
+  if (!safeImages.length) {
     return <div className="text-sm text-neutral-400">Gallery coming soon.</div>;
   }
+
+  const hasMany = safeImages.length > 1;
+  const current = safeImages[index] || safeImages[0];
+
+  const prev = () => setIndex((v) => (v - 1 + safeImages.length) % safeImages.length);
+  const next = () => setIndex((v) => (v + 1) % safeImages.length);
+
+  const aspectClass = aspect === "4/3" ? "aspect-[4/3]" : "aspect-[16/9]";
+  const fitClass = fit === "contain" ? "object-contain" : "object-cover";
 
   return (
     <div>
       {caption ? <p className="text-neutral-400 text-sm mb-3">{caption}</p> : null}
 
-      {/* Thumbnails grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-        {images.map((src, i) => (
-          <button
-            key={src + i}
-            type="button"
-            className="relative aspect-[4/3] overflow-hidden rounded-xl border border-white/10 focus:outline-none focus:ring-2 focus:ring-altina-gold/60"
-            onClick={() => {
-              setIndex(i);
-              setOpen(true);
-            }}
-            aria-label={`Open image ${i + 1} ${slug ? "for " + slug : ""}`}
-          >
-            <Image
-              src={src}
-              alt={`${slug || "project"} image ${i + 1}`}
-              fill
-              sizes="(max-width: 640px) 50vw, (max-width: 960px) 33vw, 25vw"
-              className="object-cover transition-transform duration-300 hover:scale-[1.02]"
-            />
-          </button>
-        ))}
+      {/* Main carousel frame (inline) */}
+      <div
+        className={[
+          "relative w-full overflow-hidden rounded-2xl border border-white/10 bg-black",
+          aspectClass,
+        ].join(" ")}
+      >
+        <button
+          type="button"
+          className="absolute inset-0 z-[1] cursor-zoom-in"
+          aria-label="Open gallery"
+          onClick={() => setOpen(true)}
+        />
+
+        <Image
+          src={current}
+          alt={`${slug || "project"} image ${index + 1}`}
+          fill
+          priority={index === 0}
+          sizes="(max-width: 768px) 100vw, 1000px"
+          className={["select-none", fitClass].join(" ")}
+        />
+
+        {hasMany && (
+          <>
+            <button
+              type="button"
+              aria-label="Previous image"
+              onClick={(e) => {
+                e.stopPropagation();
+                prev();
+              }}
+              className="absolute left-3 top-1/2 z-[2] -translate-y-1/2 rounded-full bg-black/55 px-3 py-2 text-white border border-white/10 hover:bg-black/70"
+            >
+              ‹
+            </button>
+
+            <button
+              type="button"
+              aria-label="Next image"
+              onClick={(e) => {
+                e.stopPropagation();
+                next();
+              }}
+              className="absolute right-3 top-1/2 z-[2] -translate-y-1/2 rounded-full bg-black/55 px-3 py-2 text-white border border-white/10 hover:bg-black/70"
+            >
+              ›
+            </button>
+
+            <div className="absolute bottom-3 right-3 z-[2] rounded-full bg-black/55 px-3 py-1 text-xs text-white border border-white/10">
+              {index + 1} / {safeImages.length}
+            </div>
+          </>
+        )}
       </div>
 
+      {/* Thumbnail strip (better sizing + easier selection) */}
+      {hasMany && (
+        <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
+          {safeImages.map((src, i) => (
+            <button
+              key={`${src}-${i}`}
+              type="button"
+              onClick={() => setIndex(i)}
+              className={[
+                "relative h-20 w-28 flex-none overflow-hidden rounded-xl border bg-black",
+                i === index ? "border-altina-gold" : "border-white/10 hover:border-white/20",
+              ].join(" ")}
+              aria-label={`Select image ${i + 1} ${slug ? "for " + slug : ""}`}
+            >
+              <Image src={src} alt={`${slug || "project"} thumbnail ${i + 1}`} fill className="object-cover" sizes="120px" />
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Lightbox (swipe + zoom + thumbnail strip) */}
       <Lightbox
         open={open}
         close={() => setOpen(false)}
