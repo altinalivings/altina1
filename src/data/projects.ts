@@ -1022,6 +1022,215 @@ const projects: Project[] = [
     description:
       "GYGY FIVEO is a high-street retail and lifestyle destination in Sector 50 Noida catering to an upscale catchment.",
   },
+  
+    // -----------------------------
+  // EMAAR | Residential | Gurugram
+  // -----------------------------
+  {
+    id: "emaar-serenity-hills",
+    slug: "emaar-serenity-hills-sector-86-gurugram",
+    name: "Emaar Serenity Hills",
+    developer: "Emaar India Limited", // :contentReference[oaicite:0]{index=0}
+    brand: "Emaar",
+    rating: 4.7,
+    location: "Sector 86, Gurugram (frontage on 75m road)",
+    city: "Gurugram",
+    state: "Haryana",
+    sector: "Sector 86",
+    micro_market: "New Gurugram (NH-48 / Dwarka Expressway influence)",
+    rera:
+      "RC/REP/HARERA/GGM/993/725/2025/96 (16.10.2025) • RC/REP/HARERA/GGM/994/726/2025/97 (16.10.2025)", // :contentReference[oaicite:1]{index=1}
+    status: "New Launch / Under Construction",
+    construction_status: "Ongoing",
+    launch: "2025 (registered phases)",
+    price: "Price on Request",
+    propertyType: "Residential",
+    configuration: "3 & 4 BHK Luxury Apartments",
+    typologies: ["3 BHK (2T)", "3 BHK (3T + Utility)", "4 BHK (4T + PDR + Utility)"], // :contentReference[oaicite:2]{index=2}
+    sizes:
+      "Carpet: 947–1,571 sq.ft | Balcony: 235–427 sq.ft (indicative, current launch)", // :contentReference[oaicite:3]{index=3}
+    land_area: "25.90 acres (overall)", // :contentReference[oaicite:4]{index=4}
+    towers: 13, // :contentReference[oaicite:5]{index=5}
+    floors: "G+32 to G+39 (current launch, tower-wise)", // :contentReference[oaicite:6]{index=6}
+    total_units: "997 units (current launch)", // :contentReference[oaicite:7]{index=7}
+
+    usp: [
+      "8 acres of central greens + 20+ acres landscaped open space",
+      "~1 lakh sq.ft amenities with ~75,000 sq.ft clubhouse (built-up area, includes future development amenities)",
+      "IGBC Platinum pre-certified development",
+      "45+ fast EV charging stations (surface)",
+      "No EWS in the project (as per sales deck)",
+    ], // :contentReference[oaicite:8]{index=8}
+
+    highlights: [
+      "Direct frontage on 75m road; links to NH-48 and Dwarka Expressway",
+      "Current launch site area ~15.217 acres with 7 towers and 997 units",
+      "4-to-a-core cluster; 3 passenger + 1 service lift per tower (current launch)",
+    ], // :contentReference[oaicite:9]{index=9} :contentReference[oaicite:10]{index=10}
+
+    specifications: [
+      "Floor-to-floor height: 3.15m (current launch)",
+      "Modular kitchen with chimney + hob; branded CP fittings (snapshot)",
+      "VRF with high-wall units in bedrooms, living & dining (as per brochure)",
+      "Digital lock on main entry door (as per brochure)",
+    ], // :contentReference[oaicite:11]{index=11} :contentReference[oaicite:12]{index=12} :contentReference[oaicite:13]{index=13}
+
+    location_advantage: {
+      connectivity: [
+        "Sector 86 with direct frontage on 75m road; seamless links to NH-48 and Dwarka Expressway",
+        "Indicative distances (sales deck): IGI Airport ~35 km; Gurugram Railway ~15 km; HUDA City Centre Metro ~20 km; Cyber City ~22 km",
+      ],
+    }, // :contentReference[oaicite:14]{index=14} :contentReference[oaicite:15]{index=15}
+
+    amenities: [
+      // Club + lifestyle (includes future development amenities as per deck)
+      "Clubhouse / Banquet",
+      "Multicuisine Restaurant",
+      "Café / Bar Lounge",
+      "Gymnasium",
+      "Aerobics / Yoga / Zumba Studio",
+      "Juice Bar",
+      "Spa / Sauna / Steam",
+      "Salon",
+      "Guest Rooms",
+      "Kids’ Creche / Day Care",
+      "Library / Quiet Zone",
+      "Meeting / Conference Rooms",
+      "Coworking / Work Pods",
+      "Squash / Badminton / Table Tennis",
+      "Tennis / Pickle Ball",
+      "Swimming Pool",
+      "Jogging / Cycling Track",
+      // Outdoor greens / promenade (from masterplan list)
+      "Central Greens & Waterfront Promenade",
+      "Party Lawn / Event Lawn",
+      "Pet Park",
+    ], // :contentReference[oaicite:16]{index=16}
+
+    overview:
+      "Emaar Serenity Hills in Sector 86 is positioned as a nature-forward, amenity-rich high-rise community with large central greens, a resort-style clubhouse ecosystem and strong corridor connectivity.",
+    inventory_note:
+      "Phased offering: only the registered phases are currently offered for sale. Inventory, PLCs and inclusions vary by tower/floor—share budget + preferred typology to get the live rate card and availability.", // :contentReference[oaicite:17]{index=17}
+
+    hero: "/projects/emaar-serenity-hills/hero.jpg",
+    heroAlt: "Emaar Serenity Hills luxury residences in Sector 86 Gurugram with central greens",
+    gallery: [
+      "/projects/emaar-serenity-hills/g1.webp",
+      "/projects/emaar-serenity-hills/g2.webp",
+      "/projects/emaar-serenity-hills/g3.webp",
+      "/projects/emaar-serenity-hills/g4.webp",
+    ],
+    map: { embed: "https://www.google.com/maps?q=Emaar%20Serenity%20Hills%20Sector%2086%20Gurugram&z=15&output=embed" },
+
+    seo: {
+      title: "Emaar Serenity Hills, Sector 86 Gurugram – 3 & 4 BHK Luxury Apartments | Altina Livings",
+      description:
+        "Explore Emaar Serenity Hills in Sector 86 Gurugram: 3 & 4 BHK luxury apartments with 8 acres central greens, ~1 lakh sq.ft amenities and strong NH-48/Dwarka Expressway connectivity (verify inventory phase-wise).",
+      canonical: "https://altinalivings.com/projects/emaar-serenity-hills-sector-86-gurugram",
+    },
+    featured: true,
+    featured_order: 8,
+    description:
+      "Emaar Serenity Hills is a premium high-rise community in Sector 86 featuring large central greens, a clubhouse-led lifestyle ecosystem and strong corridor connectivity.",
+  },
+
+  // -----------------------------
+  // SIGNATURE GLOBAL | Mixed (90% Resi, 10% Comm) | Gurugram (Dwarka Expressway)
+  // -----------------------------
+  {
+    id: "signatureglobal-sarvam",
+    slug: "signatureglobal-sarvam-dxp-estate-sector-37d-gurugram",
+    name: "Signatureglobal Sarvam at DXP Estate",
+    developer: "Signatureglobal Homes Limited", // :contentReference[oaicite:18]{index=18}
+    brand: "Signature Global",
+    rating: 4.6,
+    location: "DXP Estate, Sector 37D, Gurugram",
+    city: "Gurugram",
+    state: "Haryana",
+    sector: "Sector 37D",
+    micro_market: "Dwarka Expressway",
+    rera: "RC/REP/HARERA/GGM/1008/740/2025/111 (07.11.2025)", // :contentReference[oaicite:19]{index=19}
+    status: "New Launch",
+    construction_status: "Planned / Under Construction",
+    propertyType: "Mixed", // 90% Residential + 10% Commercial :contentReference[oaicite:20]{index=20}
+    land_area: "13.5656 acres (Mixed Land Use Colony)", // :contentReference[oaicite:21]{index=21}
+    configuration: "3 & 4 BHK Residences + Commercial (within mixed land-use township)",
+    typologies: [
+      "4 BHK + 4T + Utility",
+      "3 BHK + 3T + Utility (Type 1)",
+      "3 BHK + 3T + Utility (Type 2)",
+      "3 BHK + 3T",
+      "3 BHK + 2T (Type 1)",
+      "3 BHK + 2T (Type 2)",
+    ], // :contentReference[oaicite:22]{index=22}
+    price: "Price on Request",
+    sizes: "Size matrix on request (typology-wise, inventory dependent)",
+
+    usp: [
+      "Mixed land-use under TOD policy: 90% residential + 10% commercial",
+      "Club + landscaped outdoor program with multiple theme zones",
+      "Dwarka Expressway micro-market positioning (DXP Estate, Sector 37D)",
+    ], // :contentReference[oaicite:23]{index=23} :contentReference[oaicite:24]{index=24}
+
+    highlights: [
+      "Project registered with Haryana RERA: RC/REP/HARERA/GGM/1008/740/2025/111",
+      "Site plan includes club, water features, event lawn, forest/yoga zones and multi-sport courts",
+      "Multiple 3 BHK and 4 BHK layouts listed in the brochure (type-wise)",
+    ], // :contentReference[oaicite:25]{index=25} :contentReference[oaicite:26]{index=26} :contentReference[oaicite:27]{index=27}
+
+    amenities: [
+      "Clubhouse",
+      "Amphitheater",
+      "Kids’ Theme Park",
+      "Miyawaki Forest",
+      "Yoga Area",
+      "Event Lawn",
+      "Reflexology Park",
+      "Lap Pool",
+      "Kids’ Pool",
+      "Leisure Pool",
+      "Jacuzzi",
+      "Jogging Trail",
+      "Zen Garden",
+      "Sculpture Garden",
+      "BBQ Garden",
+      "Pet Garden",
+      "Multi-purpose Court",
+      "Half Basketball Court",
+      "Pickle Ball Court",
+      "Paddle Court",
+      "Fitness Area",
+      "Croquet Court",
+      "Bowling Alley Lawn (as per legend)",
+    ], // :contentReference[oaicite:28]{index=28}
+
+    overview:
+      "Signatureglobal Sarvam at DXP Estate is positioned as a mixed land-use community on Dwarka Expressway with an amenity-rich club and landscaped outdoor zones, paired with a limited commercial component.",
+    inventory_note:
+      "Configuration, sizes, PLCs and scheme details are inventory-based. Share budget + preferred 3/4 BHK type to get the current availability and rate card.",
+
+    hero: "/projects/signatureglobal-sarvam/hero.jpg",
+    heroAlt: "Signatureglobal Sarvam at DXP Estate, Sector 37D Gurugram on Dwarka Expressway",
+    gallery: [
+      "/projects/signatureglobal-sarvam/g1.jpg",
+      "/projects/signatureglobal-sarvam/g2.jpg",
+      "/projects/signatureglobal-sarvam/g3.jpg",
+      "/projects/signatureglobal-sarvam/g4.jpg",
+    ],
+    map: { embed: "https://www.google.com/maps?q=DXP%20Estate%20Sector%2037D%20Gurugram&z=15&output=embed" },
+
+    seo: {
+      title: "Signatureglobal Sarvam at DXP Estate, Sector 37D – 3 & 4 BHK + Mixed-Use | Altina Livings",
+      description:
+        "Signatureglobal Sarvam at DXP Estate (Sector 37D) is a mixed land-use project (90% residential + 10% commercial) on Dwarka Expressway with club + landscaped amenity zones (verify inventory and RERA details).",
+      canonical: "https://altinalivings.com/projects/signatureglobal-sarvam-dxp-estate-sector-37d-gurugram",
+    },
+    featured: true,
+    featured_order: 9,
+    description:
+      "Signatureglobal Sarvam at DXP Estate is a Dwarka Expressway mixed-use opportunity featuring 3/4 BHK residences, clubhouse lifestyle and an integrated commercial component.",
+  },
+
 ];
 
 export default projects;
