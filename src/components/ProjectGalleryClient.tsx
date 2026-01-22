@@ -149,16 +149,44 @@ export default function ProjectGalleryClient({
         </div>
       )}
 
-      {/* Lightbox (swipe + zoom + thumbnails) */}
+      {/* Lightbox (force navigation arrows visible) */}
       <Lightbox
         open={open}
         close={() => setOpen(false)}
         index={index}
         slides={slides}
         plugins={[Thumbnails, Zoom]}
-        carousel={{ finite: false }}
+        carousel={{ finite: !hasMany }}
         thumbnails={{ position: "bottom" }}
         zoom={{ maxZoomPixelRatio: 2.5, scrollToZoom: true }}
+        // Ensure arrows are not suppressed anywhere
+        render={{
+          // Strong, visible icons for prev/next
+          iconPrev: () => <span style={{ fontSize: 26, lineHeight: 1 }}>‹</span>,
+          iconNext: () => <span style={{ fontSize: 26, lineHeight: 1 }}>›</span>,
+          // If only 1 image, hide buttons cleanly (recommended by docs)
+          buttonPrev: hasMany ? undefined : () => null,
+          buttonNext: hasMany ? undefined : () => null,
+        }}
+        // Force the navigation slots to be visible even if global CSS hides them
+        styles={{
+          navigationPrev: {
+            display: hasMany ? "flex" : "none",
+            opacity: 1,
+            pointerEvents: hasMany ? "auto" : "none",
+            zIndex: 9999,
+          },
+          navigationNext: {
+            display: hasMany ? "flex" : "none",
+            opacity: 1,
+            pointerEvents: hasMany ? "auto" : "none",
+            zIndex: 9999,
+          },
+          button: {
+            backgroundColor: "rgba(0,0,0,0.55)",
+            border: "1px solid rgba(255,255,255,0.12)",
+          },
+        }}
       />
     </div>
   );
