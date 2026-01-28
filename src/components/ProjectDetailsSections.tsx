@@ -302,15 +302,7 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
         </Section>
       ) : null}
 
-      {/* 4) Home Loan Calculator */}
-      <Section title="Home Loan Calculator (Illustrative)">
-        <HomeLoanCalculator projectName={project?.name} defaultPropertyValue={defaultPropertyValue} />
-        <p className="mt-3 text-xs text-neutral-400 leading-relaxed">
-          Disclaimer: This calculator is for illustrative purposes only. Loan eligibility, EMI, interest rate, charges
-          and final sanction depend on lender policies, credit profile and documentation. Please verify with your bank/NBFC.
-        </p>
-      </Section>
-
+      
       {/* 5) Location Advantage */}
       {hasAnyLocationAdvantage(locAdv) ? (
         <Section title="Location Advantage">
