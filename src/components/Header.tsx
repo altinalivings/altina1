@@ -86,9 +86,6 @@ export default function Header() {
               page,
               project: project || "",
               mode: "contact",
-              // optional raw context
-              location: window.location.href,
-              search: window.location.search,
             })
           : {};
 
