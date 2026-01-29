@@ -13,6 +13,8 @@ import Notifier from "@/components/Notifier";
 import AutoCallbackPrompt from "@/components/AutoCallbackPrompt";
 import AnalyticsGuards from "@/components/AnalyticsGuards";
 import Script from "next/script";
+import AttributionInit from "@/components/AttributionInit";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -114,12 +116,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: preInteractiveGuard }}
         />
       </head>
-	  <AttributionInit />
+	  
 
 
       <body className={inter.className + " flex min-h-screen flex-col"}>
         {/* 🧩 Global safety guards */}
-        <AnalyticsGuards />
+        <AttributionInit />
+		<AnalyticsGuards />
 
         {/* 🏠 Header */}
         <Header />
