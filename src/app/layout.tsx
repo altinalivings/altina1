@@ -114,6 +114,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: preInteractiveGuard }}
         />
       </head>
+	  <AttributionInit />
+
 
       <body className={inter.className + " flex min-h-screen flex-col"}>
         {/* 🧩 Global safety guards */}

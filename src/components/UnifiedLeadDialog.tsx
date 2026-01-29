@@ -3,6 +3,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { trackLead, trackContact } from "@/lib/track";
+import { getAttribution, initAttributionOnce } from "@/lib/attribution";
 
 type Mode = "callback" | "visit" | "brochure" | "contact";
 
@@ -37,6 +38,10 @@ export default function UnifiedLeadDialog({
 }: Props) {
   const [open, setOpen] = useState(Boolean(openProp));
   useEffect(() => setOpen(Boolean(openProp)), [openProp]);
+
+  useEffect(() => {
+    initAttributionOnce();
+  }, []);
 
   const label = useMemo(() => {
     if (page) return page;
@@ -86,9 +91,14 @@ export default function UnifiedLeadDialog({
   }
 
   function validate(): string | null {
+    if (!form.name.trim()) return "Please enter your name.";
     if (!phone10Re.test(form.phone)) return "Please enter a valid 10-digit phone number.";
-    if (!emailRe.test(form.email.trim())) return "Please enter a valid email address.";
+    if (mode === "callback" && !emailRe.test(form.email.trim())) return "Please enter a valid email address.";
     if (!consent) return "Please accept the consent to proceed.";
+    if (mode === "visit") {
+      if (!form.preferred_date) return "Please select a preferred date.";
+      if (!form.preferred_time) return "Please select a preferred time.";
+    }
     return null;
   }
 
@@ -107,7 +117,15 @@ export default function UnifiedLeadDialog({
     }
 
     try {
+      const attrib = getAttribution({
+        source,
+        page: label,
+        project: projectName || "",
+        mode,
+      });
+
       const payload = {
+        ...attrib,
         name: form.name,
         phone: form.phone,
         email: form.email,
@@ -142,9 +160,21 @@ export default function UnifiedLeadDialog({
 
       if (typeof window.gtag === "function") {
         if (mode === "contact") {
-          window.gtag("event", "contact", { event_category: "engagement", event_label: label, value: 1, debug_mode: true });
+          window.gtag("event", "contact", {
+            event_category: "engagement",
+            event_label: label,
+            value: 1,
+            debug_mode: true,
+          });
         } else {
-          window.gtag("event", "generate_lead", { event_category: "engagement", event_label: label, value: 1, mode, project: projectName || "", debug_mode: true });
+          window.gtag("event", "generate_lead", {
+            event_category: "engagement",
+            event_label: label,
+            value: 1,
+            mode,
+            project: projectName || "",
+            debug_mode: true,
+          });
         }
       }
 
@@ -172,54 +202,85 @@ export default function UnifiedLeadDialog({
             <h3 className="text-lg font-semibold">{heading}</h3>
             {projectName ? <p className="text-xs text-neutral-400 mt-1">{projectName}</p> : null}
           </div>
-          <button onClick={onClose} className="text-neutral-300 hover:text-white">✕</button>
+          <button onClick={() => (onClose?.(), setOpen(false))} className="text-neutral-400 hover:text-white">
+            ✕
+          </button>
         </div>
 
         <form onSubmit={onSubmit} className="mt-4 grid gap-3">
           <div className="grid gap-2 sm:grid-cols-2">
-            <input required name="name" placeholder="Your Name" value={form.name} onChange={(e) => onChange("name", e.target.value)} className="rounded-xl border border-white/15 bg-transparent px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-altina-gold/40" />
-            <input required name="phone" placeholder="Phone (10 digits)" value={form.phone} onChange={(e) => onChange("phone", e.target.value)} inputMode="numeric" pattern="\d{10}" maxLength={10} className="rounded-xl border border-white/15 bg-transparent px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-altina-gold/40" />
+            <input
+              required
+              name="name"
+              placeholder="Your Name"
+              value={form.name}
+              onChange={(e) => onChange("name", e.target.value)}
+              className="rounded-xl border border-white/15 bg-transparent px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-altina-gold/40"
+            />
+            <input
+              required
+              name="phone"
+              placeholder="Phone (10 digits)"
+              value={form.phone}
+              onChange={(e) => onChange("phone", e.target.value)}
+              inputMode="numeric"
+              pattern="\d{10}"
+              maxLength={10}
+              className="rounded-xl border border-white/15 bg-transparent px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-altina-gold/40"
+            />
           </div>
 
-          <input required type="email" name="email" placeholder="Email" value={form.email} onChange={(e) => onChange("email", e.target.value)} className="rounded-xl border border-white/15 bg-transparent px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-altina-gold/40" />
+          <input
+            required={mode === "callback"}
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={(e) => onChange("email", e.target.value)}
+            className="rounded-xl border border-white/15 bg-transparent px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-altina-gold/40"
+          />
 
-          {mode !== "brochure" && (
-            <textarea name="note" placeholder="Your message (optional)" value={form.note} onChange={(e) => onChange("note", e.target.value)} rows={3} className="rounded-xl border border-white/15 bg-transparent px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-altina-gold/40" />
-          )}
-
-          {/* Optional date/time for visit */}
-          {mode === "visit" && (
+          {mode === "visit" ? (
             <div className="grid gap-2 sm:grid-cols-2">
               <input
+                required
                 type="date"
-                name="preferred_date"
                 value={form.preferred_date}
                 onChange={(e) => onChange("preferred_date", e.target.value)}
                 className="rounded-xl border border-white/15 bg-transparent px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-altina-gold/40"
               />
               <input
+                required
                 type="time"
-                name="preferred_time"
                 value={form.preferred_time}
                 onChange={(e) => onChange("preferred_time", e.target.value)}
                 className="rounded-xl border border-white/15 bg-transparent px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-altina-gold/40"
               />
             </div>
-          )}
+          ) : null}
 
-          <label className="mt-1 flex items-start gap-2 text-xs text-neutral-300">
-            <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} required className="mt-0.5 h-4 w-4 rounded border-white/20 bg-transparent" />
-            <span>I authorize company representatives to Call, SMS, Email or WhatsApp me about its products and offers. This consent overrides any registration for DNC/NDNC.</span>
+          <textarea
+            name="note"
+            placeholder="Message (optional)"
+            value={form.note}
+            onChange={(e) => onChange("note", e.target.value)}
+            className="min-h-[90px] rounded-xl border border-white/15 bg-transparent px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-altina-gold/40"
+          />
+
+          <label className="flex items-start gap-2 text-xs text-neutral-300">
+            <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-1" />
+            I agree to be contacted by Altina Livings via call/WhatsApp/SMS/email.
           </label>
 
-          <button type="submit" disabled={submitting} className="rounded-xl px-5 py-2 text-sm font-semibold text-[#0D0D0D] border border-altina-gold/60 shadow-altina bg-gold-grad hover:opacity-95 disabled:opacity-60">
-            {submitting ? "Please wait…" : buttonText}
+          <button
+            disabled={submitting}
+            className="rounded-xl px-5 py-2 text-sm font-semibold text-[#0D0D0D] border border-altina-gold/60 shadow-altina bg-gold-grad hover:opacity-95 disabled:opacity-60"
+          >
+            {submitting ? "Submitting..." : buttonText}
           </button>
 
-          {ok === true && mode === "brochure" && <p className="text-sm text-emerald-400">Thanks for requesting the brochure. Our advisor will call you for the required details.</p>}
-          {ok === true && mode === "visit" && <p className="text-sm text-emerald-400">We appreciate your interest. Expect a personalized follow-up very soon.</p>}
-          {ok === true && (mode === "callback" || mode === "contact") && <p className="text-sm text-emerald-400">Your journey to premium living starts here — our team will reach out shortly.</p>}
-          {ok === false && err ? <p className="text-sm text-red-400">{err}</p> : null}
+          {ok === true ? <p className="text-xs text-emerald-400">Submitted successfully.</p> : null}
+          {ok === false ? <p className="text-xs text-red-400">{err || "Unable to submit"}</p> : null}
         </form>
       </div>
     </div>

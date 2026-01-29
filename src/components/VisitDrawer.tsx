@@ -1,8 +1,9 @@
 // src/components/VisitDrawer.tsx
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { trackLead } from "@/lib/track";
+import { getAttribution, initAttributionOnce } from "@/lib/attribution";
 
 type Props = {
   open: boolean;
@@ -28,6 +29,10 @@ export default function VisitDrawer({ open, onClose, projectName, page }: Props)
   const [submitting, setSubmitting] = useState(false);
   const [ok, setOk] = useState<null | boolean>(null);
   const [err, setErr] = useState<string>("");
+
+  useEffect(() => {
+    initAttributionOnce();
+  }, []);
 
   function onChange<K extends keyof typeof form>(k: K, v: string) {
     if (k === "phone") v = phone10(v);
@@ -66,7 +71,15 @@ export default function VisitDrawer({ open, onClose, projectName, page }: Props)
           }
         })();
 
+      const attrib = getAttribution({
+        source: "visit-drawer",
+        page: label,
+        project: projectName || "",
+        mode: "visit",
+      });
+
       const payload = {
+        ...attrib,
         name: form.name,
         phone: form.phone,
         email: form.email,
@@ -115,42 +128,81 @@ export default function VisitDrawer({ open, onClose, projectName, page }: Props)
 
   return (
     <div className="fixed inset-0 z-[70] bg-black/60">
-      <div className="absolute right-0 top-0 h-full w-full max-w-md overflow-auto border-l border-white/10 bg-[#0B0B0C] p-5">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <h3 className="text-lg font-semibold">Schedule a Site Visit</h3>
-            {projectName ? <p className="text-xs text-neutral-400 mt-1">{projectName}</p> : null}
-          </div>
-          <button onClick={onClose} className="text-neutral-300 hover:text-white">✕</button>
+      <div className="absolute right-0 top-0 h-full w-full max-w-md border-l border-white/10 bg-[#0B0B0C] p-5">
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-semibold">Schedule a Site Visit</h3>
+          <button onClick={onClose} className="text-neutral-400 hover:text-white">
+            ✕
+          </button>
         </div>
 
         <form onSubmit={onSubmit} className="mt-4 grid gap-3">
+          <input
+            name="name"
+            placeholder="Your Name"
+            value={form.name}
+            onChange={(e) => onChange("name", e.target.value)}
+            className="rounded-xl border border-white/15 bg-transparent px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-altina-gold/40"
+          />
+          <input
+            required
+            name="phone"
+            placeholder="Phone (10 digits)"
+            value={form.phone}
+            onChange={(e) => onChange("phone", e.target.value)}
+            inputMode="numeric"
+            pattern="\d{10}"
+            maxLength={10}
+            className="rounded-xl border border-white/15 bg-transparent px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-altina-gold/40"
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email (optional)"
+            value={form.email}
+            onChange={(e) => onChange("email", e.target.value)}
+            className="rounded-xl border border-white/15 bg-transparent px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-altina-gold/40"
+          />
+
           <div className="grid gap-2 sm:grid-cols-2">
-            <input required name="name" placeholder="Your Name" value={form.name} onChange={(e) => onChange("name", e.target.value)} className="rounded-xl border border-white/15 bg-transparent px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-altina-gold/40" />
-            <input required name="phone" placeholder="Phone (10 digits)" value={form.phone} onChange={(e) => onChange("phone", e.target.value)} inputMode="numeric" pattern="\d{10}" maxLength={10} className="rounded-xl border border-white/15 bg-transparent px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-altina-gold/40" />
+            <input
+              required
+              type="date"
+              value={form.preferred_date}
+              onChange={(e) => onChange("preferred_date", e.target.value)}
+              className="rounded-xl border border-white/15 bg-transparent px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-altina-gold/40"
+            />
+            <input
+              required
+              type="time"
+              value={form.preferred_time}
+              onChange={(e) => onChange("preferred_time", e.target.value)}
+              className="rounded-xl border border-white/15 bg-transparent px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-altina-gold/40"
+            />
           </div>
 
-          <input type="email" name="email" placeholder="Email (optional)" value={form.email} onChange={(e) => onChange("email", e.target.value)} className="rounded-xl border border-white/15 bg-transparent px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-altina-gold/40" />
+          <textarea
+            name="note"
+            placeholder="Message (optional)"
+            value={form.note}
+            onChange={(e) => onChange("note", e.target.value)}
+            className="min-h-[90px] rounded-xl border border-white/15 bg-transparent px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-altina-gold/40"
+          />
 
-          <textarea name="note" placeholder="Any preference or query (optional)" value={form.note} onChange={(e) => onChange("note", e.target.value)} rows={3} className="rounded-xl border border-white/15 bg-transparent px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-altina-gold/40" />
-
-          <div className="grid gap-2 sm:grid-cols-2">
-            <input type="date" name="preferred_date" value={form.preferred_date} onChange={(e) => onChange("preferred_date", e.target.value)} className="rounded-xl border border-white/15 bg-transparent px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-altina-gold/40" />
-            <input type="time" name="preferred_time" value={form.preferred_time} onChange={(e) => onChange("preferred_time", e.target.value)} className="rounded-xl border border-white/15 bg-transparent px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-altina-gold/40" />
-          </div>
-
-          {/* Consent (always) */}
-          <label className="mt-1 flex items-start gap-2 text-xs text-neutral-300">
-            <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} required className="mt-0.5 h-4 w-4 rounded border-white/20 bg-transparent" />
-            <span>I authorize company representatives to Call, SMS, Email or WhatsApp me about its products and offers. This consent overrides any registration for DNC/NDNC.</span>
+          <label className="flex items-start gap-2 text-xs text-neutral-300">
+            <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-1" />
+            I agree to be contacted by Altina Livings via call/WhatsApp/SMS/email.
           </label>
 
-          <button type="submit" disabled={submitting} className="rounded-xl px-5 py-2 text-sm font-semibold text-[#0D0D0D] border border-altina-gold/60 shadow-altina bg-gold-grad hover:opacity-95 disabled:opacity-60">
-            {submitting ? "Please wait…" : "Schedule Visit"}
+          <button
+            disabled={submitting}
+            className="rounded-xl px-5 py-2 text-sm font-semibold text-[#0D0D0D] border border-altina-gold/60 shadow-altina bg-gold-grad hover:opacity-95 disabled:opacity-60"
+          >
+            {submitting ? "Submitting..." : "Schedule Visit"}
           </button>
 
-          {ok === true && <p className="text-sm text-emerald-400">We appreciate your interest. Expect a personalized follow-up very soon.</p>}
-          {ok === false && err ? <p className="text-sm text-red-400">{err}</p> : null}
+          {ok === true ? <p className="text-xs text-emerald-400">Submitted successfully.</p> : null}
+          {ok === false ? <p className="text-xs text-red-400">{err || "Unable to submit"}</p> : null}
         </form>
       </div>
     </div>

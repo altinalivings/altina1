@@ -1,17 +1,10 @@
-// src/components/AttributionInit.tsx
 "use client";
-
 import { useEffect } from "react";
 import { initAttributionOnce } from "@/lib/attribution";
 
-/**
- * Mount this once (ideally in your root layout / top-level client shell).
- * It captures first-touch attribution (UTMs/click-ids) on landing.
- */
 export default function AttributionInit() {
   useEffect(() => {
     initAttributionOnce();
   }, []);
-
   return null;
 }
