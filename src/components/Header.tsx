@@ -4,6 +4,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState, useCallback } from "react";
+import { getAttribution, initAttributionOnce } from "@/lib/attribution";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -16,6 +17,11 @@ export default function Header() {
     setToast({ msg, type });
     setTimeout(() => setToast(null), 2500);
   };
+
+  // ✅ Init attribution once so first-touch is captured on landing
+  useEffect(() => {
+    initAttributionOnce();
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -65,27 +71,58 @@ export default function Header() {
       return;
     }
 
+    const page =
+      typeof window !== "undefined"
+        ? window.location.pathname + window.location.search
+        : undefined;
+
     setSubmitting(true);
     try {
-      await fetch("/api/lead", {
+      // ✅ Attach attribution (utm_*, click ids, first/last touch, device, session, timezone, etc.)
+      const attrib =
+        typeof window !== "undefined"
+          ? getAttribution({
+              source: "header_enquiry",
+              page,
+              project: project || "",
+              mode: "contact",
+              // optional raw context
+              location: window.location.href,
+              search: window.location.search,
+            })
+          : {};
+
+      const payload = {
+        ...attrib,
+        name,
+        // ✅ always send normalized 10-digit phone
+        phone,
+        project: project || "",
+        message,
+        source: "header_enquiry",
+        // ✅ keep page consistent across all forms
+        page,
+        mode: "contact",
+      };
+
+      const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          phone,
-          project,
-          message,
-          source: "header_enquiry",
-          page: typeof window !== "undefined" ? window.location.href : undefined,
-        }),
+        body: JSON.stringify(payload),
       });
+
+      if (!res.ok) {
+        const t = await res.text().catch(() => "");
+        throw new Error(t || "Request failed");
+      }
 
       form.reset();
       setPhone("");
-      
+      setPhoneErr(null);
+
       showToast("Thanks! We’ll get in touch shortly.", "ok");
-	  setOpen(false);
-    } catch {
+      setOpen(false);
+    } catch (err) {
       showToast("Something went wrong. Please try again.", "err");
     } finally {
       setSubmitting(false);
@@ -103,58 +140,71 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <Image
-            src="/logos/Altina.png"
-            alt="ALTINA™ Livings"
-            width={40}
-            height={40}
-            className="h-20 w-20 rounded"
-            priority
-          />
-          
-		  <div className="leading-tight">
-            <div className="font-semibold text-white">ALTINA<span className="align-top text-[12px] ml-0.8">™</span> <span className="opacity-80">Livings</span></div>
-          </div>
-        </Link>
+              src="/logos/Altina.png"
+              alt="ALTINA™ Livings"
+              width={40}
+              height={40}
+              className="h-20 w-20 rounded"
+              priority
+            />
+
+            <div className="leading-tight">
+              <div className="font-semibold text-white">
+                ALTINA<span className="align-top text-[12px] ml-0.8">™</span>{" "}
+                <span className="opacity-80">Livings</span>
+              </div>
+            </div>
+          </Link>
 
           {/* Navigation */}
           <nav className="hidden md:flex gap-8 text-sm font-medium tracking-wide text-white">
-            <Link href="/" className="hover:text-altina-gold">Home</Link>
-            <Link href="/projects" className="hover:text-altina-gold">Projects</Link>
-            <Link href="/services" className="hover:text-altina-gold">Services We Offer</Link>
-            <Link href="/about" className="hover:text-altina-gold">About</Link>
-            <Link href="/contact" className="hover:text-altina-gold">Contact</Link>
+            <Link href="/" className="hover:text-altina-gold">
+              Home
+            </Link>
+            <Link href="/projects" className="hover:text-altina-gold">
+              Projects
+            </Link>
+            <Link href="/services" className="hover:text-altina-gold">
+              Services We Offer
+            </Link>
+            <Link href="/about" className="hover:text-altina-gold">
+              About
+            </Link>
+            <Link href="/contact" className="hover:text-altina-gold">
+              Contact
+            </Link>
           </nav>
 
-         {/* CTA Zone */}
-<div className="flex items-center gap-3 whitespace-nowrap">
-  {/* WhatsApp */}
-  <a
-    href="https://wa.me/919891234195"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="rounded-lg border border-[#C5A657] text-[#C5A657] px-3 py-1.5 text-sm font-semibold hover:bg-[#C5A657] hover:text-black transition"
-  >
-    WhatsApp
-  </a>
+          {/* CTA Zone */}
+          <div className="flex items-center gap-3 whitespace-nowrap">
+            {/* WhatsApp */}
+            <a
+              href="https://wa.me/919891234195"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-lg border border-[#C5A657] text-[#C5A657] px-3 py-1.5 text-sm font-semibold hover:bg-[#C5A657] hover:text-black transition"
+            >
+              WhatsApp
+            </a>
 
-  {/* Call Number */}
-  <a
-    href="tel:+919891234195"
-    className="text-[#C5A657] font-semibold text-sm hover:text-white transition"
-  >
-    +91&nbsp;98912&nbsp;34195
-  </a>
+            {/* Call Number */}
+            <a
+              href="tel:+919891234195"
+              className="text-[#C5A657] font-semibold text-sm hover:text-white transition"
+            >
+              +91&nbsp;98912&nbsp;34195
+            </a>
 
-  {/* Enquiry – styled same as WhatsApp */}
-  <button
-    onClick={() => setOpen(true)}
-    className="rounded-lg border border-[#C5A657] text-[#C5A657] px-3 py-1.5 text-sm font-semibold hover:bg-[#C5A657] hover:text-black transition"
-    aria-expanded={open}
-    aria-controls="altina-contact-form"
-  >
-    Enquire
-  </button>
-</div>
+            {/* Enquiry – styled same as WhatsApp */}
+            <button
+              onClick={() => setOpen(true)}
+              className="rounded-lg border border-[#C5A657] text-[#C5A657] px-3 py-1.5 text-sm font-semibold hover:bg-[#C5A657] hover:text-black transition"
+              aria-expanded={open}
+              aria-controls="altina-contact-form"
+            >
+              Enquire
+            </button>
+          </div>
         </div>
       </header>
 
@@ -235,7 +285,6 @@ export default function Header() {
                 </a>
               </div>
             </form>
-
           </div>
         </div>
       )}
