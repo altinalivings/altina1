@@ -45,6 +45,11 @@ const nextConfig = {
 
       // --- macOS zip artifact path (seen in your list) ---
       { source: "/__MACOSX/:path*", destination: "/", permanent: true },
+	    // projects .html -> clean slug
+    { source: "/projects/:slug(.+)\\.html", destination: "/projects/:slug", permanent: true },
+
+    // ✅ projects .htm -> clean slug
+    { source: "/projects/:slug(.+)\\.htm", destination: "/projects/:slug", permanent: true },
     ];
   },
 };
