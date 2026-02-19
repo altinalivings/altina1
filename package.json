@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "next dev -p 3000",
+    "prebuild": "node scripts/generate-gallery-manifest.mjs",
     "build": "next build",
     "start": "next start -p 3000",
     "lint": "next lint",
@@ -35,12 +36,4 @@
   "engines": {
     "node": "18.x || 20.x || 22.x"
   }
- {
-  "scripts": {
-    "prebuild": "node scripts/generate-gallery-manifest.mjs",
-    "build": "next build"
-  }
 }
-
-}
-
