@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 
 type Props = {
@@ -9,6 +9,13 @@ type Props = {
   caption?: string;
 };
 
+type GlobalManifest = Record<string, string[]>;
+type PerProjectManifest = { images?: string[] };
+
+function isHttpUrl(p: string) {
+  return /^https?:\/\//i.test(p);
+}
+
 export default function ProjectGallery({
   projectId,
   caption = "Click any image to zoom",
@@ -16,28 +23,80 @@ export default function ProjectGallery({
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
-  /* ---------------- Fetch from API ---------------- */
+  // ✅ Keep your extension set (and actually USE it)
+  const exts = useMemo(
+    () => new Set([".jpg", ".jpeg", ".png", ".webp", ".gif"]),
+    []
+  );
+
+  const isValidPath = (p: string) => {
+    const s = String(p || "").trim();
+    if (!s) return false;
+    if (!s.startsWith("/") && !isHttpUrl(s)) return false;
+
+    // If it’s a normal URL/path, filter by extension when possible.
+    // (Allow querystrings like ?v=1)
+    const base = s.split("?")[0].toLowerCase();
+    const dot = base.lastIndexOf(".");
+    if (dot === -1) return true; // allow extension-less (rare, but safe)
+    const ext = base.slice(dot);
+    return exts.has(ext);
+  };
+
   useEffect(() => {
     let alive = true;
 
-    setLoading(true);
-    fetch(`/api/gallery/${encodeURIComponent(projectId)}`, {
-      cache: "force-cache",
-    })
-      .then((r) => (r.ok ? r.json() : Promise.reject()))
-      .then((d) => {
-        if (!alive) return;
-        if (Array.isArray(d?.images)) {
-          setImages(d.images);
-        }
-      })
-      .catch(() => {})
-      .finally(() => alive && setLoading(false));
+    async function run() {
+      setLoading(true);
 
+      // ✅ Global manifest (generated at build-time)
+      const globalUrl = `/gallery-manifest.json`;
+
+      // Optional fallback (if you still want per-project manifests to work)
+      const perProjectUrl = `/projects/${encodeURIComponent(projectId)}/gallery/manifest.json`;
+
+      try {
+        // 1) Try global manifest first
+        const res = await fetch(globalUrl, { cache: "no-store" });
+
+        if (res.ok) {
+          const data = (await res.json()) as GlobalManifest;
+          const list = Array.isArray(data?.[projectId]) ? data[projectId] : [];
+
+          const cleaned = list
+            .map((x) => String(x || "").trim())
+            .filter(Boolean)
+            .filter(isValidPath);
+
+          if (alive) setImages(cleaned);
+          return;
+        }
+
+        // 2) Fallback to per-project manifest if global missing
+        const res2 = await fetch(perProjectUrl, { cache: "no-store" });
+        if (!res2.ok) throw new Error("No manifest available");
+
+        const data2 = (await res2.json()) as PerProjectManifest;
+        const list2 = Array.isArray(data2?.images) ? data2.images : [];
+
+        const cleaned2 = list2
+          .map((x) => String(x || "").trim())
+          .filter(Boolean)
+          .filter(isValidPath);
+
+        if (alive) setImages(cleaned2);
+      } catch {
+        if (alive) setImages([]);
+      } finally {
+        if (alive) setLoading(false);
+      }
+    }
+
+    run();
     return () => {
       alive = false;
     };
-  }, [projectId]);
+  }, [projectId, exts]);
 
   /* ---------------- Lightbox ---------------- */
   const [open, setOpen] = useState(false);
@@ -70,7 +129,7 @@ export default function ProjectGallery({
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {top.map((src, i) => (
             <button
-              key={src}
+              key={`${src}-${i}`}
               onClick={() => {
                 setIndex(i);
                 setOpen(true);
@@ -93,7 +152,7 @@ export default function ProjectGallery({
         <div className="flex gap-3 overflow-x-auto no-scrollbar py-1">
           {rest.map((src, i) => (
             <button
-              key={src}
+              key={`${src}-${i}`}
               onClick={() => {
                 setIndex(i + 4);
                 setOpen(true);
@@ -104,6 +163,7 @@ export default function ProjectGallery({
                 src={src}
                 className="h-full w-full object-cover"
                 loading="lazy"
+                alt=""
               />
             </button>
           ))}
@@ -152,6 +212,7 @@ function Lightbox({
         <img
           src={images[index]}
           className="max-h-[80vh] max-w-[90vw] object-contain rounded-2xl border border-altina-gold/30"
+          alt=""
         />
       </div>
 
@@ -159,15 +220,13 @@ function Lightbox({
         <div className="flex gap-2 overflow-x-auto no-scrollbar">
           {images.map((src, i) => (
             <button
-              key={src}
+              key={`${src}-${i}`}
               onClick={() => onSelect(i)}
               className={`h-16 w-24 overflow-hidden rounded-md border ${
-                i === index
-                  ? "border-altina-gold"
-                  : "border-white/10"
+                i === index ? "border-altina-gold" : "border-white/10"
               }`}
             >
-              <img src={src} className="h-full w-full object-cover" />
+              <img src={src} className="h-full w-full object-cover" alt="" />
             </button>
           ))}
         </div>
