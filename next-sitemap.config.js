@@ -25,7 +25,7 @@ try {
 }
 
 module.exports = {
-  siteUrl: "https://www.altinalivings.com",
+  siteUrl: "https://altinalivings.com",
   generateRobotsTxt: true,
   sitemapSize: 7000,
   changefreq: "weekly",
@@ -65,7 +65,7 @@ module.exports = {
 
   robotsTxtOptions: {
     additionalSitemaps: [
-      "https://www.altinalivings.com/sitemap.xml",
+      "https://altinalivings.com/sitemap.xml",
     ],
   },
 };

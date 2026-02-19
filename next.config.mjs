@@ -15,10 +15,9 @@ const nextConfig = {
     optimizePackageImports: ["swiper", "lucide-react"],
   },
 
-  // ✅ 301 redirects to eliminate old URL 404s in Google Search Console
-  async redirects() {
+    async redirects() {
     return [
-      // --- Old static .html pages -> clean routes ---
+      // ===== Legacy static .html -> clean routes =====
       { source: "/index.html", destination: "/", permanent: true },
       { source: "/about.html", destination: "/about", permanent: true },
       { source: "/contact.html", destination: "/contact", permanent: true },
@@ -27,31 +26,24 @@ const nextConfig = {
       { source: "/careers.html", destination: "/careers", permanent: true },
       { source: "/thank-you.html", destination: "/thank-you", permanent: true },
 
-      // --- Old subfolder deployment (seen in your GSC list) ---
-      // Example: /altinalivings1/projects/xyz.html -> /projects/xyz
+      // Gallery legacy
+      { source: "/gallery.html", destination: "/gallery", permanent: true },
+      { source: "/gallery.htm", destination: "/gallery", permanent: true },
+
+      // ===== Old subfolder deployment =====
       { source: "/altinalivings1/:path*", destination: "/:path*", permanent: true },
 
-      // --- Project .html -> project clean slug ---
-      // Example: /projects/crc-the-flagship.html -> /projects/crc-the-flagship
+      // ===== Project legacy .html/.htm -> clean slug =====
       { source: "/projects/:slug(.+)\\.html", destination: "/projects/:slug", permanent: true },
+      { source: "/projects/:slug(.+)\\.htm", destination: "/projects/:slug", permanent: true },
 
-      // --- Optional: remove trailing /index.html anywhere ---
-      { source: "/:path*/index.html", destination: "/:path*", permanent: true },
-
-      // --- WordPress-ish feeds (if they appear) -> homepage or insights ---
-      // If you have an insights/blog page, you can send /feed/ there.
+      // ===== WP-ish feeds (if discovered) =====
       { source: "/feed/", destination: "/", permanent: true },
       { source: "/comments/feed/", destination: "/", permanent: true },
 
-      // --- macOS zip artifact path (seen in your list) ---
+      // ===== macOS zip junk =====
       { source: "/__MACOSX/:path*", destination: "/", permanent: true },
-	    // projects .html -> clean slug
-    { source: "/projects/:slug(.+)\\.html", destination: "/projects/:slug", permanent: true },
-
-    // ✅ projects .htm -> clean slug
-    { source: "/projects/:slug(.+)\\.htm", destination: "/projects/:slug", permanent: true },
     ];
   },
-};
 
 export default nextConfig;

@@ -4,11 +4,11 @@ const config: DefaultSeoProps = {
   titleTemplate: "%s | ALTINA™ Livings",
   defaultTitle: "ALTINA™ Livings – Luxury Real Estate Channel Partner",
   description:
-    "ALTINA™ Livings – Curated luxury apartments, villas, and residences in Delhi NCR. Channel partner to leading developers like DLF, Sobha, M3M, Godrej.",
+    "ALTINA™ Livings – Curated luxury apartments, villas, and residences in Delhi NCR. Channel partner to leading developers like DLF, Sobha, M3M, Godrej, Smartworld, Elaan, GYGY and more.",
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://www.altinalivings.com/",
+    url: "https://altinalivings.com/",
     siteName: "ALTINA™ Livings",
   },
   twitter: {

@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /api/
 
-Sitemap: https://www.altinalivings.com/sitemap.xml
+Sitemap: https://altinalivings.com/sitemap.xml
