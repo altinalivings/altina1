@@ -22,6 +22,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\robots.txt
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\scripts
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\SEO-SETUP-README.md
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\src
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\src.zip
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\tailwind.config.ts
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\tools
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\tsconfig.json
@@ -369,16 +370,19 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\04\9d5e58c4a8
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\04\d20a006c2a08b543467610c4a6d03c7a48075a
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\05\35b8d0dbe4bd5513ac486a7b56753b51b2ee8a
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\05\54a6be203bb68b40e736cdd28438a73d7eb707
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\05\6034fde7ff5d2bd2c3dce2d692a340d9bda23f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\05\9f6f95be168525ab8d8ddccdb37bc2fa15e98b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\05\aff2c42e35f2026f43bdd8cac351d4b2d4818f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\05\b0a8d6b2e59fa8ce8ad3a97a965eb9e6b58d0a
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\05\e8a12a0f2ff9e0f00e2a340850fe8a4ba726ba
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\05\f1cf447306e78bf3bef59afef19fb2a129f0c4
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\06\0cf12d917a3c49be9045f2d9f626481507aa6c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\06\1834b1e0696dc1e4a841cd495820d7bb1d0e8a
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\06\22cda85b4970b96d6c1746404956f57986f778
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\06\40fbc3d682f77280a90cbc28e251b35e5a272f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\06\55566fcd651bd3eb93fae3bfac7c86aa09db20
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\06\557a01342f9ec8af4ddca18e67e426ef86ee41
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\06\5cf84d96e64fc8d3c2585de36665310050a1dc
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\06\5d96c954340de4dbc278135abaa6807a98e6e6
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\06\66e9c12f3126b769b01ff33244a0c5430812dc
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\06\745e6732013049b2cc1a5043c329f367155b84
@@ -394,6 +398,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\07\3b40febc1d
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\07\41d2ab33b6716e04dd9e1c6556732dfa1258e0
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\07\4a1e34397cdb85abb5d598aad3a2e8ea3c44aa
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\07\52159fad151d59479bc451d6cdacb4387467ea
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\07\620edd194f4c4d5f591bd5e434eb3ae2d6a4ec
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\07\75efd80d1e286c28ed5d757626116e6942d6e1
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\07\92c677129efe7346a9cddbad05fc7052150e9e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\07\9d0d73938e53a322840e09a2f9c2b665e9a561
@@ -401,6 +406,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\07\a167a50879
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\07\b7ba9fd61251bb52635ebdb785134ce99a913f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\07\d37858fcc4c6cc2337d54e652a9b3e27d6e18f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\08\2315b3730323beab5cd507d11db3b106e045b5
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\08\3b07052c44e4c530e9612504138a6f7239d568
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\08\52e6e797d9844e09458eaf67f01d7f8c1aecb9
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\08\61608b0ae91ae87ba49ba5727580faf31b01f5
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\08\61c58c19c8931541d5f300537626740e344c9a
@@ -415,6 +421,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\09\60bde3a3c2
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\09\70515363debf0d3bd96d5155c649313a54a8d7
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\09\7ab3989786e2ea2ded7b2adccebd01aa3d9359
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\09\7cdf2f0ad55f98d4881518f2b93e7ba8707adf
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\09\881323b99e65ecaffa6f36a8638ca7daefbac6
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\09\9b18217f34b37bb83ece86b66e4bed4c03acdc
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\09\a017d0eac25c6beec4b5529eccff4682671b94
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\09\d00f6a4aa225fff9f066abc69b5de66990ce25
@@ -468,6 +475,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\0f\4c11242d58
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\0f\8bd7080d74da7cd91571d565e8190020fe2083
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\0f\8f302f51480ff6bd3c35903366aaf19ace050c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\0f\a2990a602b6165a65be7f9ba688947c6a0dc44
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\0f\b818e9ecf602de2e8c21b134be58571cf3d14f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\0f\c29ecd62086564174fbe2115dfbf491b7b3c8d
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\0f\d76c6d9844de278594d7e460fc49efc3e8f0d4
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\0f\df6f012c866a1644609079c2dee5ab4e8d0ccc
@@ -485,6 +493,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\10\f8b512c69c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\11\1d19b367a43e2043b36f81f9c98cfb4fa85fd9
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\11\36364972b914571f9daa5f1c55673dc906cabb
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\11\98c0979a035b32a574d59442d3f3923cb3b9bd
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\11\c34af7d3477232d882380a790090a18d707cc6
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\11\d3ea7bed249cac48d33dafd478ca73b41f0b72
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\11\e93185bf56d8f64db5e7a9b4d2387b918dd634
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\12\0488e15007d335a332408ba56cbbda8d02de84
@@ -536,6 +545,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\17\439842774b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\17\534614bb13c2cdde816b04c606c391852b4ad8
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\17\57b407da5b4cd5418a5e3a4e729eb89db6ddcd
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\17\626d341c41e128a05e0ff8f5cfaa87156a9897
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\17\7c6c48bffdba4516cafadc4610c27f0cf4416c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\17\bed8ab609848c69fe1c28e1e0b10784717d77b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\18\12c4bd4238643fb182ac302ba572cab16362af
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\18\3503376e5002e8da729fa0d978f65363d28bf8
@@ -585,6 +595,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\1d\6f39d4dc1c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\1d\70e4436d4926753e1d8f51b9d8c50e4e07a9bd
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\1d\a19bb8d5e2681cb3a91f0ab47a5bfcc3aed1ca
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\1d\cf2941d78bee2da8313f6cfb6b01c224de18f5
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\1d\d3bf6e013695e319f892f59878a1af538a4da6
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\1d\d3fd665c80b23583b97995b15a659b9a442d4e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\1d\f4bdeb5f307f8ee3709c0d9ca9bc32ea32cd44
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\1e\0a548dc963b66db5fd67734a172969a00c1b51
@@ -609,6 +620,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\20\0bc77a11e0
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\20\0c4b858d11ee64b252200f9e6dadcdb90b3a64
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\20\0f401b4020cce9e68afa133fcd23ca70811b25
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\20\4ffb30773142f2ae5440b38d9ec50112bb06c5
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\20\52fbf316882f9b808d3655bbb5be28d9d1313b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\20\5f8ccd38b623394c627bc13242ffff0bcd54d5
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\20\61f5fd432c993c41d1c1d4f625337b6389de29
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\20\9117ab348e579c284fd9f82de7649a2538c51f
@@ -618,6 +630,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\20\dfecd696d1
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\21\1fb28f297cc685b1a9262a0906964c17e8e642
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\21\47277b425f98bf455b4a512e68fbe1f720ea87
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\21\587fe41d4a7ea48ca6b931679c47b5057b972c
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\21\69127cfc6ac73ee04df684e410dcffe47e2ef5
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\21\753497584008e2e7f70b240c2bc8ce1a3b2550
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\21\d2c986cefe8edde6fc9c7dc32bed802eccfdfe
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\21\df5a33eb35f682543b79f1703a7cb58fc4dd72
@@ -631,6 +644,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\22\5bbd1764c0
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\22\6b3743bcbfbc8667587d940f0196b56cfce856
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\22\7b1abd1652312622504d21b40c90dc758a7c69
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\22\8fc0a4d1c8f1f176d48d651707a4154769d9e5
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\22\a4e453549c79bfcbdef7113db7be95742d46db
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\22\b97827418290df485f9f92bee346466d9a5ab5
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\22\bd565ad9c1e3afc3fc02d77cf9bf56ab838c8d
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\22\c3121e00323d1aefc0ffc0fccfe52d237ce54a
@@ -653,6 +667,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\25\4b1af63f97
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\25\7a2b3136011a1cf81089eeebc9cb979aa23499
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\25\ba6839d231f730dc1734baacda621a751c65ea
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\25\e000b52992ccef59efd94f653a426ba600bcee
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\25\f938fab9e38177ab656fecb2d7bfd91f44153b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\26\04ecc6ef97b92f659947d5acd5ce3c3a18052c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\26\22b19abca01db470fe132558383f1535c27868
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\26\2bfa0361160caa36b970f702e3c2cd244dbd46
@@ -664,6 +679,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\26\9c1e415e11
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\26\9d6aaab91cb0db58052a4f82c1764f0381523e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\26\d4929ff20fa5b5daacfa80bb4806136886332b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\26\ddfbdf9e4b36a4fcd0b436c057160e241079cb
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\26\df65c424188d4044736870ae5e377428e4a47c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\26\e3daf1df5cf8b095350aebc1585e93cfff80e3
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\26\fcfc5b707145be4f54e95de19384b1e98f507e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\26\ff4211f0808e3b843c7e2fd3768f0af404e0b3
@@ -697,6 +713,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\2b\0977d122e6
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\2b\2269cdf616f2b05570f3680e295fd6ddb28f3b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\2b\3574f12a7e420aeb1ab00f3d38c3cd475fd850
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\2b\60b3fbe21fe7e320fd4573a33af2b3e456d118
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\2b\8404203d5be61dd5de5214b0ae6e8e745dde48
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\2b\c4c47d2f01f6040802d82fbf2d1341995e033c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\2b\fb43e5fdfcbc8c97c8308edb0b9429a455bd64
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\2c\32670acc45c74babd4e80ab303d086b8b2ea66
@@ -716,6 +733,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\2d\3df005486f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\2d\68c827c8004d3d180bb92c4b7605a826a3613c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\2d\a694edc3b5aa72f7046b205c3754cc96612402
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\2d\aad72d1b724a4c4d9a4daa6b577de7e02cb1b3
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\2d\ae8547eae9734651930f4bd4794bd651e45d62
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\2d\c997707c5ac75fc7d485895110f265b7ff2591
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\2d\d9421e892d80b0fd964c2c08bd07b56149d196
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\2e\05a35c2db66231db4bee2ff043fbac26ffbd4b
@@ -731,6 +749,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\2e\fd7e47a79e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\2f\2d94ff33c1796633f294dc6ae9353fab7768e7
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\2f\65129fa598c76b2d80019f516352489125594c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\2f\6f063a6d674adc7951ff45388578071bde3633
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\2f\b159e8e6ca669aaaa2c0940c85b44813780de9
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\2f\bc608ecdbf2f7999ede70972bc4f8d283eda3f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\2f\c3361d1c005944383ab324286fe95c03fdcc75
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\2f\d6817b937d32022e5d3bb33de1b52024ea6be9
@@ -749,6 +768,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\31\29bddc50a8
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\31\3553d43dd76db29526fb963b77b669299681f3
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\31\4253a4b35c3659770b8af9407b88afb8708890
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\31\4d3291075df6df7d5039511c0129dd6a722eb4
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\31\549362b6478cd2ea9c8d361ede19014364a9ff
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\31\707cad9c8be4fbd7348d053ce9b5cdafd92ce1
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\31\7216f14abed48801446baf7a5cd69c5a20886b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\31\81a5dce21f87b6c85c27cd87ad16fdacecd157
@@ -776,6 +796,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\33\814562799a
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\33\86347a7f70fafe722d2eecbf3b9a80d4b99176
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\33\b3d11ae519edbb9cce87e85838454d268f7dac
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\33\b59b8d4d6bbf0e4ff8f37fdcbe5fb03b2989e4
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\33\f82050bfd83b21729a3a70885366afe85caa4e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\34\1cd3fe475705acaabd86307bfd97e007f1209b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\34\43661fc52b15ab64e69b207289685cdcef7744
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\34\72f0c7a89a2a4aed3c9e9f1c0e4759c9d91d00
@@ -788,6 +809,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\35\447ca73f00
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\35\4bc6fe42b187cd973eec0d4dd801624aefbf2d
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\35\5fa85d01d87ed2cb3a2505da31aa7600af9bb0
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\35\70ba03e3a314a8c85da07c81c466019cdb869f
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\35\a1cf69f0130360710088bb97cdfcd1c4dbd539
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\35\b9ab274a3174a66efada2c106d423d7088c19a
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\35\ba43356a372959c756ff40b92cc6d37ef68839
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\36\42bfd359bdd6515b7b04e0bf613cc73a4237f6
@@ -796,6 +818,8 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\36\c0b61084c2
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\36\dac23984bda812e104b1aeebd0bda27c549886
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\36\f33f0aded5bd2260a53a1c0c68a644c6777e77
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\37\0afdff37d2863e1f70899c8f8e53f1bbb8c0fb
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\37\0f5c5296ebbb18cfbeec792f447a4ccaaa8e54
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\37\1268be84bf6aaaeca461a790545c40716ca1aa
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\37\1674e0dc70868017a215c9cbf8b89f0dba1851
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\37\3bb4a8373379af06f478396222e7bc1c151850
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\37\3dfe8a090289c02a9ec1343667b0fe4ff3abe4
@@ -805,6 +829,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\37\b683f9df8b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\37\ba0b0a05565149f435ccd43bfd2412615bac60
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\37\d17f90a3cc8639d2bb219ddea206ceed6428f1
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\37\e0b498aa6b10a1dd5922acf3446431c315a56a
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\37\e108a1aeaa14b713956c42040ddcf46b9ea846
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\38\1ed536cb11a7b1d4d1f110062e73033bdc61bf
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\38\1f9fe7e6647d42aa436afdcc4bb55cd95f59b1
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\38\4056f4e3f9d3d9f748652608c104fc0ec48f48
@@ -883,6 +908,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\41\52deb82541
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\41\61f694aac66623ed542742a8d2ee3698bed914
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\41\6fdc5f40d4f61c77de2309485ec70b328c8a7b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\41\ad4f7e0978b811c6e44a38a56c675f94c740e7
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\41\b820b7b7235af9e10ba0d03738c2f2ee75dc6f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\41\c8f95386d52b820aa813bf4ccead3134cdea3b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\41\ce42afc9e38bbfd3a3348940e454cc24eacc3f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\41\e5ed60665fb76d5d01f7c698437520cd6177af
@@ -898,6 +924,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\42\89a1d12f06
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\42\8ca670a1776b38aa7b333d3be588000c15e826
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\42\92ed117fa75db5c797449bee3436efbb860fc4
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\42\9ad4827727ad8d5fc1259691417a6a3a3dd616
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\42\bf6bddf85ae8f791bf644f9c965c2bdb0d012a
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\42\ef3d983faa4587a73e33d946c4cbb47bc7908f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\43\06340b80b2d4434990ac3b2a0c26d7d7feb12d
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\43\0dfa261959101d21d4a0fc4d2898f5f5f827a3
@@ -906,6 +933,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\43\60d175db3f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\43\76f59e2f4126a0c492abf082f5b68a62495fdc
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\43\974a8996e8f4a7ea51bb8f2a86f2b4f690cbe8
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\43\bca813f812276c82d339eae69dcc3180629921
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\43\bd456bbc7906a3a86f8d79b1b864d4398a7f4a
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\44\4c37cbdf8bf265cddc8da9a948f58922925197
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\44\55855f0193f7a8c8c24745e5cabe5389647a0b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\44\60d3952b8a0a269e6d896195ce2b0031a11446
@@ -960,6 +988,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\49\e5d04a0a95
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\49\ed41e477f6c95625c6df6e42c6e6767b1958c6
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\4a\0a35b3a0d3e06536007f4ef973139d68fa9307
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\4a\1fdf5380188bae7d516360ac4f1668a6520421
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\4a\6fcc3f8e6fcc6a5b73bd0938057e82a9675d87
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\4a\813571bfd39c262bc8576535226d99a7c2b158
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\4a\a04a8759b78a5b29e859a0502aa76916d5ffa6
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\4a\af072e6422c7dc8df004f3aafb748d526b41d1
@@ -1011,6 +1040,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\4f\b8bcf74056
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\4f\ec49681cadc5846db90fe1b66fa046a1274298
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\50\03ccf708181cfb8e323b182cc28d9162d79229
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\50\0c59369e1952909790402b5f97ba0b9d3c467b
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\50\2ee6f61cfd7db8af5fedecfac689f47ce470fd
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\50\49ce2e0d903fe4763e04891a1784ded1cc4cf3
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\50\4b2e8565ca0d794cc0e18e22748bbc5441401d
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\50\4ca316f5053d7408dc425e4b57a45be99ad688
@@ -1022,6 +1052,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\50\9e1af469c5
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\50\c36da8d946139f7942acf22fc78b7cef3f7894
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\50\d2eca5b73e9ae06897379f1e1c41b7cc463435
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\50\de870ec27924cf46406ad960ab9c0eb82454c4
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\50\ebe8c1eaf3463187def3b4b57ac03628f11b31
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\51\1897c2ff80517b57d7d96582bf68d3ab6c4461
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\51\577c1d25da01bfdcafd4bb2402baf901dc7e79
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\51\5cf928f86fb36a75d4855d39dfd4e48a624438
@@ -1043,14 +1074,17 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\53\85ce3afed2
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\53\b5c29b214982bd2f96d7247ba7e6ac4e76fab4
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\53\ea1127b688416ccccb10f8a469ff8c0afd4015
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\54\03771b516d2ab41f3e7dd225c6672f1c540443
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\54\0b781a4c63ec439ac95006a9ed94fd343ca5a5
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\54\0d13296ec72c4511a5e3ca11fdbd9a8a8517d3
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\54\25a5a844800fa6d4b3a02820d2ceea31b438f5
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\54\3969753defae97a6f7a63806092e989fabf3be
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\54\46a472dbc8943acb8be9e9b4f29f7661fc3721
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\54\5e2d4e15d8e539381e3ca5ffcc11410c6cdc51
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\54\a221889a9cff6108d98b9058ae490dfa687a9c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\54\b04d6ddef6f8a3aca06ce012e79193b2817b28
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\54\d11fc1bc4bf2dcdfb3c48387b97b9efa31479e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\55\0997be46da43564953153831d6ebafffa6764e
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\55\15fb235f9fe2d6b6de22cfbd05f00325241532
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\55\19f8ef3cb3123cfa7b399177fba1c19921941f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\55\2478e80e2145ac4a051d0fc3ece55e423057c9
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\55\48714058e0609fa44a52d223767af3253746ab
@@ -1060,6 +1094,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\55\865ce649de
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\55\90e82559fecd28f2d7d4cbf21a7fdf7fce70ce
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\55\c2c1613f50600694e0e861b2e9cdb095459fca
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\55\f051a7f8a057885740a41c8bfa55b255e06b50
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\56\14360af970f935fa9b6e194a5316ed7aa1fa34
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\56\4ef05cbbf9477cf228fbb636bbc97f22c25ead
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\56\6577684f6ff120d46a570a2b83de11c71f282b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\56\689e6971479256ac0e854b491b0d3e6b0bb040
@@ -1067,12 +1102,15 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\56\7d4382d96e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\56\94c3b7b7bb36863dff8a548993741061095908
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\56\9a89cf5ad83627d6e12884dd7ee4422a210510
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\57\05029ee2edf23e63ea77095efcc451a63112aa
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\57\0600a802244dfee65afdc4c210cb187a26a83c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\57\3d3f299b9677ecba6155440d69a1a6981af0a7
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\57\58febb8aa67272985907fb244efbe60c701a21
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\57\882e57d4ca88fe46d550b7d13cbeb0622708c8
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\57\928d4637b5a81bf225fbcd1386106606bd5d69
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\57\d2256d17e912816baf43a9486ed127ae62b401
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\57\d8fa6421c3a2ae42f873e938f617ea41349b14
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\57\ff5af95f0392695374031a9c267cd759afef9e
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\58\4ba133bdd1bb08777af2a12f7fc952aab949df
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\58\5a7efaaf144e004e9a29005fda68dbb9edee59
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\58\85935c0eadd24c765d83f33d8972382ef621d9
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\58\87b81ebcb50f41051a84079d4e8be7b8eea800
@@ -1119,8 +1157,10 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\5c\f5f99a621d
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\5d\03943caf4d3522b4b3f69dc8b27e2b5066d86f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\5d\1b799bf5a4bc54bfe5d6e0abf8975be589e65c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\5d\3071a16876cb8613c16e55f67ffc207ff35536
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\5d\43b27a887800605adac32fc0db1aad48ca7b27
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\5d\4535dacdb88389eb88e9297d5c5af36e19955a
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\5d\47bd177b5b2af2bc39787889565abb59ed1014
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\5d\5aee752f530f152315ea10e0a70249021062a6
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\5d\61610fefedfb2f91cce10e7c6c0e84b90df22a
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\5d\6a520dfd9cdc8947cfafef2c800aefe7578db2
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\5d\77daef930389e6574d9ad59db9b052499fc6d0
@@ -1160,6 +1200,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\60\0877aada12
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\60\3eaa11b905e5d09941869c5ace120b31a0106a
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\60\4df76797bf4c69c2a7360e6a21a2d1ece962f0
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\60\5fc8267e60c9a108ac5dbc757e1763aca27ce9
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\60\62c15fef87c0eb3a4d2491b236514b239ca0a1
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\60\c04e990ebed075da6e1fe463a33ed4b025abae
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\60\d8590b0da73c525443bc1cd4ad75549c1b3cce
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\61\0bcd4408cbb1c767ce49bc230e9d9d22f58003
@@ -1180,6 +1221,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\62\1d64457df9
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\62\4fd09121d3e9785d2b5a3cfa24c472c514777e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\62\6aad7917f69bfcaa393104a58f5d07ef18979e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\62\8b9cfee478592c5bb38cabdbaac8409f8cbed6
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\62\8fec34c7320478643a82f3535e8bbe2db90d8d
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\62\90e646663c4e290839202063e3ac46ed47f54d
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\62\b0d1777a458b9e17fd2cbc8534e420de3d4a32
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\62\bbff03041c6453dcb1bb7cedc4bfba6f6cd6ac
@@ -1268,7 +1310,9 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\6c\88611cca81
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\6c\b98d4b7b074703c1daa22af0f8c99cf1947c69
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\6c\cdd82bf5ae0a16cb7c0b11aac6e3c0078da108
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\6c\d4d54db009f2b005dc84761876b74029c90d26
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\6c\fb6ef1b5f446a3d72dcd1f8f4f072a7e1b1c21
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\6d\15ae2d9b8277d742292bc2ae30af714bfe4943
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\6d\3d0bfc456d567e3b87fc787513c8069aa3c82e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\6d\8c0780483ad9954872bd88561424bd08c4c7b6
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\6d\976e77315a32a114776742fa9849b33751852b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\6d\a060c0b42c15defec4e04aa81de6f266e66fa3
@@ -1295,6 +1339,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\6f\a4a54ebffe
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\6f\adda8651b49ef01defc481c7ee77508879afbc
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\6f\d34c335a82f48a6c68a14a0cc5341887b9f8de
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\6f\da162af56e1ec091fe4a2c019c959af2d4c33e
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\6f\fd3467859c50fc154c44b5435b3a8e23be84e7
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\70\5053f6d0de16131d56a444782bedac7156a96e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\70\a46876f4f3e07703a825dd2f46c1455bc7aa41
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\70\c78f7b876c534dfb726c625c19000d1b33d685
@@ -1320,6 +1365,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\72\f1f10c34e5
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\73\16fab1dfd708ba5110541d89db78e0f2eaa9fb
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\73\269efd5e310774c6ceebacdb9f7edf5e304d9f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\73\26a9cc3d80e4364a858aa63dcf4811e483e285
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\73\327a4e7c51c9c3be7e2baa86fc9aaae241f690
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\73\35340d4a410f4ea6b1334ee54e5d4c8b38c1ad
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\73\3aea39907894218fac11bb3119f469f8461bb1
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\73\3e4ec14efd716f33074fcad3d20ec37b7c6b04
@@ -1334,6 +1380,8 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\74\68ca4bb209
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\74\7972d369ef824fd91842b817609e1695e2b0c4
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\74\93df89d8fe74f7aca9dad5bdee6d18f0c2cfe3
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\74\958686bbd11addf8ab41bd0e43cfde423d7eae
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\74\9e9f7889d73e1349da8fb5574dca3b4e3191fd
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\74\ac7e81baed10909cfa955c417ba1e10a84e3cf
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\75\04be7586dd7c8b500236ac78cd87bdd3010cfd
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\75\0a864d41e9de0c7771d65957b5fbbfb0cd288f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\75\3c9cceac80e2225ceb0a95edef60509655de14
@@ -1367,6 +1415,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\79\4c10799668
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\79\ba672483fa216349281e6495ec9c5098e4ce79
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\79\d83aef8767e7d633e8629741a505bea9ac4dec
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\7a\3e2f4375206b9da6c3d35b5b51f4618b384210
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\7a\83aacbe855ea418f018a903b06d2fe0a537c60
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\7a\84a7b5c72f2469baac2e974e0c85ab87d67a20
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\7a\84dcd6733e96de10549e7d51f135cee9d8062d
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\7a\c1014b200569f1fd44ae28a97adedeff1d3712
@@ -1422,6 +1471,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\80\315284459f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\80\3a615e4b024729398e5aef339acda564d016d9
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\80\3cd0243cc562c4f697b8203071a6ad95f0c99b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\80\44092ba13c92fdc868d48aea9b1b62636a42f5
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\80\4a4461633818d67d164b2117f2ea3afe296ff0
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\80\7c052b5421078c0c78b576fec0d1f399c0f175
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\80\7fba49a360ffe075ff85299a08767132cd2686
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\80\801df097a3194dcf978d66fcb22d82cc2d83af
@@ -1429,7 +1479,9 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\80\8f702e2fdd
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\80\ae215f870e776c2486c94e98bd6f11234d9eca
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\80\b3b2b060a53c63fc672c73b6d2f11bea56e0e8
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\80\d7a223e995a6ab449bc96783044ba5db98181b
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\80\d85fed287dd1648614a4ae0aae99ce71be8c93
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\80\dfe7cd7cf149d4abe5ab4260b4cc4a1bc4ae40
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\80\f9483da1138d3d1b8c38318819c5baf3c2e2b2
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\81\01e97923fb8c5da405fc9ac6e9c5fc5869bdcb
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\81\03a1802ae672e5e44380bbfe226a57ac12da25
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\81\1b1f7a2ebe42bb974ff3617a7d25f15b017739
@@ -1474,6 +1526,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\85\18520b17d9
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\85\51c3fd027f505b56df5d5c4843163583e24640
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\85\87e3d0997447bf2b403b8bd6a962e94889f872
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\85\8a3fb0e30a2af5f00da54df3bbcea7dfe27665
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\85\d0cef218e360cd4485369033f6a42fb780bfc2
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\85\edc973d9971dc88ace04b38b46bf3684ee34d9
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\85\fe226a3196c63ec8e57e912a6923917614ce71
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\86\0098b0ea3de692f2d6619bb204fab9cd3345c0
@@ -1490,6 +1543,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\86\ad431de219
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\86\cd072af7dfcee3d3c974b7d5054048a0bd74bb
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\86\fc25e1d2fca8136d960d24729eab92027de297
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\87\0abe36085ffeef6d788e22a9f25b8978beb13a
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\87\2e3a026ecdfbd087f858494304254db6cf248d
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\87\5b9bea26bd1b067638d381e58d0db58c09b227
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\87\8bb321989df638720eeca7fff4ff77da277f7d
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\87\a4dc91c4f7c8ee8b2fbc204b771b0128775f22
@@ -1508,11 +1562,14 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\88\ee4fbf4352
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\89\0d0da57cd868d3772e2684f9c75b963a392cef
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\89\2cb2294ebfa13ababa61ee61f63a194737ac56
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\89\34aa1c5787db2f9acd66db0fe01df7f5c0a746
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\89\3c1027517945d3340f11e65b8d3e58232cbe4e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\89\86cff2eea1256dd9e90db2144bccd722d9ab8b
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\89\8f06dc8161d88bff740fa92158d608929533a7
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\89\a63a86d07e62f99be346703fd204d07599652f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\89\be5664f29904ba28c4f6c02a648ba24876975c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\89\d184be39a43273c853f3e5e8e12e21e289519a
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\89\e6e80aa0a6cc8cbf3035b553c95c19a3b427a1
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\89\edef4d83087135ef70c11959a527ba9fd10489
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\89\f7c09a059b3461a0576fa823db2fd79bb8612d
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8a\5c3427bd2f7c2b1a8dfb2763642f6cc90aa14e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8a\9266ea0de5804e70e75609cf030c60e082c245
@@ -1522,6 +1579,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8b\4a60263b6a
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8b\6d4863dbce322e475fc15fe13d61f61514afe8
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8b\9cb38296eccb5815d9d8e158aab01ccda4d60c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8b\a36768715fa3e7d1f26fa01b116bcf9425ef2f
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8c\3dfb272cc00884243dfb1df90fa0ef7f91db05
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8c\4d3a02f3d7e2e26dc5a3a9a535f75a55650190
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8c\9bef7c425e4ec61a9670410e32c5f5a6ab93bb
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8c\d00616bedf26d9e9fdcebb5a06459b32f99a6c
@@ -1534,6 +1592,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8e\03b2ab851e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8e\13aa9aff996306c6114a7facedf9964e60ff2b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8e\3ec6c99f8af46e599c1b5aed1a1cdfef409abf
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8e\4077ac20144b773d206ae0430c3af6a3702f58
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8e\5aff8c29a541303cf4137e755790a6d37bb0f7
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8e\67921214084fb2496f0601c36fe16d27bd9c98
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8e\68db1a058d286de508d6306083699a9739912d
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8e\6b166b382a587ac06f68b0aeb97a623318979f
@@ -1550,6 +1609,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8e\fe8253a1dc
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8f\0aa22ac84335fb476f5f2708e946f4fda5dc62
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8f\0da57dea518a08bf3bb782a5842e5ff029aaaa
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8f\1398a448c4167870bbd1b73415e0c2911a4a3d
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8f\1c86192e9ff8260bfa74261bedd61f3ac95446
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8f\242ee87da57511607b568be58a9edaac740b7c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8f\32b38524a5e31e631f027f36dfd3000f9bccde
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\8f\39ca0dbd69bf0da371d11b8c87dcb8231087d2
@@ -1574,6 +1634,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\92\048b0b3ea0
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\92\1cc0937a30fd7b8c1e2c0fecad01cac0ead5ca
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\92\8dc39e86ea9f8c86fcf5d93fc57801e4c39b74
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\92\b0f0ffee653659b172c4b0b80a544e1604661f
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\92\d15dd6f2f234289d4093415dd9412803e716d7
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\92\db7ef700c7eea8e2a8d0b734ac9398f2efe753
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\92\df020b1c58979ae90c42a8487911a8447c8aab
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\92\ee21c89a77a858296a8283c1d44e170385ccf5
@@ -1589,6 +1650,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\93\8e21d7986d
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\93\b7c085e4f15234c5e7cf564b34a82d8036cdb5
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\93\c9b74adf194e8ceb808516955bbcbdce7cfceb
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\93\f3f30c8bc21f8e1218511c3243544f7083f875
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\94\08241243af976e92de6ce11de652c4be62bbc0
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\94\0ec3e5b498bca1431bc3c9b40f4044e7cb5345
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\94\26b207c7ef5741d9beae4d12c97ab891ace011
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\94\a35daa5c87fd39679079d0e886fdf096566559
@@ -1615,6 +1677,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\97\6f043f3299
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\97\e1eec2c057236f979f6a849327bab0bbc8185a
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\97\f3c5abe7d736a80c85b8df0db97d904ce49163
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\97\fdfb3df9ff177df70b6ab507773fc0cc8d8cfd
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\98\20e041a7c9943ed694320d00df6c3d94779a68
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\98\5197920404081067c24c56cde3c30c2926e743
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\98\8f45c4ef027b57ea5781b20f3478988285d244
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\98\a6046394a4b20369aeabcb8de66c501e6c86d6
@@ -1625,6 +1688,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\99\1c3bfc780b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\99\7453a56bdcfdae1ef32b313c682c44c6547fcf
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\99\85b5efb7168504042460706653affaf2e19b3a
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\99\96759cf720b44698e71c2db4a4fb11dff277a0
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\99\c26433c7fee0d153c2fc81339a60373a0c83f5
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\99\cb8d51bab0c2d31d253d11f9e4a904fe63f958
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\9a\0753d0f0cec3dda457be5d1fc7035f8e07e713
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\9a\10134a6522b93d742195433a18178da78a2e13
@@ -1644,6 +1708,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\9b\3845573fd9
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\9b\5cdcec5671897608d3a269cb62be7ea156b295
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\9b\962a0bd24b6f3caa8a062bca8cf2c93da3e74c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\9b\a18db34db74645f9f54763e0ef78dc38a28246
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\9b\d418e489eb4a0ebdfb2f6454aea6d85af3e236
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\9c\150b53fdde8962f72c018a55332f61af86aee7
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\9c\3965ce9315efb2eb66ada648bcfc406cc959a0
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\9c\49f75c89ecfc60fa10bfe517741acba885fe7c
@@ -1675,6 +1740,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\9f\c4667bfffd
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a0\0d0634bf9715a2037913b2b815271972271791
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a0\38ab22cb7161d6c63ab60d0afe98be76109449
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a0\6a0d1015d34a8fbfcb334e3d578bbd41658ae9
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a0\83071ee50da5a8c17447d538f7177f10ce024f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a0\8858afefa679b3510c9dc2d7dd3f59f6937010
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a0\b7ea2a2c046beea094445ed4011375af25c66c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a0\ccc05e010f2e9723f716c80673c0086a67ed30
@@ -1714,6 +1780,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a4\e13cf875ab
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a4\e37dbcc3b97cfd12d13ceb25b751479334a2f6
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a4\f58f987386ce4016b9b31fd6ca599af384bbad
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a5\3405f5c334b5fdae2fae6e0bf1081a08c76901
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a5\7979bb2876d033317e5b072f20cbe621523f05
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a5\ad864e4039c6286701e4cb1175617086d2c309
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a5\c1fc40db05adc53d5ef43819c97ebb5ca7bfff
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a5\ee81979fe701424186fde662ef6a07871aa3ae
@@ -1728,6 +1795,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a6\5683063b81
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a6\7a2d6375dcfd08a763dcc77a7ab21955589e6e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a6\a5dd579105fb1de8a0a5015ae51dd35359ad6a
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a6\a9ccaab0a40c047354146e5c19fc6a2de24933
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a6\bd7b1dc2123bab9feafe7fd7f8a4a0ec567764
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a6\daa84b20f8c615413b9d77f30c2aaacd5d605b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a6\e12fcafa6c26cd2e350a95d7c2d98a7adbab94
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a6\e4e1a770c182aa4f130a6b5bf1b9d74493917c
@@ -1754,6 +1822,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a9\18a71dbba0
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a9\1c2ead2ab2302fc2f196cc2697a30cb51877f6
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a9\299fbb13d7b8b24345b326cd528b59c25c895d
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a9\33bc9ea879ab12a05e200fc49fa530a3eacdc4
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a9\9ab77a296292ec6ea9d3a86465140c23251bec
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a9\a14cbdfbee1eaf27b92103b88181dc0deead41
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a9\a549b55fc07167805668a3f779e1c502f81d4d
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\a9\d3c0a42bb81c5bc826b6f7d815d0400c39e125
@@ -1792,6 +1861,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ae\2ffc13bab7
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ae\3170e54c629972eca31616e44f20c1826ec60f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ae\3c284c09cd0ed95b1c75d0b7b0ce1299d2aa90
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ae\5bc7252d2abe77037831fd1eed73bff4261bc9
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ae\6305ba0e66495d291e62efabd4f972e664905d
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ae\c4f34e23519c3cfee8fa48d926fbe04b2dabcf
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ae\e704d392387ff613e2c138b82581ebbe13b461
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ae\efda2e06eeea45ad1f20799d25e563b46d55ac
@@ -1808,6 +1878,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\af\bae86f103f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\af\c2f24aeb2f34cfa9d0fbda50a4163398ec5260
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\af\fe8dd198939d3e4619176dece5784aef57d4d9
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b0\097ebecca6a2e824cdd4806afab48e3e568f0b
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b0\0ed9b21d66e94c9237af9187978175afb69c18
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b0\421c141c97f0d0a5cebcc438d6ab991db187fa
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b0\8a0701db9ea1b7118400db55fa628c5ff31331
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b0\db0ee43dfcdf84c6cd18c29a24607c99189cdf
@@ -1826,6 +1897,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b2\0e25c4a058
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b2\1c9e461b1f5b130460d21dfac3d5a340ed8612
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b2\2158494c1d1c4bad0c8e7b9b50a7d237e1712e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b2\2317786929898dc101e2f64e30113429ad35b3
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b2\3d58323b55774930c422892fcba68937b1e185
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b2\552b435dbf73077c2d081257a10017384805a3
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b2\5cd4194a11d050d04ca3fe811469d379e551fa
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b2\821db4b5277b1354e6e4f4d14b482c3043e66f
@@ -1850,8 +1922,10 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b4\d6f8036a85
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b4\e150c394b75276f3da3009cb6c0b723ef59794
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b4\eb27448dc95c15a3024082f300488d367e016f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b4\f3292158c9539174dd05d4a7aa897255aa9738
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b5\287f5cc865a07ec6c9547880a603f8665b2de5
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b5\50af99a49317639a9d92e59520d76333ce8bc5
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b5\6117744123f799a3da1fc7c1f30d3e364abc1f
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b5\713f58f994230ffb85135fef6b04e9439ea5bb
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b5\71de94607bee94f9a87b4453f83cff6af1269a
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b5\c2c4859c415794a56b6bb25e52af8b153fb171
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b6\5780a84dc47f267d3d8f0718e7161db2cf4c0c
@@ -1865,6 +1939,8 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b6\f0fa57aeae
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b7\0b84db2d010c9e0b92c8bfe058a33e90750e48
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b7\15ffba9c4f24877093a94236f61b3f136a3428
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b7\6139a108ab2a5340aa741f71bc85ba89223026
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b7\7f5cbde58a27827387446723d3648fc5f9330a
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b7\a2ed70728538c71c53233bc8623aae8c33c72f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b7\d1e774808b05cb10ebb950d067ee9d9215bb67
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b7\dc8dc5182831305564746082cab0120f0d23a0
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\b8\3a55162f5eeab19324258bbcaa8a3456c9b8db
@@ -1902,6 +1978,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\bb\99d5e337b4
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\bb\a982c1e3b441ac170e2e196cf18b64479ae447
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\bb\abdbfe662f5489acae5037222467a5aba8746c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\bb\ca93f53efe2ec1e984aa436568d887bbd8f632
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\bb\d56b46581f590a4df3b5f33261df6a4e426006
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\bb\e4c5b0140e30a5ab301fa80ea5a51f47e28fe0
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\bb\f28729d4f16e8bd21a518772897c59f26e072e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\bb\f36e5d4974c241338c52d287c1b8347c927bf0
@@ -1930,6 +2007,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\bf\1c6c6464a8
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\bf\3ca289448635743382dc5c9696b87934de549c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\bf\bcf2b089fe535ef60afde2abaac10e0b0711a5
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\bf\bd68dd26cbe902a1e3e71d9077171e045c3a9c
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\bf\e6536b675e6e73028ce2280ba742074eb90af7
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\bf\eefccbd7128576783a3588cab579520dd14f63
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c0\019bc2e5c29367b31ff780a64172de9ed964c8
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c0\0dff6ba5c817d2b6209b27279418396c78906c
@@ -1947,11 +2025,13 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c1\3409fb6e7e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c1\8752ea5990bcfd768c497ea4a64b01c691ebeb
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c1\89790265049a0c3e0587b7fb943fed8641a2e8
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c1\9fb1cfa3f4b2a4828414d3f8437429dd5fe00f
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c2\0f8ffa9561b4a21f82b79bcb8df8e9d6249c38
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c2\19ef18f39e3edb76a9d88b987d7a194b8bd88a
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c2\35aa5e3398731df9cb1e17ac9f8b95fc8c0095
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c2\50e87871e598b362ab6d839afd8a18c6d6d03f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c2\698946079d60d7f97b8f70da0d54ecabe66110
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c2\7275c9f3966ce15fa8520d13a4208c388a7f55
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c2\79386623178514d72c6c4e124ed9d76ebb19cf
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c2\972ab99a41d81e5b3895667e0b91badf21ce39
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c2\9accdbabb52b0ec6d913ead97dbde6bf6f1a0a
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c2\bf97552433be640a8091fb450d414682efd546
@@ -1979,6 +2059,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c5\465dfe0621
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c5\4adeec0fc049ac864598054d687c82655ee108
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c5\7364314b493fa550db38221929a2ba033cb135
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c5\7c1ecd7e3be8cfd7a8a2fde10ab8df5d3315e4
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c5\8e5193a72e1ba65186f670d2549470a23770ec
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c5\9d2d87ed54ebfae884fa100a6af51fb4fa1738
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c5\a9abcf4880b438f4aec8f1f106522db59de56e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c5\c74668b262557a0d88c4b06e4600c755b484ff
@@ -1998,6 +2079,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c7\7549fb81bc
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c7\8d67697eb0b14394595194985990aeb1616fd7
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c7\98dfb10bf9f1115693602bdad692aa8cecddec
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c7\b28c1305075cbf7ae5f0a351e0509553ba0d43
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c7\b3aea65e37c15acc006cea39a1cf2796972026
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c7\d85cc84e1c8672cb67c81d30d4b4c0daf298bd
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c7\e8326cd6a9bda29d10cfd3691268088cc7994b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c8\459fc69739b08e72124b523dd888909ad71157
@@ -2009,7 +2091,9 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c9\4026881896
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c9\5856c90396359da8acf9ba2eb32a9bff26a66f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c9\589efa1a25cd5d9e76e0be391f1f939118aeee
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c9\7b6b8689ceec59c66f3f4031d8ff51f3987af5
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c9\acccb82f1a0f1b07753736a19667e4d09c6264
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\c9\c4ed9c36d7793dacd59318df034fff7486c877
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ca\268ddc63d0aa7fd95005a76a4ca5e5a59f8a7c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ca\5b1ef8242636c388d0891de3078e17a628dcc7
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ca\7216fcf114eda811e9bd04fcd08251bca2d1f8
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ca\95dbef749dc9f957fc1f0c75943980d890e576
@@ -2056,6 +2140,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\cf\5e4a553731
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\cf\81549a14a1957f1e6d818fd904ff17024d7d32
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\cf\bcc55138978d3bd0b705302fa2496a1d3c90a3
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\cf\d4a16668c77fcdc3f2bee6a6abaebeeccee510
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\cf\eb4bc8855c1d0df8da4a90f01306ee3eeeb77e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d0\3990fcb45259c696440cbf25367275946e0111
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d0\6991cf36a340ee0ee97270f1613322ee0b820e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d0\806202007006133fecf9e782b43963b8afc712
@@ -2081,6 +2166,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d3\390b3614c3
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d3\42ad49620212a87016aa40b5d3998cc1a52481
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d3\438ab43a1357f6165e72afa0f99ec9ca9a8fe0
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d3\7c824250ce4725bf5c4c2f897ea2da6897053d
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d3\81c082264eb2fd42259912e621b7bd14ad10fc
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d3\c5046b2179a065d54e11d579637bbc5513f495
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d4\2e9a04a5b6d28d8b1b002902e100f206f16576
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d4\5d4af453debb55939a93439762cb4f3d7ed832
@@ -2094,9 +2180,13 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d4\da7536a606
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d4\e477733a79773fe05efca32f05133baf113eeb
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d4\ec45afa6c4fb7e5cd21705c46b15c61e5dd0de
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d4\f3623676bfb75d1c26ce7cc7cd11b74783e4f2
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d5\07e2c9ff26cf0ea61a3dd1beb829efdb963f32
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d5\125ec3cfc458e26b513f28b94193fca46b5fd9
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d5\38505730177d379aad18ecfb2d82ce989b07af
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d5\58f4cc9edc3a03670f47773ce22c78255ae5a9
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d5\93ef893374f052bbfec7e2a4955624626bc471
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d5\988783246ffada3862ddf9f57cc8aee24b6867
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d5\d4a4a1405c2d704ff3181759df74632e8ea7b4
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d5\ed35b6c5d43aee7c105382752b44ed74316f20
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d5\fb87be64c04d4847decdecfe43890b34808e68
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d6\0a626c77aece3f522de96172dc2c96024e266f
@@ -2116,6 +2206,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d7\98b998ceb5
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d7\cb7178294273f225fec64443b564afadf7f042
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d7\d5bfe17fb36b9f2fab557089d14a2b81e73aeb
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d7\faddf1c3cfa5f8ad62b34c6c3b8af5e9710850
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d8\2852fc1cac53ae9eff8907bda8ed330c0670a5
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d8\4314899f077a4c4a539fa18902a0f65ad15611
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d8\49ba572a56ba6651471633a26abab3d33499d3
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\d8\64aa15591323f21f75856324cc2d5496277609
@@ -2141,6 +2232,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\dc\51c44d30fa
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\dc\746ee1a96fabb4abe8cd22f02eb83330aaee3d
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\dc\8eeb35ccd5b1f2a290ef6a526d011a9a463601
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\dc\aae584e10d8b9911d475860b261941e5afe49d
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\dc\ac1517b24da81ec435238886e6b98572dc989f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\dc\afea75da522d96ecf0190e17453384b12e5830
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\dc\c7f2fff7006b0c9d32f9d515e78b0567cf778b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\dc\d2ccda4e840968ced357427ee2cc011aeb7091
@@ -2168,11 +2260,13 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\df\e0770424b2
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\df\ed223b0691d03f53209622fbbc0f2104fd77d1
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\e0\9cded47922bf78793eb23e9ab3cb4cad3a89f1
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\e0\ad32536aee2f16635ee50629b99b4b87f425c1
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\e0\c29752347233c4d74fa78af25ffcf521aba367
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\e0\cb57016f1a8c9880ec551c243f56efe917f7aa
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\e0\f46b4460bd427fcb16e0586ba6f3f3d7fb195b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\e1\06cce6fe37c20b57b82b98501a60bd354f82cd
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\e1\11a046f75a47dfc49339e0e320430e880e2908
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\e1\1ce25a5814c292208e91c5bacd93874ee6fd79
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\e1\441c5727222fb5841a2f6a480420848f5668e9
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\e1\5492f486d9144da42325738b241c99cdf9448d
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\e1\59f7ab668554e6ad5a7135c984842bdc889728
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\e1\6d2f8b7146196994b7c7eb0c03306a117feabb
@@ -2180,6 +2274,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\e1\7181ab38c2
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\e1\8248706267b1a4019923f8b16740a99f61cc35
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\e1\857cbeb5401f451e870583319b0c62249fcf83
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\e1\a2944c4e18c870ca95c2f301c2063e752677fc
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\e1\bb2ec2245ae22be975707aed2f1b8c5af4207c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\e1\c474339593ee2dc533d7b57f69c3dd86bbe87e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\e1\da6416d1242a8300fa11618684d1e2b500136b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\e1\f8082e447a8160ebe1101d3c92e6e6c0682c99
@@ -2256,6 +2351,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ea\1849285bdb
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ea\1922d600a163d7bc7a55436c79116ab8a02a8b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ea\7144c0bba93f0b51a052f5f2397ea0e8859d1c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ea\7b96f415a98fe8f5ea5e222ccdda7b6aab513d
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ea\9d4863e1c15376b6b0c8b0d1c8cccf46bb3e2e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ea\a7f8a1e06e61d872930b02f72ad58a393eb54b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ea\a858c8252950a39e14d532f07149f9887fe3ac
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ea\c8fda2b7191244b489a5ac5c0c816409003eca
@@ -2297,11 +2393,13 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ee\6efae827f2
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ee\8422c368248ab228b08026c23281d7d0b7b84b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ee\8de69733287abcb84ac73c69d9fc5a9cc2ad4f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ee\8f63ed223c8acf621aca36ad992a4c976c9c5d
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ee\9bcc202f0056abdd9dcf22396bca9ebdd6ed8c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ee\a493f1ec680dcfd705a0e7f6ad0fee48a71fd5
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ee\c52244385ce51df57aa86b10e42b050df6100e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ef\152c0c141b5e48ea5db963d185da68f5b4d09e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ef\295eae4d331d22b042117d3ecb8cd211b0d2d3
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ef\43f18d24977e051cd58ab0677bea98b4ad7f53
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ef\66775b20e2333ca3b01e0eb17cd2e9da1a67db
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ef\7080ca9b21cf487dd409ba9d099d5950181bde
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ef\888f677170401640d94f36ccfba2d6fb2e2b5e
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ef\dc43e5e00a3f224d7ef82025e71508ff6a43a6
@@ -2339,6 +2437,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\f3\4a46156055
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\f3\59adbb3ab1a8f6ea3af5948f3611cf52c8f89f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\f3\64d366e7bb01019cc2d9eb2c15cc70cd20f3e4
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\f3\70e15798b0bb7718451179c2156bd9a60260bc
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\f3\b95aeb87517cd1fdb2227d25f7f7d3e3e72c56
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\f3\e825b448914b561d082cae57cb97b871c19722
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\f3\e8d0d1fe9261f63218ad4cd7c8128a6ac81f07
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\f4\06e5a74e3fd1cf87d0ea10f671e18862ab0749
@@ -2367,6 +2466,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\f6\7323effab9
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\f6\7723042b0f4fe7fa85bde7d9cd8f69a7632f65
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\f6\a7341f2aef4b3767df8831374c92fe89bfeae0
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\f6\af6f2b51f48c2ba127fb4843146cc11cdf4481
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\f6\be7be6d8e063bbdb4093ed99183df2b0f121a6
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\f6\c7441ac3b56e655c847afeb553562f336a3a6c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\f6\f262d717015db1d88e8a23477148614111101d
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\f7\124071374bf04a55dac82ff95777c0d8e80c72
@@ -2378,6 +2478,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\f7\6bffc683fd
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\f7\8761c34ab7b08932fd399963a43f8c6869452f
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\f7\9814c5567c8256e835cb0d8f9ac1c91733c139
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\f7\ac086cd96499a453601c5850b5f24a1f8f15cf
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\f7\be9dab6c90617e10a30d60ab9bb4c703236826
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\f8\1dd229d7f1661482f39f0cd1dad6768b09fa0b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\f8\2103986fdab6a278f96d23a1183eb38d8f4aad
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\f8\2cf7be66c719c5ef17a220e45e579dd7098c8b
@@ -2450,6 +2551,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\fe\c2652db2ae
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ff\1baa4595f9eddb5f6a6b2aa3a5b873e07fccf8
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ff\69bd3946299d6638eddb149b270bb2172e872c
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ff\822735554ff1acca9fdadce18e496ed340939c
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ff\8d459c0f713b27d777aa5fe51344d91efd413b
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ff\8e91173bba05b249b1a6bf2857e8d426460ef7
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ff\a61422184754e75988c8ed2b61d74593c98bca
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\.git\objects\ff\c6e754a5c42d397770000465a74f8e34697502
@@ -2681,6 +2783,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-crown
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-golfestate
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\m3m-jacob
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\mahindra-luminare
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\one-goa-the-vibe
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\paras-quartier
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\signatureglobal-sarvam
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\smartworld-gic
@@ -2972,6 +3075,25 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\mahindra-l
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\mahindra-luminare\gallery\2.jpg
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\mahindra-luminare\gallery\3.jpg
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\mahindra-luminare\updates\2025-06.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\one-goa-the-vibe\gallery
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\one-goa-the-vibe\hero.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\one-goa-the-vibe\gallery\CP-Mobile-Banner-11.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\one-goa-the-vibe\gallery\CP-Web-Banner-11.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\one-goa-the-vibe\gallery\Digital Creative.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\one-goa-the-vibe\gallery\EDM One Goa 2.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\one-goa-the-vibe\gallery\EDM One Goa.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\one-goa-the-vibe\gallery\image (1).jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\one-goa-the-vibe\gallery\image (3).jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\one-goa-the-vibe\gallery\image (4).jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\one-goa-the-vibe\gallery\image (5).jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\one-goa-the-vibe\gallery\image (6).jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\one-goa-the-vibe\gallery\image (7).jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\one-goa-the-vibe\gallery\image (8).jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\one-goa-the-vibe\gallery\image (9).jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\one-goa-the-vibe\gallery\image.jpg
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\one-goa-the-vibe\gallery\REEL_V3_9X16.mp4
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\one-goa-the-vibe\gallery\Sequence_02_1_1_94114ed9fe.mp4
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\one-goa-the-vibe\gallery\VIDEO-2026-02-12-16-11-34.mp4
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\paras-quartier\cover.jpg
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\paras-quartier\gallery
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\public\projects\paras-quartier\hero.jpg
@@ -3240,6 +3362,7 @@ C:\Users\dell\Documents\GitHub\altina-livings\altina1\scripts\checkAmenityIcons.
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\scripts\check_assets.cjs
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\scripts\fetch_unsplash_assets.cjs
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\scripts\fetch_unsplash_assets_resilient.cjs
+C:\Users\dell\Documents\GitHub\altina-livings\altina1\scripts\generate-gallery-manifest.mjs
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\scripts\generateAmenityIcons.mjs
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\src\app
 C:\Users\dell\Documents\GitHub\altina-livings\altina1\src\components
