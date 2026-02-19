@@ -1,6 +1,6 @@
 // src/app/api/gallery/[key]/route.ts
 import { NextResponse, NextRequest } from "next/server";
-import { projects } from "@/data/projects"; // ✅ adjust if your path differs
+import projects from "@/data/projects"; // ✅ default export in your projects.ts
 
 export const runtime = "nodejs";
 
@@ -27,7 +27,7 @@ function norm(s: string) {
 export async function GET(req: NextRequest, { params }: { params: { key: string } }) {
   const key = norm(params.key);
 
-  // Optional fallbacks (keep if you already call these)
+  // optional fallbacks if you ever call: /api/gallery/x?alt=y&hint=z
   const alt = norm(req.nextUrl.searchParams.get("alt") || "");
   const hint = norm(req.nextUrl.searchParams.get("hint") || "");
 
