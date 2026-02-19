@@ -5,9 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import * as DetailsMod from "@/components/ProjectDetailsSections";
 import * as RelatedMod from "@/components/RelatedProjects";
 import * as FloatMod from "@/components/FloatingCTAs";
-import HomeLoanCalculator, {
-  parseINRFromPriceText,
-} from "@/components/HomeLoanCalculator";
+import HomeLoanCalculator, { parseINRFromPriceText } from "@/components/HomeLoanCalculator";
 
 type Project = {
   id: string;
@@ -31,52 +29,23 @@ const ProjectDetailsSections = pick(DetailsMod, "ProjectDetailsSections");
 const RelatedProjects = pick(RelatedMod, "RelatedProjects");
 const FloatingCTAs = pick(FloatMod, "FloatingCTAs");
 
-export default function ProjectDetailClientShell({
-  project,
-}: {
-  project: Project;
-}) {
-  const [galleryImages, setGalleryImages] = useState<string[]>(
-    project.gallery ?? []
-  );
+export default function ProjectDetailClientShell({ project }: { project: Project }) {
+  const [galleryImages, setGalleryImages] = useState<string[]>(project.gallery ?? []);
 
   // Prefill calculator with price (if parseable)
   const defaultPropertyValue = useMemo(() => {
     return parseINRFromPriceText(project.price);
   }, [project.price]);
 
-  const bases = useMemo(() => {
-    const set = new Set<string>();
-    const add = (p?: string) => p && set.add(p);
-
-    // Prefer id folder
-    add(`/projects/${project.id}`);
-    add(`/projects/${project.id}/gallery`);
-
-    // Try slug folder
-    if (project.slug) {
-      add(`/projects/${project.slug}`);
-      add(`/projects/${project.slug}/gallery`);
-    }
-
-    // Try folder derived from hero path, if present
-    if (project.hero?.startsWith("/projects/")) {
-      const parts = project.hero.split("/").slice(0, 3).join("/"); // /projects/<folder>
-      add(parts);
-      add(`${parts}/gallery`);
-    }
-
-    return Array.from(set);
-  }, [project.id, project.slug, project.hero]);
-
   useEffect(() => {
     let aborted = false;
 
     async function loadGallery() {
-      // Hints for your API
-      const heroFolderHint = project.hero?.startsWith("/projects/")
-        ? project.hero.split("/")[2]
-        : "";
+      // Start with curated images from projects.ts
+      const curated = Array.isArray(project.gallery) ? project.gallery : [];
+
+      // Hints for your API (kept, but optional)
+      const heroFolderHint = project.hero?.startsWith("/projects/") ? project.hero.split("/")[2] : "";
 
       const nameHint = (project.name || "")
         .toLowerCase()
@@ -85,6 +54,8 @@ export default function ProjectDetailClientShell({
         .replace(/^-+|-+$/g, "");
 
       // --- API (optional) ---
+      // IMPORTANT: We do NOT do any folder discovery anymore.
+      // We only accept what API returns (which should be curated from projects.ts).
       let apiImages: string[] = [];
       try {
         const params = new URLSearchParams({
@@ -92,10 +63,9 @@ export default function ProjectDetailClientShell({
           hint: heroFolderHint || nameHint || "",
         });
 
-        const res = await fetch(
-          `/api/gallery/${project.id}?` + params.toString(),
-          { cache: "no-store" }
-        );
+        const res = await fetch(`/api/gallery/${project.id}?` + params.toString(), {
+          cache: "no-store",
+        });
 
         if (res.ok) {
           const data = await res.json();
@@ -105,61 +75,22 @@ export default function ProjectDetailClientShell({
         // ignore
       }
 
-      // --- DIRECT DISCOVERY (g1..g25, with/without /gallery) ---
-      const exts = ["webp", "jpg", "jpeg", "png"] as const;
-      const discovered: string[] = [];
-      const seen = new Set<string>([...(project.gallery ?? []), ...apiImages]);
-
-      for (const base of bases) {
-        for (let i = 1; i <= 25; i++) {
-          let found = false;
-
-          for (const ext of exts) {
-            const candidates = [
-              `${base}/g${i}.${ext}`,
-              `${base}/gallery/g${i}.${ext}`,
-            ];
-
-            for (const url of candidates) {
-              if (seen.has(url)) continue;
-
-              try {
-                const r = await fetch(url, { method: "GET", cache: "no-store" });
-                if (r.ok) {
-                  discovered.push(url);
-                  found = true;
-                  break;
-                }
-              } catch {
-                // ignore
-              }
-            }
-
-            if (found) break;
-          }
-        }
-      }
+      // Final rule:
+      // 1) If API gives images, use those (curated)
+      // 2) Else use curated project.gallery
+      const finalImages = apiImages.length ? apiImages : curated;
 
       if (!aborted) {
-        const merged = Array.from(
-          new Set([...(project.gallery ?? []), ...apiImages, ...discovered])
-        );
-        setGalleryImages(merged);
+        setGalleryImages(finalImages);
       }
     }
 
     loadGallery();
+
     return () => {
       aborted = true;
     };
-  }, [
-    project.id,
-    project.slug,
-    project.hero,
-    project.name,
-    project.gallery,
-    bases,
-  ]);
+  }, [project.id, project.slug, project.hero, project.name, project.gallery]);
 
   return (
     <>
@@ -168,27 +99,19 @@ export default function ProjectDetailClientShell({
         Do NOT render ProjectHeroWithInfo in this client shell.
       */}
 
-      {/* EMI Calculator (Illustrative) */}
-      
-
       {/* Details + gallery + sections */}
       <section className="relative z-0 mx-auto max-w-6xl px-4 pt-8 pb-10">
         {ProjectDetailsSections && (
-          <ProjectDetailsSections
-            project={{ ...project, images: galleryImages } as any}
-          />
+          <ProjectDetailsSections project={{ ...project, images: galleryImages } as any} />
         )}
       </section>
-	  <section className="mx-auto max-w-6xl px-4 pt-6">
-        <HomeLoanCalculator
-          projectName={project.name}
-          defaultPropertyValue={defaultPropertyValue}
-        />
+
+      {/* EMI Calculator (Illustrative) */}
+      <section className="mx-auto max-w-6xl px-4 pt-6">
+        <HomeLoanCalculator projectName={project.name} defaultPropertyValue={defaultPropertyValue} />
       </section>
 
-      {FloatingCTAs && (
-        <FloatingCTAs projectId={project.id} projectName={project.name} />
-      )}
+      {FloatingCTAs && <FloatingCTAs projectId={project.id} projectName={project.name} />}
 
       {/* Keep RelatedProjects below the fold if you use it */}
       {RelatedProjects && null}
