@@ -15,7 +15,7 @@ const nextConfig = {
     optimizePackageImports: ["swiper", "lucide-react"],
   },
 
-    async redirects() {
+  async redirects() {
     return [
       // ===== Legacy static .html -> clean routes =====
       { source: "/index.html", destination: "/", permanent: true },
@@ -45,5 +45,6 @@ const nextConfig = {
       { source: "/__MACOSX/:path*", destination: "/", permanent: true },
     ];
   },
+};
 
 export default nextConfig;

@@ -80,6 +80,141 @@ export type Project = {
 };
 
 const projects: Project[] = [
+
+  // -----------------------------
+  // One Goa | Residential | Goa
+  // -----------------------------
+  {
+    id: "one-goa-the-vibe",
+    slug: "one-goa-the-vibe",
+    name: "One Goa – The Vibe",
+    developer: "One Goa",
+    brand: "One Goa",
+    rating: 4.6,
+
+    location: "Bicholim, North Goa",
+    city: "Bicholim",
+    state: "Goa",
+    sector: "Bicholim",
+    micro_market: "North Goa Growth Corridor",
+
+    status: "New Launch",
+    construction_status: "Plotted Development",
+    possession: "TBD",
+    launch: "2026",
+
+    price: "₹99 L – ₹1.17 Cr (all-in)",
+    propertyType: "Residential",
+    configuration: "Villa Land / Plots",
+    typologies: ["Villa Plot"],
+    sizes: "1,539 – 1,851 sq.ft.",
+    land_area: "100+ acres (5-star branded land development)",
+    total_units: "TBD",
+
+    overview:
+      "One Goa – The Vibe is a premium, 5-star branded villa land development in Bicholim—Goa’s fastest-emerging growth corridor. It offers a rare opportunity to build your dream Goan villa on your own land, surrounded by large forest cover, internal landscaping and lifestyle amenities.",
+
+    usp: [
+      "Bicholim, North Goa’s fastest-emerging growth corridor",
+      "Approx. 40 mins from Mopa Airport (2,100+ acre region)",
+      "100+ acre, 5-star branded land development",
+      "150 acres forest cover outside + 6000+ trees within the development",
+      "Lifestyle-led planning with curated leisure zones",
+    ],
+
+    highlights: [
+      "Swanky multi-tiered clubhouse",
+      "Luxury hotel by Miros Hotels & Resorts",
+      "Man-made sea and beach",
+      "Prime plots available near lifestyle core (select inventory)",
+      "Limited-period ‘Goa Carnival’ benefits applicable on select bookings",
+    ],
+
+    amenities: [
+      "Multi-tier clubhouse",
+      "Luxury hotel (Miros Hotels & Resorts)",
+      "Man-made sea & beach zone",
+      "Landscaped greens / tree-rich environment",
+      "Lifestyle core / community zones",
+    ],
+
+    location_advantage: {
+      connectivity: [
+        "Approx. 40 mins to Mopa Airport (Manohar International Airport)",
+        "North Goa growth corridor connectivity via Bicholim",
+      ],
+      markets: ["North Goa lifestyle & leisure circuit (emerging corridor)"],
+    },
+
+    payment_plan:
+      "Flexible 15:85 Ownership Plan available during the Goa Carnival offer window (subject to developer terms).",
+
+    inventory_note:
+      "Goa Carnival: 1,851 sq.ft. villa land at ₹1.17 Cr (all-in) with savings up to ₹12 Lakhs (limited period). Also available: 1,539 sq.ft. villa land at ₹99 L (all-in).",
+
+    specifications: [
+      "5-star branded plotted development",
+      "High tree density and forest edge environment",
+      "Lifestyle-led planning with hospitality and leisure components",
+    ],
+
+    faqs: [
+      {
+        q: "Where is One Goa – The Vibe located?",
+        a: "It is located in Bicholim, North Goa—positioned as a fast-emerging growth corridor.",
+      },
+      {
+        q: "What are the available plot sizes and pricing?",
+        a: "Currently highlighted options include 1,851 sq.ft. villa land at ₹1.17 Cr (all-in) and 1,539 sq.ft. villa land at ₹99 L (all-in), subject to availability.",
+      },
+      {
+        q: "What are the key Goa Carnival benefits?",
+        a: "Benefits include Lifetime Club Membership privilege, a flexible 15:85 ownership plan, select prime plots near the lifestyle core, and a ₹1.5 Lakh luxury jewellery voucher (offer subject to terms).",
+      },
+      {
+        q: "What lifestyle amenities are planned in the project?",
+        a: "A multi-tier clubhouse, a luxury hotel by Miros Hotels & Resorts, and a man-made sea & beach are among the key lifestyle highlights.",
+      },
+      {
+        q: "How far is the project from Mopa Airport?",
+        a: "The project is positioned as approximately 40 minutes from Mopa Airport.",
+      },
+    ],
+
+    // Media (ensure these files exist in /public/projects/one-goa-the-vibe/)
+    hero: "/projects/one-goa-the-vibe/hero.jpg",
+    heroAlt: "One Goa – The Vibe | Villa Land in Bicholim, Goa",
+    gallery: [
+      "/projects/one-goa-the-vibe/g1.jpg",
+      "/projects/one-goa-the-vibe/g2.jpg",
+      "/projects/one-goa-the-vibe/g3.jpg",
+      "/projects/one-goa-the-vibe/g4.jpg",
+    ],
+
+    // SEO
+    tags: [
+      "Goa villa plots",
+      "Bicholim Goa",
+      "Mopa Airport",
+      "North Goa plotted development",
+      "Villa land Goa",
+      "Luxury plotted township",
+    ],
+    seo: {
+      title: "One Goa – The Vibe, Bicholim Goa | Villa Land (1,539–1,851 sq.ft.)",
+      description:
+        "Book premium villa land at One Goa – The Vibe in Bicholim, Goa. 5-star branded plotted development with clubhouse, luxury hotel by Miros Hotels & Resorts, and man-made sea & beach. Goa Carnival benefits available on select bookings.",
+      canonical: "https://altinalivings.com/projects/one-goa-the-vibe",
+    },
+
+    featured: true,
+    featured_order: 30,
+
+    // Optional
+    whatsapp_prefill:
+      "Hi! I’m interested in One Goa – The Vibe (Bicholim, Goa). Please share current availability, prime plot options near lifestyle core, Goa Carnival benefits, and the 15:85 ownership plan details.",
+  },
+
   // -----------------------------
   // DLF | Residential | Delhi
   // -----------------------------
