@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 type Props = {
@@ -9,96 +9,92 @@ type Props = {
   caption?: string;
 };
 
-type GlobalManifest = Record<string, string[]>;
-type PerProjectManifest = { images?: string[] };
-
-function isHttpUrl(p: string) {
-  return /^https?:\/\//i.test(p);
+function uniq(arr: string[]) {
+  return Array.from(new Set(arr.filter(Boolean)));
 }
 
-export default function ProjectGallery({
-  projectId,
-  caption = "Click any image to zoom",
-}: Props) {
+function naturalCompare(a: string, b: string) {
+  return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
+}
+
+function normalizeImages(projectId: string, images: any): string[] {
+  const exts = new Set([".jpg", ".jpeg", ".png", ".webp", ".gif"]);
+
+  const base = `/projects/${projectId}/gallery/`;
+
+  const list = Array.isArray(images) ? images : Array.isArray(images?.images) ? images.images : [];
+
+  const out: string[] = [];
+
+  for (const x of list) {
+    if (typeof x !== "string") continue;
+    let src = x.trim();
+    if (!src) continue;
+
+    // allow bare filenames in manifest: "01.jpg"
+    if (!src.startsWith("/")) src = base + src;
+
+    // only allow gallery paths for this project (prevents accidental cross-project)
+    if (!src.startsWith(base)) continue;
+
+    const lower = src.toLowerCase();
+    const dot = lower.lastIndexOf(".");
+    const ext = dot >= 0 ? lower.slice(dot) : "";
+    if (!exts.has(ext)) continue;
+
+    out.push(src);
+  }
+
+  return uniq(out).sort(naturalCompare);
+}
+
+export default function ProjectGallery({ projectId, caption = "Click any image to zoom" }: Props) {
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
-
-  // ✅ Keep your extension set (and actually USE it)
-  const exts = useMemo(
-    () => new Set([".jpg", ".jpeg", ".png", ".webp", ".gif"]),
-    []
-  );
-
-  const isValidPath = (p: string) => {
-    const s = String(p || "").trim();
-    if (!s) return false;
-    if (!s.startsWith("/") && !isHttpUrl(s)) return false;
-
-    // If it’s a normal URL/path, filter by extension when possible.
-    // (Allow querystrings like ?v=1)
-    const base = s.split("?")[0].toLowerCase();
-    const dot = base.lastIndexOf(".");
-    if (dot === -1) return true; // allow extension-less (rare, but safe)
-    const ext = base.slice(dot);
-    return exts.has(ext);
-  };
 
   useEffect(() => {
     let alive = true;
 
-    async function run() {
+    async function load() {
       setLoading(true);
+      setImages([]);
 
-      // ✅ Global manifest (generated at build-time)
-      const globalUrl = `/gallery-manifest.json`;
-
-      // Optional fallback (if you still want per-project manifests to work)
-      const perProjectUrl = `/projects/${encodeURIComponent(projectId)}/gallery/manifest.json`;
-
+      // 1) Preferred: static manifest inside the project gallery folder
       try {
-        // 1) Try global manifest first
-        const res = await fetch(globalUrl, { cache: "no-store" });
-
-        if (res.ok) {
-          const data = (await res.json()) as GlobalManifest;
-          const list = Array.isArray(data?.[projectId]) ? data[projectId] : [];
-
-          const cleaned = list
-            .map((x) => String(x || "").trim())
-            .filter(Boolean)
-            .filter(isValidPath);
-
-          if (alive) setImages(cleaned);
+        const manifestUrl = `/projects/${encodeURIComponent(projectId)}/gallery/manifest.json`;
+        const r = await fetch(manifestUrl, { cache: "no-store" });
+        if (r.ok) {
+          const json = await r.json();
+          const imgs = normalizeImages(projectId, json);
+          if (alive) setImages(imgs);
           return;
         }
-
-        // 2) Fallback to per-project manifest if global missing
-        const res2 = await fetch(perProjectUrl, { cache: "no-store" });
-        if (!res2.ok) throw new Error("No manifest available");
-
-        const data2 = (await res2.json()) as PerProjectManifest;
-        const list2 = Array.isArray(data2?.images) ? data2.images : [];
-
-        const cleaned2 = list2
-          .map((x) => String(x || "").trim())
-          .filter(Boolean)
-          .filter(isValidPath);
-
-        if (alive) setImages(cleaned2);
       } catch {
-        if (alive) setImages([]);
+        // ignore and fallback
+      }
+
+      // 2) Fallback: API (useful in dev). In prod you should rely on manifest.
+      try {
+        const r = await fetch(`/api/gallery/${encodeURIComponent(projectId)}`, { cache: "no-store" });
+        if (r.ok) {
+          const json = await r.json();
+          const imgs = normalizeImages(projectId, json);
+          if (alive) setImages(imgs);
+        }
+      } catch {
+        // ignore
       } finally {
         if (alive) setLoading(false);
       }
     }
 
-    run();
+    load();
+
     return () => {
       alive = false;
     };
-  }, [projectId, exts]);
+  }, [projectId]);
 
-  /* ---------------- Lightbox ---------------- */
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
 
@@ -109,17 +105,13 @@ export default function ProjectGallery({
 
   return (
     <section className="space-y-4">
-      <h3 className="text-xl font-semibold text-altina-gold">Gallery</h3>
       {caption && <p className="text-sm text-neutral-400">{caption}</p>}
 
       {/* Skeleton */}
       {loading && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div
-              key={i}
-              className="aspect-[4/3] rounded-xl bg-white/5 animate-pulse"
-            />
+            <div key={i} className="aspect-[4/3] rounded-xl bg-white/5 animate-pulse" />
           ))}
         </div>
       )}
@@ -129,7 +121,7 @@ export default function ProjectGallery({
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {top.map((src, i) => (
             <button
-              key={`${src}-${i}`}
+              key={src}
               onClick={() => {
                 setIndex(i);
                 setOpen(true);
@@ -148,35 +140,25 @@ export default function ProjectGallery({
       )}
 
       {/* Horizontal strip */}
-      {rest.length > 0 && (
+      {!loading && rest.length > 0 && (
         <div className="flex gap-3 overflow-x-auto no-scrollbar py-1">
           {rest.map((src, i) => (
             <button
-              key={`${src}-${i}`}
+              key={src}
               onClick={() => {
                 setIndex(i + 4);
                 setOpen(true);
               }}
               className="h-44 w-[20rem] shrink-0 overflow-hidden rounded-xl ring-1 ring-white/10"
             >
-              <img
-                src={src}
-                className="h-full w-full object-cover"
-                loading="lazy"
-                alt=""
-              />
+              <img src={src} className="h-full w-full object-cover" loading="lazy" alt="" />
             </button>
           ))}
         </div>
       )}
 
       {open && (
-        <Lightbox
-          images={images}
-          index={index}
-          onClose={() => setOpen(false)}
-          onSelect={setIndex}
-        />
+        <Lightbox images={images} index={index} onClose={() => setOpen(false)} onSelect={setIndex} />
       )}
     </section>
   );
@@ -201,10 +183,7 @@ function Lightbox({
 
   return createPortal(
     <div className="fixed inset-0 z-[1000] bg-black/90">
-      <button
-        onClick={onClose}
-        className="absolute right-4 top-4 rounded-full bg-white/10 px-3 py-2"
-      >
+      <button onClick={onClose} className="absolute right-4 top-4 rounded-full bg-white/10 px-3 py-2">
         ✕
       </button>
 
@@ -220,11 +199,9 @@ function Lightbox({
         <div className="flex gap-2 overflow-x-auto no-scrollbar">
           {images.map((src, i) => (
             <button
-              key={`${src}-${i}`}
+              key={src}
               onClick={() => onSelect(i)}
-              className={`h-16 w-24 overflow-hidden rounded-md border ${
-                i === index ? "border-altina-gold" : "border-white/10"
-              }`}
+              className={`h-16 w-24 overflow-hidden rounded-md border ${i === index ? "border-altina-gold" : "border-white/10"}`}
             >
               <img src={src} className="h-full w-full object-cover" alt="" />
             </button>
