@@ -4,121 +4,42 @@ import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 type Props = {
-  /**
-   * Project ID → folder name inside /public/projects/<id>/
-   * We will render images from:
-   * - global manifest: /public/gallery-manifest.json
-   * - fallback manifest: /public/projects/<id>/gallery/manifest.json
-   */
+  /** Project ID → maps to /public/projects/<id>/gallery */
   projectId: string;
   caption?: string;
 };
 
-function uniq(arr: string[]) {
-  return Array.from(new Set(arr.filter(Boolean)));
-}
-
-function naturalCompare(a: string, b: string) {
-  return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
-}
-
-/**
- * Accepts:
- * - global manifest array: ["/projects/x/gallery/01.jpg", "/projects/x/g1.jpg", ...]
- * - per-project manifest array: ["01.jpg", "02.jpg"] OR ["/projects/x/gallery/01.jpg", ...]
- * - object form: { images: [...] }
- */
-function normalizeImages(projectId: string, payload: any): string[] {
-  const exts = new Set([".jpg", ".jpeg", ".png", ".webp", ".gif"]);
-
-  const galleryBase = `/projects/${projectId}/gallery/`;
-  const rootBase = `/projects/${projectId}/`;
-
-  const list = Array.isArray(payload)
-    ? payload
-    : Array.isArray(payload?.images)
-      ? payload.images
-      : Array.isArray(payload?.[projectId])
-        ? payload[projectId]
-        : [];
-
-  const out: string[] = [];
-
-  for (const x of list) {
-    if (typeof x !== "string") continue;
-    let src = x.trim();
-    if (!src) continue;
-
-    // If manifest provides bare filenames like "01.jpg",
-    // assume they belong to the gallery folder.
-    if (!src.startsWith("/")) {
-      src = galleryBase + src;
-    }
-
-    // Only allow image paths for THIS project
-    // (allow both /gallery/* and project root files like /g1.jpg)
-    if (!(src.startsWith(galleryBase) || src.startsWith(rootBase))) continue;
-
-    const lower = src.toLowerCase();
-    const dot = lower.lastIndexOf(".");
-    const ext = dot >= 0 ? lower.slice(dot) : "";
-    if (!exts.has(ext)) continue;
-
-    out.push(src);
-  }
-
-  return uniq(out).sort(naturalCompare);
-}
-
-export default function ProjectGallery({ projectId, caption = "Click any image to zoom" }: Props) {
+export default function ProjectGallery({
+  projectId,
+  caption = "Click any image to zoom",
+}: Props) {
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
+  /* ---------------- Fetch from API ---------------- */
   useEffect(() => {
     let alive = true;
 
-    async function load() {
-      setLoading(true);
-      setImages([]);
-
-      // 1) ✅ Global manifest (recommended)
-      // public/gallery-manifest.json -> { "<projectId>": ["/projects/<id>/gallery/01.jpg", ...] }
-      try {
-        const r = await fetch(`/gallery-manifest.json`, { cache: "no-store" });
-        if (r.ok) {
-          const json = await r.json();
-          const imgs = normalizeImages(projectId, json);
-          if (alive) setImages(imgs);
-          return;
+    setLoading(true);
+    fetch(`/api/gallery/${encodeURIComponent(projectId)}`, {
+      cache: "force-cache",
+    })
+      .then((r) => (r.ok ? r.json() : Promise.reject()))
+      .then((d) => {
+        if (!alive) return;
+        if (Array.isArray(d?.images)) {
+          setImages(d.images);
         }
-      } catch {
-        // ignore and fallback
-      }
-
-      // 2) Fallback: per-project manifest
-      try {
-        const manifestUrl = `/projects/${encodeURIComponent(projectId)}/gallery/manifest.json`;
-        const r = await fetch(manifestUrl, { cache: "no-store" });
-        if (r.ok) {
-          const json = await r.json();
-          const imgs = normalizeImages(projectId, json);
-          if (alive) setImages(imgs);
-          return;
-        }
-      } catch {
-        // ignore
-      } finally {
-        if (alive) setLoading(false);
-      }
-    }
-
-    load();
+      })
+      .catch(() => {})
+      .finally(() => alive && setLoading(false));
 
     return () => {
       alive = false;
     };
   }, [projectId]);
 
+  /* ---------------- Lightbox ---------------- */
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
 
@@ -129,13 +50,17 @@ export default function ProjectGallery({ projectId, caption = "Click any image t
 
   return (
     <section className="space-y-4">
+      <h3 className="text-xl font-semibold text-altina-gold">Gallery</h3>
       {caption && <p className="text-sm text-neutral-400">{caption}</p>}
 
       {/* Skeleton */}
       {loading && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="aspect-[4/3] rounded-xl bg-white/5 animate-pulse" />
+            <div
+              key={i}
+              className="aspect-[4/3] rounded-xl bg-white/5 animate-pulse"
+            />
           ))}
         </div>
       )}
@@ -164,7 +89,7 @@ export default function ProjectGallery({ projectId, caption = "Click any image t
       )}
 
       {/* Horizontal strip */}
-      {!loading && rest.length > 0 && (
+      {rest.length > 0 && (
         <div className="flex gap-3 overflow-x-auto no-scrollbar py-1">
           {rest.map((src, i) => (
             <button
@@ -175,13 +100,24 @@ export default function ProjectGallery({ projectId, caption = "Click any image t
               }}
               className="h-44 w-[20rem] shrink-0 overflow-hidden rounded-xl ring-1 ring-white/10"
             >
-              <img src={src} className="h-full w-full object-cover" loading="lazy" alt="" />
+              <img
+                src={src}
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
             </button>
           ))}
         </div>
       )}
 
-      {open && <Lightbox images={images} index={index} onClose={() => setOpen(false)} onSelect={setIndex} />}
+      {open && (
+        <Lightbox
+          images={images}
+          index={index}
+          onClose={() => setOpen(false)}
+          onSelect={setIndex}
+        />
+      )}
     </section>
   );
 }
@@ -205,7 +141,10 @@ function Lightbox({
 
   return createPortal(
     <div className="fixed inset-0 z-[1000] bg-black/90">
-      <button onClick={onClose} className="absolute right-4 top-4 rounded-full bg-white/10 px-3 py-2">
+      <button
+        onClick={onClose}
+        className="absolute right-4 top-4 rounded-full bg-white/10 px-3 py-2"
+      >
         ✕
       </button>
 
@@ -213,7 +152,6 @@ function Lightbox({
         <img
           src={images[index]}
           className="max-h-[80vh] max-w-[90vw] object-contain rounded-2xl border border-altina-gold/30"
-          alt=""
         />
       </div>
 
@@ -224,10 +162,12 @@ function Lightbox({
               key={src}
               onClick={() => onSelect(i)}
               className={`h-16 w-24 overflow-hidden rounded-md border ${
-                i === index ? "border-altina-gold" : "border-white/10"
+                i === index
+                  ? "border-altina-gold"
+                  : "border-white/10"
               }`}
             >
-              <img src={src} className="h-full w-full object-cover" alt="" />
+              <img src={src} className="h-full w-full object-cover" />
             </button>
           ))}
         </div>
