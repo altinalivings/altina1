@@ -1,81 +1,32 @@
 import { NextResponse } from "next/server";
 
-/**
- * /api/leads
- * - Accepts ANY lead payload from client
- * - Enriches with UA / language
- * - If UTMs/click IDs are missing, attempts to infer them from the Referer header
- * - Forwards to Apps Script Web App (LEADS_SHEETS_WEBAPP_URL)
- */
+function safeStringify(v: any) {
+  try {
+    if (v === null || v === undefined) return "";
+    if (typeof v === "string") return v;
+    if (typeof v === "number" || typeof v === "boolean") return String(v);
+    return JSON.stringify(v);
+  } catch {
+    return String(v);
+  }
+}
 
-type LeadMode = "callback" | "brochure" | "visit" | "contact";
+function pickFirstNonEmpty(...vals: any[]) {
+  for (const v of vals) {
+    if (v === null || v === undefined) continue;
+    const s = typeof v === "string" ? v : safeStringify(v);
+    if (String(s).trim() !== "") return s;
+  }
+  return "";
+}
 
-type LeadPayload = Record<string, any> & {
-  name?: string;
-  phone?: string;
-  email?: string;
-  message?: string;
-  note?: string;
-  msg?: string;
-  need?: string;
-  mode?: LeadMode;
-  projectId?: string;
-  projectName?: string;
-  source?: string;
-  page?: string;
-  referrer?: string;
-
-  // attribution
-  utm_source?: string;
-  utm_medium?: string;
-  utm_campaign?: string;
-  utm_term?: string;
-  utm_content?: string;
-  gclid?: string;
-  fbclid?: string;
-  msclkid?: string;
-
-  // touch
-  last_touch_ts?: string;
-  last_touch_page?: string;
-  first_touch_source?: string;
-  first_touch_medium?: string;
-  first_touch_campaign?: string;
-  first_touch_term?: string;
-  first_touch_content?: string;
-  first_touch_gclid?: string;
-  first_touch_fbclid?: string;
-  first_touch_msclkid?: string;
-  first_landing_page?: string;
-  first_landing_ts?: string;
-  first_touch_page?: string;
-  first_touch_ts?: string;
-
-  // device/session
-  session_id?: string;
-  ga_cid?: string;
-  language?: string;
-  timezone?: string;
-  viewport?: string;
-  screen?: string;
-  device_type?: string;
-  userAgent?: string;
-
-  // visit
-  preferred_time?: string;
-  preferred_date?: string;
-
-  // routing
-  spreadsheetId?: string;
-
-  __raw_payload?: string;
-};
-
-function extractFromUrl(urlStr: string) {
+function extractAttributionFromUrl(urlStr: string) {
   try {
     const u = new URL(urlStr);
     const p = u.searchParams;
+
     const get = (k: string) => p.get(k) || "";
+
     return {
       utm_source: get("utm_source"),
       utm_medium: get("utm_medium"),
@@ -85,7 +36,8 @@ function extractFromUrl(urlStr: string) {
       gclid: get("gclid"),
       fbclid: get("fbclid"),
       msclkid: get("msclkid"),
-      page: u.pathname || "",
+      // Helpful page fallback
+      __page_from_referer: u.pathname + (u.search || ""),
     };
   } catch {
     return {
@@ -97,19 +49,8 @@ function extractFromUrl(urlStr: string) {
       gclid: "",
       fbclid: "",
       msclkid: "",
-      page: "",
+      __page_from_referer: "",
     };
-  }
-}
-
-function s(v: any) {
-  if (v === null || v === undefined) return "";
-  if (typeof v === "string") return v;
-  if (typeof v === "number" || typeof v === "boolean") return String(v);
-  try {
-    return JSON.stringify(v);
-  } catch {
-    return String(v);
   }
 }
 
@@ -117,90 +58,74 @@ export async function POST(req: Request) {
   try {
     const raw = (await req.json().catch(() => ({}))) as any;
 
-    // Support payload nesting if any client sends { payload: {...} }
-    const body: LeadPayload =
-      raw && typeof raw === "object" && raw.payload && typeof raw.payload === "object"
-        ? { ...raw.payload, ...raw }
-        : (raw as LeadPayload);
+    // Support: { payload: {...} } or { data: {...} } etc.
+    const body =
+      (raw && typeof raw === "object" && raw.payload && typeof raw.payload === "object"
+        ? raw.payload
+        : raw) || {};
 
     const ua = req.headers.get("user-agent") || "";
     const lang = req.headers.get("accept-language") || "";
     const referer = req.headers.get("referer") || "";
 
     const nowIso = new Date().toISOString();
-    const nowMs = String(Date.now());
+    const nowMs = Date.now();
 
-    // Attempt to infer attribution from referer if missing
-    const inferred = referer ? extractFromUrl(referer) : extractFromUrl("");
+    // If client didn't send UTMs, try infer from referer (same-origin usually includes full URL)
+    const inferred = referer ? extractAttributionFromUrl(referer) : extractAttributionFromUrl("");
 
-    const message = body.message ?? body.note ?? body.msg ?? "";
-    const page = body.page || inferred.page || "";
+    // Normalize message fields
+    const message = pickFirstNonEmpty(body.message, body.note, body.msg, "");
+    const pageFromBody = pickFirstNonEmpty(body.page, "");
+    const pageFromReferer = inferred.__page_from_referer;
 
-    const row: Record<string, string> = {
-      // core
-      name: s(body.name),
-      phone: s(body.phone),
-      email: s(body.email),
-      message: s(message),
+    // Build row:
+    // 1) start with everything client sent (so you "capture all")
+    // 2) add/override normalized fields and server hints
+    // 3) fill utms/click ids from referer ONLY if missing in body
+    const row: Record<string, any> = {
+      ...body,
 
-      // ids/context
-      source: s(body.source || "altina-livings"),
-      page: s(page),
-      projectId: s(body.projectId),
-      projectName: s(body.projectName),
+      // Normalize common fields (keep consistent columns)
+      name: pickFirstNonEmpty(body.name, ""),
+      phone: pickFirstNonEmpty(body.phone, ""),
+      email: pickFirstNonEmpty(body.email, ""),
+      message,
+      msg: message,
 
-      // attribution (body wins; fallback to inferred)
-      utm_source: s(body.utm_source || inferred.utm_source),
-      utm_medium: s(body.utm_medium || inferred.utm_medium),
-      utm_campaign: s(body.utm_campaign || inferred.utm_campaign),
-      utm_term: s(body.utm_term || inferred.utm_term),
-      utm_content: s(body.utm_content || inferred.utm_content),
-      gclid: s(body.gclid || inferred.gclid),
-      fbclid: s(body.fbclid || inferred.fbclid),
-      msclkid: s(body.msclkid || inferred.msclkid),
+      // Source/page/referrer
+      source: pickFirstNonEmpty(body.source, "altina-livings"),
+      page: pickFirstNonEmpty(pageFromBody, pageFromReferer),
+      referrer: pickFirstNonEmpty(body.referrer, referer),
 
-      // touch
-      last_touch_ts: s(body.last_touch_ts || nowMs),
-      last_touch_page: s(body.last_touch_page || page),
-      first_touch_source: s(body.first_touch_source),
-      first_touch_medium: s(body.first_touch_medium),
-      first_touch_campaign: s(body.first_touch_campaign),
-      first_touch_term: s(body.first_touch_term),
-      first_touch_content: s(body.first_touch_content),
-      first_touch_gclid: s(body.first_touch_gclid),
-      first_touch_fbclid: s(body.first_touch_fbclid),
-      first_touch_msclkid: s(body.first_touch_msclkid),
-      first_landing_page: s(body.first_landing_page),
-      first_landing_ts: s(body.first_landing_ts),
-      first_touch_page: s(body.first_touch_page),
-      first_touch_ts: s(body.first_touch_ts),
+      // Attribution: body wins; fallback to referer
+      utm_source: pickFirstNonEmpty(body.utm_source, inferred.utm_source),
+      utm_medium: pickFirstNonEmpty(body.utm_medium, inferred.utm_medium),
+      utm_campaign: pickFirstNonEmpty(body.utm_campaign, inferred.utm_campaign),
+      utm_term: pickFirstNonEmpty(body.utm_term, inferred.utm_term),
+      utm_content: pickFirstNonEmpty(body.utm_content, inferred.utm_content),
+      gclid: pickFirstNonEmpty(body.gclid, inferred.gclid),
+      fbclid: pickFirstNonEmpty(body.fbclid, inferred.fbclid),
+      msclkid: pickFirstNonEmpty(body.msclkid, inferred.msclkid),
 
-      // session/device
-      session_id: s(body.session_id),
-      ga_cid: s(body.ga_cid),
-      referrer: s(body.referrer || referer),
-      language: s(body.language || lang),
-      timezone: s(body.timezone),
-      viewport: s(body.viewport),
-      screen: s(body.screen),
-      device_type: s(body.device_type),
-      userAgent: s(body.userAgent || ua),
+      // Touch timestamps: respect client if provided, else fallback
+      last_touch_ts: pickFirstNonEmpty(body.last_touch_ts, String(nowMs)),
+      last_touch_page: pickFirstNonEmpty(body.last_touch_page, pageFromBody, pageFromReferer),
 
-      // extra
-      need: s(body.need),
-      msg: s(message),
-      mode: s(body.mode),
-      preferred_time: s(body.preferred_time),
-      preferred_date: s(body.preferred_date),
+      // Server hints
+      language: pickFirstNonEmpty(body.language, lang),
+      userAgent: pickFirstNonEmpty(body.userAgent, ua),
 
-      // always
+      // Always include these
       time: nowIso,
-      ts: s(body.ts || nowMs),
-      __raw_payload: JSON.stringify(body ?? {}),
+      ts: pickFirstNonEmpty(body.ts, String(nowMs)),
 
-      // sheet routing (optional)
-      spreadsheetId: s(body.spreadsheetId || process.env.SHEET_ID || ""),
+      // Keep the full payload for debugging (but don’t explode the sheet)
+      __raw_payload: safeStringify(body),
     };
+
+    // Spreadsheet routing
+    row.spreadsheetId = pickFirstNonEmpty(body.spreadsheetId, process.env.SHEET_ID || "");
 
     const endpoint = process.env.LEADS_SHEETS_WEBAPP_URL;
     if (!endpoint) throw new Error("LEADS_SHEETS_WEBAPP_URL not configured");

@@ -2,13 +2,20 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import dynamic from "next/dynamic";
 import ClientImage from "@/components/ClientImage";
 import developers from "@/data/developers.json";
 import VirtualTour from "@/components/VirtualTour";
 import AMENITY_ICONS from "@/data/amenityIcons.generated";
 import HomeLoanCalculator, { parseINRFromPriceText } from "@/components/HomeLoanCalculator";
 import GatedVideo from "@/components/GatedVideo";
-import ProjectGalleryClient from "@/components/ProjectGalleryClient"; // ✅ use curated gallery renderer
+
+
+
+// Gallery (client component)
+const ProjectGallery = dynamic(() => import("@/components/ProjectGallery"), {
+  ssr: false,
+});
 
 type AmenityInput =
   | string
@@ -223,12 +230,6 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
   const MAX_CHARS = 120;
   const toggle = (i: number) => setExpanded((prev) => ({ ...prev, [i]: !prev[i] }));
 
-  // ✅ Curated images: prefer project.images (from your Shell), fallback to project.gallery
-  const curatedImages: string[] = useMemo(() => {
-    const list = (project?.images ?? project?.gallery ?? []) as string[];
-    return Array.isArray(list) ? list.filter(Boolean) : [];
-  }, [project?.images, project?.gallery]);
-
   return (
     <div className="space-y-14">
       {/* 1) Merged: USP + Highlights */}
@@ -301,6 +302,7 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
         </Section>
       ) : null}
 
+      
       {/* 5) Location Advantage */}
       {hasAnyLocationAdvantage(locAdv) ? (
         <Section title="Location Advantage">
@@ -338,41 +340,40 @@ export default function ProjectDetailsSections({ project }: { project: any }) {
         </Section>
       ) : null}
 
-      {/* 7) Gallery (curated from projects.ts / shell) */}
-      {curatedImages.length ? (
-        <Section title="Gallery">
-          <ProjectGalleryClient
-            images={curatedImages}
-            slug={project?.slug || project?.id}
-            caption="Click any image to zoom"
-            aspect="16/9"
-            fit="cover"
-          />
-        </Section>
-      ) : null}
+      {/* 7) Gallery (FIXED: slug is REQUIRED by ProjectGallery) */}
+     <Section title="Gallery">
+  <ProjectGallery
+    projectId={project?.id}
+    caption="Click any image to zoom"
+  />
+</Section>
+
 
       {/* 8) Virtual Tour (FIXED prop name: videoUrl) */}
-      {project?.virtualTourUrl ? (
-        <Section title="Virtual Tour">
-          <VirtualTour
-            videoUrl={project.virtualTourUrl}
-            projectId={project?.id}
-            projectName={project?.name}
-          />
-        </Section>
-      ) : null}
+     {project?.virtualTourUrl ? (
+  <Section title="Virtual Tour">
+    <VirtualTour
+      videoUrl={project.virtualTourUrl}
+      projectId={project?.id}
+      projectName={project?.name}
+    />
+  </Section>
+) : null}
 
-      {/* 9) Video Walkthrough (GATED) */}
-      {videoUrl ? (
-        <Section title="Video Walkthrough">
-          <GatedVideo
-            projectId={project?.id}
-            projectName={project?.name}
-            videoUrl={videoUrl}
-            // leadEndpoint="/api/lead"
-          />
-        </Section>
-      ) : null}
+
+      {/* 9) Video Walkthrough */}
+   {/* 9) Video Walkthrough (GATED) */}
+{videoUrl ? (
+  <Section title="Video Walkthrough">
+    <GatedVideo
+      projectId={project?.id}
+      projectName={project?.name}
+      videoUrl={videoUrl}
+      // leadEndpoint="/api/lead"
+    />
+  </Section>
+) : null}
+
 
       {/* 10) About */}
       {project?.about ? (
