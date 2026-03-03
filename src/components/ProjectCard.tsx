@@ -19,7 +19,7 @@ export default function ProjectCard(p: ProjectCardProps) {
     <Link
       href={`/projects/${p.id}`}
       aria-label={`View details for ${p.name}`}
-      className="group relative flex flex-col rounded-2xl border border-altina-gold/30 bg-gradient-to-b from-[#111] to-[#0b0b0b] p-4 shadow-md transition-all hover:border-altina-gold/80 hover:shadow-[0_0_20px_rgba(212,175,55,0.35)] min-h-[260px]"
+      className="group relative flex flex-col rounded-2xl border border-altina-gold/30 bg-gradient-to-b from-[#111] to-[#0b0b0b] p-4 shadow-md transition-all hover:border-altina-gold/80 hover:shadow-[0_0_20px_rgba(191,149,63,0.35)] min-h-[260px]"
     >
       {/* Image */}
       {p.hero && (

@@ -99,7 +99,7 @@ export default function RelatedProjects({
           key={p.id}
           href={`/projects/${p.id}`}
           aria-label={`View details for ${p.name}`}
-          className="group relative flex flex-col rounded-2xl border border-altina-gold/30 bg-gradient-to-b from-[#111] to-[#0b0b0b] p-4 shadow-md transition-all hover:border-altina-gold/80 hover:shadow-[0_0_20px_rgba(212,175,55,0.35)] min-h-[230px]"
+          className="group relative flex flex-col rounded-2xl border border-altina-gold/30 bg-gradient-to-b from-[#111] to-[#0b0b0b] p-4 shadow-md transition-all hover:border-altina-gold/80 hover:shadow-[0_0_20px_rgba(191,149,63,0.35)] min-h-[230px]"
         >
           {/* Image */}
           {p.hero && (

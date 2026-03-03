@@ -53,6 +53,8 @@ const abs = (u?: string) =>
     ? u
     : `${SITE}${u.startsWith("/") ? u : `/${u}`}`;
 
+const projectPath = (p: Project) => `/projects/${p.slug || p.id}`;
+
 function priceNumber(p?: string) {
   if (!p) return undefined;
   const str = p.toLowerCase().replace(/[₹,\s]/g, "").trim();
@@ -97,7 +99,7 @@ export async function generateMetadata({
       ]
         .filter(Boolean)
         .join(" • ")
-    ).slice(0, 300) || `Explore ${p.name}${p.city ? ` in ${p.city}` : ""}.`;
+    ).slice(0, 155) || `Explore ${p.name}${p.city ? ` in ${p.city}` : ""}.`;
 
   return {
     title,
@@ -124,9 +126,22 @@ export async function generateMetadata({
 
 function ProjectSchema({ p }: { p: Project }) {
   const priceValue = priceNumber(p.price);
-  if (!priceValue) return null;
-
   const about = p.overview || p.description || p.about || "";
+
+  const baseOffer = {
+    "@type": "Offer",
+    priceCurrency: "INR",
+    url: `${SITE}${projectPath(p)}`,
+    itemCondition: "https://schema.org/NewCondition",
+    availability: "https://schema.org/InStock",
+    seller: {
+      "@type": "Organization",
+      name: "ALTINA™ Livings",
+      url: SITE,
+      telephone: "+91-9891234195",
+    },
+  };
+
   const schema = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -140,29 +155,65 @@ function ProjectSchema({ p }: { p: Project }) {
       .join(" • "),
     image: p.hero ? [abs(p.hero)] : undefined,
     category: "Real Estate",
-    url: `${SITE}/projects/${p.id}`,
-    offers: {
-      "@type": "Offer",
-      price: priceValue,
-      priceCurrency: "INR",
-      url: `${SITE}/projects/${p.id}`,
-      itemCondition: "https://schema.org/NewCondition",
-      availability: "https://schema.org/InStock",
-      priceValidUntil: new Date(Date.now() + 1000 * 60 * 60 * 24 * 90)
-        .toISOString()
-        .slice(0, 10),
-      seller: {
-        "@type": "Organization",
-        name: "ALTINA™ Livings",
-        url: SITE,
-        telephone: "+91-9891234195",
-      },
-    },
+    url: `${SITE}${projectPath(p)}`,
+    offers: priceValue
+      ? {
+          ...baseOffer,
+          price: priceValue,
+          priceValidUntil: new Date(Date.now() + 1000 * 60 * 60 * 24 * 90)
+            .toISOString()
+            .slice(0, 10),
+        }
+      : baseOffer,
   };
 
   return (
     <Script
       id={`project-schema-${p.id}`}
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+function ProjectFaqSchema({ p, faqs }: { p: Project; faqs: FAQItem[] }) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: { "@type": "Answer", text: faq.a },
+    })),
+  };
+  return (
+    <Script
+      id={`faq-schema-${p.id}`}
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+function ProjectVideoSchema({ p }: { p: Project }) {
+  if (!p.video_url) return null;
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: `${p.name} — Virtual Tour`,
+    description: p.overview || p.description || p.about || `${p.name} project video`,
+    contentUrl: p.video_url,
+    thumbnailUrl: p.hero ? abs(p.hero) : undefined,
+    uploadDate: new Date().toISOString().slice(0, 10),
+    publisher: {
+      "@type": "Organization",
+      name: "ALTINA™ Livings",
+      logo: { "@type": "ImageObject", url: `${SITE}/logos/Altina.png` },
+    },
+  };
+  return (
+    <Script
+      id={`video-schema-${p.id}`}
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
@@ -263,7 +314,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
         className="max-w-6xl mx-auto px-4 pt-10 pb-6 border-t border-altina-gold/20"
         aria-label="Frequently Asked Questions"
       >
-        <h2 className="text-2xl font-semibold text-altina-gold mb-6">
+        <h2 className="text-2xl font-semibold gold-text mb-6">
           Frequently Asked Questions
         </h2>
         <div className="space-y-4">
@@ -284,11 +335,13 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
       {/* Schema & Breadcrumbs */}
       <ProjectSchema p={p} />
       <ProjectBreadcrumbs p={p} />
+      <ProjectFaqSchema p={p} faqs={faqs} />
+      <ProjectVideoSchema p={p} />
 
       {/* Related projects */}
       <section className="max-w-6xl mx-auto px-4 mt-8 pb-10" aria-label="Related Projects">
         <div className="border-t border-altina-gold/20 pt-6">
-          <h2 className="text-xl sm:text-2xl font-semibold text-altina-gold mb-4">
+          <h2 className="text-xl sm:text-2xl font-semibold gold-text mb-4">
             More like this
           </h2>
           <RelatedProjects currentId={p.id} developer={p.developer} city={p.city} />

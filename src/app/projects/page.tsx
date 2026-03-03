@@ -1,6 +1,7 @@
 // src/app/projects/page.tsx
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import PageHero from "@/components/PageHero";
 import ProjectsClient from "./projects-client";
 import ProjectsSchema from "./ProjectsSchema";
 
@@ -29,8 +30,12 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <main>
-      {/* Full-bleed hero to match other pages */}
-      
+      <PageHero
+        title="Projects in Delhi NCR"
+        subtitle="Browse luxury launches across Gurgaon, Noida and Delhi by top developers."
+        image="/hero/projects.jpg"
+        height="h-[44vh]"
+      />
 
       {/* Listing grid */}
       <section >

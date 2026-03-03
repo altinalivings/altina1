@@ -1,0 +1,23 @@
+{
+  "name": "ALTINA™ Livings",
+  "short_name": "ALTINA™",
+  "description": "Premium real estate channel partner for luxury properties in Delhi NCR.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0B0C",
+  "theme_color": "#C9A227",
+  "lang": "en-IN",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

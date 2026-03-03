@@ -12,27 +12,51 @@ import Analytics from "@/components/Analytics";
 import Notifier from "@/components/Notifier";
 import AutoCallbackPrompt from "@/components/AutoCallbackPrompt";
 import AnalyticsGuards from "@/components/AnalyticsGuards";
+import CookieConsent from "@/components/CookieConsent";
+import { getSiteStats } from "@/data/unified";
 import Script from "next/script";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], display: "swap", preload: true });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.altinalivings.com";
 const FB_PIXEL = process.env.NEXT_PUBLIC_FB_PIXEL;
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "";
-const LI_ID = process.env.NEXT_PUBLIC_LI_PARTNER_ID || "";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: "ALTINA™ Livings", template: "%s | ALTINA™ Livings" },
+  title: { default: "ALTINA™ Livings | Luxury Real Estate Delhi NCR", template: "%s | ALTINA™ Livings" },
   description:
-    "ALTINA™ Livings partners with DLF, Sobha, M3M, Godrej to bring premium real estate launches across Delhi NCR.",
+    "ALTINA™ Livings – premium channel partner for DLF, Sobha, M3M, Godrej luxury real estate launches across Delhi NCR. Zero buyer fees. 500+ happy families.",
+  keywords: ["luxury properties Delhi NCR", "apartments Gurgaon", "flats Noida", "DLF projects", "SOBHA apartments", "M3M properties", "channel partner Delhi NCR"],
+  authors: [{ name: "ALTINA™ Livings", url: SITE_URL }],
+  creator: "ALTINA™ Livings",
+  publisher: "ALTINA™ Livings",
   openGraph: {
     type: "website",
     url: SITE_URL,
     siteName: "ALTINA™ Livings",
-    images: ["/og-default.jpg"],
+    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "ALTINA™ Livings – Luxury Properties Delhi NCR" }],
   },
-  alternates: { canonical: SITE_URL },
+  twitter: {
+    card: "summary_large_image",
+    site: "@altinalivings",
+    creator: "@altinalivings",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+  },
+  alternates: {
+    canonical: SITE_URL,
+    languages: {
+      "en-IN": SITE_URL,
+      "x-default": SITE_URL,
+    },
+  },
+  icons: {
+    icon: "/logos/Altina.png",
+    apple: "/logos/Altina.png",
+  },
 };
 
 const preInteractiveGuard = `;(function(){try{
@@ -55,12 +79,33 @@ const preInteractiveGuard = `;(function(){try{
 }catch(e){} })();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  // Derive served cities from the live project catalogue — auto-updates when projects are added
+  const { cities } = getSiteStats();
+  const areaServed = ["Delhi NCR", ...cities].filter(
+    (v, i, arr) => arr.indexOf(v) === i // deduplicate
+  );
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "ALTINA™ Livings",
+    url: "https://www.altinalivings.com",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: "https://www.altinalivings.com/projects?q={search_term_string}",
+      },
+      "query-input": "required name=search_term_string",
+    },
+  };
+
   const orgJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "ALTINA™ Livings",
     url: "https://www.altinalivings.com",
-    logo: "https://www.altinalivings.com/logo.png",
+    logo: "https://www.altinalivings.com/logos/Altina.png",
     contactPoint: {
       "@type": "ContactPoint",
       telephone: "+91-9891234195",
@@ -80,9 +125,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     "@context": "https://schema.org",
     "@type": ["RealEstateAgent", "LocalBusiness"],
     name: "ALTINA™ Livings",
-    image: "https://www.altinalivings.com/logo.png",
+    image: "https://www.altinalivings.com/logos/Altina.png",
     url: "https://www.altinalivings.com",
     telephone: "+91-9891234195",
+    priceRange: "₹₹₹₹",
+    openingHours: "Mo-Sa 10:00-19:00",
     address: {
       "@type": "PostalAddress",
       streetAddress:
@@ -92,7 +139,54 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       postalCode: "122007",
       addressCountry: "IN",
     },
-    areaServed: ["Delhi NCR", "Gurgaon", "Noida"],
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: "28.4595",
+      longitude: "77.0266",
+    },
+    areaServed,
+    department: [
+      {
+        "@type": "LocalBusiness",
+        name: "ALTINA™ Livings – Gurugram Office",
+        telephone: "+91-9891234195",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "Suite C, 704, 7th Floor, Palm Court, Mehrauli–Gurgaon Road, Sector 16",
+          addressLocality: "Gurugram",
+          addressRegion: "Haryana",
+          postalCode: "122007",
+          addressCountry: "IN",
+        },
+        geo: { "@type": "GeoCoordinates", latitude: "28.4595", longitude: "77.0266" },
+      },
+      {
+        "@type": "LocalBusiness",
+        name: "ALTINA™ Livings – Delhi Office",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "26 & 27 A, H-Block, Office No. 401 & 404, Vikas Marg, Laxmi Nagar",
+          addressLocality: "Delhi",
+          addressRegion: "Delhi",
+          postalCode: "110092",
+          addressCountry: "IN",
+        },
+        geo: { "@type": "GeoCoordinates", latitude: "28.6391", longitude: "77.2772" },
+      },
+      {
+        "@type": "LocalBusiness",
+        name: "ALTINA™ Livings – Head Office (Ghaziabad)",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "Apartment No. 301, 12th Floor, GH Plot No. 6, Sam Residency, Crossing Republik",
+          addressLocality: "Ghaziabad",
+          addressRegion: "Uttar Pradesh",
+          postalCode: "201016",
+          addressCountry: "IN",
+        },
+        geo: { "@type": "GeoCoordinates", latitude: "28.6235", longitude: "77.4311" },
+      },
+    ],
     sameAs: [
       "https://www.facebook.com/profile.php?id=61580035583494",
       "https://www.instagram.com/altinalivings",
@@ -102,8 +196,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   };
 
   return (
-    <html lang="en" className="bg-black text-white">
+    <html lang="en-IN" className="bg-black text-white">
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <meta name="theme-color" content="#0B0B0C" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://connect.facebook.net" />
+        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
         <meta
           name="google-site-verification"
           content="_1iZhV_tnYBQBc5MU2VMF9YObRDPkiFdNlGpxmsYIOU"
@@ -136,6 +240,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Analytics />
         <Notifier />
         <AutoCallbackPrompt />
+        <CookieConsent />
         
 
         {/* 🧾 Structured Data */}
@@ -147,78 +252,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(businessJsonLd) }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
 		
-
-        {/* ✅ Analytics Script Loader */}
-        <Script id="altina-analytics" strategy="afterInteractive">
-          {`
-            (function() {
-              // GA4
-              if ('${GA_ID}' && !window.__ga_loaded) {
-                var s=document.createElement('script');
-                s.async=true;
-                s.src='https://www.googletagmanager.com/gtag/js?id=${GA_ID}';
-                document.head.appendChild(s);
-                window.dataLayer=window.dataLayer||[];
-                function gtag(){dataLayer.push(arguments);}
-                window.gtag=gtag;
-                gtag('js', new Date());
-                gtag('config', '${GA_ID}');
-                window.__ga_loaded=true;
-              }
-
-              // FB Pixel
-              if ('${FB_PIXEL}' && !window.__fb_loaded) {
-                !(function(f,b,e,v,n,t,s){
-                  if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-                  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-                  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-                  n.queue=[];t=b.createElement(e);t.async=!0;
-                  t.src=v;s=b.getElementsByTagName(e)[0];
-                  s.parentNode.insertBefore(t,s)
-                })(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
-                fbq('init', '${FB_PIXEL}');
-                fbq('track', 'PageView');
-                window.__fb_loaded=true;
-              }
-
-              // LinkedIn Insight
-              if ('${LI_ID}' && !window.__li_loaded) {
-                var s=document.createElement("script");
-                s.type="text/javascript"; s.async=true;
-                s.src="https://snap.licdn.com/li.lms-analytics/insight.min.js";
-                document.head.appendChild(s);
-                window.lintrk=function(a,b){window.lintrk.q.push([a,b])};
-                window.lintrk.q=[];
-                window.__li_loaded=true;
-              }
-
-              // 🟢 Site-wide WhatsApp click tracking (GA4)
-              document.addEventListener('click', function(e){
-                try {
-                  var a = e.target.closest && e.target.closest('a');
-                  if(!a) return;
-                  var href = a.getAttribute('href') || '';
-                  href = href.toLowerCase();
-                  if(href.includes('wa.me/') || href.includes('api.whatsapp.com/send') || href.startsWith('whatsapp://')){
-                    if(typeof window.gtag === 'function'){
-                      window.gtag('event', 'whatsapp_click', {
-                        event_category: 'engagement',
-                        event_label: href
-                      });
-                    }
-                    if(window.dataLayer){
-                      window.dataLayer.push({
-                        event: 'whatsapp_click',
-                        wa_href: href
-                      });
-                    }
-                  }
-                } catch(err){}
-              }, true);
-            })();
-          `}
-        </Script>
 
         {/* 🧠 FB Pixel no-script fallback */}
         {FB_PIXEL ? (
@@ -231,7 +269,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             />
           </noscript>
         ) : null}
-		<script src="https://app.getgabs.com/getredtowp/iframe/H1yCwYczqbmQFCuvW1yDPYo2kO9dI64Lea7eJWCCJ2HWaR6QgfRL9L0nAipaiUJhoih2me7zL4egleu6XwiKQbalAgpgJwTEHgMN" async></script>
+		{/* GetGabs WhatsApp widget removed — replaced by header WhatsApp button */}
 		
       </body>
     </html>

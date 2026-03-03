@@ -8,16 +8,42 @@ function readJSON(p) {
   return JSON.parse(raw);
 }
 
-const projectsPath = path.join(__dirname, "src/data/projects.json");
+/**
+ * Extract project IDs from projects.ts using regex.
+ * This avoids the need for a separate .json file.
+ */
+function readProjectIdsFromTS(tsPath) {
+  try {
+    const raw = fs.readFileSync(tsPath, "utf8");
+    const ids = [];
+    // Match id: "some-slug" patterns
+    const idRegex = /\bid\s*:\s*["']([^"']+)["']/g;
+    let m;
+    while ((m = idRegex.exec(raw)) !== null) {
+      ids.push(m[1]);
+    }
+    return ids;
+  } catch (e) {
+    return [];
+  }
+}
+
+const projectsTsPath = path.join(__dirname, "src/data/projects.ts");
 const postsPath = path.join(__dirname, "src/data/posts.json");
 
-let projects = [];
-let posts = [];
-try {
-  projects = readJSON(projectsPath);
-} catch (e) {
-  console.warn("projects.json not found or invalid; skipping project paths");
+// Try .ts first (primary source), fallback to .json
+let projectIds = readProjectIdsFromTS(projectsTsPath);
+if (!projectIds.length) {
+  try {
+    const projectsJsonPath = path.join(__dirname, "src/data/projects.json");
+    const projects = readJSON(projectsJsonPath);
+    projectIds = projects.map((p) => p.id || p.slug).filter(Boolean);
+  } catch (e) {
+    console.warn("No project data found for sitemap generation");
+  }
 }
+
+let posts = [];
 try {
   posts = readJSON(postsPath);
 } catch (e) {
@@ -25,27 +51,25 @@ try {
 }
 
 module.exports = {
-  siteUrl: "https://altinalivings.com",
+  siteUrl: "https://www.altinalivings.com",
   generateRobotsTxt: true,
   sitemapSize: 7000,
   changefreq: "weekly",
   priority: 0.7,
-  exclude: ["/api/*"],
+  exclude: ["/api/*", "/debug-analytics"],
 
   // Dynamically add /projects/* and /blog/* entries
   additionalPaths: async (config) => {
     const paths = [];
 
-    // Projects
-    for (const p of Array.isArray(projects) ? projects : []) {
-      if (p?.slug) {
-        paths.push({
-          loc: `/projects/${p.slug}`,
-          lastmod: new Date().toISOString(),
-          changefreq: "monthly",
-          priority: 0.8,
-        });
-      }
+    // Projects (from .ts IDs)
+    for (const id of projectIds) {
+      paths.push({
+        loc: `/projects/${id}`,
+        lastmod: new Date().toISOString(),
+        changefreq: "monthly",
+        priority: 0.8,
+      });
     }
 
     // Blog posts
@@ -65,7 +89,7 @@ module.exports = {
 
   robotsTxtOptions: {
     additionalSitemaps: [
-      "https://altinalivings.com/sitemap.xml",
+      "https://www.altinalivings.com/sitemap.xml",
     ],
   },
 };

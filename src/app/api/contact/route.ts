@@ -62,6 +62,39 @@ export async function POST(req: Request) {
       throw new Error(`Sheets webhook error ${res.status}: ${txt}`);
     }
 
+    // ── Dual-write to Supabase CRM ──────────────────────────────────────
+    try {
+      const { createAdminClient } = await import("@/lib/supabase/admin");
+      const supabase = createAdminClient();
+      const phone = String(row.phone || "").trim();
+      const name = String(row.name || "").trim();
+      if (phone) {
+        const { data: existing } = await supabase.from("leads").select("id").eq("phone", phone).maybeSingle();
+        if (existing) {
+          await supabase.from("lead_activities").insert({
+            lead_id: existing.id, type: "system",
+            title: "New contact form enquiry from website",
+            description: String(row.message || "").slice(0, 500) || null,
+          });
+          await supabase.from("leads").update({ last_contacted_at: new Date().toISOString() }).eq("id", existing.id);
+        } else {
+          const { data: newLead } = await supabase.from("leads").insert({
+            name, phone, email: String(row.email || "") || null,
+            source: "website", stage: "new", quality: "warm", form_mode: "contact",
+            notes: String(row.message || "") || null,
+          }).select("id").single();
+          if (newLead) {
+            await supabase.from("lead_activities").insert({
+              lead_id: newLead.id, type: "system",
+              title: "Lead created from contact form",
+            });
+          }
+        }
+      }
+    } catch (supaErr) {
+      console.error("[Supabase dual-write /api/contact]", supaErr);
+    }
+
     return NextResponse.json({ ok: true });
   } catch (e: any) {
     console.error("CONTACT API error:", e);

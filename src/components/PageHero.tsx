@@ -1,9 +1,10 @@
 // src/components/PageHero.tsx
 "use client";
 
+import Image from "next/image";
 import { useMemo, useState } from "react";
 
-const FALLBACK = "/placeholder/2200x1200.jpg"; // put a branded fallback in /public/placeholder/
+const FALLBACK = "/hero/home.jpg";
 
 function SmartHeroImage({
   projectId,
@@ -16,47 +17,24 @@ function SmartHeroImage({
   alt: string;
   className?: string;
 }) {
-  const candidates = useMemo(() => {
-    const list: string[] = [];
-    if (src) {
-      list.push(src);
-      if (src.startsWith("/")) list.push(src.slice(1));
-    }
-    if (projectId) {
-      const base = `/projects/${projectId}/hero`;
-      [".jpg", ".jpeg", ".png", ".webp"].forEach((ext) => {
-        list.push(`${base}${ext}`);
-        list.push(`${base}${ext}`.replace(/^\//, ""));
-      });
-    }
-    return list.length ? list : [FALLBACK];
+  const primarySrc = useMemo(() => {
+    if (src) return src;
+    if (projectId) return `/projects/${projectId}/hero.jpg`;
+    return FALLBACK;
   }, [projectId, src]);
 
-  const [idx, setIdx] = useState(0);
-  const [current, setCurrent] = useState(candidates[0]);
-
-  // reset when candidates change
-  if (current !== candidates[idx]) {
-    setIdx(0);
-    setCurrent(candidates[0]);
-  }
+  const [imgSrc, setImgSrc] = useState(primarySrc);
 
   return (
-    <img
-      src={current}
+    <Image
+      src={imgSrc}
       alt={alt}
-      className={className}
+      fill
+      priority
+      className={`object-cover ${className ?? ""}`}
+      sizes="100vw"
       onError={() => {
-        const next = idx + 1;
-        if (next < candidates.length) {
-          // eslint-disable-next-line no-console
-          console.warn("[PageHero] 404:", current, "→ trying:", candidates[next]);
-          setIdx(next);
-          setCurrent(candidates[next]);
-        } else if (current !== FALLBACK) {
-          console.warn("[PageHero] all candidates failed, using fallback", candidates);
-          setCurrent(FALLBACK);
-        }
+        if (imgSrc !== FALLBACK) setImgSrc(FALLBACK);
       }}
     />
   );
@@ -69,13 +47,16 @@ export default function PageHero({
   projectId,
   height = "h-[56vh]",
   overlayClass = "bg-black/40",
+  titleAs: TitleTag = "h1",
 }: {
   title: string;
   subtitle?: string;
   image?: string;
-  projectId?: string; // pass on project pages to enable auto hero path tries
+  projectId?: string;
   height?: string;
   overlayClass?: string;
+  /** Use "h2" on pages that already have their own <h1> in the content body */
+  titleAs?: "h1" | "h2";
 }) {
   return (
     <section className={`relative ${height} min-h-[420px] overflow-hidden`}>
@@ -88,7 +69,7 @@ export default function PageHero({
       <div className={`absolute inset-0 ${overlayClass}`} />
       <div className="relative z-10 mx-auto flex h-full max-w-6xl items-end px-4 pb-10">
         <div className="golden-frame modal-surface rounded-2xl p-5">
-          <h1 className="text-3xl font-semibold">{title}</h1>
+          <TitleTag className="text-3xl font-semibold">{title}</TitleTag>
           {subtitle && <p className="mt-2 text-neutral-300">{subtitle}</p>}
         </div>
       </div>

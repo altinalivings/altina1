@@ -1,10 +1,13 @@
-"use client";
-
+// src/app/developers/[slug]/page.tsx
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import Script from "next/script";
 import devs from "@/data/developers.json";
 import allProjects from "@/data/projects";
+import { getDeveloperBySlug } from "@/data/unified";
 import Link from "next/link";
-import { useMemo, useState } from "react";
 import FloatingCTAs from "@/components/FloatingCTAs";
+import SmartHero from "./SmartHero";
 
 type KV = [string, string];
 
@@ -27,65 +30,110 @@ type Dev = {
   projects?: string[];
 };
 
-const FALLBACK = "/placeholder/2200x1200.jpg";
+const SITE =
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
+  "https://www.altinalivings.com";
 
-function SmartHero({
-  slug,
-  src,
-  alt,
+export function generateStaticParams() {
+  return (devs as Dev[]).map((d) => ({ slug: d.slug }));
+}
+
+export async function generateMetadata({
+  params,
 }: {
-  slug: string;
-  src?: string;
-  alt: string;
-}) {
-  const candidates = useMemo(() => {
-    const out: string[] = [];
-    if (src) {
-      out.push(src);
-      if (src.startsWith("/")) out.push(src.slice(1));
-    }
-    const base = `/developers/${slug}/hero`;
-    [".jpg", ".jpeg", ".png", ".webp"].forEach((ext) => {
-      out.push(`${base}${ext}`);
-      out.push(`${base}${ext}`.slice(1));
-    });
-    return out.length ? out : [FALLBACK];
-  }, [slug, src]);
+  params: { slug: string };
+}): Promise<Metadata> {
+  const d = (devs as Dev[]).find((x) => x.slug === params.slug);
+  if (!d) return { title: "Developer not found | ALTINA™ Livings" };
 
-  const [idx, setIdx] = useState(0);
-  const curr = candidates[Math.min(idx, candidates.length - 1)];
+  const title = `${d.name} Projects in Delhi NCR | ALTINA™ Livings`;
+  const description = (
+    d.about ||
+    d.tagline ||
+    `Explore ${d.name} projects in Delhi NCR via ALTINA™ Livings.`
+  ).slice(0, 155);
+
+  const heroAbs = d.hero
+    ? d.hero.startsWith("http")
+      ? d.hero
+      : `${SITE}${d.hero}`
+    : `${SITE}/og.jpg`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: `/developers/${d.slug}` },
+    openGraph: {
+      title,
+      description,
+      url: `${SITE}/developers/${d.slug}`,
+      siteName: "ALTINA™ Livings",
+      images: [{ url: heroAbs, width: 1200, height: 630, alt: d.name }],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [heroAbs],
+    },
+  };
+}
+
+function DeveloperSchemas({ d }: { d: Dev }) {
+  const breadcrumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE },
+      { "@type": "ListItem", position: 2, name: "Developers", item: `${SITE}/developers` },
+      { "@type": "ListItem", position: 3, name: d.name, item: `${SITE}/developers/${d.slug}` },
+    ],
+  };
+
+  const org = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: d.name,
+    description: d.about || d.tagline,
+    url: `${SITE}/developers/${d.slug}`,
+    logo: d.logo
+      ? d.logo.startsWith("http")
+        ? d.logo
+        : `${SITE}${d.logo}`
+      : undefined,
+    image: d.hero
+      ? d.hero.startsWith("http")
+        ? d.hero
+        : `${SITE}${d.hero}`
+      : undefined,
+  };
 
   return (
-    <img
-      src={curr}
-      alt={alt}
-      className="absolute inset-0 h-full w-full object-cover"
-      onError={() => {
-        const next = idx + 1;
-        if (next < candidates.length) {
-          console.warn("[Dev Hero] 404:", curr, "→", candidates[next]);
-          setIdx(next);
-        } else if (curr !== FALLBACK) {
-          setIdx(candidates.length - 1);
-        }
-      }}
-    />
+    <>
+      <Script
+        id={`dev-breadcrumbs-${d.slug}`}
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
+      />
+      <Script
+        id={`dev-org-${d.slug}`}
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(org) }}
+      />
+    </>
   );
 }
 
 export default function DeveloperDetailPage({ params }: { params: { slug: string } }) {
   const d = (devs as Dev[]).find((x) => x.slug === params.slug);
+  if (!d) return notFound();
 
-  if (!d) {
-    return (
-      <main className="mx-auto max-w-4xl px-4 py-16">
-        <h1 className="text-2xl font-semibold">Developer not found</h1>
-        <p className="mt-2 text-neutral-400">Please check the URL and try again.</p>
-      </main>
-    );
-  }
-
-  const projects = (allProjects as any[]).filter((p) => d.projects?.includes(p.id));
+  const projects = (() => {
+    const unified = getDeveloperBySlug(params.slug);
+    if (unified && unified.projects.length > 0) return unified.projects;
+    return (allProjects as any[]).filter((p) => d.projects?.includes(p.id));
+  })();
 
   return (
     <>
@@ -150,7 +198,7 @@ export default function DeveloperDetailPage({ params }: { params: { slug: string
                 >
                   <div className="relative h-48">
                     <img
-                      src={p.hero || "/placeholder/1200x800.jpg"}
+                      src={p.hero || "/hero/projects.jpg"}
                       alt={p.name}
                       className="h-full w-full object-cover group-hover:scale-105 transition"
                     />
@@ -168,7 +216,7 @@ export default function DeveloperDetailPage({ params }: { params: { slug: string
         ) : null}
       </main>
 
-      {/* Only one CTA stack now */}
+      <DeveloperSchemas d={d} />
       <FloatingCTAs projectId={`developer-${d.slug}`} projectName={d.name} />
     </>
   );
@@ -177,7 +225,7 @@ export default function DeveloperDetailPage({ params }: { params: { slug: string
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="modal-surface golden-frame p-6">
-      <h2 className="text-xl font-semibold">{title}</h2>
+      <h2 className="text-xl font-semibold gold-text">{title}</h2>
       <div className="golden-divider my-3" />
       {children}
     </section>

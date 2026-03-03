@@ -132,8 +132,8 @@ export default function ProjectGalleryClient({
               onClick={() => setIndex(i)}
               className={[
                 "relative h-20 w-28 flex-none overflow-hidden rounded-xl border bg-black",
-                i === index ? "border-[#C5A657]" : "border-white/10 hover:border-white/20",
-                "focus:outline-none focus:ring-2 focus:ring-[#C5A657]/60",
+                i === index ? "border-[#BF953F]" : "border-white/10 hover:border-white/20",
+                "focus:outline-none focus:ring-2 focus:ring-[#BF953F]/60",
               ].join(" ")}
               aria-label={`Select image ${i + 1} ${slug ? "for " + slug : ""}`}
             >
@@ -149,7 +149,7 @@ export default function ProjectGalleryClient({
         </div>
       )}
 
-      {/* Lightbox (force navigation arrows visible) */}
+      {/* Lightbox */}
       <Lightbox
         open={open}
         close={() => setOpen(false)}
@@ -159,32 +159,15 @@ export default function ProjectGalleryClient({
         carousel={{ finite: !hasMany }}
         thumbnails={{ position: "bottom" }}
         zoom={{ maxZoomPixelRatio: 2.5, scrollToZoom: true }}
-        // Ensure arrows are not suppressed anywhere
         render={{
-          // Strong, visible icons for prev/next
-          iconPrev: () => <span style={{ fontSize: 26, lineHeight: 1 }}>‹</span>,
-          iconNext: () => <span style={{ fontSize: 26, lineHeight: 1 }}>›</span>,
-          // If only 1 image, hide buttons cleanly (recommended by docs)
           buttonPrev: hasMany ? undefined : () => null,
           buttonNext: hasMany ? undefined : () => null,
         }}
-        // Force the navigation slots to be visible even if global CSS hides them
         styles={{
-          navigationPrev: {
-            display: hasMany ? "flex" : "none",
-            opacity: 1,
-            pointerEvents: hasMany ? "auto" : "none",
-            zIndex: 9999,
-          },
-          navigationNext: {
-            display: hasMany ? "flex" : "none",
-            opacity: 1,
-            pointerEvents: hasMany ? "auto" : "none",
-            zIndex: 9999,
-          },
           button: {
-            backgroundColor: "rgba(0,0,0,0.55)",
-            border: "1px solid rgba(255,255,255,0.12)",
+            backgroundColor: "rgba(0,0,0,0.6)",
+            border: "1px solid rgba(255,255,255,0.15)",
+            filter: "none",
           },
         }}
       />

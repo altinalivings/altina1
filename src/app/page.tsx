@@ -1,3 +1,4 @@
+// src/app/page.tsx
 import type { Metadata } from "next";
 import Script from "next/script";
 
@@ -15,16 +16,50 @@ import LocationsSection from "@/components/LocationsSection";
 import FloatingCTAs from "@/components/FloatingCTAs";
 
 export const metadata: Metadata = {
-  title: "Luxury Apartments & Builder Floors in Delhi NCR | ALTINA™ Livings",
+  title: "Luxury Properties in Delhi NCR | Premium Apartments, Villas & Builder Floors | ALTINA™",
   description:
-    "Explore luxury flats, independent floors, and commercial projects by DLF, Sobha & Godrej across Delhi NCR. ALTINA™ Livings — Your Gateway to Luxury Living.",
+    "Find luxury apartments, penthouses, builder floors & villas in Delhi NCR. Expert channel partner for DLF, SOBHA, M3M, Godrej projects in Gurgaon, Noida, Delhi. Best prices guaranteed. 500+ happy families.",
+  keywords: [
+    "luxury properties Delhi NCR",
+    "apartments in Gurgaon",
+    "flats in Noida",
+    "builder floors Delhi",
+    "DLF projects",
+    "SOBHA apartments",
+    "M3M projects",
+    "Godrej properties",
+    "luxury real estate NCR",
+    "property in Golf Course Road",
+    "Dwarka Expressway properties",
+    "Noida Expressway apartments",
+    "premium real estate channel partner"
+  ],
   alternates: { canonical: "https://www.altinalivings.com" },
   openGraph: {
     title: "Luxury Properties Delhi NCR | ALTINA™ Livings",
     description:
-      "Discover premium residential & commercial projects in Delhi NCR with ALTINA™ Livings, trusted channel partner for marquee developers.",
-    images: ["/og-default.jpg"],
+      "Discover premium residential & commercial projects in Delhi NCR with ALTINA™ Livings, trusted channel partner for marquee developers. 500+ happy families.",
+    images: ["/og.jpg"],
     url: "https://www.altinalivings.com",
+    type: "website",
+    siteName: "ALTINA™ Livings",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Luxury Properties Delhi NCR | ALTINA™ Livings",
+    description: "Premium apartments, villas & builder floors from top developers in Gurgaon, Noida & Delhi",
+    images: ["/og.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
@@ -39,6 +74,7 @@ export default function HomePage() {
 
   return (
     <main>
+      {/* Enhanced Hero with better semantic HTML */}
       <PageHero
         title="ALTINA™ Livings"
         subtitle="Curated launches across Delhi NCR. Luxury channel partner for leading developers."
@@ -46,8 +82,11 @@ export default function HomePage() {
         height="h-[64vh]"
       />
 
-      {/* Search Bar */}
-      <section className="max-w-6xl mx-auto px-4 mt-4 sm:mt-6 lg:mt-10 relative z-10">
+      {/* Search Bar - Enhanced for SEO */}
+      <section 
+        className="max-w-6xl mx-auto px-4 mt-4 sm:mt-6 lg:mt-10 relative z-10"
+        aria-label="Property Search"
+      >
         <div className="golden-frame glow modal-surface p-4">
           <h2 className="text-xl font-semibold mb-4">
             Let's Start Your Search for Luxury Livings
@@ -57,7 +96,7 @@ export default function HomePage() {
             <input
               name="q"
               placeholder="Search projects, locations, developers…"
-              aria-label="Search"
+              aria-label="Search properties"
               className="sm:col-span-2 rounded-xl border border-altina-gold/30 bg-transparent px-3 py-2 text-sm text-altina-ivory placeholder:text-altina-ivory/40 focus:outline-none focus:ring-2 focus:ring-altina-gold/40 focus:border-altina-gold/60"
             />
             <select
@@ -94,14 +133,14 @@ export default function HomePage() {
       </section>
 
       <FeaturedProjects items={featuredProjects} />
-      { <FeaturedDevelopers items={(developers as any[])} /> }
+      <FeaturedDevelopers items={(developers as any[])} />
       <ServicesWeOffer />
       <ValueProposition />
       <MiniCTA />
       <TestimonialsSection />
       <LocationsSection />
 
-      {/* Optional: Homepage FAQ rich result */}
+      {/* Enhanced FAQ Schema with more questions */}
       <Script
         id="home-faq-schema"
         type="application/ld+json"
@@ -116,7 +155,7 @@ export default function HomePage() {
                 acceptedAnswer: {
                   "@type": "Answer",
                   text:
-                    "ALTINA™ Livings curates luxury residential and commercial projects across Delhi NCR, partnering with marquee developers like DLF, Sobha, and Godrej.",
+                    "ALTINA™ Livings is a premium channel partner for luxury real estate in Delhi NCR. We curate handpicked projects from top developers like DLF, SOBHA, M3M, and Godrej, offering exclusive inventory access, best prices, and end-to-end support from discovery to possession.",
                 },
               },
               {
@@ -125,10 +164,79 @@ export default function HomePage() {
                 acceptedAnswer: {
                   "@type": "Answer",
                   text:
-                    "We specialize in premium properties in Delhi, Gurugram, and Noida — including DLF Midtown, Independent Floors, and SCO plots.",
+                    "We specialize in premium properties across Delhi NCR including Gurgaon (Golf Course Road, Dwarka Expressway, Sohna Road), Noida (Noida Expressway, Sector 150), Greater Noida West, New Delhi, and Faridabad. We cover all major micro-markets with luxury developments.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Do you charge buyers any fees?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text:
+                    "No, ALTINA™ Livings does not charge any fees to buyers. Our channel partner commission comes from developers. You get the same or better prices than booking directly, plus expert advisory and concierge services at no extra cost.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Can NRIs invest through ALTINA™ Livings?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text:
+                    "Yes, we provide complete NRI advisory services including Power of Attorney (POA) assistance, FEMA compliance, remote booking support, property management, and repatriation guidance. Over 30% of our clients are NRIs.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How do I book a property through ALTINA™?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text:
+                    "Simply contact us via WhatsApp (+91-98912-34195) or our website. We'll understand your requirements, arrange site visits, provide detailed comparisons, assist with documentation, and handle the entire booking process with the developer on your behalf.",
                 },
               },
             ],
+          }),
+        }}
+      />
+
+      {/* Enhanced BreadcrumbList Schema */}
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.altinalivings.com"
+              }
+            ]
+          }),
+        }}
+      />
+
+      {/* WebSite Schema for Sitelinks Search Box */}
+      <Script
+        id="website-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "url": "https://www.altinalivings.com",
+            "name": "ALTINA™ Livings",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://www.altinalivings.com/projects?q={search_term_string}"
+              },
+              "query-input": "required name=search_term_string"
+            }
           }),
         }}
       />

@@ -1,5 +1,6 @@
 // src/app/services/page.tsx
 import type { Metadata } from "next";
+import Script from "next/script";
 import PageHero from "@/components/PageHero";
 import ServicesWeOffer from "@/components/ServicesWeOffer";
 import ValueProposition from "@/components/ValueProposition";
@@ -10,13 +11,19 @@ export const metadata: Metadata = {
   description:
     "ALTINA™ Livings offers residential & commercial advisory, brochure access, site visits, negotiations, NRI support and home loans across Delhi NCR.",
   alternates: { canonical: "/services" },
+  openGraph: {
+    title: "Real Estate Services | ALTINA™ Livings Delhi NCR",
+    description:
+      "Residential advisory, NRI support, home loans & site visits across Delhi NCR. Zero buyer fees. Expert channel partner for DLF, Sobha, M3M, Godrej.",
+    images: ["/og.jpg"],
+  },
 };
 
 export default function ServicesPage() {
   return (
     <main>
       <PageHero
-        title="Services"
+        title="Our Services"
         subtitle="Trusted, RERA-aware advisory for premium real estate across Delhi NCR."
         image="/hero/services.jpg"
         height="h-[44vh]"
@@ -25,7 +32,7 @@ export default function ServicesPage() {
       <section className="max-w-6xl mx-auto px-4 py-12 space-y-16">
         {/* Overview */}
         <div id="overview">
-          <h1 className="text-3xl font-semibold">What we do</h1>
+          <h2 className="text-2xl font-semibold gold-text">What we do</h2>
           <div className="golden-divider my-3" />
           <div className="golden-frame modal-surface p-6">
             <p className="text-neutral-300">
@@ -39,7 +46,7 @@ export default function ServicesPage() {
 
         {/* Residential */}
         <div id="residential">
-          <h2 className="text-2xl font-semibold">Residential Advisory</h2>
+          <h2 className="text-2xl font-semibold gold-text">Residential Advisory</h2>
           <div className="golden-divider my-3" />
           <div className="golden-frame modal-surface p-6">
             <ul className="list-disc list-inside text-neutral-300 space-y-2">
@@ -53,7 +60,7 @@ export default function ServicesPage() {
 
         {/* Commercial */}
         <div id="commercial">
-          <h2 className="text-2xl font-semibold">Commercial Advisory</h2>
+          <h2 className="text-2xl font-semibold gold-text">Commercial Advisory</h2>
           <div className="golden-divider my-3" />
           <div className="golden-frame modal-surface p-6">
             <ul className="list-disc list-inside text-neutral-300 space-y-2">
@@ -66,7 +73,7 @@ export default function ServicesPage() {
 
         {/* NRI */}
         <div id="nri">
-          <h2 className="text-2xl font-semibold">NRI Advisory</h2>
+          <h2 className="text-2xl font-semibold gold-text">NRI Advisory</h2>
           <div className="golden-divider my-3" />
           <div className="golden-frame modal-surface p-6">
             <ul className="list-disc list-inside text-neutral-300 space-y-2">
@@ -79,7 +86,7 @@ export default function ServicesPage() {
 
         {/* Loans */}
         <div id="loans">
-          <h2 className="text-2xl font-semibold">Home Loans</h2>
+          <h2 className="text-2xl font-semibold gold-text">Home Loans</h2>
           <div className="golden-divider my-3" />
           <div className="golden-frame modal-surface p-6">
             <ul className="list-disc list-inside text-neutral-300 space-y-2">
@@ -92,7 +99,7 @@ export default function ServicesPage() {
 
         {/* Process */}
         <div id="process">
-          <h2 className="text-2xl font-semibold">How we work</h2>
+          <h2 className="text-2xl font-semibold gold-text">How we work</h2>
           <div className="golden-divider my-3" />
           <div className="golden-frame modal-surface p-6">
             <ol className="list-decimal list-inside text-neutral-300 space-y-2">
@@ -108,7 +115,7 @@ export default function ServicesPage() {
 
         {/* Quick links */}
         <div id="next-steps">
-          <h2 className="text-2xl font-semibold">Next steps</h2>
+          <h2 className="text-2xl font-semibold gold-text">Next steps</h2>
           <div className="golden-divider my-3" />
           <div className="golden-frame modal-surface p-6">
             <p className="text-neutral-300">
@@ -126,6 +133,45 @@ export default function ServicesPage() {
       <ServicesWeOffer size="compact" />
       <ValueProposition size="compact" />
       <FloatingCTAs projectId={null} projectName={null} />
+
+      {/* Breadcrumb Schema */}
+      <Script
+        id="services-breadcrumbs"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://www.altinalivings.com" },
+              { "@type": "ListItem", position: 2, name: "Services", item: "https://www.altinalivings.com/services" },
+            ],
+          }),
+        }}
+      />
+
+      {/* Service schema */}
+      <Script
+        id="services-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name: "Real Estate Advisory Services",
+            provider: {
+              "@type": "Organization",
+              name: "ALTINA™ Livings",
+              url: "https://www.altinalivings.com",
+            },
+            areaServed: ["Delhi NCR", "Gurgaon", "Noida", "Delhi"],
+            serviceType: "Real Estate Channel Partner",
+            description:
+              "Residential & commercial advisory, NRI support, home loans, site visits and end-to-end property buying assistance across Delhi NCR.",
+            url: "https://www.altinalivings.com/services",
+          }),
+        }}
+      />
     </main>
   );
 }

@@ -47,7 +47,7 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
             className="absolute inset-0 pointer-events-none"
             style={{
               background:
-                'radial-gradient(60% 80% at 15% 10%, rgba(201,162,39,.18) 0%, transparent 60%)',
+                'radial-gradient(60% 80% at 15% 10%, rgba(191,149,63,.18) 0%, transparent 60%)',
             }}
           />
           {/* Film grain overlay */}

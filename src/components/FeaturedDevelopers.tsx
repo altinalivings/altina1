@@ -12,7 +12,7 @@ type Dev = {
   tagline?: string;
 };
 
-const FALLBACK = "/placeholder/1200x800.jpg";
+const FALLBACK = "/hero/home.jpg";
 
 function SmartDevImage({
   slug,
@@ -48,6 +48,7 @@ function SmartDevImage({
       alt={alt}
       className={className}
       loading="lazy"
+      decoding="async"
       onError={() => {
         const next = idx + 1;
         if (next < candidates.length) {
@@ -66,7 +67,7 @@ export default function FeaturedDevelopers({ items }: { items: Dev[] }) {
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-10">
-      <h2 className="text-2xl font-semibold">Featured Developers</h2>
+      <h2 className="text-2xl font-semibold gold-text">Featured Developers</h2>
       <div className="golden-divider my-4" />
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {items.map((d) => (

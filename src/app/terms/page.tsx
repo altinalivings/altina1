@@ -1,5 +1,6 @@
 // src/app/terms/page.tsx
 import type { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Terms & Conditions | ALTINA™ Livings",
@@ -13,11 +14,13 @@ export default function TermsPage() {
     <main>
       {/* Hero */}
       <section className="relative h-[36vh] min-h-[280px] overflow-hidden">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src="/hero/about.jpg"
           alt="Terms & Conditions"
-          className="absolute inset-0 h-full w-full object-cover"
+          fill
+          className="absolute inset-0 object-cover"
+          priority
+          sizes="100vw"
         />
         <div className="absolute inset-0 bg-black/45" />
         <div className="relative z-10 mx-auto flex h-full max-w-6xl items-end px-4 pb-8">

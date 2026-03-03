@@ -7,7 +7,7 @@ type Props = React.ImgHTMLAttributes<HTMLImageElement> & {
   fallback?: string;
 };
 
-export default function ClientImage({ src, fallback = "/placeholder/1200x800.jpg", alt = "", ...rest }: Props) {
+export default function ClientImage({ src, fallback = "/hero/home.jpg", alt = "", ...rest }: Props) {
   const [current, setCurrent] = useState<string>(String(src || fallback));
 
   return (

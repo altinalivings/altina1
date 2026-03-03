@@ -11,7 +11,7 @@ export default function AboutSection() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-12">
       <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur p-6">
-        <h2 className="text-2xl font-semibold">About Us</h2>
+        <h2 className="text-2xl font-semibold gold-text">About Us</h2>
         <p className="mt-3 text-white/80">
           ALTINA™ Livings is a luxury real estate channel partner based in Gurugram. We
           specialise in bringing curated launches from premier developers like DLF,

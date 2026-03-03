@@ -103,7 +103,7 @@ export default function HomeLoanCalculator({
     <section className={`golden-frame modal-surface rounded-2xl p-5 ${className}`}>
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h3 className="text-lg sm:text-xl font-semibold text-altina-gold">Home Loan (EMI) Calculator</h3>
+          <h3 className="text-lg sm:text-xl font-semibold gold-text">Home Loan (EMI) Calculator</h3>
           <p className="text-sm text-neutral-300 mt-1">
             Illustrative estimate{projectName ? ` for ${projectName}` : ""}. Actual terms depend on lender approval.
           </p>

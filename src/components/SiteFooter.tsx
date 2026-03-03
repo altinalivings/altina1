@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import SubscribeForm from "@/components/SubscribeForm";
 
 type Socials = {
@@ -13,8 +14,8 @@ type Socials = {
   youtube?: string;
 };
 
-const GOLD = "#C5A657";
-const GOLD_BORDER = "rgba(197,166,87,0.55)";
+const GOLD = "#BF953F";
+const GOLD_BORDER = "rgba(191,149,63,0.55)";
 const IVORY_BORDER = "rgba(255, 246, 214, 0.8)";
 const IVORY_BG = "rgba(255, 255, 240, 0.9)";
 
@@ -185,7 +186,7 @@ export default function SiteFooter({
       <div className="max-w-6xl mx-auto px-4 py-10 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
         <div>
           <div className="flex items-center gap-2">
-            <img src="/logos/Altina.png" alt="ALTINA" className="h-20 w-auto" />
+            <Image src="/logos/Altina.png" alt="ALTINA™ Livings Logo" width={80} height={80} className="h-20 w-auto" />
             <span className="text-lg font-semibold">ALTINA™ Livings</span>
           </div>
           <p className="text-neutral-400 mt-2">
@@ -203,12 +204,12 @@ export default function SiteFooter({
         <div>
           <h4 className="font-semibold mb-2">Useful Links</h4>
           <ul className="space-y-1 text-neutral-300">
-            <li><Link href="/projects" className="hover:text-[#C9A23F]">Projects</Link></li>
-            <li><Link href="/developers" className="hover:text-[#C9A23F]">Developers</Link></li>
-            <li><Link href="/about" className="hover:text-[#C9A23F]">About</Link></li>
-            <li><Link href="/contact" className="hover:text-[#C9A23F]">Contact</Link></li>
-            <li><Link href="/blog" className="hover:text-[#C9A23F]">Blog</Link></li>
-            <li><Link href="/privacy" className="hover:text-[#C9A23F]">Privacy Policy</Link></li>
+            <li><Link href="/projects" className="hover:text-[#BF953F]">Projects</Link></li>
+            <li><Link href="/developers" className="hover:text-[#BF953F]">Developers</Link></li>
+            <li><Link href="/about" className="hover:text-[#BF953F]">About</Link></li>
+            <li><Link href="/contact" className="hover:text-[#BF953F]">Contact</Link></li>
+            <li><Link href="/blog" className="hover:text-[#BF953F]">Blog</Link></li>
+            <li><Link href="/privacy" className="hover:text-[#BF953F]">Privacy Policy</Link></li>
           </ul>
         </div>
 
@@ -230,9 +231,9 @@ export default function SiteFooter({
         <div className="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-neutral-400">
           <div>© {new Date().getFullYear()} Altina™ Livings. All rights reserved.</div>
           <div className="flex gap-4">
-            <Link href="/sitemap" className="hover:text-[#C9A23F]">Sitemap</Link>
-            <Link href="/privacy" className="hover:text-[#C9A23F]">Privacy</Link>
-            <Link href="/terms" className="hover:text-[#C9A23F]">Terms</Link>
+            <Link href="/sitemap" className="hover:text-[#BF953F]">Sitemap</Link>
+            <Link href="/privacy" className="hover:text-[#BF953F]">Privacy</Link>
+            <Link href="/terms" className="hover:text-[#BF953F]">Terms</Link>
           </div>
         </div>
       </div>

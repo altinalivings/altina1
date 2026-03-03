@@ -50,7 +50,7 @@ export default function ProjectGallery({
 
   return (
     <section className="space-y-4">
-      <h3 className="text-xl font-semibold text-altina-gold">Gallery</h3>
+      <h3 className="text-xl font-semibold gold-text">Gallery</h3>
       {caption && <p className="text-sm text-neutral-400">{caption}</p>}
 
       {/* Skeleton */}
@@ -137,23 +137,65 @@ function Lightbox({
 }) {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft") onSelect((index - 1 + images.length) % images.length);
+      if (e.key === "ArrowRight") onSelect((index + 1) % images.length);
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [index, images.length, onClose, onSelect]);
+
   if (!mounted) return null;
+
+  const prev = () => onSelect((index - 1 + images.length) % images.length);
+  const next = () => onSelect((index + 1) % images.length);
 
   return createPortal(
     <div className="fixed inset-0 z-[1000] bg-black/90">
       <button
         onClick={onClose}
-        className="absolute right-4 top-4 rounded-full bg-white/10 px-3 py-2"
+        className="absolute right-4 top-4 z-10 rounded-full bg-white/10 px-3 py-2 text-white hover:bg-white/20"
       >
         ✕
       </button>
 
-      <div className="flex h-full items-center justify-center px-4">
+      {/* Prev arrow */}
+      {images.length > 1 && (
+        <button
+          onClick={prev}
+          className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/60 border border-white/15 px-4 py-3 text-white text-2xl hover:bg-black/80"
+          aria-label="Previous image"
+        >
+          ‹
+        </button>
+      )}
+
+      {/* Next arrow */}
+      {images.length > 1 && (
+        <button
+          onClick={next}
+          className="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/60 border border-white/15 px-4 py-3 text-white text-2xl hover:bg-black/80"
+          aria-label="Next image"
+        >
+          ›
+        </button>
+      )}
+
+      <div className="flex h-full items-center justify-center px-16">
         <img
           src={images[index]}
           className="max-h-[80vh] max-w-[90vw] object-contain rounded-2xl border border-altina-gold/30"
         />
       </div>
+
+      {images.length > 1 && (
+        <div className="absolute top-4 left-1/2 -translate-x-1/2 rounded-full bg-black/55 px-3 py-1 text-xs text-white border border-white/10">
+          {index + 1} / {images.length}
+        </div>
+      )}
 
       <div className="absolute bottom-0 left-0 right-0 bg-black/60 p-3">
         <div className="flex gap-2 overflow-x-auto no-scrollbar">

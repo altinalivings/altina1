@@ -134,7 +134,7 @@ export default function BrochureModal({ project }: { project: any }) {
               <button
                 type="submit" disabled={busy}
                 className="w-full rounded-full px-5 py-2 font-medium shadow-[0_8px_30px_rgba(0,0,0,.35)] transition-transform hover:scale-[1.02]"
-                style={{ background: 'linear-gradient(135deg,#D9B64C,#C9A227,#9C7C1F)', color: '#111' }}
+                style={{ background: 'linear-gradient(to right,#BF953F,#FCF6BA,#B38728,#FBF5B7,#AA771C)', color: '#111' }}
               >
                 {busy ? 'Submitting…' : 'Submit & download'}
               </button>

@@ -6,7 +6,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import projects from "@/data/projects";
 import FloatingCTAs from "@/components/FloatingCTAs";
 import ProjectsExplorer from "@/components/ProjectsExplorer";
-import ProjectHeroWithInfo from "@/components/ProjectHeroWithInfo";
 
 type PropertyType = "Residential" | "Commercial" | "Mixed";
 
@@ -106,16 +105,6 @@ export default function ProjectsClient() {
   return (
     <>
       <FloatingCTAs projectId={null} projectName={null} />
-
-      {/* HERO */}
-      <div className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen">
-        <ProjectHeroWithInfo
-          id="projects-index"
-          name="Projects"
-          configuration="Explore Residential & Commercial launches across Delhi NCR"
-          hero="/hero/projects.jpg"
-        />
-      </div>
 
       {/* FILTER BAR */}
       <div className="mx-auto max-w-6xl px-4 -mt-8 relative z-10">

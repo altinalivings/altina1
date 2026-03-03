@@ -141,6 +141,47 @@ export async function POST(req: Request) {
       throw new Error(`Sheets webhook error: ${res.status} ${t}`);
     }
 
+    // ── Dual-write to Supabase CRM ──────────────────────────────────────
+    try {
+      const { createAdminClient } = await import("@/lib/supabase/admin");
+      const supabase = createAdminClient();
+      const phone = String(row.phone || "").trim();
+      const name = String(row.name || "").trim();
+      if (phone) {
+        const { data: existing } = await supabase.from("leads").select("id").eq("phone", phone).maybeSingle();
+        if (existing) {
+          await supabase.from("lead_activities").insert({
+            lead_id: existing.id, type: "system",
+            title: `New ${row.mode || "contact"} enquiry from website`,
+            description: String(row.message || "").slice(0, 500) || null,
+          });
+          await supabase.from("leads").update({ last_contacted_at: new Date().toISOString() }).eq("id", existing.id);
+        } else {
+          const gclid = String(row.gclid || "");
+          const fbclid = String(row.fbclid || "");
+          const utmSrc = String(row.utm_source || "");
+          const source = gclid ? "google_ads" : fbclid ? "facebook" : utmSrc.includes("google") ? "google_ads" : utmSrc.includes("facebook") ? "facebook" : "website";
+          const { data: newLead } = await supabase.from("leads").insert({
+            name, phone, email: String(row.email || "") || null, source, stage: "new", quality: "warm",
+            project_name: String(row.project || "") || null, form_mode: String(row.mode || ""),
+            utm_source: row.utm_source || null, utm_medium: row.utm_medium || null,
+            utm_campaign: row.utm_campaign || null, gclid: gclid || null, fbclid: fbclid || null,
+            landing_page: String(row.page || "") || null, referrer: String(row.referrer || "") || null,
+            session_id: String(row.session_id || "") || null, ga_cid: String(row.ga_cid || "") || null,
+            device_type: String(row.device_type || "") || null, notes: String(row.message || "") || null,
+          }).select("id").single();
+          if (newLead) {
+            await supabase.from("lead_activities").insert({
+              lead_id: newLead.id, type: "system",
+              title: `Lead created from website (${row.mode || "lead"})`,
+            });
+          }
+        }
+      }
+    } catch (supaErr) {
+      console.error("[Supabase dual-write /api/leads]", supaErr);
+    }
+
     return NextResponse.json({ ok: true });
   } catch (e: any) {
     console.error("[/api/leads] error:", e);

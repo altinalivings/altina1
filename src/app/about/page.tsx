@@ -1,5 +1,6 @@
 // src/app/about/page.tsx
 import type { Metadata } from "next";
+import Script from "next/script";
 import PageHero from "@/components/PageHero";
 import ServicesWeOffer from "@/components/ServicesWeOffer";
 import ValueProposition from "@/components/ValueProposition";
@@ -10,13 +11,19 @@ export const metadata: Metadata = {
   description:
     "ALTINA™ Livings is a premium real estate channel partner in Delhi NCR. Backed by DLF, Sobha, Godrej, and M3M, we provide transparent, RERA-aware property advisory services.",
   alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About ALTINA™ Livings | Real Estate Channel Partner Delhi NCR",
+    description:
+      "Meet ALTINA™ Livings — your RERA-aware luxury real estate partner in Delhi NCR. Expert advisory from DLF, Sobha, M3M, Godrej projects.",
+    images: ["/og.jpg"],
+  },
 };
 
 export default function AboutPage() {
   return (
     <main>
       <PageHero
-        title="About ALTINA™"
+        title="About ALTINA™ Livings"
         subtitle="Premium channel partner for luxury real estate across Delhi NCR."
         image="/hero/about.jpg"
         height="h-[50vh]"
@@ -25,18 +32,18 @@ export default function AboutPage() {
       <section className="max-w-6xl mx-auto px-4 py-12 space-y-16">
         {/* About Section */}
         <div id="about">
-          <h1 className="text-3xl font-semibold">About ALTINA™ Livings</h1>
+          <h2 className="text-2xl font-semibold gold-text">Who We Are</h2>
           <div className="golden-divider my-3" />
           <div className="golden-frame modal-surface p-6">
             <p className="text-neutral-300 mt-3">
-              ALTINA™ Livings is a trusted <strong>real estate channel partner in Delhi NCR</strong>, 
-              specializing in premium residential and commercial properties. As a RERA-aware advisory, 
-              we bridge the gap between leading developers and discerning buyers, offering transparency, 
+              ALTINA™ Livings is a trusted <strong>real estate channel partner in Delhi NCR</strong>,
+              specializing in premium residential and commercial properties. As a RERA-aware advisory,
+              we bridge the gap between leading developers and discerning buyers, offering transparency,
               credibility, and a seamless property discovery experience.
             </p>
             <p className="text-neutral-300 mt-3">
-              Backed by strong relationships with top developers like <strong>DLF, Sobha, Godrej, and M3M</strong>, 
-              we provide clients with priority access to inventory, early-bird offers, and trusted guidance 
+              Backed by strong relationships with top developers like <strong>DLF, Sobha, Godrej, and M3M</strong>,
+              we provide clients with priority access to inventory, early-bird offers, and trusted guidance
               at every step of their investment journey.
             </p>
           </div>
@@ -44,7 +51,7 @@ export default function AboutPage() {
 
         {/* Why Choose Us */}
         <div id="why-choose-us">
-          <h2 className="text-2xl font-semibold">Why Choose Us</h2>
+          <h2 className="text-2xl font-semibold gold-text">Why Choose Us</h2>
           <div className="golden-divider my-3" />
           <div className="golden-frame modal-surface p-6">
             <ul className="list-disc list-inside text-neutral-300 space-y-2">
@@ -58,7 +65,7 @@ export default function AboutPage() {
 
         {/* Our Vision */}
         <div id="vision">
-          <h2 className="text-2xl font-semibold">Our Vision</h2>
+          <h2 className="text-2xl font-semibold gold-text">Our Vision</h2>
           <div className="golden-divider my-3" />
           <div className="golden-frame modal-surface p-6">
             <p className="text-neutral-300">
@@ -70,7 +77,7 @@ export default function AboutPage() {
 
         {/* Our Promise */}
         <div id="promise">
-          <h2 className="text-2xl font-semibold">Our Promise</h2>
+          <h2 className="text-2xl font-semibold gold-text">Our Promise</h2>
           <div className="golden-divider my-3" />
           <div className="golden-frame modal-surface p-6">
             <ul className="list-disc list-inside text-neutral-300 space-y-2">
@@ -85,6 +92,44 @@ export default function AboutPage() {
       <ServicesWeOffer size="compact" />
       <ValueProposition size="compact" />
       <FloatingCTAs projectId={null} projectName={null} />
+
+      {/* Breadcrumb Schema */}
+      <Script
+        id="about-breadcrumbs"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://www.altinalivings.com" },
+              { "@type": "ListItem", position: 2, name: "About", item: "https://www.altinalivings.com/about" },
+            ],
+          }),
+        }}
+      />
+
+      {/* AboutPage Schema */}
+      <Script
+        id="about-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            name: "About ALTINA™ Livings",
+            description:
+              "ALTINA™ Livings is a premium real estate channel partner in Delhi NCR, backed by DLF, Sobha, Godrej, and M3M.",
+            url: "https://www.altinalivings.com/about",
+            publisher: {
+              "@type": "Organization",
+              name: "ALTINA™ Livings",
+              url: "https://www.altinalivings.com",
+              logo: "https://www.altinalivings.com/logos/Altina.png",
+            },
+          }),
+        }}
+      />
     </main>
   );
 }

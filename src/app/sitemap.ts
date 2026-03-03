@@ -4,6 +4,7 @@ import fs from "fs";
 import path from "path";
 import projects from "@/data/projects";
 import posts from "@/data/posts.json";
+import devsData from "@/data/developers.json";
 
 const SITE =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
@@ -19,9 +20,12 @@ function getLastModified(): string {
   }
 }
 
+
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = getLastModified();
 
+  // Base static pages
   const base: MetadataRoute.Sitemap = [
     {
       url: `${SITE}/`,
@@ -32,18 +36,48 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${SITE}/projects`,
       lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
+      url: `${SITE}/developers`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${SITE}/locations`,
+      lastModified: now,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: `${SITE}/blog`,
       lastModified: now,
-      changeFrequency: "weekly",
+      changeFrequency: "daily",
       priority: 0.9,
+    },
+    {
+      url: `${SITE}/about`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
+      url: `${SITE}/services`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${SITE}/contact`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
     },
   ];
 
-  // 🔹 Project detail entries
+  // Project detail entries
   const projectEntries: MetadataRoute.Sitemap = (projects as any[])
     .filter(Boolean)
     .map((p) => ({
@@ -58,12 +92,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
                 ? p.hero
                 : `${SITE}${p.hero.startsWith("/") ? p.hero : `/${p.hero}`}`,
               title: `${p.name} by ${p.developer || "Altina™ Livings"}`,
+              caption: `${p.configuration || "Premium"} apartments in ${p.location || p.city || "Delhi NCR"}`,
             },
           ]
         : undefined,
     }));
 
-  // 🔹 Blog post entries
+  // Blog post entries
   const blogEntries: MetadataRoute.Sitemap = (posts as any[])
     .filter(Boolean)
     .map((b) => ({
@@ -83,5 +118,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
         : undefined,
     }));
 
-  return [...base, ...projectEntries, ...blogEntries];
+  // Developer pages - derived from developers.json
+  const developerEntries: MetadataRoute.Sitemap = (devsData as { slug: string }[]).map((d) => ({
+    url: `${SITE}/developers/${d.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
+  return [
+    ...base,
+    ...projectEntries,
+    ...blogEntries,
+    ...developerEntries,
+  ];
 }

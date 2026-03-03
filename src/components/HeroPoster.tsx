@@ -19,7 +19,7 @@ export default function HeroPoster() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(70% 90% at 8% 10%, rgba(201,162,39,.18) 0%, transparent 60%)',
+            'radial-gradient(70% 90% at 8% 10%, rgba(191,149,63,.18) 0%, transparent 60%)',
         }}
       />
       {/* Film grain overlay for premium texture */}

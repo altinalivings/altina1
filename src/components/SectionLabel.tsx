@@ -10,7 +10,7 @@ export default function SectionLabel({ children }: { children: React.ReactNode }
       <span className="h-caps text-sm text-white/70">{children}</span>
       <span
         className="h-px flex-1"
-        style={{ background: 'linear-gradient(90deg, #C9A227, transparent)' }}
+        style={{ background: 'linear-gradient(90deg, #BF953F, transparent)' }}
       />
     </div>
   )

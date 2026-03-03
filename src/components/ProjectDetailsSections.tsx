@@ -134,12 +134,10 @@ function bullets(items: any[]) {
 
 function Section({ title, children }: { title: string; children: any }) {
   return (
-    <section className="space-y-4">
-      <div className="flex items-center gap-3">
-        <h2 className="text-xl sm:text-2xl font-semibold text-altina-gold">{title}</h2>
-        <div className="h-px flex-1 bg-altina-gold/20" />
-      </div>
-      <div className="rounded-2xl border border-white/10 bg-black/20 p-5">{children}</div>
+    <section>
+      <h2 className="text-xl sm:text-2xl font-semibold gold-text">{title}</h2>
+      <div className="golden-divider my-3" />
+      <div className="golden-frame modal-surface rounded-2xl p-6">{children}</div>
     </section>
   );
 }
