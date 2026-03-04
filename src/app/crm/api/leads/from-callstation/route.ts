@@ -3,6 +3,17 @@ import { createAdminClient } from '@/lib/supabase/admin'
 
 export const dynamic = 'force-dynamic'
 
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, X-API-Key',
+}
+
+/** Preflight handler for CORS */
+export function OPTIONS() {
+  return new NextResponse(null, { status: 204, headers: CORS_HEADERS })
+}
+
 /**
  * POST /crm/api/leads/from-callstation
  *
@@ -19,7 +30,7 @@ export async function POST(req: NextRequest) {
     const expectedKey = process.env.CALLSTATION_API_KEY
 
     if (!expectedKey || !apiKey || apiKey !== expectedKey) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401, headers: CORS_HEADERS })
     }
 
     const body = await req.json()
@@ -38,12 +49,12 @@ export async function POST(req: NextRequest) {
 
     // ── Validate required fields ──
     if (!phone || typeof phone !== 'string') {
-      return NextResponse.json({ error: 'Phone number is required' }, { status: 400 })
+      return NextResponse.json({ error: 'Phone number is required' }, { status: 400, headers: CORS_HEADERS })
     }
 
     const cleanPhone = phone.replace(/\D/g, '').slice(-10)
     if (cleanPhone.length !== 10) {
-      return NextResponse.json({ error: 'Invalid phone number' }, { status: 400 })
+      return NextResponse.json({ error: 'Invalid phone number' }, { status: 400, headers: CORS_HEADERS })
     }
 
     const adminClient = createAdminClient()
@@ -119,7 +130,7 @@ export async function POST(req: NextRequest) {
         action: 'updated',
         lead_id: existing.id,
         message: `Activity added to existing lead: ${existing.name}`,
-      })
+      }, { headers: CORS_HEADERS })
     }
 
     // ── Create new lead ──
@@ -144,7 +155,7 @@ export async function POST(req: NextRequest) {
 
     if (error) {
       console.error('[from-callstation] Lead create error:', error)
-      return NextResponse.json({ error: 'Failed to create lead' }, { status: 500 })
+      return NextResponse.json({ error: 'Failed to create lead' }, { status: 500, headers: CORS_HEADERS })
     }
 
     // ── Create initial activity ──
@@ -168,9 +179,9 @@ export async function POST(req: NextRequest) {
       action: 'created',
       lead_id: lead.id,
       message: `New lead created: ${lead.name}`,
-    }, { status: 201 })
+    }, { status: 201, headers: CORS_HEADERS })
   } catch (err) {
     console.error('[from-callstation] Error:', err)
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500, headers: CORS_HEADERS })
   }
 }
