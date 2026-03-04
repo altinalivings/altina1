@@ -11,7 +11,7 @@ export async function middleware(request: NextRequest) {
 
   // If Supabase env vars are missing, let login page through to show proper error
   // Public CRM routes that don't require auth
-  const isPublicRoute = pathname === '/crm/login' || pathname === '/crm/reset-password' || pathname === '/crm/api/users/forgot-password'
+  const isPublicRoute = pathname === '/crm/login' || pathname === '/crm/reset-password' || pathname === '/crm/api/users/forgot-password' || pathname === '/crm/api/leads/from-callstation'
 
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
     if (isPublicRoute) return NextResponse.next()
@@ -20,7 +20,7 @@ export async function middleware(request: NextRequest) {
 
   try {
     // Allow public (unauthenticated) routes through
-    if (pathname === '/crm/api/users/forgot-password') {
+    if (pathname === '/crm/api/users/forgot-password' || pathname === '/crm/api/leads/from-callstation') {
       return NextResponse.next()
     }
 

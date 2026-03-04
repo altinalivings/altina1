@@ -1,6 +1,8 @@
 import { createServerSupabase } from '@/lib/supabase/server'
 import CrmSidebar from '@/components/crm/layout/CrmSidebar'
 import CrmTopbar from '@/components/crm/layout/CrmTopbar'
+import { MobileSidebarProvider } from '@/components/crm/layout/MobileSidebarContext'
+import CrmPwaHead from '@/components/crm/layout/CrmPwaHead'
 import { Toaster } from 'react-hot-toast'
 import type { Profile } from '@/types/crm'
 
@@ -26,24 +28,27 @@ export default async function CrmLayout({ children }: { children: React.ReactNod
     .single()
 
   return (
-    <div className="flex h-screen overflow-hidden bg-[#0B0B0C] text-white">
-      <CrmSidebar profile={profile as Profile | null} />
-      <div className="flex flex-1 flex-col overflow-hidden">
-        <CrmTopbar profile={profile as Profile | null} />
-        <main className="flex-1 overflow-y-auto p-6">
-          {children}
-        </main>
+    <MobileSidebarProvider>
+      <CrmPwaHead />
+      <div className="flex h-screen overflow-hidden bg-[#0B0B0C] text-white">
+        <CrmSidebar profile={profile as Profile | null} />
+        <div className="flex flex-1 flex-col overflow-hidden">
+          <CrmTopbar profile={profile as Profile | null} />
+          <main className="flex-1 overflow-y-auto p-4 md:p-6">
+            {children}
+          </main>
+        </div>
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            style: {
+              background: '#1A1A1C',
+              color: '#F7F7F5',
+              border: '1px solid rgba(255,255,255,0.1)',
+            },
+          }}
+        />
       </div>
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          style: {
-            background: '#1A1A1C',
-            color: '#F7F7F5',
-            border: '1px solid rgba(255,255,255,0.1)',
-          },
-        }}
-      />
-    </div>
+    </MobileSidebarProvider>
   )
 }

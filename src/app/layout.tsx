@@ -13,6 +13,7 @@ import Notifier from "@/components/Notifier";
 import AutoCallbackPrompt from "@/components/AutoCallbackPrompt";
 import AnalyticsGuards from "@/components/AnalyticsGuards";
 import CookieConsent from "@/components/CookieConsent";
+import PublicChrome from "@/components/PublicChrome";
 import { getSiteStats } from "@/data/unified";
 import Script from "next/script";
 
@@ -223,24 +224,28 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* 🧩 Global safety guards */}
         <AnalyticsGuards />
 
-        {/* 🏠 Header */}
-        <Header />
+        {/* 🏠 Website chrome — hidden on /crm/* routes */}
+        <PublicChrome>
+          <Header />
+        </PublicChrome>
 
         {/* 🧱 Main Content */}
         <main className="flex-1">{children}</main>
 
-        {/* 🦶 Footer */}
-        <SiteFooter />
+        {/* 🦶 Website chrome — hidden on /crm/* routes */}
+        <PublicChrome>
+          <SiteFooter />
+          <StickyCTABar />
+          <ModalBridge />
+          <GlobalLeadModal />
+          <LeadBus />
+          <Notifier />
+          <AutoCallbackPrompt />
+          <CookieConsent />
+        </PublicChrome>
 
-        {/* 📞 CTAs, Modals, Leads, Analytics */}
-        <StickyCTABar />
-        <ModalBridge />
-        <GlobalLeadModal />
-        <LeadBus />
+        {/* Analytics runs on all pages */}
         <Analytics />
-        <Notifier />
-        <AutoCallbackPrompt />
-        <CookieConsent />
         
 
         {/* 🧾 Structured Data */}

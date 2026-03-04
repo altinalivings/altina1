@@ -1,17 +1,18 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
   LayoutDashboard, Users, Building2, MapPin, Clock,
-  FileCheck, IndianRupee, Settings, ChevronLeft, ChevronRight, LogOut, Receipt
+  FileCheck, IndianRupee, Settings, ChevronLeft, ChevronRight, LogOut, Receipt, X
 } from 'lucide-react'
 import type { Profile } from '@/types/crm'
 import { CRM_NAV } from '@/lib/crm/constants'
 import { getInitials } from '@/lib/crm/formatters'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
+import { useMobileSidebar } from './MobileSidebarContext'
 
 const ICONS: Record<string, typeof LayoutDashboard> = {
   LayoutDashboard, Users, Building2, MapPin, Clock,
@@ -22,6 +23,12 @@ export default function CrmSidebar({ profile }: { profile: Profile | null }) {
   const [collapsed, setCollapsed] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
+  const { isOpen, close } = useMobileSidebar()
+
+  // Close mobile sidebar on route change
+  useEffect(() => {
+    close()
+  }, [pathname, close])
 
   const handleLogout = async () => {
     const supabase = createClient()
@@ -29,12 +36,8 @@ export default function CrmSidebar({ profile }: { profile: Profile | null }) {
     router.push('/crm/login')
   }
 
-  return (
-    <aside
-      className={`flex flex-col border-r border-white/10 bg-[#0B0B0C] transition-all duration-200 ${
-        collapsed ? 'w-16' : 'w-64'
-      }`}
-    >
+  const sidebarContent = (
+    <>
       {/* Logo */}
       <div className="flex h-16 items-center justify-between border-b border-white/10 px-4">
         {!collapsed && (
@@ -42,11 +45,21 @@ export default function CrmSidebar({ profile }: { profile: Profile | null }) {
             ALTINA CRM
           </Link>
         )}
+        {/* Close button on mobile, collapse toggle on desktop */}
         <button
-          onClick={() => setCollapsed(!collapsed)}
+          onClick={() => {
+            if (window.innerWidth < 768) {
+              close()
+            } else {
+              setCollapsed(!collapsed)
+            }
+          }}
           className="rounded-lg p-1.5 text-altina-muted hover:bg-white/5 hover:text-white"
         >
-          {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
+          <span className="md:hidden"><X size={18} /></span>
+          <span className="hidden md:inline">
+            {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
+          </span>
         </button>
       </div>
 
@@ -100,6 +113,34 @@ export default function CrmSidebar({ profile }: { profile: Profile | null }) {
           )}
         </div>
       </div>
-    </aside>
+    </>
+  )
+
+  return (
+    <>
+      {/* Desktop sidebar — hidden on mobile */}
+      <aside
+        className={`hidden md:flex flex-col border-r border-white/10 bg-[#0B0B0C] transition-all duration-200 ${
+          collapsed ? 'w-16' : 'w-64'
+        }`}
+      >
+        {sidebarContent}
+      </aside>
+
+      {/* Mobile overlay + drawer */}
+      {isOpen && (
+        <div className="fixed inset-0 z-50 md:hidden">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={close}
+          />
+          {/* Drawer */}
+          <aside className="absolute left-0 top-0 flex h-full w-72 flex-col bg-[#0B0B0C] shadow-2xl animate-in slide-in-from-left duration-200">
+            {sidebarContent}
+          </aside>
+        </div>
+      )}
+    </>
   )
 }

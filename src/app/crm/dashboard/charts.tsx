@@ -1,7 +1,7 @@
 'use client'
 
 import {
-  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell,
+  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, LabelList,
   PieChart, Pie, Legend,
 } from 'recharts'
 
@@ -19,21 +19,52 @@ export function PipelineChart({ data }: { data: PipelineItem[] }) {
     return <p className="py-12 text-center text-sm text-altina-muted">No pipeline data</p>
   }
 
+  const hasData = data.some((d) => d.count > 0)
+
+  // Custom styled pipeline — works great with 0 data too
+  if (!hasData) {
+    return (
+      <div className="space-y-2.5 py-2">
+        {data.map((item) => (
+          <div key={item.stage} className="flex items-center gap-3">
+            <span className="w-24 shrink-0 text-right text-xs font-medium text-gray-400">
+              {item.label}
+            </span>
+            <div className="relative flex-1 h-7 rounded-md overflow-hidden bg-white/[0.04]">
+              <div
+                className="absolute inset-y-0 left-0 rounded-md"
+                style={{ width: '2%', backgroundColor: item.fill, opacity: 0.4 }}
+              />
+            </div>
+            <span className="w-8 text-right text-xs font-semibold text-gray-500">0</span>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  const maxCount = Math.max(...data.map((d) => d.count), 1)
+
   return (
-    <ResponsiveContainer width="100%" height={340}>
-      <BarChart data={data} layout="vertical" margin={{ left: 10, right: 24, top: 4, bottom: 4 }}>
+    <ResponsiveContainer width="100%" height={360}>
+      <BarChart
+        data={data}
+        layout="vertical"
+        margin={{ left: 0, right: 40, top: 4, bottom: 4 }}
+      >
         <XAxis
           type="number"
-          tick={{ fill: '#9CA3AF', fontSize: 12 }}
+          tick={{ fill: '#6B7280', fontSize: 11 }}
           axisLine={false}
           tickLine={false}
           allowDecimals={false}
+          domain={[0, Math.ceil(maxCount * 1.2)]}
         />
         <YAxis
           type="category"
           dataKey="label"
-          width={110}
-          tick={{ fill: '#D1D5DB', fontSize: 12 }}
+          width={100}
+          tick={{ fill: '#D1D5DB', fontSize: 12, fontWeight: 500 }}
           axisLine={false}
           tickLine={false}
         />
@@ -49,10 +80,21 @@ export function PipelineChart({ data }: { data: PipelineItem[] }) {
           labelStyle={{ color: '#9CA3AF' }}
           formatter={(value: number) => [value, 'Leads']}
         />
-        <Bar dataKey="count" radius={[0, 6, 6, 0]} maxBarSize={28}>
+        <Bar
+          dataKey="count"
+          radius={[0, 6, 6, 0]}
+          maxBarSize={26}
+          minPointSize={4}
+          background={{ fill: 'rgba(255,255,255,0.03)', radius: 6 }}
+        >
           {data.map((entry, i) => (
-            <Cell key={`cell-${i}`} fill={entry.fill} />
+            <Cell key={`cell-${i}`} fill={entry.fill} fillOpacity={0.85} />
           ))}
+          <LabelList
+            dataKey="count"
+            position="right"
+            style={{ fill: '#D1D5DB', fontSize: 12, fontWeight: 600 }}
+          />
         </Bar>
       </BarChart>
     </ResponsiveContainer>
@@ -70,7 +112,12 @@ type SourceItem = {
 
 export function SourcePieChart({ data }: { data: SourceItem[] }) {
   if (!data.length) {
-    return <p className="py-12 text-center text-sm text-altina-muted">No source data</p>
+    return (
+      <div className="flex flex-col items-center justify-center py-16 text-altina-muted">
+        <div className="mb-3 h-24 w-24 rounded-full border-2 border-dashed border-white/10" />
+        <p className="text-sm">No source data yet</p>
+      </div>
+    )
   }
 
   return (
