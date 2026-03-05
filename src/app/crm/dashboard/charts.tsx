@@ -1,7 +1,7 @@
 'use client'
 
 import {
-  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, LabelList,
+  Tooltip, ResponsiveContainer, Cell,
   PieChart, Pie, Legend,
 } from 'recharts'
 
@@ -21,83 +21,44 @@ export function PipelineChart({ data }: { data: PipelineItem[] }) {
 
   const hasData = data.some((d) => d.count > 0)
 
-  // Custom styled pipeline — works great with 0 data too
-  if (!hasData) {
-    return (
-      <div className="space-y-2.5 py-2">
-        {data.map((item) => (
+  // Custom styled pipeline — render all stages with proportional bars
+  const maxCount = Math.max(...data.map((d) => d.count), 1)
+
+  return (
+    <div className="space-y-2.5 py-2">
+      {data.map((item) => {
+        const pct = hasData ? (item.count / maxCount) * 100 : 0
+        // Minimum visible width for non-zero counts, or a tiny sliver for zero
+        const barWidth = item.count > 0 ? Math.max(pct, 5) : 2
+        return (
           <div key={item.stage} className="flex items-center gap-3">
-            <span className="w-24 shrink-0 text-right text-xs font-medium text-gray-400">
+            <span className="w-28 shrink-0 text-right text-xs font-medium text-gray-400">
               {item.label}
             </span>
             <div className="relative flex-1 h-7 rounded-md overflow-hidden bg-white/[0.04]">
               <div
-                className="absolute inset-y-0 left-0 rounded-md"
-                style={{ width: '2%', backgroundColor: item.fill, opacity: 0.4 }}
+                className="absolute inset-y-0 left-0 rounded-md transition-all duration-500"
+                style={{
+                  width: `${barWidth}%`,
+                  backgroundColor: item.fill,
+                  opacity: item.count > 0 ? 0.85 : 0.25,
+                }}
               />
+              {item.count > 0 && (
+                <span className="absolute inset-y-0 flex items-center text-[11px] font-semibold text-white/90"
+                  style={{ left: `calc(${barWidth}% + 8px)` }}
+                >
+                  {item.count}
+                </span>
+              )}
             </div>
-            <span className="w-8 text-right text-xs font-semibold text-gray-500">0</span>
+            <span className="w-8 text-right text-xs font-semibold text-gray-500">
+              {item.count}
+            </span>
           </div>
-        ))}
-      </div>
-    )
-  }
-
-  const maxCount = Math.max(...data.map((d) => d.count), 1)
-
-  return (
-    <ResponsiveContainer width="100%" height={360}>
-      <BarChart
-        data={data}
-        layout="vertical"
-        margin={{ left: 0, right: 40, top: 4, bottom: 4 }}
-      >
-        <XAxis
-          type="number"
-          tick={{ fill: '#6B7280', fontSize: 11 }}
-          axisLine={false}
-          tickLine={false}
-          allowDecimals={false}
-          domain={[0, Math.ceil(maxCount * 1.2)]}
-        />
-        <YAxis
-          type="category"
-          dataKey="label"
-          width={100}
-          tick={{ fill: '#D1D5DB', fontSize: 12, fontWeight: 500 }}
-          axisLine={false}
-          tickLine={false}
-        />
-        <Tooltip
-          cursor={{ fill: 'rgba(255,255,255,0.04)' }}
-          contentStyle={{
-            backgroundColor: '#1A1A1C',
-            border: '1px solid rgba(255,255,255,0.1)',
-            borderRadius: 8,
-            color: '#F7F7F5',
-            fontSize: 13,
-          }}
-          labelStyle={{ color: '#9CA3AF' }}
-          formatter={(value: number) => [value, 'Leads']}
-        />
-        <Bar
-          dataKey="count"
-          radius={[0, 6, 6, 0]}
-          maxBarSize={26}
-          minPointSize={4}
-          background={{ fill: 'rgba(255,255,255,0.03)', radius: 6 }}
-        >
-          {data.map((entry, i) => (
-            <Cell key={`cell-${i}`} fill={entry.fill} fillOpacity={0.85} />
-          ))}
-          <LabelList
-            dataKey="count"
-            position="right"
-            style={{ fill: '#D1D5DB', fontSize: 12, fontWeight: 600 }}
-          />
-        </Bar>
-      </BarChart>
-    </ResponsiveContainer>
+        )
+      })}
+    </div>
   )
 }
 
