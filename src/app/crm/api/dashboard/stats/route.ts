@@ -30,8 +30,7 @@ export async function GET() {
       totalLeadsRes,
       newTodayRes,
       newThisWeekRes,
-      stageCountsRes,
-      sourceCountsRes,
+      allLeadsRes,
       todayVisitsRes,
       todayFollowUpsRes,
       overdueFollowUpsRes,
@@ -57,17 +56,11 @@ export async function GET() {
         .select('id', { count: 'exact', head: true })
         .gte('created_at', weekStartISO),
 
-      // Leads by stage (using RPC or manual grouping)
-      supabase.rpc('count_leads_by_stage') as unknown as {
-        data: { stage: LeadStage; count: number }[] | null
-        error: unknown
-      },
-
-      // Leads by source
-      supabase.rpc('count_leads_by_source') as unknown as {
-        data: { source: LeadSource; count: number }[] | null
-        error: unknown
-      },
+      // All active leads (stage + source for counting)
+      supabase
+        .from('leads')
+        .select('stage, source')
+        .eq('is_active', true),
 
       // Site visits today
       supabase
@@ -103,18 +96,13 @@ export async function GET() {
         .in('status', ['approved', 'agreement_sent', 'agreement_signed', 'registered']),
     ])
 
-    // Build leadsByStage map
+    // Build leadsByStage map from raw leads
     const stages: LeadStage[] = [
       'new', 'contacted', 'qualified', 'site_visit_scheduled',
       'site_visit_done', 'negotiation', 'booking', 'won', 'lost', 'junk',
     ]
     const leadsByStage = {} as Record<LeadStage, number>
     for (const s of stages) leadsByStage[s] = 0
-    if (stageCountsRes.data) {
-      for (const row of stageCountsRes.data) {
-        leadsByStage[row.stage] = row.count
-      }
-    }
 
     // Build leadsBySource map
     const sources: LeadSource[] = [
@@ -124,9 +112,14 @@ export async function GET() {
     ]
     const leadsBySource = {} as Record<LeadSource, number>
     for (const s of sources) leadsBySource[s] = 0
-    if (sourceCountsRes.data) {
-      for (const row of sourceCountsRes.data) {
-        leadsBySource[row.source] = row.count
+
+    // Count from raw leads data
+    for (const lead of (allLeadsRes.data ?? [])) {
+      if (lead.stage in leadsByStage) {
+        leadsByStage[lead.stage as LeadStage]++
+      }
+      if (lead.source && lead.source in leadsBySource) {
+        leadsBySource[lead.source as LeadSource]++
       }
     }
 

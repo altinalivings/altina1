@@ -5,13 +5,11 @@ import StatsCard from '@/components/crm/ui/StatsCard'
 import Badge from '@/components/crm/ui/Badge'
 import Timeline from '@/components/crm/ui/Timeline'
 import { Users, UserPlus, MapPin, AlertCircle } from 'lucide-react'
-import type { LeadStage, LeadSource, LeadActivity, FollowUp, SiteVisit } from '@/types/crm'
+import type { LeadStage, LeadActivity, FollowUp, SiteVisit } from '@/types/crm'
 import { PipelineChart, SourcePieChart } from './charts'
 
 export const dynamic = 'force-dynamic'
 
-type StageCount = { stage: LeadStage; count: number }
-type SourceCount = { source: LeadSource; count: number }
 
 export default async function DashboardPage() {
   const supabase = createServerSupabase()
@@ -27,8 +25,7 @@ export default async function DashboardPage() {
     newTodayRes,
     siteVisitsTodayRes,
     overdueFollowUpsRes,
-    leadsByStageRes,
-    leadsBySourceRes,
+    allLeadsRes,
     recentActivityRes,
     todayFollowUpsRes,
     todayVisitsRes,
@@ -61,11 +58,11 @@ export default async function DashboardPage() {
       .lt('due_date', todayISO.split('T')[0])
       .eq('is_completed', false),
 
-    // Leads by stage
-    supabase.rpc('count_leads_by_stage') as unknown as { data: StageCount[] | null; error: unknown },
-
-    // Leads by source
-    supabase.rpc('count_leads_by_source') as unknown as { data: SourceCount[] | null; error: unknown },
+    // All active leads (stage + source)
+    supabase
+      .from('leads')
+      .select('stage, source')
+      .eq('is_active', true),
 
     // Recent activities
     supabase
@@ -100,9 +97,19 @@ export default async function DashboardPage() {
   const siteVisitsToday = siteVisitsTodayRes.count ?? 0
   const overdueFollowUps = overdueFollowUpsRes.count ?? 0
 
-  // Build stage data for chart
-  const stageData = buildStageData(leadsByStageRes.data)
-  const sourceData = buildSourceData(leadsBySourceRes.data)
+  // Build stage/source counts from raw leads
+  const allLeads = allLeadsRes.data ?? []
+  const stageCounts = new Map<string, number>()
+  const sourceCounts = new Map<string, number>()
+  for (const lead of allLeads) {
+    stageCounts.set(lead.stage, (stageCounts.get(lead.stage) ?? 0) + 1)
+    if (lead.source) {
+      sourceCounts.set(lead.source, (sourceCounts.get(lead.source) ?? 0) + 1)
+    }
+  }
+
+  const stageData = buildStageData(stageCounts)
+  const sourceData = buildSourceData(sourceCounts)
 
   const recentActivities = (recentActivityRes.data ?? []) as unknown as LeadActivity[]
   const todayFollowUps = (todayFollowUpsRes.data ?? []) as unknown as (FollowUp & { lead: { name: string; phone: string } })[]
@@ -226,21 +233,16 @@ export default async function DashboardPage() {
 
 // ── Helpers ──
 
-function buildStageData(raw: StageCount[] | null) {
+function buildStageData(counts: Map<string, number>) {
   const stages: LeadStage[] = [
     'new', 'contacted', 'qualified', 'site_visit_scheduled',
     'site_visit_done', 'negotiation', 'booking', 'won', 'lost', 'junk',
   ]
 
-  const map = new Map<string, number>()
-  if (raw) {
-    for (const r of raw) map.set(r.stage, r.count)
-  }
-
   return stages.map((s) => ({
     stage: s,
     label: STAGE_LABELS[s],
-    count: map.get(s) ?? 0,
+    count: counts.get(s) ?? 0,
     fill: stageChartColor(s),
   }))
 }
@@ -261,11 +263,11 @@ function stageChartColor(stage: LeadStage): string {
   return map[stage]
 }
 
-function buildSourceData(raw: SourceCount[] | null) {
+function buildSourceData(counts: Map<string, number>) {
   const sourceLabels: Record<string, string> = {}
   for (const s of LEAD_SOURCES) sourceLabels[s.value] = s.label
 
-  if (!raw || raw.length === 0) return []
+  if (counts.size === 0) return []
 
   const colors = [
     '#C9A227', '#3B82F6', '#10B981', '#8B5CF6', '#F59E0B',
@@ -273,12 +275,12 @@ function buildSourceData(raw: SourceCount[] | null) {
     '#14B8A6', '#737373',
   ]
 
-  return raw
-    .filter((r) => r.count > 0)
-    .map((r, i) => ({
-      source: r.source,
-      label: sourceLabels[r.source] ?? r.source,
-      count: r.count,
+  return Array.from(counts.entries())
+    .filter(([, count]) => count > 0)
+    .map(([source, count], i) => ({
+      source,
+      label: sourceLabels[source] ?? source,
+      count,
       fill: colors[i % colors.length],
     }))
 }
